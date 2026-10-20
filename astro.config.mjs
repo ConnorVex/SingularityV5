@@ -6,10 +6,7 @@ export default defineConfig({
 	base: '/singularityv5', 
 	integrations: [
 		starlight({
-			title: 'My Docs Site',
-			sidebar: [
-				{ label: 'Guides', items: [{ label: 'Example Guide', slug: 'example' }] },
-			],
+			title: 'SingularityV5 Docs',
 		}),
 	],
 });
