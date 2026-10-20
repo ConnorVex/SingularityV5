@@ -2,12 +2,11 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 
 export default defineConfig({
-	// REPLACE 'your-github-username' and 'your-repo-name' with your actual setup
-	site: 'https://connorvex.github.io',
-	base: '/SingularityV5',
+	site: 'https://github.io',
+	base: '/singularityv5', 
 	integrations: [
 		starlight({
-			title: 'Singularity',
+			title: 'My Docs Site',
 			sidebar: [
 				{ label: 'Guides', items: [{ label: 'Example Guide', slug: 'example' }] },
 			],
