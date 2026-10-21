@@ -6,7 +6,8 @@ export default defineConfig({
 	base: '/SingularityV5',
 	integrations: [
 		starlight({
-			title: 'SingularityV5 Docs',
+			title: 'Singularity | Version 5.0',
+			tableOfContents: false,
 		}),
 	],
 });
