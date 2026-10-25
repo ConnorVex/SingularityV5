@@ -1,0 +1,187 @@
+{
+	"nodes": [
+		{
+			"id": "biologically-enhanced-conduit",
+			"label": "Biologically Enhanced Conduit",
+			"start": true
+		},
+		{
+			"id": "bio-efficiency",
+			"label": "Bio-Efficiency",
+			"start": true,
+			"requires": [
+				"biologically-enhanced-conduit"
+			]
+		},
+		{
+			"id": "bio-efficiency-1",
+			"label": "Bio-Efficiency 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"bio-efficiency"
+			]
+		},
+		{
+			"id": "bio-efficiency-2",
+			"label": "Bio-Efficiency 2",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"bio-efficiency-1"
+			]
+		},
+		{
+			"id": "bio-efficiency-3",
+			"label": "Bio-Efficiency 3",
+			"cost": [
+				{
+					"amount": 70,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"bio-efficiency-2"
+			]
+		},
+		{
+			"id": "bio-efficiency-4",
+			"label": "Bio-Efficiency 4",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 1,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"bio-efficiency-3"
+			]
+		},
+		{
+			"id": "bio-efficiency-5",
+			"label": "Bio-Efficiency 5",
+			"cost": [
+				{
+					"amount": 130,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 5,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"bio-efficiency-4"
+			]
+		},
+		{
+			"id": "bio-efficiency-6",
+			"label": "Bio-Efficiency 6",
+			"cost": [
+				{
+					"amount": 160,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 9,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"bio-efficiency-5"
+			]
+		},
+		{
+			"id": "bio-efficiency-7",
+			"label": "Bio-Efficiency 7",
+			"cost": [
+				{
+					"amount": 190,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 13,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"bio-efficiency-6"
+			]
+		},
+		{
+			"id": "bio-efficiency-8",
+			"label": "Bio-Efficiency 8",
+			"cost": [
+				{
+					"amount": 220,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 17,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 5,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"bio-efficiency-7"
+			]
+		},
+		{
+			"id": "bio-efficiency-9",
+			"label": "Bio-Efficiency 9",
+			"cost": [
+				{
+					"amount": 250,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 20,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 10,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"bio-efficiency-8"
+			]
+		},
+		{
+			"id": "bio-efficiency-max",
+			"label": "Bio-Efficiency Max",
+			"cost": [
+				{
+					"amount": 280,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 24,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 15,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"bio-efficiency-9"
+			]
+		}
+	]
+}

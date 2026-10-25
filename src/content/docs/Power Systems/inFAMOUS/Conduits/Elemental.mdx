@@ -6,6 +6,8 @@ sidebar:
   order: 211
 ---
 import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import elementalTree from '../../../../../data/skill-trees/infamous-elemental.json';
 
 The **most common** class. Elementals **produce, manipulate and control** a natural or artificial element, from neon to concrete to **video**.
 
@@ -95,6 +97,8 @@ You get **4 Conduit Tier Points** to spend on any stat **except Tank**.
 | **Elemental Dash** | <Badge text="Standard" variant="note" /> | 15-turn cooldown | For one turn, **become your element** for a unique property, e.g. more **speed** or **durability** (your choice) |
 | **Elemental Special** | <Badge text="Ultimate" variant="caution" /> | 1 Special | **3× your Elemental Power.** Start with **2**, **+1 per Tank upgrade**. Used Specials come back when you **refill your tank** with Drain |
 
-:::note[Skill tree coming soon]
-The Elemental Conduit Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+Upgrades are bought with [evolution items](/SingularityV5/power-systems/infamous/conduit-evolution/).
+
+<SkillTree id="infamous-elemental" nodes={elementalTree.nodes} />

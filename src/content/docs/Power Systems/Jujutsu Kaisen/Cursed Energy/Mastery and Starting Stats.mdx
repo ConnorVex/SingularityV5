@@ -6,6 +6,8 @@ sidebar:
   order: 16
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import ceTree from '../../../../../data/skill-trees/jjk-cursed-energy.json';
 
 <CardGrid>
   <Card title="Cursed Energy Skill Tree" icon="rocket">
@@ -29,6 +31,8 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   </Card>
 </CardGrid>
 
-:::note[Skill tree coming soon]
-The full Cursed Energy Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+Spend **Cursed Energy Upgrade Points (CEUP)** to unlock upgrades.
+
+<SkillTree id="jjk-cursed-energy" nodes={ceTree.nodes} colorBranches />

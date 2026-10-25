@@ -12,6 +12,31 @@ export default defineConfig({
 			markdown: {
 				headingLinks: false,
 			},
+			// Groups start closed so first-time visitors aren't flooded; the group holding
+			// the current page always opens.
+			sidebar: [
+				'index',
+				{
+					label: 'Important Systems',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'Important Systems', collapsed: true } }],
+				},
+				{
+					label: 'Power Systems',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'Power Systems', collapsed: true } }],
+				},
+				{
+					label: 'Fighting Styles',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'Fighting Styles', collapsed: true } }],
+				},
+				{
+					label: 'Skill System',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'Skill System', collapsed: true } }],
+				},
+			],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
 			},
@@ -22,10 +47,11 @@ export default defineConfig({
 			],
 			head: [
 				{
-					// Restore the collapsed sidebar before the page paints, so it doesn't flicker open.
+					// The sidebar starts collapsed until the visitor opens it with the logo; that choice
+					// is remembered. Set before the page paints, so it doesn't flicker.
 					tag: 'script',
 					content:
-						"try{if(localStorage.getItem('sidebar-collapsed')==='1')document.documentElement.setAttribute('data-sidebar-collapsed','')}catch(e){}",
+						"try{if(localStorage.getItem('sidebar-collapsed')!=='0')document.documentElement.setAttribute('data-sidebar-collapsed','')}catch(e){document.documentElement.setAttribute('data-sidebar-collapsed','')}",
 				},
 			],
 		}),

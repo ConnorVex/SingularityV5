@@ -1,0 +1,48 @@
+---
+title: Skill Mastery
+description: Rank up your skills by using them, lowering their cost and unlocking a perk.
+sidebar:
+  order: 1030
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../components/InlineIcon.astro';
+
+Knowing a move and **mastering** it aren't the same thing. Every Standard and Ultimate skill has its own **Mastery Rank**, which goes up as you use it.
+
+## Ranks
+
+| Rank | Uses needed | <Badge text="Standard" variant="note" /> cost | <Badge text="Ultimate" variant="caution" /> cost | Bonus |
+|--|--|--|--|--|
+| <Badge text="Untrained" variant="default" /> | — | 10% | 30% | — |
+| <Badge text="Practiced" variant="note" /> | **5** | 8% | 25% | — |
+| <Badge text="Mastered" variant="success" /> | **15** | 6% | 20% | **1 Mastery Perk** |
+
+## Counting Uses
+
+<CardGrid>
+  <Card title="What counts" icon="approve-check">
+    A use counts when the skill is used **for real**, in **combat or training**, and **resolves** (it doesn't need to hit).
+  </Card>
+  <Card title="Limits" icon="warning">
+    At most **3 uses per skill** count per session, so spamming a skill in one fight won't master it.
+  </Card>
+</CardGrid>
+
+Track each skill's uses on your sheet:
+
+```
+Skill: [name] (Standard)
+Mastery: Practiced (7/15)
+```
+
+## Mastery Perks
+
+When a skill reaches **Mastered**, pick **one** perk for it:
+
+| Perk | Effect |
+|--|--|
+| **Honed** | **+2** Power for this skill |
+| **Efficient** | Cost drops by another **2%** |
+| **Swift** | Ultimates only: the cooldown after it drops to **2 turns** |
+| **Reach** | One **Range** step further for this skill |
+| **Signature** | Something unique to the skill. **Permission Based** |

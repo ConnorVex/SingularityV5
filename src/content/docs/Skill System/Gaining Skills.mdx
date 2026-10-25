@@ -1,0 +1,36 @@
+---
+title: Gaining Skills
+description: Starting skills, and how to learn new ones.
+sidebar:
+  order: 1040
+---
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Everyone starts with a **set number of skills**, decided by the system you choose. How easy it is to gain more **depends on the system**: some hand them out, others make you work for every one.
+
+<CardGrid>
+  <Card title="Starting skills" icon="star">
+    Check your system's page for how many you start with. For example, [Abilities](/SingularityV5/power-systems/abilities/overview/) start with up to **2 Standard** and **1 Ultimate**.
+  </Card>
+  <Card title="New skills" icon="rocket">
+    Each system has its own way: upgrade points, evolution, training or teachers. New skills start at **Untrained** [Mastery](/SingularityV5/skill-system/skill-mastery/).
+  </Card>
+</CardGrid>
+
+## Writing a Skill
+
+Every skill on your sheet needs:
+
+```
+Skill: [name]
+Type: Passive / Standard / Ultimate
+Effect: [what it does]
+Mastery: Untrained (0/5)
+```
+
+Custom **Passives** are **Permission Based**. See [Skill Types](/SingularityV5/skill-system/skill-types/).
+
+<CardGrid>
+  <LinkCard title="Power Systems" description="Every system's skills and how to gain them" href="/SingularityV5/power-systems/my-hero-academia/overview/" />
+  <LinkCard title="Fighting Styles" description="Movesets, Flow styles and weapon passives" href="/SingularityV5/fighting-styles/overview/" />
+</CardGrid>

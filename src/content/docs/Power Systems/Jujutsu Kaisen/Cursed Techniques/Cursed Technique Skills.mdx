@@ -6,6 +6,8 @@ sidebar:
   order: 22
 ---
 import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import ctTree from '../../../../../data/skill-trees/jjk-cursed-technique.json';
 
 :::note[CTs don't evolve]
 A Cursed Technique's **core concept never changes**. Skills let you **expand** on that core instead.
@@ -47,6 +49,4 @@ CTs are much harder to master than Cursed Energy. Spend **Cursed Technique Upgra
 
 **Conversion:** 10 JJUUP → **2 CTUP**
 
-:::note[Skill tree coming soon]
-The full Cursed Technique Skill Tree hasn't been moved over yet.
-:::
+<SkillTree id="jjk-cursed-technique" nodes={ctTree.nodes} colorBranches />

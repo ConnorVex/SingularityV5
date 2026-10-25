@@ -1,6 +1,7 @@
 ---
 // Interactive skill tree. Nodes are laid out in rows by how many requirements deep they are,
 // connected with lines, and can be clicked to plan a build (saved in the visitor's browser).
+// Nodes with no cost unlock by themselves as soon as their requirements are met.
 // Usage: <SkillTree id="infamous-psychic" nodes={tree.nodes} />, with data from src/data/skill-trees/.
 interface Cost {
 	amount: number;
@@ -19,9 +20,35 @@ interface Props {
 	/** Unique per tree; used as the key for the saved build. */
 	id: string;
 	nodes: SkillNode[];
+	/** Give each branch that begins at a starting point its own color. */
+	colorBranches?: boolean;
 }
 
-const { id, nodes } = Astro.props;
+const { id, nodes, colorBranches = false } = Astro.props;
+
+// A starting point with a starting-point sibling begins a new branch; every node below it takes its
+// color (following each node's first requirement). Nodes above or outside such branches keep the accent.
+const palette = ['#e5484d', '#f76b15', '#e2a336', '#30a46c', '#12a594', '#0090ff', '#8e4ec6', '#d6409f'];
+const heads = new Map<string, string>();
+if (colorBranches) {
+	const startKids = new Map<string, SkillNode[]>();
+	for (const n of nodes) {
+		const parent = n.requires?.[0];
+		if (parent && n.start) (startKids.get(parent) ?? startKids.set(parent, []).get(parent)!).push(n);
+	}
+	for (const n of nodes) {
+		const siblings = startKids.get(n.requires?.[0] ?? '');
+		if (n.start && siblings && siblings.length > 1) heads.set(n.id, palette[heads.size % palette.length]);
+	}
+}
+const branchColors = new Map<string, string | undefined>();
+function branchColor(node: SkillNode): string | undefined {
+	if (!branchColors.has(node.id)) {
+		const parent = byId.get(node.requires?.[0] ?? '');
+		branchColors.set(node.id, heads.get(node.id) ?? (parent && branchColor(parent)));
+	}
+	return branchColors.get(node.id);
+}
 
 const byId = new Map(nodes.map((n) => [n.id, n]));
 const depths = new Map<string, number>();
@@ -52,12 +79,13 @@ const format = (n: number) => n.toLocaleString('en-US');
 						{row.map((node) => (
 							<button
 								type="button"
-								class:list={['st-node', { start: node.start }]}
+								class:list={['st-node', { start: node.start, free: !node.start && !node.cost?.length }]}
+								style={branchColor(node) && `--branch: ${branchColor(node)}`}
 								data-node={node.id}
 								data-requires={(node.requires ?? []).join(',')}
 								data-cost={JSON.stringify(node.cost ?? [])}
 								aria-pressed={node.start ? 'true' : 'false'}
-								disabled={node.start}
+								disabled={node.start || !node.cost?.length}
 							>
 								<span class="st-label">{node.label}</span>
 								{node.cost?.length ? (
@@ -69,7 +97,9 @@ const format = (n: number) => n.toLocaleString('en-US');
 										))}
 									</span>
 								) : (
-									node.start && <span class="st-costs"><span class="st-cost">Starting point</span></span>
+									<span class="st-costs">
+										<span class="st-cost">{node.start ? 'Starting point' : 'Free'}</span>
+									</span>
 								)}
 								{node.description && <span class="st-desc">{node.description}</span>}
 							</button>
@@ -104,12 +134,21 @@ const format = (n: number) => n.toLocaleString('en-US');
 			} catch {}
 		};
 
-		const isOn = (n?: HTMLElement) => !!n && (n.classList.contains('start') || planned.has(n.dataset.node!));
+		// Free nodes are on whenever everything they require is on.
+		const isOn = (n?: HTMLElement): boolean =>
+			!!n &&
+			(n.classList.contains('start') ||
+				planned.has(n.dataset.node!) ||
+				(n.classList.contains('free') && requires(n).every((r) => isOn(byId.get(r)))));
 
-		// Unplanning a node also unplans everything that depends on it.
+		// Unplanning a node also unplans everything that depends on it, including through free nodes.
 		const unplan = (id: string) => {
 			planned.delete(id);
-			for (const n of nodes) if (planned.has(n.dataset.node!) && requires(n).includes(id)) unplan(n.dataset.node!);
+			for (const n of nodes) {
+				if (!requires(n).includes(id)) continue;
+				if (planned.has(n.dataset.node!)) unplan(n.dataset.node!);
+				else if (n.classList.contains('free')) unplan(n.dataset.node!);
+			}
 		};
 
 		const drawLines = () => {
@@ -126,7 +165,9 @@ const format = (n: number) => n.toLocaleString('en-US');
 					const y2 = node.offsetTop;
 					const mid = (y1 + y2) / 2;
 					const on = isOn(req) && isOn(node);
-					paths += `<path class="${on ? 'on' : ''}" d="M${x1} ${y1} C${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" />`;
+					const color = node.style.getPropertyValue('--branch');
+					const style = color ? ` style="--branch: ${color}"` : '';
+					paths += `<path class="${on ? 'on' : ''}"${style} d="M${x1} ${y1} C${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" />`;
 				}
 			}
 			svg.innerHTML = paths;
@@ -140,7 +181,7 @@ const format = (n: number) => n.toLocaleString('en-US');
 				node.setAttribute('aria-pressed', String(on));
 				node.classList.toggle('available', !on && available);
 				node.classList.toggle('locked', !on && !available);
-				if (on && !node.classList.contains('start')) {
+				if (on && node.dataset.cost !== '[]') {
 					for (const c of JSON.parse(node.dataset.cost!) as Cost[]) {
 						totals.set(c.item, (totals.get(c.item) ?? 0) + c.amount);
 					}
@@ -170,6 +211,9 @@ const format = (n: number) => n.toLocaleString('en-US');
 
 		new ResizeObserver(drawLines).observe(canvas);
 		render();
+		// Wide trees start scrolled to the middle so the root is in view.
+		const scroller = tree.querySelector<HTMLElement>('.st-scroll')!;
+		scroller.scrollLeft = (scroller.scrollWidth - scroller.clientWidth) / 2;
 	}
 </script>
 
@@ -230,8 +274,11 @@ const format = (n: number) => n.toLocaleString('en-US');
 		stroke: var(--sl-color-gray-4);
 		stroke-width: 2;
 	}
+	.st-lines :global(path[style]) {
+		stroke: color-mix(in srgb, var(--branch) 45%, var(--sl-color-gray-4));
+	}
 	.st-lines :global(path.on) {
-		stroke: var(--sl-color-accent);
+		stroke: var(--branch, var(--sl-color-accent));
 		stroke-width: 3;
 	}
 	.st-row {
@@ -266,7 +313,18 @@ const format = (n: number) => n.toLocaleString('en-US');
 		border-color: var(--sl-color-accent);
 		background: var(--sl-color-accent-low);
 	}
-	.st-node.start {
+	.st-node[style] {
+		border-color: color-mix(in srgb, var(--branch) 45%, var(--sl-color-gray-4));
+	}
+	.st-node[style].available:hover,
+	.st-node[style][aria-pressed='true'] {
+		border-color: var(--branch);
+	}
+	.st-node[style][aria-pressed='true'] {
+		background: color-mix(in srgb, var(--branch) 22%, var(--sl-color-gray-6));
+	}
+	.st-node.start,
+	.st-node.free {
 		cursor: default;
 	}
 	.st-node.locked {

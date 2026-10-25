@@ -1,0 +1,76 @@
+---
+title: Speed O' Sound
+description: The Speed O' Sound Moveset style and its Ultimate Mode, Sonic Boom.
+sidebar:
+  order: 922
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+<Badge text="Weapon Based" variant="caution" size="medium" /> <Badge text="Sharp Weapon" variant="danger" size="medium" />
+
+Quick movements with a **bladed weapon**. Unlike the brutish [Brawler](/SingularityV5/fighting-styles/moveset-styles/brawler/), Speed O' Sound is for people who can **really move**.
+
+:::note[Special requirements]
+<InlineIcon name="stats/speed" />**Speed:** 12F · **Height:** 5'9" · **Weapon:** Katana
+:::
+
+<Tabs>
+  <TabItem label="Base: Speed O' Sound">
+    **Passive: Chaining.** Use **2 attacks in one turn**. **3-turn cooldown** after use.
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Quick Slice** | +5 Speed Sub-Tiers · Power **+6 per slice** | 3 turns, **+5 per extra slice** | Draw and unleash one slash, or a flurry |
+    | **Circle of Encompassing Slashes** | +7 Speed Sub-Tiers | 7 turns | Vanish and strike from all sides. Roll **1d10** for the number of slashes. They must **dodge** you to avoid it |
+    | **One Way** | +10 Speed Sub-Tiers | 5 turns | Leap off a surface and spin around them like a top, then strike after 1 turn. Great in a pinch |
+    | **Afterimage Slice** | Counter | 7 turns | Hold a stance for **2 turns**. If they attack, they hit an **afterimage** and you get **1 free Auto-Hit** from behind |
+  </TabItem>
+  <TabItem label="Ultimate: Sonic Boom">
+    The **perfected state** of the style: you embrace the speed, the sound, the world.
+
+    ### Gaining Ultimate
+
+    No gauge. Instead, land these during the fight:
+
+    | Move | Requirement |
+    |--|--|
+    | Quick Slice | 3 successful hits |
+    | Circle of Encompassing Slashes | 2 successful hits |
+    | One Way | Chain into Quick Slice once **and** into COES once |
+    | Afterimage Slice | 1 successful counter |
+
+    Sonic Boom lasts **16 turns**.
+
+    <CardGrid>
+      <Card title="The True Essence of Speed" icon="rocket">
+        **+8 Sub-Tiers** to <InlineIcon name="stats/speed" />Speed. Recoil doesn't affect you in the Ultimate.
+      </Card>
+      <Card title="Chain Master" icon="random">
+        No Chaining cooldown: chain **any number** of moves in one post, as long as they're off cooldown.
+      </Card>
+    </CardGrid>
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Two Way Bladed Revenge** | +14 Power | 8 turns | Slice their chest, zip back and slice their back. The mirage hits them **3 times** before knocking them away |
+    | **X-Acto Knife, Fluctuation** | +12 Speed Sub-Tiers · +22 Power | Single use | **Only chained from Sonar Strike.** The vibrating blade cuts through higher Defense. Roll **1d20**: **10+** breaks your katana and **ends the Ultimate** |
+    | **Sonar Strike** | +14 Speed Sub-Tiers · Power **15 + 5 per 4 Sub-Tiers** above your base Speed | 4 turns | Break the sound barrier and stop dead. The sonic boom **stuns** them: **1 free Auto-Hit** |
+    | **You're So Slow, You Can't Even See Me** | Counter | 7 turns | See below |
+
+    ### You're So Slow, You Can't Even See Me
+
+    Afterimages encircle your opponent. You both roll **1d20**:
+
+    | Result | Effect |
+    |--|--|
+    | Tie, or you win by 1 | **Reroll** |
+    | Opponent wins | They find you: you're knocked out of the counter and **stunned** 1 turn, and they can counter |
+    | You win by 2 – 3 | 1 hit of **+4 Power** |
+    | You win by 4 – 5 | 2 hits of **+8 Power** |
+    | You win by 6 | 3 hits of **+12 Power** |
+    | You win by 7 | 4 hits of **+16 Power** |
+    | You win by 8+ | 5 hits of **+20 Power** |
+    | You roll a **natural 20** | Every mirage hits: **Instant K.O.** |
+  </TabItem>
+</Tabs>

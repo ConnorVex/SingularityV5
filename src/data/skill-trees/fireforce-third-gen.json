@@ -1,0 +1,698 @@
+{
+	"nodes": [
+		{
+			"id": "generation-three",
+			"label": "Generation Three",
+			"start": true
+		},
+		{
+			"id": "pyrokinetic-power",
+			"label": "Pyrokinetic Power",
+			"start": true,
+			"requires": [
+				"generation-three"
+			]
+		},
+		{
+			"id": "level-0",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"pyrokinetic-power"
+			]
+		},
+		{
+			"id": "level-1",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-0"
+			]
+		},
+		{
+			"id": "level-2",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-1"
+			]
+		},
+		{
+			"id": "level-3",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-2"
+			]
+		},
+		{
+			"id": "level-4",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-3"
+			]
+		},
+		{
+			"id": "level-5",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-4"
+			]
+		},
+		{
+			"id": "level-6",
+			"label": "Level 6",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-5"
+			]
+		},
+		{
+			"id": "level-7",
+			"label": "Level 7",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-6"
+			]
+		},
+		{
+			"id": "level-8",
+			"label": "Level 8",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-7"
+			]
+		},
+		{
+			"id": "level-9",
+			"label": "Level 9",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-8"
+			]
+		},
+		{
+			"id": "level-10",
+			"label": "Level 10",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-9"
+			]
+		},
+		{
+			"id": "level-11",
+			"label": "Level 11",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-10"
+			]
+		},
+		{
+			"id": "level-12",
+			"label": "Level 12",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-11"
+			]
+		},
+		{
+			"id": "level-13",
+			"label": "Level 13",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-12"
+			]
+		},
+		{
+			"id": "level-14",
+			"label": "Level 14",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-13"
+			]
+		},
+		{
+			"id": "level-15",
+			"label": "Level 15",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-14"
+			]
+		},
+		{
+			"id": "level-y",
+			"label": "Level Y",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "TGUP"
+				}
+			],
+			"description": "Adolla Burst only",
+			"requires": [
+				"level-15"
+			]
+		},
+		{
+			"id": "oxygen-tank-size",
+			"label": "Oxygen Tank Size",
+			"start": true,
+			"requires": [
+				"generation-three"
+			]
+		},
+		{
+			"id": "level-0-2",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"oxygen-tank-size"
+			]
+		},
+		{
+			"id": "level-1-2",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-0-2"
+			]
+		},
+		{
+			"id": "level-2-2",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-1-2"
+			]
+		},
+		{
+			"id": "level-3-2",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-2-2"
+			]
+		},
+		{
+			"id": "level-4-2",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-3-2"
+			]
+		},
+		{
+			"id": "level-5-2",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-4-2"
+			]
+		},
+		{
+			"id": "level-6-2",
+			"label": "Level 6",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-5-2"
+			]
+		},
+		{
+			"id": "level-7-2",
+			"label": "Level 7",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-6-2"
+			]
+		},
+		{
+			"id": "level-8-2",
+			"label": "Level 8",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-7-2"
+			]
+		},
+		{
+			"id": "level-9-2",
+			"label": "Level 9",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-8-2"
+			]
+		},
+		{
+			"id": "level-10-2",
+			"label": "Level 10",
+			"cost": [
+				{
+					"amount": 18,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-9-2"
+			]
+		},
+		{
+			"id": "pyrokinetic-efficiency",
+			"label": "Pyrokinetic Efficiency",
+			"start": true,
+			"requires": [
+				"generation-three"
+			]
+		},
+		{
+			"id": "level-0-3",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"pyrokinetic-efficiency"
+			]
+		},
+		{
+			"id": "level-1-3",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 7,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-0-3"
+			]
+		},
+		{
+			"id": "level-2-3",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 7,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-1-3"
+			]
+		},
+		{
+			"id": "level-3-3",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 7,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-2-3"
+			]
+		},
+		{
+			"id": "level-4-3",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 7,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-3-3"
+			]
+		},
+		{
+			"id": "level-5-3",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 14,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-4-3"
+			]
+		},
+		{
+			"id": "level-6-3",
+			"label": "Level 6",
+			"cost": [
+				{
+					"amount": 14,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-5-3"
+			]
+		},
+		{
+			"id": "level-7-3",
+			"label": "Level 7",
+			"cost": [
+				{
+					"amount": 14,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-6-3"
+			]
+		},
+		{
+			"id": "oxygen-absorption-rate",
+			"label": "Oxygen Absorption Rate",
+			"start": true,
+			"requires": [
+				"generation-three"
+			]
+		},
+		{
+			"id": "level-0-4",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"oxygen-absorption-rate"
+			]
+		},
+		{
+			"id": "level-1-4",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-0-4"
+			]
+		},
+		{
+			"id": "level-2-4",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-1-4"
+			]
+		},
+		{
+			"id": "level-3-4",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-2-4"
+			]
+		},
+		{
+			"id": "level-4-4",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-3-4"
+			]
+		},
+		{
+			"id": "level-5-4",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-4-4"
+			]
+		},
+		{
+			"id": "level-6-4",
+			"label": "Level 6",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-5-4"
+			]
+		},
+		{
+			"id": "level-7-4",
+			"label": "Level 7",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-6-4"
+			]
+		},
+		{
+			"id": "level-8-3",
+			"label": "Level 8",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-7-4"
+			]
+		},
+		{
+			"id": "level-9-3",
+			"label": "Level 9",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-8-3"
+			]
+		},
+		{
+			"id": "level-10-3",
+			"label": "Level 10",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-9-3"
+			]
+		},
+		{
+			"id": "level-11-2",
+			"label": "Level 11",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-10-3"
+			]
+		},
+		{
+			"id": "level-12-2",
+			"label": "Level 12",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-11-2"
+			]
+		},
+		{
+			"id": "level-13-2",
+			"label": "Level 13",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-12-2"
+			]
+		},
+		{
+			"id": "level-14-2",
+			"label": "Level 14",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-13-2"
+			]
+		},
+		{
+			"id": "level-15-2",
+			"label": "Level 15",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "TGUP"
+				}
+			],
+			"requires": [
+				"level-14-2"
+			]
+		}
+	]
+}

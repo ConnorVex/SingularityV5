@@ -1,0 +1,413 @@
+{
+	"nodes": [
+		{
+			"id": "you",
+			"label": "You",
+			"start": true
+		},
+		{
+			"id": "body",
+			"label": "Body",
+			"start": true,
+			"requires": [
+				"you"
+			]
+		},
+		{
+			"id": "painkiller",
+			"label": "Painkiller",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"body"
+			]
+		},
+		{
+			"id": "comeback-king",
+			"label": "Comeback King",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"painkiller"
+			]
+		},
+		{
+			"id": "pain-is-game",
+			"label": "Pain is Game",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"painkiller"
+			]
+		},
+		{
+			"id": "adrenaline-rush",
+			"label": "Adrenaline Rush",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"painkiller"
+			]
+		},
+		{
+			"id": "hulking-brute",
+			"label": "Hulking Brute",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"adrenaline-rush"
+			]
+		},
+		{
+			"id": "center-of-the-storm",
+			"label": "Center of the Storm",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"hulking-brute"
+			]
+		},
+		{
+			"id": "masochist",
+			"label": "Masochist",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"hulking-brute"
+			]
+		},
+		{
+			"id": "reflexes",
+			"label": "Reflexes",
+			"start": true,
+			"requires": [
+				"you"
+			]
+		},
+		{
+			"id": "sixth-sense",
+			"label": "Sixth Sense",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"reflexes"
+			]
+		},
+		{
+			"id": "enhanced-sense",
+			"label": "Enhanced Sense",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"sixth-sense"
+			]
+		},
+		{
+			"id": "rubbing-salt-in-your-eye",
+			"label": "Rubbing Salt in Your Eye",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"sixth-sense"
+			]
+		},
+		{
+			"id": "burning-salt",
+			"label": "Burning Salt",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"rubbing-salt-in-your-eye"
+			]
+		},
+		{
+			"id": "finisher-slaughter-blade",
+			"label": "Finisher: Slaughter Blade",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"rubbing-salt-in-your-eye"
+			]
+		},
+		{
+			"id": "tech-ability",
+			"label": "Tech Ability",
+			"start": true,
+			"requires": [
+				"you"
+			]
+		},
+		{
+			"id": "edge-runner",
+			"label": "Edge Runner",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"tech-ability"
+			]
+		},
+		{
+			"id": "just-some-cardio",
+			"label": "Just Some Cardio",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"edge-runner"
+			]
+		},
+		{
+			"id": "ambidextrous",
+			"label": "Ambidextrous",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"edge-runner"
+			]
+		},
+		{
+			"id": "thick-skin",
+			"label": "Thick Skin",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"ambidextrous"
+			]
+		},
+		{
+			"id": "cortex-upgrade",
+			"label": "Cortex Upgrade",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"edge-runner"
+			]
+		},
+		{
+			"id": "tough-skeleton",
+			"label": "Tough Skeleton",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"cortex-upgrade"
+			]
+		},
+		{
+			"id": "intelligence",
+			"label": "Intelligence",
+			"start": true,
+			"requires": [
+				"you"
+			]
+		},
+		{
+			"id": "hackerman",
+			"label": "Hackerman",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"intelligence"
+			]
+		},
+		{
+			"id": "ram-recovery",
+			"label": "RAM Recovery",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"hackerman"
+			]
+		},
+		{
+			"id": "mr-robot",
+			"label": "Mr. Robot",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"hackerman"
+			]
+		},
+		{
+			"id": "cached-memory",
+			"label": "Cached Memory",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"mr-robot"
+			]
+		},
+		{
+			"id": "blinder",
+			"label": "Blinder",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"mr-robot"
+			]
+		},
+		{
+			"id": "jammer",
+			"label": "Jammer",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"mr-robot"
+			]
+		},
+		{
+			"id": "it-professional",
+			"label": "IT Professional",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"mr-robot"
+			]
+		},
+		{
+			"id": "cool",
+			"label": "Cool",
+			"start": true,
+			"requires": [
+				"you"
+			]
+		},
+		{
+			"id": "ninja",
+			"label": "Ninja",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"cool"
+			]
+		},
+		{
+			"id": "smooth-talker",
+			"label": "Smooth Talker",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"ninja"
+			]
+		},
+		{
+			"id": "negotiator",
+			"label": "Negotiator",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "SP"
+				}
+			],
+			"requires": [
+				"smooth-talker"
+			]
+		}
+	]
+}

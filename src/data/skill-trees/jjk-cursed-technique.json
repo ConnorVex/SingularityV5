@@ -1,0 +1,343 @@
+{
+	"nodes": [
+		{
+			"id": "cursed-technique",
+			"label": "Cursed Technique",
+			"start": true
+		},
+		{
+			"id": "cursed-technique-range",
+			"label": "Cursed Technique Range",
+			"start": true,
+			"requires": [
+				"cursed-technique"
+			]
+		},
+		{
+			"id": "physical-range",
+			"label": "Physical Range",
+			"start": true,
+			"requires": [
+				"cursed-technique-range"
+			]
+		},
+		{
+			"id": "close-range",
+			"label": "Close Range",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"physical-range"
+			]
+		},
+		{
+			"id": "medium-range",
+			"label": "Medium Range",
+			"cost": [
+				{
+					"amount": 8,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"close-range"
+			]
+		},
+		{
+			"id": "long-range",
+			"label": "Long Range",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"medium-range"
+			]
+		},
+		{
+			"id": "cursed-technique-power",
+			"label": "Cursed Technique Power",
+			"start": true,
+			"requires": [
+				"cursed-technique"
+			]
+		},
+		{
+			"id": "below-grade-4",
+			"label": "Below Grade 4",
+			"start": true,
+			"requires": [
+				"cursed-technique-power"
+			]
+		},
+		{
+			"id": "grade-4",
+			"label": "Grade 4",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"below-grade-4"
+			]
+		},
+		{
+			"id": "semi-grade-3",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"grade-4"
+			]
+		},
+		{
+			"id": "grade-3",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3"
+			]
+		},
+		{
+			"id": "semi-grade-2",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"grade-3"
+			]
+		},
+		{
+			"id": "grade-2",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2"
+			]
+		},
+		{
+			"id": "semi-grade-1",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"grade-2"
+			]
+		},
+		{
+			"id": "grade-1",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1"
+			]
+		},
+		{
+			"id": "maximum-technique",
+			"label": "Maximum Technique",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"cursed-technique-power"
+			]
+		},
+		{
+			"id": "cursed-technique-efficiency",
+			"label": "Cursed Technique Efficiency",
+			"start": true,
+			"requires": [
+				"cursed-technique"
+			]
+		},
+		{
+			"id": "extremely-poor-efficiency",
+			"label": "Extremely Poor Efficiency",
+			"start": true,
+			"requires": [
+				"cursed-technique-efficiency"
+			]
+		},
+		{
+			"id": "very-poor-efficiency",
+			"label": "Very Poor Efficiency",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"extremely-poor-efficiency"
+			]
+		},
+		{
+			"id": "poor-efficiency",
+			"label": "Poor Efficiency",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"very-poor-efficiency"
+			]
+		},
+		{
+			"id": "subpar-efficiency",
+			"label": "Subpar Efficiency",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"poor-efficiency"
+			]
+		},
+		{
+			"id": "tolerable-efficiency",
+			"label": "Tolerable Efficiency",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"subpar-efficiency"
+			]
+		},
+		{
+			"id": "average-efficiency",
+			"label": "Average Efficiency",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"tolerable-efficiency"
+			]
+		},
+		{
+			"id": "decent-efficiency",
+			"label": "Decent Efficiency",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"average-efficiency"
+			]
+		},
+		{
+			"id": "adequate-efficiency",
+			"label": "Adequate Efficiency",
+			"cost": [
+				{
+					"amount": 8,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"decent-efficiency"
+			]
+		},
+		{
+			"id": "great-efficiency",
+			"label": "Great Efficiency",
+			"cost": [
+				{
+					"amount": 8,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"adequate-efficiency"
+			]
+		},
+		{
+			"id": "amazing-efficiency",
+			"label": "Amazing Efficiency",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"great-efficiency"
+			]
+		},
+		{
+			"id": "insane-efficiency",
+			"label": "Insane Efficiency",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"amazing-efficiency"
+			]
+		},
+		{
+			"id": "remarkable-efficiency",
+			"label": "Remarkable Efficiency",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "CTUP"
+				}
+			],
+			"requires": [
+				"insane-efficiency"
+			]
+		}
+	]
+}

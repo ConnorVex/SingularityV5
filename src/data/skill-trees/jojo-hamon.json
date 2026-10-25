@@ -1,0 +1,570 @@
+{
+	"nodes": [
+		{
+			"id": "hamon",
+			"label": "Hamon",
+			"start": true
+		},
+		{
+			"id": "breathing",
+			"label": "Breathing",
+			"start": true,
+			"requires": [
+				"hamon"
+			]
+		},
+		{
+			"id": "hamon-gain",
+			"label": "Charge Rate",
+			"start": true,
+			"requires": [
+				"breathing"
+			]
+		},
+		{
+			"id": "hg-upgrade-1",
+			"label": "Charge Rate 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hamon-gain"
+			]
+		},
+		{
+			"id": "hg-upgrade-2",
+			"label": "Charge Rate 2",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hg-upgrade-1"
+			]
+		},
+		{
+			"id": "hg-upgrade-3",
+			"label": "Charge Rate 3",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hg-upgrade-2"
+			]
+		},
+		{
+			"id": "hg-upgrade-4",
+			"label": "Charge Rate 4",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hg-upgrade-3"
+			]
+		},
+		{
+			"id": "hg-upgrade-5",
+			"label": "Charge Rate 5",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hg-upgrade-4"
+			]
+		},
+		{
+			"id": "hg-upgrade-max",
+			"label": "Charge Rate Max",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hg-upgrade-5"
+			]
+		},
+		{
+			"id": "hamon-capacity",
+			"label": "Hamon Capacity",
+			"start": true,
+			"requires": [
+				"breathing"
+			]
+		},
+		{
+			"id": "hc-upgrade-1",
+			"label": "Capacity 1",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hamon-capacity"
+			]
+		},
+		{
+			"id": "hc-upgrade-2",
+			"label": "Capacity 2",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-1"
+			]
+		},
+		{
+			"id": "hc-upgrade-3",
+			"label": "Capacity 3",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-2"
+			]
+		},
+		{
+			"id": "hc-upgrade-4",
+			"label": "Capacity 4",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-3"
+			]
+		},
+		{
+			"id": "hc-upgrade-5",
+			"label": "Capacity 5",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-4"
+			]
+		},
+		{
+			"id": "hc-upgrade-6",
+			"label": "Capacity 6",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-5"
+			]
+		},
+		{
+			"id": "hc-upgrade-7",
+			"label": "Capacity 7",
+			"cost": [
+				{
+					"amount": 45,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-6"
+			]
+		},
+		{
+			"id": "hc-upgrade-max",
+			"label": "Capacity Max",
+			"cost": [
+				{
+					"amount": 75,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hc-upgrade-7"
+			]
+		},
+		{
+			"id": "hamon-drain",
+			"label": "Hamon Drain",
+			"start": true,
+			"requires": [
+				"breathing"
+			]
+		},
+		{
+			"id": "hd-upgrade-1",
+			"label": "Drain 1",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hamon-drain"
+			]
+		},
+		{
+			"id": "hd-upgrade-2",
+			"label": "Drain 2",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-1"
+			]
+		},
+		{
+			"id": "hd-upgrade-3",
+			"label": "Drain 3",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-2"
+			]
+		},
+		{
+			"id": "hd-upgrade-4",
+			"label": "Drain 4",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-3"
+			]
+		},
+		{
+			"id": "hd-upgrade-5",
+			"label": "Drain 5",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-4"
+			]
+		},
+		{
+			"id": "hd-upgrade-6",
+			"label": "Drain 6",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-5"
+			]
+		},
+		{
+			"id": "hd-upgrade-7",
+			"label": "Drain 7",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-6"
+			]
+		},
+		{
+			"id": "hd-upgrade-max",
+			"label": "Drain Max",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hd-upgrade-7"
+			]
+		},
+		{
+			"id": "hamon-strike",
+			"label": "Hamon Strike",
+			"start": true,
+			"requires": [
+				"breathing"
+			]
+		},
+		{
+			"id": "ripple-beat",
+			"label": "Ripple Beat",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"hamon-strike"
+			]
+		},
+		{
+			"id": "ripple-hair-attack",
+			"label": "Ripple Hair Attack",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"ripple-beat"
+			]
+		},
+		{
+			"id": "ripple-cutter",
+			"label": "Ripple Cutter",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"ripple-hair-attack"
+			]
+		},
+		{
+			"id": "ripple-detector",
+			"label": "Ripple Detector",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"ripple-cutter"
+			]
+		},
+		{
+			"id": "ripple-hypnosis",
+			"label": "Ripple Hypnosis",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"ripple-detector"
+			]
+		},
+		{
+			"id": "repel",
+			"label": "Repel",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"ripple-beat"
+			]
+		},
+		{
+			"id": "overdrive",
+			"label": "Overdrive",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"repel"
+			]
+		},
+		{
+			"id": "rebuff-overdrive",
+			"label": "Rebuff Overdrive",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "scarlet-overdrive",
+			"label": "Scarlet Overdrive",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "ripple-overdrive",
+			"label": "Ripple Overdrive",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "tornado-overdrive",
+			"label": "Tornado Overdrive",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "turquoise-blue-overdrive",
+			"label": "Turquoise Blue Overdrive",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "metal-silver-overdrive",
+			"label": "Metal Silver Overdrive",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "deep-pass-overdrive",
+			"label": "Deep Pass Overdrive",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "life-magnetism-overdrive",
+			"label": "Life Magnetism Overdrive",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"overdrive"
+			]
+		},
+		{
+			"id": "sendo-wave-kick",
+			"label": "Sendo Wave Kick",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"repel"
+			]
+		},
+		{
+			"id": "sendo-ripple-overdrive",
+			"label": "Sendo Ripple Overdrive",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"sendo-wave-kick",
+				"overdrive"
+			]
+		},
+		{
+			"id": "sunlight-yellow-overdrive",
+			"label": "Sunlight Yellow Overdrive",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "HUP"
+				}
+			],
+			"requires": [
+				"scarlet-overdrive"
+			]
+		}
+	]
+}

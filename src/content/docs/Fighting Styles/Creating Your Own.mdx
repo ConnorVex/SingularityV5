@@ -1,0 +1,38 @@
+---
+title: Creating Your Own
+description: Rules for creating a custom Flow or Moveset Fighting Style.
+sidebar:
+  order: 940
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+
+<Badge text="Custom Class" variant="tip" size="medium" />
+
+Don't want to roll for a listed style? **Create your own!** Pick a type and follow its rules.
+
+<CardGrid>
+  <Card title="Flow Type" icon="pencil">
+    Must have:
+    - **Special requirements**
+    - A **proper explanation** of how it works
+
+    No moveset, and it **can't** be combined with the Moveset class. Instead it gives you another way to fight with what you already know.
+
+    With **permission**, it can include **one special move**.
+  </Card>
+  <Card title="Moveset Type" icon="pencil">
+    Must have:
+    - **4 moves**
+    - A **cooldown** for each move
+
+    For an **Ultimate**, also add:
+    - **4 Ultimate moves**, with cooldowns
+    - **How** the user gains the Ultimate
+
+    Can be combined with a [Weapon style](/SingularityV5/fighting-styles/weapon-styles/) for a powerful moveset.
+  </Card>
+</CardGrid>
+
+:::caution[Passives are Permission Based]
+Passives can be pretty busted, so they need **permission**.
+:::

@@ -1,0 +1,59 @@
+---
+title: Drunken Fist
+description: The Drunken Fist Moveset style and its Ultimate Mode, Eight Immortals.
+sidebar:
+  order: 924
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+<Badge text="Hand to Hand" variant="note" size="medium" />
+
+**Zui Quan.** Stumble, sway and lurch like you've had one too many, and strike from angles nobody can read. Every fall is a feint.
+
+:::note[Required stats]
+<InlineIcon name="stats/speed" />Speed at **Tier 4** and <InlineIcon name="stats/stamina" />Stamina at **Tier 5**.
+:::
+
+<Tabs>
+  <TabItem label="Base: Drunken Fist">
+    **Passive: Sway.** When a **physical attack** comes at you, roll **1d6**. On **5 – 6** you stumble out of the way and it **misses**. **3-turn cooldown** after a successful Sway.
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Staggering Fist** | +8 Power | 5 turns | A wobbly punch from an impossible angle |
+    | **Gourd Sweep** | +10 Power | 7 turns | Swing low with a gourd or bottle. Roll **1d10**: **6+** knocks them **down** for 1 turn |
+    | **Tipsy Lean** | Counter | 6 turns | Fall backwards under their attack, then spring up with a **+12 Power** headbutt |
+    | **Bottle Spray** | Debuff | 8 turns | Spray a mouthful in their eyes: **−4 Sub-Tiers** of <InlineIcon name="stats/speed" />Speed for 2 turns |
+  </TabItem>
+  <TabItem label="Ultimate: Eight Immortals">
+    ### Gaining Ultimate
+
+    Fill the **Ultimate Gauge (0/100)** with **UGP** from base moves:
+
+    | Move | UGP per use |
+    |--|--|
+    | Staggering Fist | 6 |
+    | Gourd Sweep | 10 |
+    | Tipsy Lean | 15 (successful counters only) |
+    | Bottle Spray | 8 |
+
+    Eight Immortals lasts **8 turns**. When it ends, the **hangover** hits: **−6 Sub-Tiers** of <InlineIcon name="stats/speed" />Speed for **4 turns**.
+
+    <CardGrid>
+      <Card title="Blackout Drunk" icon="random">
+        **Sway** now triggers on **3 – 6** and has **no cooldown**.
+      </Card>
+      <Card title="Iron Liver" icon="approve-check">
+        You **can't be stunned** while the Ultimate lasts.
+      </Card>
+    </CardGrid>
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Lü Dongbin's Fist** | +20 Power | 5 turns | A flowing combo that ends in a sword-hand strike |
+    | **Iron Crutch Sweep** | +24 Power | Single use | A spinning low kick that **always** knocks them down for 1 turn |
+    | **Lan Caihe's Flute** | Counter | 6 turns | Weave through any physical attack and deflect it, plus **1 free Auto-Hit** |
+    | **Eight Immortals Cross the Sea** | +30 Power | Single use | All eight forms in one barrage. Roll **1d8**: on an **8**, it's an **Instant K.O.** |
+  </TabItem>
+</Tabs>

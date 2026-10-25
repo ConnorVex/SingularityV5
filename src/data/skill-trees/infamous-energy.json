@@ -1,0 +1,644 @@
+{
+	"nodes": [
+		{
+			"id": "energy-conduit",
+			"label": "Energy Conduit",
+			"start": true
+		},
+		{
+			"id": "heal",
+			"label": "Heal",
+			"description": "Starts at Lvl 6.6",
+			"start": true,
+			"requires": [
+				"energy-conduit"
+			]
+		},
+		{
+			"id": "heal-lvl-6",
+			"label": "Heal Lvl 6",
+			"cost": [
+				{
+					"amount": 28,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"heal"
+			]
+		},
+		{
+			"id": "heal-lvl-5-5",
+			"label": "Heal Lvl 5.5",
+			"cost": [
+				{
+					"amount": 36,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"heal-lvl-6"
+			]
+		},
+		{
+			"id": "heal-lvl-5",
+			"label": "Heal Lvl 5",
+			"cost": [
+				{
+					"amount": 44,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"heal-lvl-5-5"
+			]
+		},
+		{
+			"id": "heal-lvl-4-4",
+			"label": "Heal Lvl 4.4",
+			"cost": [
+				{
+					"amount": 52,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"heal-lvl-5"
+			]
+		},
+		{
+			"id": "heal-lvl-4",
+			"label": "Heal Lvl 4",
+			"cost": [
+				{
+					"amount": 60,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 15,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"heal-lvl-4-4"
+			]
+		},
+		{
+			"id": "heal-lvl-3-3",
+			"label": "Heal Lvl 3.3",
+			"cost": [
+				{
+					"amount": 68,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 25,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"heal-lvl-4"
+			]
+		},
+		{
+			"id": "heal-lvl-3",
+			"label": "Heal Lvl 3",
+			"cost": [
+				{
+					"amount": 76,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 35,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"heal-lvl-3-3"
+			]
+		},
+		{
+			"id": "heal-lvl-2-2",
+			"label": "Heal Lvl 2.2",
+			"cost": [
+				{
+					"amount": 84,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 45,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 1,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"heal-lvl-3"
+			]
+		},
+		{
+			"id": "heal-lvl-2",
+			"label": "Heal Lvl 2",
+			"cost": [
+				{
+					"amount": 92,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 45,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 2,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"heal-lvl-2-2"
+			]
+		},
+		{
+			"id": "heal-lvl-1-1",
+			"label": "Heal Lvl 1.1",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 55,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 3,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"heal-lvl-2"
+			]
+		},
+		{
+			"id": "heal-lvl-1",
+			"label": "Heal Lvl 1",
+			"cost": [
+				{
+					"amount": 108,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 65,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 4,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"heal-lvl-1-1"
+			]
+		},
+		{
+			"id": "tank",
+			"label": "Tank",
+			"description": "Starts at Lvl 0",
+			"start": true,
+			"requires": [
+				"energy-conduit"
+			]
+		},
+		{
+			"id": "tank-lvl-1",
+			"label": "Tank Lvl 1",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"tank"
+			]
+		},
+		{
+			"id": "tank-lvl-2",
+			"label": "Tank Lvl 2",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 10,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"tank-lvl-1"
+			]
+		},
+		{
+			"id": "tank-max",
+			"label": "Tank Max",
+			"cost": [
+				{
+					"amount": 150,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 20,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 5,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"tank-lvl-2"
+			]
+		},
+		{
+			"id": "power",
+			"label": "Power",
+			"start": true,
+			"requires": [
+				"energy-conduit"
+			]
+		},
+		{
+			"id": "power-lvl-0-1",
+			"label": "Power Lvl 0.1",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power"
+			]
+		},
+		{
+			"id": "power-lvl-1",
+			"label": "Power Lvl 1",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power-lvl-0-1"
+			]
+		},
+		{
+			"id": "power-lvl-1-1",
+			"label": "Power Lvl 1.1",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power-lvl-1"
+			]
+		},
+		{
+			"id": "power-lvl-2",
+			"label": "Power Lvl 2",
+			"cost": [
+				{
+					"amount": 45,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power-lvl-1-1"
+			]
+		},
+		{
+			"id": "power-lvl-2-2",
+			"label": "Power Lvl 2.2",
+			"cost": [
+				{
+					"amount": 55,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power-lvl-2"
+			]
+		},
+		{
+			"id": "power-lvl-3",
+			"label": "Power Lvl 3",
+			"cost": [
+				{
+					"amount": 65,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"power-lvl-2-2"
+			]
+		},
+		{
+			"id": "power-lvl-3-3",
+			"label": "Power Lvl 3.3",
+			"cost": [
+				{
+					"amount": 75,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 10,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-3"
+			]
+		},
+		{
+			"id": "power-lvl-4",
+			"label": "Power Lvl 4",
+			"cost": [
+				{
+					"amount": 85,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 10,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-3-3"
+			]
+		},
+		{
+			"id": "power-lvl-4-4",
+			"label": "Power Lvl 4.4",
+			"cost": [
+				{
+					"amount": 95,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 15,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-4"
+			]
+		},
+		{
+			"id": "power-lvl-5",
+			"label": "Power Lvl 5",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 15,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-4-4"
+			]
+		},
+		{
+			"id": "power-lvl-5-5",
+			"label": "Power Lvl 5.5",
+			"cost": [
+				{
+					"amount": 105,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 20,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-5"
+			]
+		},
+		{
+			"id": "power-lvl-6",
+			"label": "Power Lvl 6",
+			"cost": [
+				{
+					"amount": 110,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 20,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-5-5"
+			]
+		},
+		{
+			"id": "power-lvl-6-6",
+			"label": "Power Lvl 6.6",
+			"cost": [
+				{
+					"amount": 115,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 25,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"power-lvl-6"
+			]
+		},
+		{
+			"id": "power-lvl-7",
+			"label": "Power Lvl 7",
+			"cost": [
+				{
+					"amount": 120,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 25,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 1,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"power-lvl-6-6"
+			]
+		},
+		{
+			"id": "power-lvl-7-7",
+			"label": "Power Lvl 7.7",
+			"cost": [
+				{
+					"amount": 125,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 30,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 2,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"power-lvl-7"
+			]
+		},
+		{
+			"id": "power-lvl-x",
+			"label": "Power Lvl X",
+			"cost": [
+				{
+					"amount": 130,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 30,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 3,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"power-lvl-7-7"
+			]
+		},
+		{
+			"id": "charge",
+			"label": "Charge",
+			"start": true,
+			"requires": [
+				"energy-conduit"
+			]
+		},
+		{
+			"id": "charge-1",
+			"label": "Charge 1",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"charge"
+			]
+		},
+		{
+			"id": "charge-2",
+			"label": "Charge 2",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"charge-1"
+			]
+		},
+		{
+			"id": "charge-3",
+			"label": "Charge 3",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"charge-2"
+			]
+		},
+		{
+			"id": "charge-4",
+			"label": "Charge 4",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"charge-3"
+			]
+		},
+		{
+			"id": "charge-5",
+			"label": "Charge 5",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "Blast Shards"
+				}
+			],
+			"requires": [
+				"charge-4"
+			]
+		},
+		{
+			"id": "charge-6",
+			"label": "Charge 6",
+			"cost": [
+				{
+					"amount": 80,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 20,
+					"item": "Blast Cores"
+				}
+			],
+			"requires": [
+				"charge-5"
+			]
+		},
+		{
+			"id": "charge-x",
+			"label": "Charge X",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "Blast Shards"
+				},
+				{
+					"amount": 50,
+					"item": "Blast Cores"
+				},
+				{
+					"amount": 5,
+					"item": "Core Relays"
+				}
+			],
+			"requires": [
+				"charge-6"
+			]
+		}
+	]
+}

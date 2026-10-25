@@ -1,0 +1,33 @@
+---
+title: Skill System
+description: How skills work in Singularity, what they cost, and how you get better at them.
+sidebar:
+  label: Overview
+  order: 1000
+---
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import InlineIcon from '../../../components/InlineIcon.astro';
+
+Being born with an ability doesn't mean you have the **skill** to use it. The **Skill System** sets what you can do with your ability (or **abilities**), what each move costs, and how you get better at them over time.
+
+<CardGrid>
+  <Card title="Skills cost Stamina" icon="rocket">
+    Every skill costs a **percentage** of your **max** <InlineIcon name="stats/stamina" />Stamina, so costs **scale with you** from Tier 1 to Tier 20.
+  </Card>
+  <Card title="Practice pays off" icon="star">
+    The more you use a skill, the more you **master** it. Mastered skills cost **less** and unlock a **perk**.
+  </Card>
+</CardGrid>
+
+## The Basics
+
+<CardGrid>
+  <LinkCard title="Skill Types" description="Passive, Standard and Ultimate skills" href="/SingularityV5/skill-system/skill-types/" />
+  <LinkCard title="Stamina Costs" description="What skills cost, running low, and recovering" href="/SingularityV5/skill-system/stamina-costs/" />
+  <LinkCard title="Skill Mastery" description="Rank up your skills by using them" href="/SingularityV5/skill-system/skill-mastery/" />
+  <LinkCard title="Gaining Skills" description="Starting skills and learning new ones" href="/SingularityV5/skill-system/gaining-skills/" />
+</CardGrid>
+
+:::note[Systems come first]
+A Power System or Fighting Style can set its **own** costs or rules for its skills (like Hamon's **Hamon Points**). When it does, **follow the system**.
+:::

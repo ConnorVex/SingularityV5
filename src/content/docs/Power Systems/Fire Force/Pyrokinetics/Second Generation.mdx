@@ -6,6 +6,8 @@ sidebar:
   order: 612
 ---
 import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import secondGenTree from '../../../../../data/skill-trees/fireforce-second-gen.json';
 
 **Second Generations ("Benders")** survived S.H.C and adapted. They **control existing fire**: turn a small flame into an inferno, make little **flame puppets**, or precisely steer a **bullet's trajectory**. Their power depends heavily on their **theme**, and some flames even they can't tame.
 
@@ -54,6 +56,6 @@ Values are **(Standard skill, Ultimate skill)** Power. For **defensive** Pyrokin
   </Card>
 </CardGrid>
 
-:::note[Skill tree coming soon]
-The Second Generation Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+<SkillTree id="fireforce-second-gen" nodes={secondGenTree.nodes} />

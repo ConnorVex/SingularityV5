@@ -1,0 +1,745 @@
+{
+	"nodes": [
+		{
+			"id": "barrier-techniques",
+			"label": "Barrier Techniques",
+			"start": true
+		},
+		{
+			"id": "domain-expansion",
+			"label": "Domain Expansion",
+			"start": true,
+			"requires": [
+				"barrier-techniques"
+			]
+		},
+		{
+			"id": "incomplete-domain-expansion",
+			"label": "Incomplete Domain Expansion",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"domain-expansion"
+			]
+		},
+		{
+			"id": "domain-grade",
+			"label": "Domain Grade",
+			"requires": [
+				"incomplete-domain-expansion"
+			]
+		},
+		{
+			"id": "grade-4",
+			"label": "Grade 4",
+			"requires": [
+				"domain-grade"
+			]
+		},
+		{
+			"id": "semi-grade-3",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-4"
+			]
+		},
+		{
+			"id": "grade-3",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3"
+			]
+		},
+		{
+			"id": "semi-grade-2",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-3"
+			]
+		},
+		{
+			"id": "grade-2",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2"
+			]
+		},
+		{
+			"id": "semi-grade-1",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-2"
+			]
+		},
+		{
+			"id": "grade-1",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1"
+			]
+		},
+		{
+			"id": "complete-domain",
+			"label": "Complete Domain",
+			"requires": [
+				"grade-1"
+			]
+		},
+		{
+			"id": "domain-construction-time",
+			"label": "Domain Construction Time",
+			"requires": [
+				"complete-domain"
+			]
+		},
+		{
+			"id": "level-0",
+			"label": "Level 0",
+			"requires": [
+				"domain-construction-time"
+			]
+		},
+		{
+			"id": "level-1",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"level-0"
+			]
+		},
+		{
+			"id": "level-2",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"level-1"
+			]
+		},
+		{
+			"id": "level-3",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"level-2"
+			]
+		},
+		{
+			"id": "level-4",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"level-3"
+			]
+		},
+		{
+			"id": "level-5",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"level-4"
+			]
+		},
+		{
+			"id": "specialized-barrier-techniques",
+			"label": "Specialized Barrier Techniques",
+			"requires": [
+				"complete-domain"
+			]
+		},
+		{
+			"id": "all-or-nothing-domain",
+			"label": "All or Nothing Domain",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"specialized-barrier-techniques"
+			]
+		},
+		{
+			"id": "open-domain",
+			"label": "Open Domain",
+			"cost": [
+				{
+					"amount": 30,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"specialized-barrier-techniques"
+			]
+		},
+		{
+			"id": "domain-grade-2",
+			"label": "Domain Grade",
+			"requires": [
+				"complete-domain"
+			]
+		},
+		{
+			"id": "grade-4-2",
+			"label": "Grade 4",
+			"requires": [
+				"domain-grade-2"
+			]
+		},
+		{
+			"id": "semi-grade-3-2",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-4-2"
+			]
+		},
+		{
+			"id": "grade-3-2",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3-2"
+			]
+		},
+		{
+			"id": "semi-grade-2-2",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-3-2"
+			]
+		},
+		{
+			"id": "grade-2-2",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2-2"
+			]
+		},
+		{
+			"id": "semi-grade-1-2",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-2-2"
+			]
+		},
+		{
+			"id": "grade-1-2",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1-2"
+			]
+		},
+		{
+			"id": "curtain",
+			"label": "Curtain",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"barrier-techniques"
+			]
+		},
+		{
+			"id": "anti-barrier-techniques",
+			"label": "Anti-Barrier Techniques",
+			"start": true,
+			"requires": [
+				"barrier-techniques"
+			]
+		},
+		{
+			"id": "simple-domain",
+			"label": "Simple Domain",
+			"start": true,
+			"requires": [
+				"anti-barrier-techniques"
+			]
+		},
+		{
+			"id": "hollow-wicker-basket",
+			"label": "Hollow Wicker Basket",
+			"start": true,
+			"requires": [
+				"simple-domain"
+			]
+		},
+		{
+			"id": "simple-domain-grade",
+			"label": "Simple Domain Grade",
+			"start": true,
+			"requires": [
+				"hollow-wicker-basket"
+			]
+		},
+		{
+			"id": "grade-4-3",
+			"label": "Grade 4",
+			"start": true,
+			"requires": [
+				"simple-domain-grade"
+			]
+		},
+		{
+			"id": "semi-grade-3-3",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-4-3"
+			]
+		},
+		{
+			"id": "grade-3-3",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3-3"
+			]
+		},
+		{
+			"id": "semi-grade-2-3",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-3-3"
+			]
+		},
+		{
+			"id": "grade-2-3",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2-3"
+			]
+		},
+		{
+			"id": "semi-grade-1-3",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-2-3"
+			]
+		},
+		{
+			"id": "grade-1-3",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1-3"
+			]
+		},
+		{
+			"id": "new-shadow-style",
+			"label": "New Shadow Style",
+			"start": true,
+			"requires": [
+				"simple-domain"
+			]
+		},
+		{
+			"id": "simple-domain-grade-2",
+			"label": "Simple Domain Grade",
+			"start": true,
+			"requires": [
+				"new-shadow-style"
+			]
+		},
+		{
+			"id": "grade-4-4",
+			"label": "Grade 4",
+			"start": true,
+			"requires": [
+				"simple-domain-grade-2"
+			]
+		},
+		{
+			"id": "semi-grade-3-4",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-4-4"
+			]
+		},
+		{
+			"id": "grade-3-4",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3-4"
+			]
+		},
+		{
+			"id": "semi-grade-2-4",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-3-4"
+			]
+		},
+		{
+			"id": "grade-2-4",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2-4"
+			]
+		},
+		{
+			"id": "semi-grade-1-4",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-2-4"
+			]
+		},
+		{
+			"id": "grade-1-4",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1-4"
+			]
+		},
+		{
+			"id": "binding-vows",
+			"label": "Binding Vows",
+			"start": true,
+			"requires": [
+				"new-shadow-style"
+			]
+		},
+		{
+			"id": "0-binding-vows",
+			"label": "0 Binding Vows",
+			"start": true,
+			"requires": [
+				"binding-vows"
+			]
+		},
+		{
+			"id": "1-binding-vow",
+			"label": "+1 Binding Vow",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"0-binding-vows"
+			]
+		},
+		{
+			"id": "1-binding-vow-2",
+			"label": "+1 Binding Vow",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"1-binding-vow"
+			]
+		},
+		{
+			"id": "1-binding-vow-3",
+			"label": "+1 Binding Vow",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"1-binding-vow-2"
+			]
+		},
+		{
+			"id": "1-binding-vow-4",
+			"label": "+1 Binding Vow",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"1-binding-vow-3"
+			]
+		},
+		{
+			"id": "1-binding-vow-5",
+			"label": "+1 Binding Vow",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"1-binding-vow-4"
+			]
+		},
+		{
+			"id": "domain-amplification",
+			"label": "Domain Amplification",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"anti-barrier-techniques"
+			]
+		},
+		{
+			"id": "grade-4-5",
+			"label": "Grade 4",
+			"requires": [
+				"domain-amplification"
+			]
+		},
+		{
+			"id": "semi-grade-3-5",
+			"label": "Semi-Grade 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-4-5"
+			]
+		},
+		{
+			"id": "grade-3-5",
+			"label": "Grade 3",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-3-5"
+			]
+		},
+		{
+			"id": "semi-grade-2-5",
+			"label": "Semi-Grade 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-3-5"
+			]
+		},
+		{
+			"id": "grade-2-5",
+			"label": "Grade 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-2-5"
+			]
+		},
+		{
+			"id": "semi-grade-1-5",
+			"label": "Semi-Grade 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"grade-2-5"
+			]
+		},
+		{
+			"id": "grade-1-5",
+			"label": "Grade 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "BTUP"
+				}
+			],
+			"requires": [
+				"semi-grade-1-5"
+			]
+		}
+	]
+}

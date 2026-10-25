@@ -1,0 +1,39 @@
+---
+title: Skill Types
+description: Passive, Standard and Ultimate skills.
+sidebar:
+  order: 1010
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../components/InlineIcon.astro';
+
+Every skill is one of three types.
+
+<CardGrid>
+  <Card title="Passive" icon="approve-check">
+    <Badge text="Always on" variant="tip" />
+
+    An effect that's **always active**, like a resistance or a stat boost. Passives **cost no Stamina**, but they're the easiest to break, so custom passives are **Permission Based**.
+  </Card>
+  <Card title="Standard" icon="rocket">
+    <Badge text="Standard" variant="note" />
+
+    **Regular applications** of your ability, in combat or out of it. Cheap enough to fire off **rapidly**. Weaker than Ultimates, but used right they can be just as **devastating**.
+  </Card>
+  <Card title="Ultimate" icon="warning">
+    <Badge text="Ultimate" variant="caution" />
+
+    **Super moves** built to deal **massive damage** in one turn. You pour so much into them that you need a **rest period** before you can use another.
+  </Card>
+</CardGrid>
+
+## At a Glance
+
+| | <Badge text="Passive" variant="tip" /> | <Badge text="Standard" variant="note" /> | <Badge text="Ultimate" variant="caution" /> |
+|--|--|--|--|
+| <InlineIcon name="stats/stamina" />**Stamina** | Free | **10%** of max | **30%** of max |
+| **Cooldown** | — | None | **3 turns** before your next Ultimate |
+| **Power** | — | Your system's **Standard** value | Your system's **Ultimate** value |
+| **When winded** | Works | Works | **Locked** |
+
+See [Stamina Costs](/SingularityV5/skill-system/stamina-costs/) for how the percentages work and what "winded" means.

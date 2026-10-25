@@ -1,0 +1,254 @@
+{
+	"nodes": [
+		{
+			"id": "spin",
+			"label": "Spin",
+			"start": true
+		},
+		{
+			"id": "destructive-enhancement",
+			"label": "Destructive Enhancement",
+			"start": true,
+			"requires": [
+				"spin"
+			]
+		},
+		{
+			"id": "de-upgrade-1",
+			"label": "Destructive 1",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"destructive-enhancement"
+			]
+		},
+		{
+			"id": "de-upgrade-2",
+			"label": "Destructive 2",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"de-upgrade-1"
+			]
+		},
+		{
+			"id": "de-upgrade-3",
+			"label": "Destructive 3",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"de-upgrade-2"
+			]
+		},
+		{
+			"id": "de-upgrade-max",
+			"label": "Destructive Max",
+			"cost": [
+				{
+					"amount": 45,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"de-upgrade-3"
+			]
+		},
+		{
+			"id": "shielding-enhancement",
+			"label": "Shielding Enhancement",
+			"start": true,
+			"requires": [
+				"spin"
+			]
+		},
+		{
+			"id": "se-upgrade-1",
+			"label": "Shielding 1",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"shielding-enhancement"
+			]
+		},
+		{
+			"id": "se-upgrade-2",
+			"label": "Shielding 2",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"se-upgrade-1"
+			]
+		},
+		{
+			"id": "se-upgrade-3",
+			"label": "Shielding 3",
+			"cost": [
+				{
+					"amount": 45,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"se-upgrade-2"
+			]
+		},
+		{
+			"id": "su-upgrade-4",
+			"label": "Shielding 4",
+			"cost": [
+				{
+					"amount": 55,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"se-upgrade-3"
+			]
+		},
+		{
+			"id": "su-upgrade-6",
+			"label": "Shielding 5",
+			"cost": [
+				{
+					"amount": 65,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"su-upgrade-4"
+			]
+		},
+		{
+			"id": "su-upgrade-max",
+			"label": "Shielding Max",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"su-upgrade-6"
+			]
+		},
+		{
+			"id": "spin-gauge",
+			"label": "Spin Gauge",
+			"start": true,
+			"requires": [
+				"spin"
+			]
+		},
+		{
+			"id": "sg-upgrade-1",
+			"label": "Spin Gauge 1",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"spin-gauge"
+			]
+		},
+		{
+			"id": "sg-upgrade-2",
+			"label": "Spin Gauge 2",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-1"
+			]
+		},
+		{
+			"id": "sg-upgrade-3",
+			"label": "Spin Gauge 3",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-2"
+			]
+		},
+		{
+			"id": "sg-upgrade-4",
+			"label": "Spin Gauge 4",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-3"
+			]
+		},
+		{
+			"id": "sg-upgrade-5",
+			"label": "Spin Gauge 5",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-4"
+			]
+		},
+		{
+			"id": "sg-upgrade-6",
+			"label": "Spin Gauge 6",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-5"
+			]
+		},
+		{
+			"id": "sg-upgrade-max",
+			"label": "Spin Gauge Max",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "SUP"
+				}
+			],
+			"requires": [
+				"sg-upgrade-6"
+			]
+		}
+	]
+}

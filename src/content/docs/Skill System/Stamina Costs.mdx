@@ -1,0 +1,59 @@
+---
+title: Stamina Costs
+description: How much skills cost, what happens when you run low, and how to recover.
+sidebar:
+  order: 1020
+---
+import { Badge, Card, CardGrid, Steps } from '@astrojs/starlight/components';
+import InlineIcon from '../../../components/InlineIcon.astro';
+
+Skills cost a **percentage of your max** <InlineIcon name="stats/stamina" />Stamina (the Stamina value of your current [S.T.S rank](/SingularityV5/important-systems/singularity-tiering-system/phases/phases-overview/)). **Round up**, so every skill costs at least **1**.
+
+| Skill | Cost |
+|--|--|
+| <Badge text="Standard" variant="note" /> | **10%** of max Stamina |
+| <Badge text="Ultimate" variant="caution" /> | **30%** of max Stamina |
+
+[Skill Mastery](/SingularityV5/skill-system/skill-mastery/) lowers these costs.
+
+## Examples
+
+| Rank | Max Stamina | Standard | Ultimate |
+|--|--|--|--|
+| **2F** | 20 | 2 | 6 |
+| **4A** | 100 | 10 | 30 |
+| **6C** | 151 | 16 | 46 |
+| **10C** | 400 | 40 | 120 |
+
+## Running Low
+
+<CardGrid>
+  <Card title="Winded" icon="warning">
+    <Badge text="Below 25%" variant="caution" />
+
+    You're running on fumes: **Ultimate** skills are **locked** until you recover above 25%.
+  </Card>
+  <Card title="Exhausted" icon="error">
+    <Badge text="0 Stamina" variant="danger" />
+
+    You **can't use skills** at all, only basic actions like moving and regular attacks.
+  </Card>
+</CardGrid>
+
+:::danger[Overexertion]
+You can force out **one** skill you can't afford. It works, but once it resolves you **collapse** and are **knocked out**.
+:::
+
+## Recovering
+
+<Steps>
+
+1. **Catch your breath:** spend a turn without using skills or attacking to recover **10%** of your max Stamina.
+
+2. **After the fight:** a proper rest out of combat restores you to **full**.
+
+</Steps>
+
+## Multiple Power Sets
+
+If you have more than one power set, your **non-priority** systems pay **double** Stamina for their Standard and Ultimate skills. See the [Priority System](/SingularityV5/important-systems/priority-system/).

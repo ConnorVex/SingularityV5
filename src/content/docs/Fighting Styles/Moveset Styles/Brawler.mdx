@@ -1,0 +1,59 @@
+---
+title: Brawler
+description: The Brawler Moveset style and its Ultimate Mode, Tank.
+sidebar:
+  order: 921
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+<Badge text="Hand to Hand" variant="note" size="medium" />
+
+For the **physically gifted**: dish out **heavy damage** while **tanking** large amounts of it.
+
+:::note[Required stats]
+<InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed, <InlineIcon name="stats/defense" />Defense and <InlineIcon name="stats/stamina" />Stamina all at **Tier 4**.
+:::
+
+<Tabs>
+  <TabItem label="Base: Brawler">
+    **Passive: Adrenaline Rush.** After an injury of **NL-3** or higher: **+6 Sub-Tiers** to <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed and <InlineIcon name="stats/defense" />Defense for **4 turns**. When it wears off, all 3 drop **10 Sub-Tiers** for **5 turns**.
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Fists of Fury** | +10 Power | 6 turns | A barrage of punches |
+    | **Vice Grip** | +12 Power | 7 turns | Grab their head and slam them around like a ragdoll |
+    | **Charge Tackle** | +10 Power, +5 Speed | 10 turns | Dash in and smash into them |
+    | **Rock Throw** | Projectile: Power **+7** · Speed: your Speed level **+6** | 7 turns | Rip up a chunk of ground and throw it. The only ranged move |
+  </TabItem>
+  <TabItem label="Ultimate: Tank">
+    ### Gaining Ultimate
+
+    Fill the **Ultimate Gauge (0/100)** with **Ultimate Gauge Points (UGP)** from base moves:
+
+    | Move | UGP per use |
+    |--|--|
+    | Fists of Fury | 5 |
+    | Vice Grip | 10 |
+    | Charge Tackle | 15 |
+    | Rock Throw | 8 |
+
+    Tank lasts **10 turns**.
+
+    <CardGrid>
+      <Card title="Constant Adrenaline Rush" icon="rocket">
+        **+12 Sub-Tiers** to <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed and <InlineIcon name="stats/defense" />Defense for the whole Ultimate, with **no recoil** afterwards.
+      </Card>
+      <Card title="Tough Skin" icon="approve-check">
+        Attacks against you have their Power **divided by 10**.
+      </Card>
+    </CardGrid>
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Fists of Rage** | +25 Power | 5 turns | Upgraded Fists of Fury |
+    | **Tank Slam** | +35 Power | Single use | Grab them by the leg and slam them like a ragdoll (think Hulk and Loki). Can **incapacitate** |
+    | **Jaw Breaker** | +23 Power | 5 turns | Uppercut. Roll **1d10**: **5+** breaks the jaw and **stuns**, confirming 1 move |
+    | **Building Throw** | Projectile: Power **+20** · Speed: your Speed level **+16** | Single use | Upgraded Rock Throw. A **much** bigger projectile |
+  </TabItem>
+</Tabs>

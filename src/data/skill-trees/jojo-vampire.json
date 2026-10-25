@@ -1,0 +1,889 @@
+{
+	"nodes": [
+		{
+			"id": "vampire",
+			"label": "Vampire",
+			"start": true
+		},
+		{
+			"id": "blood-gauge",
+			"label": "Blood Gauge",
+			"start": true,
+			"requires": [
+				"vampire"
+			]
+		},
+		{
+			"id": "blood-capacity",
+			"label": "Blood Capacity",
+			"start": true,
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "bc-upgrade-1",
+			"label": "Capacity 1",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-capacity"
+			]
+		},
+		{
+			"id": "bc-upgrade-2",
+			"label": "Capacity 2",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-1"
+			]
+		},
+		{
+			"id": "bc-upgrade-3",
+			"label": "Capacity 3",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-2"
+			]
+		},
+		{
+			"id": "bc-upgrade-4",
+			"label": "Capacity 4",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-3"
+			]
+		},
+		{
+			"id": "bc-upgrade-5",
+			"label": "Capacity 5",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-4"
+			]
+		},
+		{
+			"id": "bc-upgrade-6",
+			"label": "Capacity 6",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-5"
+			]
+		},
+		{
+			"id": "bc-upgrade-7",
+			"label": "Capacity 7",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-6"
+			]
+		},
+		{
+			"id": "bc-upgrade-8",
+			"label": "Capacity 8",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-7"
+			]
+		},
+		{
+			"id": "bc-upgrade-9",
+			"label": "Capacity 9",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-8"
+			]
+		},
+		{
+			"id": "bc-upgrade-10",
+			"label": "Capacity 10",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-9"
+			]
+		},
+		{
+			"id": "bc-upgrade-max",
+			"label": "Capacity Max",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bc-upgrade-10"
+			]
+		},
+		{
+			"id": "blood-drain",
+			"label": "Blood Drain",
+			"start": true,
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "bd-upgrade-1",
+			"label": "Drain 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-drain"
+			]
+		},
+		{
+			"id": "bd-upgrade-2",
+			"label": "Drain 2",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bd-upgrade-1"
+			]
+		},
+		{
+			"id": "bd-upgrade-3",
+			"label": "Drain 3",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bd-upgrade-2"
+			]
+		},
+		{
+			"id": "bd-upgrade-max",
+			"label": "Drain Max",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bd-upgrade-3"
+			]
+		},
+		{
+			"id": "blood-gain",
+			"label": "Blood Gain",
+			"start": true,
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "bg-upgrade-1",
+			"label": "Gain 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-gain"
+			]
+		},
+		{
+			"id": "bg-upgrade-2",
+			"label": "Gain 2",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bg-upgrade-1"
+			]
+		},
+		{
+			"id": "bg-upgrade-3",
+			"label": "Gain 3",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bg-upgrade-2"
+			]
+		},
+		{
+			"id": "bg-upgrade-4",
+			"label": "Gain 4",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bg-upgrade-3"
+			]
+		},
+		{
+			"id": "bg-upgrade-5",
+			"label": "Gain 5",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bg-upgrade-4"
+			]
+		},
+		{
+			"id": "bg-upgrade-6",
+			"label": "Gain 6",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"bg-upgrade-5"
+			]
+		},
+		{
+			"id": "vaporization-freeze",
+			"label": "Vaporization Freezing",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "freeze-radius",
+			"label": "Freeze Radius",
+			"requires": [
+				"vaporization-freeze"
+			]
+		},
+		{
+			"id": "radius-upgrade-1",
+			"label": "Radius 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"freeze-radius"
+			]
+		},
+		{
+			"id": "radius-upgrade-2",
+			"label": "Radius 2",
+			"cost": [
+				{
+					"amount": 11,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"radius-upgrade-1"
+			]
+		},
+		{
+			"id": "radius-upgrade-3",
+			"label": "Radius 3",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"radius-upgrade-2"
+			]
+		},
+		{
+			"id": "radius-upgrade-4",
+			"label": "Radius 4",
+			"cost": [
+				{
+					"amount": 13,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"radius-upgrade-3"
+			]
+		},
+		{
+			"id": "radius-upgrade-5",
+			"label": "Radius 5",
+			"cost": [
+				{
+					"amount": 14,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"radius-upgrade-4"
+			]
+		},
+		{
+			"id": "radius-upgrade-max",
+			"label": "Radius Max",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"radius-upgrade-5"
+			]
+		},
+		{
+			"id": "hamon-freeze-threshold",
+			"label": "Hamon Freeze Threshold",
+			"requires": [
+				"vaporization-freeze"
+			]
+		},
+		{
+			"id": "threshold-upgrade-1",
+			"label": "Threshold 1",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"hamon-freeze-threshold"
+			]
+		},
+		{
+			"id": "threshold-upgrade-2",
+			"label": "Threshold 2",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"threshold-upgrade-1"
+			]
+		},
+		{
+			"id": "threshold-upgrade-3",
+			"label": "Threshold 3",
+			"cost": [
+				{
+					"amount": 60,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"threshold-upgrade-2"
+			]
+		},
+		{
+			"id": "threshold-upgrade-4",
+			"label": "Threshold 4",
+			"cost": [
+				{
+					"amount": 70,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"threshold-upgrade-3"
+			]
+		},
+		{
+			"id": "threshold-upgrade-5",
+			"label": "Threshold 5",
+			"cost": [
+				{
+					"amount": 80,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"threshold-upgrade-4"
+			]
+		},
+		{
+			"id": "threshold-upgrade-max",
+			"label": "Threshold Max",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"threshold-upgrade-5"
+			]
+		},
+		{
+			"id": "freeze-time",
+			"label": "Freeze Time",
+			"requires": [
+				"vaporization-freeze"
+			]
+		},
+		{
+			"id": "ft-upgrade-1",
+			"label": "Freeze Time 1",
+			"cost": [
+				{
+					"amount": 11,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"freeze-time"
+			]
+		},
+		{
+			"id": "ft-upgrade-2",
+			"label": "Freeze Time 2",
+			"cost": [
+				{
+					"amount": 12,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-1"
+			]
+		},
+		{
+			"id": "ft-upgrade-3",
+			"label": "Freeze Time 3",
+			"cost": [
+				{
+					"amount": 13,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-2"
+			]
+		},
+		{
+			"id": "ft-upgrade-4",
+			"label": "Freeze Time 4",
+			"cost": [
+				{
+					"amount": 14,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-3"
+			]
+		},
+		{
+			"id": "ft-upgrade-5",
+			"label": "Freeze Time 5",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-4"
+			]
+		},
+		{
+			"id": "ft-upgrade-6",
+			"label": "Freeze Time 6",
+			"cost": [
+				{
+					"amount": 16,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-5"
+			]
+		},
+		{
+			"id": "ft-upgrade-max",
+			"label": "Freeze Time Max",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"ft-upgrade-6"
+			]
+		},
+		{
+			"id": "space-ripper-eyes",
+			"label": "Space Ripper Stingy Eyes",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "range",
+			"label": "Range",
+			"requires": [
+				"space-ripper-eyes"
+			]
+		},
+		{
+			"id": "range-upgrade-1",
+			"label": "Range 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range"
+			]
+		},
+		{
+			"id": "range-upgrade-2",
+			"label": "Range 2",
+			"cost": [
+				{
+					"amount": 15,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-1"
+			]
+		},
+		{
+			"id": "range-upgrade-3",
+			"label": "Range 3",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-2"
+			]
+		},
+		{
+			"id": "range-upgrade-4",
+			"label": "Range 4",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-3"
+			]
+		},
+		{
+			"id": "range-upgrade-5",
+			"label": "Range 5",
+			"cost": [
+				{
+					"amount": 30,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-4"
+			]
+		},
+		{
+			"id": "range-upgrade-6",
+			"label": "Range 6",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-5"
+			]
+		},
+		{
+			"id": "range-upgrade-max",
+			"label": "Range Max",
+			"cost": [
+				{
+					"amount": 60,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"range-upgrade-6"
+			]
+		},
+		{
+			"id": "charge",
+			"label": "Charge",
+			"requires": [
+				"space-ripper-eyes"
+			]
+		},
+		{
+			"id": "charge-upgrade-1",
+			"label": "Charge 1",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"charge"
+			]
+		},
+		{
+			"id": "charge-upgrade-max",
+			"label": "Charge Max",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"charge-upgrade-1"
+			]
+		},
+		{
+			"id": "power",
+			"label": "Power",
+			"requires": [
+				"space-ripper-eyes"
+			]
+		},
+		{
+			"id": "power-upgrade-1",
+			"label": "Power 1",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power"
+			]
+		},
+		{
+			"id": "power-upgrade-2",
+			"label": "Power 2",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-1"
+			]
+		},
+		{
+			"id": "power-upgrade-3",
+			"label": "Power 3",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-2"
+			]
+		},
+		{
+			"id": "power-upgrade-4",
+			"label": "Power 4",
+			"cost": [
+				{
+					"amount": 30,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-3"
+			]
+		},
+		{
+			"id": "power-upgrade-5",
+			"label": "Power 5",
+			"cost": [
+				{
+					"amount": 30,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-4"
+			]
+		},
+		{
+			"id": "power-upgrade-6",
+			"label": "Power 6",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-5"
+			]
+		},
+		{
+			"id": "power-upgrade-max",
+			"label": "Power Max",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"power-upgrade-6"
+			]
+		},
+		{
+			"id": "zombie-vamp-creation",
+			"label": "Zombie Creation",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"blood-gauge"
+			]
+		},
+		{
+			"id": "fusion",
+			"label": "Fusion",
+			"cost": [
+				{
+					"amount": 40,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"zombie-vamp-creation"
+			]
+		},
+		{
+			"id": "flesh-bud",
+			"label": "Flesh Bud",
+			"cost": [
+				{
+					"amount": 60,
+					"item": "VSP"
+				}
+			],
+			"requires": [
+				"fusion"
+			]
+		},
+		{
+			"id": "hypnosis",
+			"label": "Hypnosis",
+			"cost": [
+				{
+					"amount": 25,
+					"item": "VUP"
+				}
+			],
+			"requires": [
+				"zombie-vamp-creation"
+			]
+		}
+	]
+}

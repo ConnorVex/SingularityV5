@@ -6,6 +6,9 @@ sidebar:
   order: 142
 ---
 
+import SkillTree from '../../../../../components/SkillTree.astro';
+import spinTree from '../../../../../data/skill-trees/jojo-spin.json';
+
 Earn **2 Spin Upgrade Points** each time you use Spin in **combat or training**. It's a hard style to master.
 
 :::caution[No trait bonuses]
@@ -22,6 +25,6 @@ Spin is the **only** mastery system where traits that **increase gains don't app
 | 6 | +30 | — | — |
 | **Max** | **+50** | **+20** | **+3 Primary + 2 Sub-Tiers** |
 
-:::note[Upgrade costs coming soon]
-The Spin Upgrade Tree (point cost for each upgrade) hasn't been moved over yet.
-:::
+## Skill Tree
+
+<SkillTree id="jojo-spin" nodes={spinTree.nodes} />

@@ -1,0 +1,45 @@
+---
+title: Fighting Styles
+description: Singularity's Fighting Style system, how to gain one, and its classes.
+sidebar:
+  label: Overview
+  order: 900
+---
+import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Image } from 'astro:assets';
+import banner from '../../../assets/fighting-styles.jpg';
+
+<Image src={banner} alt="Two fighters back to back on a shattered rooftop" />
+
+<Badge text="Hand to Hand" variant="note" size="medium" /> <Badge text="Weapon Based" variant="caution" size="medium" />
+
+**Fighting Styles** are combat systems that help you in battle. Not everyone is born with powers, and Fighting Styles help **even the odds** by adding a new twist to **combat-based roleplay**. A style can be **hand to hand** or **weapon based**.
+
+You don't need to start with one: you can learn any style **in universe** if you find a teacher willing to teach you.
+
+## Gaining a Fighting Style
+
+<CardGrid>
+  <Card title="In-Roleplay Teaching" icon="open-book">
+    Find a teacher in universe who's willing to train you.
+  </Card>
+  <Card title="Rolling for One" icon="random">
+    Request a roll in the [Singularity Rolling Channel](https://discord.com/channels/1180269616652619807/1278456694460121191). If the style needs Physical Stats, you're placed in its tier.
+  </Card>
+  <Card title="Clans" icon="puzzle">
+    Join a Clan that teaches one.
+  </Card>
+</CardGrid>
+
+:::caution[Rolls are final]
+Once rolled, you **keep that Fighting Style** no matter what.
+:::
+
+## Classes
+
+<CardGrid>
+  <LinkCard title="Flow" description="Hand to hand, no moveset. The hardest class to master." href="/SingularityV5/fighting-styles/flow-styles/" />
+  <LinkCard title="Moveset" description="Set moves, one attack per turn, and Ultimate Modes." href="/SingularityV5/fighting-styles/moveset-styles/moveset-basics/" />
+  <LinkCard title="Weapon" description="A sub-class with weapon passives: Blunt, Sharp and Ranged." href="/SingularityV5/fighting-styles/weapon-styles/" />
+  <LinkCard title="Custom" description="Rules for creating your own style." href="/SingularityV5/fighting-styles/creating-your-own/" />
+</CardGrid>

@@ -6,6 +6,8 @@ sidebar:
   order: 214
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import bioTree from '../../../../../data/skill-trees/infamous-bio.json';
 
 **Bio-Conduits** don't manipulate anything around them. Their **own bodies** are enhanced beyond any other Conduit, which makes them one of the **best** classes.
 
@@ -47,6 +49,8 @@ Instead, you grow by **absorbing evolution items**. Each one gives Physical Poin
 
 When you absorb an item, you choose to either **spend the energy on your stats**, or **upgrade that item's Energy Efficiency Node** so future absorptions give more.
 
-:::note[Skill tree coming soon]
-The Bio-Conduit Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+Upgrades are bought with [evolution items](/SingularityV5/power-systems/infamous/conduit-evolution/).
+
+<SkillTree id="infamous-bio" nodes={bioTree.nodes} />

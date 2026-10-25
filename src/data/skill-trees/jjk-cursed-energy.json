@@ -1,0 +1,519 @@
+{
+	"nodes": [
+		{
+			"id": "cursed-energy",
+			"label": "Cursed Energy",
+			"start": true
+		},
+		{
+			"id": "cursed-energy-control",
+			"label": "Cursed Energy Control",
+			"start": true,
+			"requires": [
+				"cursed-energy"
+			]
+		},
+		{
+			"id": "level-0",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"cursed-energy-control"
+			]
+		},
+		{
+			"id": "level-1",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-0"
+			]
+		},
+		{
+			"id": "level-2",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-1"
+			]
+		},
+		{
+			"id": "level-3",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-2"
+			]
+		},
+		{
+			"id": "level-4",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 8,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-3"
+			]
+		},
+		{
+			"id": "level-5",
+			"label": "Level 5",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-4"
+			]
+		},
+		{
+			"id": "cursed-energy-output",
+			"label": "Cursed Energy Output",
+			"start": true,
+			"requires": [
+				"cursed-energy"
+			]
+		},
+		{
+			"id": "no-ce-output",
+			"label": "No CE Output",
+			"start": true,
+			"requires": [
+				"cursed-energy-output"
+			]
+		},
+		{
+			"id": "extremely-poor-ce-output",
+			"label": "Extremely Poor CE Output",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"no-ce-output"
+			]
+		},
+		{
+			"id": "poor-ce-output",
+			"label": "Poor CE Output",
+			"cost": [
+				{
+					"amount": 1,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"extremely-poor-ce-output"
+			]
+		},
+		{
+			"id": "miniscule-ce-output",
+			"label": "Miniscule CE Output",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"poor-ce-output"
+			]
+		},
+		{
+			"id": "small-ce-output",
+			"label": "Small CE Output",
+			"cost": [
+				{
+					"amount": 2,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"miniscule-ce-output"
+			]
+		},
+		{
+			"id": "average-ce-output",
+			"label": "Average CE Output",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"small-ce-output"
+			]
+		},
+		{
+			"id": "above-average-ce-output",
+			"label": "Above Average CE Output",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"average-ce-output"
+			]
+		},
+		{
+			"id": "good-ce-output",
+			"label": "Good CE Output",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"above-average-ce-output"
+			]
+		},
+		{
+			"id": "high-ce-output",
+			"label": "High CE Output",
+			"cost": [
+				{
+					"amount": 4,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"good-ce-output"
+			]
+		},
+		{
+			"id": "amazing-ce-output",
+			"label": "Amazing CE Output",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"high-ce-output"
+			]
+		},
+		{
+			"id": "extremely-high-ce-output",
+			"label": "Extremely High CE Output",
+			"cost": [
+				{
+					"amount": 5,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"amazing-ce-output"
+			]
+		},
+		{
+			"id": "intense-ce-output",
+			"label": "Intense CE Output",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"extremely-high-ce-output"
+			]
+		},
+		{
+			"id": "immense-ce-output",
+			"label": "Immense CE Output",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"intense-ce-output"
+			]
+		},
+		{
+			"id": "maximum-ce-output",
+			"label": "Maximum CE Output",
+			"cost": [
+				{
+					"amount": 10,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"immense-ce-output"
+			]
+		},
+		{
+			"id": "black-flash",
+			"label": "Black Flash",
+			"cost": [
+				{
+					"amount": 35,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"cursed-energy"
+			]
+		},
+		{
+			"id": "reverse-cursed-energy",
+			"label": "Reverse Cursed Energy",
+			"cost": [
+				{
+					"amount": 1000,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"cursed-energy"
+			]
+		},
+		{
+			"id": "reverse-cursed-technique",
+			"label": "Reverse Cursed Technique",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"reverse-cursed-energy"
+			]
+		},
+		{
+			"id": "self-rct",
+			"label": "Self RCT",
+			"requires": [
+				"reverse-cursed-technique"
+			]
+		},
+		{
+			"id": "rct-on-others",
+			"label": "RCT On Others",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "CEUP"
+				}
+			],
+			"description": "RCE Prof Trait Req.",
+			"requires": [
+				"self-rct"
+			]
+		},
+		{
+			"id": "technique-restoration",
+			"label": "Technique Restoration",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"self-rct"
+			]
+		},
+		{
+			"id": "cursed-energy-recharge",
+			"label": "Cursed Energy Recharge",
+			"start": true,
+			"requires": [
+				"cursed-energy"
+			]
+		},
+		{
+			"id": "rp-to-rp-recharge",
+			"label": "RP To RP Recharge",
+			"start": true,
+			"requires": [
+				"cursed-energy-recharge"
+			]
+		},
+		{
+			"id": "level-0-2",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"rp-to-rp-recharge"
+			]
+		},
+		{
+			"id": "level-1-2",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-0-2"
+			]
+		},
+		{
+			"id": "level-2-2",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-1-2"
+			]
+		},
+		{
+			"id": "level-3-2",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-2-2"
+			]
+		},
+		{
+			"id": "level-4-2",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-3-2"
+			]
+		},
+		{
+			"id": "complete-recharge",
+			"label": "Complete Recharge",
+			"start": true,
+			"requires": [
+				"cursed-energy-recharge"
+			]
+		},
+		{
+			"id": "level-0-3",
+			"label": "Level 0",
+			"start": true,
+			"requires": [
+				"complete-recharge"
+			]
+		},
+		{
+			"id": "level-1-3",
+			"label": "Level 1",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-0-3"
+			]
+		},
+		{
+			"id": "level-2-3",
+			"label": "Level 2",
+			"cost": [
+				{
+					"amount": 3,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-1-3"
+			]
+		},
+		{
+			"id": "level-3-3",
+			"label": "Level 3",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-2-3"
+			]
+		},
+		{
+			"id": "level-4-3",
+			"label": "Level 4",
+			"cost": [
+				{
+					"amount": 6,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-3-3"
+			]
+		},
+		{
+			"id": "level-x",
+			"label": "Level X",
+			"cost": [
+				{
+					"amount": 9,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-4-3"
+			]
+		},
+		{
+			"id": "ce-enhancement-skill",
+			"label": "CE Enhancement Skill",
+			"cost": [
+				{
+					"amount": 20,
+					"item": "CEUP"
+				}
+			],
+			"requires": [
+				"level-3",
+				"high-ce-output"
+			]
+		}
+	]
+}

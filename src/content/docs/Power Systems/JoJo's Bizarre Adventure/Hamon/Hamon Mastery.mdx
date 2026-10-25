@@ -6,6 +6,8 @@ sidebar:
   order: 112
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import hamonTree from '../../../../../data/skill-trees/jojo-hamon.json';
 
 <CardGrid>
   <Card title="Hamon Upgrade Points (HUP)" icon="rocket">
@@ -30,6 +32,8 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 | **Max** | **+55** | **−10** | **+10** |
 | **Total** | **+170** (to 370) | **−45** (to 5) | **+60** (to 110) |
 
-:::note[Upgrade costs coming soon]
-The Hamon Skill Tree (HUP cost for each upgrade) hasn't been moved over yet.
-:::
+## Skill Tree
+
+Spend **Hamon Upgrade Points (HUP)** to unlock upgrades.
+
+<SkillTree id="jojo-hamon" nodes={hamonTree.nodes} />

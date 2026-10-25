@@ -1,0 +1,77 @@
+{
+	"nodes": [
+		{
+			"id": "limitless",
+			"label": "Limitless",
+			"start": true
+		},
+		{
+			"id": "limitless-efficency",
+			"label": "Limitless Efficency",
+			"start": true,
+			"requires": [
+				"limitless"
+			]
+		},
+		{
+			"id": "limitless-efficiency-upgrade-1",
+			"label": "Limitless Efficiency Upgrade 1",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "LP"
+				}
+			],
+			"requires": [
+				"limitless-efficency"
+			]
+		},
+		{
+			"id": "limitless-efficiency-upgrade-2",
+			"label": "Limitless Efficiency Upgrade 2",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "LP"
+				}
+			],
+			"requires": [
+				"limitless-efficiency-upgrade-1"
+			]
+		},
+		{
+			"id": "overload",
+			"label": "Overload",
+			"start": true,
+			"requires": [
+				"limitless"
+			]
+		},
+		{
+			"id": "overload-upgrade-1",
+			"label": "Overload Upgrade 1",
+			"cost": [
+				{
+					"amount": 50,
+					"item": "LP"
+				}
+			],
+			"requires": [
+				"overload"
+			]
+		},
+		{
+			"id": "overload-upgrade-2",
+			"label": "Overload Upgrade 2",
+			"cost": [
+				{
+					"amount": 100,
+					"item": "LP"
+				}
+			],
+			"requires": [
+				"overload-upgrade-1"
+			]
+		}
+	]
+}

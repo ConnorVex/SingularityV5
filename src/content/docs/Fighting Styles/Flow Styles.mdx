@@ -1,0 +1,128 @@
+---
+title: Flow Styles
+description: Flow Class Fighting Styles - Tai Chi, Judo, Shaolin Kung Fu, Capoeira and Muay Thai.
+sidebar:
+  order: 910
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../components/InlineIcon.astro';
+
+<Badge text="Hand to Hand" variant="note" size="medium" /> <Badge text="Hardest class" variant="danger" size="medium" />
+
+Flow styles come with **no moveset**. Instead, you work the style into your own **flow** for it to be effective. It's easily the **hardest** form of combat, needing patience and a level head, but a master of a Flow style is **extremely hard to beat**, even by someone stronger and faster.
+
+<Tabs>
+  <TabItem label="Tai Chi">
+    **Non-aggressive** tactics. Tai Chi users fight in a calm, zen-like state, and its true power is **restraint**: you know exactly where to strike, with **just the right amount of force** to take your opponent out.
+
+    ### Flow State
+
+    First, read your opponent's **physical flow** by **dodging** their attacks **3 times**. After that, you need **+3 extra** <InlineIcon name="stats/speed" />Speed to be Auto-Hit.
+
+    :::caution
+    An opponent a **Phase above you** in the S.T.S can still Auto-Hit you.
+    :::
+
+    ### Pressure Strike
+
+    In the Flow State, every **6 turns**, roll **1d100**. A hit debuffs your opponent:
+
+    | Roll | Strike | Effect |
+    |--|--|--|
+    | 1 – 50 | Nothing | — |
+    | 51 – 60 | Arm Pressure Point | <InlineIcon name="stats/strength" />Strength **−¼** |
+    | 61 – 70 | Double Arm Pressure Point | <InlineIcon name="stats/strength" />Strength **−½** |
+    | 71 – 80 | Leg Pressure Point | <InlineIcon name="stats/speed" />Speed **−¼** |
+    | 81 – 90 | Double Leg Pressure Point | <InlineIcon name="stats/speed" />Speed **−½** |
+    | 91 – 99 | Full Body Strike | **Paralysis** for 2 turns |
+    | 100 | Solar Plexus Strike | **Instant K.O.** |
+
+    Two single Pressure Point hits on the same stat stack to **half**. Rolling **Nothing 3 times** puts Pressure Strike on a **6-turn cooldown**.
+  </TabItem>
+  <TabItem label="Judo">
+    Use your opponent's own speed **against them**. Judo shines against opponents **faster than you**.
+
+    :::note[Special requirements]
+    Your opponent's <InlineIcon name="stats/speed" />Speed must be **4 to 8 Sub-Tiers above yours**. Any higher or lower and Judo is unfit for the fight. Against an opponent in a **different Phase** of the S.T.S, Judo is **useless**.
+    :::
+
+    Take a **stance**. Your opponent must move in and strike you **physically**, then roll **1d10**:
+
+    | Roll | Result |
+    |--|--|
+    | 1 – 4 | **Failure**: 5-turn cooldown |
+    | 5 – 9 | **Success**: avoid the Auto-Hit with a counter, plus **1 free Non-Lethal hit** |
+    | 10 | **Instant Pin**: overpower and pin them, then subdue them however you like |
+  </TabItem>
+  <TabItem label="Shaolin Kung Fu">
+    An **Old World** style taught in dojos across the **Mainland** and **Outworld**. It balances defense **and** offense, and brings a crucial mechanic: **Parrying**.
+
+    :::note[Special requirements]
+    **Shave your head, and keep it shaved.**
+    :::
+
+    <CardGrid>
+      <Card title="Way of the Monks" icon="information">
+        In battle, your <InlineIcon name="stats/strength" />Strength and <InlineIcon name="stats/speed" />Speed **equalize** (the higher drops to the lower), then both drop **3 Sub-Tiers**.
+
+        Once you **attack**, they return with **+1 Sub-Tier** for each hit you took while debuffed (**max +5**).
+      </Card>
+      <Card title="Parrying" icon="approve-check">
+        Instantly deflect a **physical attack**. Roll **1d30**:
+
+        | Roll | Result |
+        |--|--|
+        | 1 – 10 | Failure: **stunned** 1 turn |
+        | 11 – 20 | **Parry**: deflect the attack |
+        | 21 – 29 | **Critical Parry**: deflect + 1 free Auto-Hit |
+        | 30 | **Super Critical**: deflect + **Instant K.O.** |
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Capoeira">
+    A Brazilian art disguised as a **dance**. Capoeiristas never stand still: the constant sway of the **Ginga** makes them hard to pin down and builds into devastating spinning kicks.
+
+    :::note[Special requirements]
+    **Fight barefoot.** Your <InlineIcon name="stats/speed" />Speed must be **at least equal** to your <InlineIcon name="stats/strength" />Strength.
+    :::
+
+    ### Ginga
+
+    Every attack you **dodge** builds **1 Momentum** (**max 5**). When you attack, spend Momentum: each point adds **+2 Power** to a kick. Getting hit **resets** your Momentum to 0.
+
+    ### Meia Lua de Compasso
+
+    At **5 Momentum**, spend it all on a spinning heel kick instead. Roll **1d20**:
+
+    | Roll | Result |
+    |--|--|
+    | 1 – 7 | Whiffed: Momentum is lost |
+    | 8 – 14 | **Sweep**: opponent is knocked down and **can't move** next turn |
+    | 15 – 19 | **Clean Hit**: opponent is **stunned** 1 turn + 1 free Auto-Hit |
+    | 20 | **Lights Out**: **Instant K.O.** |
+  </TabItem>
+  <TabItem label="Muay Thai">
+    **The Art of Eight Limbs**: fists, elbows, knees and shins. Muay Thai fighters condition their bodies to **take punishment** and are at their deadliest **up close**.
+
+    :::note[Special requirements]
+    **Wrap your hands** before every fight. Your <InlineIcon name="stats/defense" />Defense must be **within 3 Sub-Tiers** of your <InlineIcon name="stats/strength" />Strength.
+    :::
+
+    ### Conditioning
+
+    Every **3 physical hits** you take give **+1 Sub-Tier** of <InlineIcon name="stats/defense" />Defense for the rest of the fight (**max +4**).
+
+    ### The Clinch
+
+    Land **2 hits in a row** to lock your opponent in the clinch. While clinched, they **can't move away** or use **long-range** attacks. Each turn in the clinch, roll **1d12**:
+
+    | Roll | Result |
+    |--|--|
+    | 1 – 4 | Opponent **breaks free** (clinch ends) |
+    | 5 – 9 | **Knee**: **+4 Power** hit |
+    | 10 – 11 | **Elbow Cut**: hit + opponent loses **5** <InlineIcon name="stats/stamina" />Stamina per turn for 3 turns |
+    | 12 | **Knockout Knee**: opponent is **stunned** 2 turns |
+
+    The clinch lasts **3 turns** at most, then needs a **5-turn cooldown**.
+  </TabItem>
+</Tabs>

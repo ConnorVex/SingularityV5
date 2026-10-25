@@ -6,6 +6,8 @@ sidebar:
   order: 120
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import vampireTree from '../../../../../data/skill-trees/jojo-vampire.json';
 
 **Vampires** (吸血鬼 *Kyūketsuki*) were once human, turned into **undead** by a **Stone Mask**. They thrive in shadow and are weak to the sun.
 
@@ -31,11 +33,9 @@ Think carefully. Once you become a Vampire, **there's no turning back**.
 
 ## Mastery
 
-Earn **4 Vampire Upgrade Points** per **combat or training** session where you use your vampiric abilities.
+Earn **4 Vampire Upgrade Points (VUP)** per **combat or training** session where you use your vampiric abilities.
 
-:::note[Skill tree coming soon]
-The Vampire Skill Tree (including Space Ripper Stingy Eyes and Vaporization Freezing upgrades) hasn't been moved over yet.
-:::
+<SkillTree id="jojo-vampire" nodes={vampireTree.nodes} />
 
 ## Starting Stats
 

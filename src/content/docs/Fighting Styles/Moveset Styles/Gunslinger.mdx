@@ -1,0 +1,59 @@
+---
+title: Gunslinger
+description: The Gunslinger Moveset style and its Ultimate Mode, Dead Eye.
+sidebar:
+  order: 925
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+<Badge text="Weapon Based" variant="caution" size="medium" /> <Badge text="Ranged Weapon" variant="danger" size="medium" />
+
+Old West showmanship: quick draws, trick shots and bullets that come from places they shouldn't. As a [Ranged Weapon](/SingularityV5/fighting-styles/weapon-styles/) style, your regular shots also get **Ricochet**.
+
+:::note[Special requirements]
+<InlineIcon name="stats/speed" />Speed at **Tier 4** · **Weapon:** one or two revolvers
+:::
+
+<Tabs>
+  <TabItem label="Base: Gunslinger">
+    **Passive: Fan the Hammer.** Fire up to **3 regular shots** in one turn. Each revolver holds **6 rounds**, and reloading takes **1 turn**.
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Quick Draw** | Counter | 6 turns | With your gun **holstered**, if they attack, you both roll **1d20**. Win and you shoot first: their attack is **cancelled** and you hit for **+8 Power** |
+    | **Trick Shot** | +10 Power | 5 turns | Bounce a shot off the surroundings to hit them **behind cover** |
+    | **Kneecapper** | +6 Power | 7 turns | A leg shot: **−6 Sub-Tiers** of <InlineIcon name="stats/speed" />Speed for 3 turns |
+    | **Bullet Storm** | +3 Power per shot | 8 turns | Empty your cylinders. Roll **1d12** for how many shots land |
+  </TabItem>
+  <TabItem label="Ultimate: Dead Eye">
+    ### Gaining Ultimate
+
+    No gauge. Instead, land these during the fight:
+
+    | Move | Requirement |
+    |--|--|
+    | Quick Draw | 1 successful counter |
+    | Trick Shot | 2 successful hits |
+    | Kneecapper | 1 successful hit |
+    | Bullet Storm | 6 shots landed in total |
+
+    Dead Eye lasts **6 turns**.
+
+    <CardGrid>
+      <Card title="Time Slows" icon="rocket">
+        **+8 Sub-Tiers** to <InlineIcon name="stats/speed" />Speed for reacting and aiming.
+      </Card>
+      <Card title="Bottomless Cylinder" icon="approve-check">
+        **No reloading** while the Ultimate lasts.
+      </Card>
+    </CardGrid>
+
+    | Move | Boost | Cooldown | Effect |
+    |--|--|--|--|
+    | **Mark & Execute** | +12 Power per shot | Single use | Mark up to **6** spots on your opponent, then fire them all at once. Every shot is an **Auto-Hit** |
+    | **Ricochet Symphony** | +10 Power | 5 turns | Your next volley gets a **guaranteed Critical** Ricochet: every projectile comes back |
+    | **Heartbreaker** | +30 Power | Single use | One perfect shot. Roll **1d20**: **15+** is an **Instant K.O.** (not against someone a **Phase above you**) |
+    | **High Noon** | Counter | 6 turns | Any attack they make this turn is shot out of the air, plus **1 free Auto-Hit** |
+  </TabItem>
+</Tabs>

@@ -6,6 +6,8 @@ sidebar:
   order: 40
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import barrierTree from '../../../../../data/skill-trees/jjk-barrier.json';
 
 Barrier Techniques are a **supreme art** of Jujutsu. Even a simple one can turn a fight in your favor.
 
@@ -17,9 +19,7 @@ The **hardest** and **longest** part of the JJK System to master. Stick with it 
 
 **Conversion:** 55 JJUUP → **1 Barrier Technique Upgrade Point (BTUP)**
 
-:::note[Upgrade tree coming soon]
-The Barrier Upgrade Tree hasn't been moved over yet.
-:::
+<SkillTree id="jjk-barrier" nodes={barrierTree.nodes} colorBranches />
 
 ## Curtains
 

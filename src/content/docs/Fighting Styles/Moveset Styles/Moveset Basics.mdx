@@ -1,0 +1,31 @@
+---
+title: Moveset Styles
+description: How Moveset Class Fighting Styles and Ultimate Modes work.
+sidebar:
+  label: Moveset Basics
+  order: 920
+---
+import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<Badge text="Hand to Hand" variant="note" size="medium" /> <Badge text="Weapon Based" variant="caution" size="medium" />
+
+Moveset styles come with a **set list of moves** that **can't be altered**, which makes them a bit rigid. In exchange, they unlock **Ultimate Modes**.
+
+<CardGrid>
+  <Card title="One attack per turn" icon="warning">
+    You can only use **1** move per turn, unless a passive (like **Chaining**) says otherwise.
+  </Card>
+  <Card title="Ultimate Modes" icon="rocket">
+    Meet the requirements to unlock a **new set of super powerful moves**. Some Ultimates last a **set number of turns**, others until a move is used. They're one of the **fastest ways to overwhelm** an opponent.
+  </Card>
+</CardGrid>
+
+## Styles
+
+<CardGrid>
+  <LinkCard title="Brawler" description="Heavy hitting and tanking. Ultimate: Tank" href="/SingularityV5/fighting-styles/moveset-styles/brawler/" />
+  <LinkCard title="Speed O' Sound" description="Lightning-fast katana work. Ultimate: Sonic Boom" href="/SingularityV5/fighting-styles/moveset-styles/speed-o-sound/" />
+  <LinkCard title="Hamon Style: Bubble" description="Hamon-infused soap bubbles" href="/SingularityV5/fighting-styles/moveset-styles/hamon-bubble/" />
+  <LinkCard title="Drunken Fist" description="Unpredictable stumbling strikes. Ultimate: Eight Immortals" href="/SingularityV5/fighting-styles/moveset-styles/drunken-fist/" />
+  <LinkCard title="Gunslinger" description="Revolver tricks and quick draws. Ultimate: Dead Eye" href="/SingularityV5/fighting-styles/moveset-styles/gunslinger/" />
+</CardGrid>

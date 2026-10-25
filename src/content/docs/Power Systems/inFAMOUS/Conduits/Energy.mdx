@@ -6,6 +6,8 @@ sidebar:
   order: 212
 ---
 import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import energyTree from '../../../../../data/skill-trees/infamous-energy.json';
 
 One of the **rarest** classes, and **deadlier** than Elementals. Energy Conduits control **energy fields** like gamma rays, neutrons, photons and even **anti-matter**.
 
@@ -78,6 +80,8 @@ You get **5 Conduit Tier Points** to spend on any stat **except Tank**.
 | **Energy Blast** | <Badge text="Standard" variant="note" /> | 50 EP | Ranged blasts. Every Energy Conduit starts with it, and its **damage can be upgraded** |
 | **Energy Special** | <Badge text="Ultimate" variant="caution" /> | 1 Special | **3× your Energy Power.** Start with **2**, **+1 per Tank upgrade**. Used Specials come back when your **tank is full** again |
 
-:::note[Skill tree coming soon]
-The Energy Conduit Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+Upgrades are bought with [evolution items](/SingularityV5/power-systems/infamous/conduit-evolution/).
+
+<SkillTree id="infamous-energy" nodes={energyTree.nodes} />

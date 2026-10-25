@@ -6,6 +6,8 @@ sidebar:
   order: 340
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import SkillTree from '../../../../components/SkillTree.astro';
+import cyberpunkTree from '../../../../data/skill-trees/cyberpunk.json';
 
 An exclusive mastery system that **rewards choosing Cyberware over genetic abilities**.
 
@@ -26,13 +28,13 @@ You must have **no powers** and **never gain any**. If you ever develop powers, 
 
     Each level needs **1.5×** the XP of the last: 100 → 150 → 225 → 337…
   </Card>
-  <Card title="Skill Points" icon="star">
+  <Card title="Skill Points (SP)" icon="star">
     - **+4 Skill Points** every level up
     - **Every** Skill Tree upgrade costs **1 point**
     - Unlock perks to help you survive as a powerless character, including extra [Cyberware slots](/SingularityV5/power-systems/cyberpunk-2077/cyberware/)
   </Card>
 </CardGrid>
 
-:::note[Skill tree coming soon]
-The Cyberpunk Skill Tree hasn't been moved over yet.
-:::
+## Skill Tree
+
+<SkillTree id="cyberpunk" nodes={cyberpunkTree.nodes} />
