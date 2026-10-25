@@ -1,0 +1,147 @@
+---
+title: Cursed Energy Levels
+description: Rolling your Cursed Energy Points, and how your CE recharges.
+sidebar:
+  label: CE Levels & Recharge
+  order: 11
+---
+import { Badge, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, your level is **permanent**.
+
+## Rolling Your Level
+
+<Steps>
+1. **Roll your class:** `/roll 1d1260`
+
+   | Roll | Class | Chance |
+   |--|--|--|
+   | 0 – 510 | <Badge text="Common" variant="default" /> | 40.5% |
+   | 511 – 930 | <Badge text="Uncommon" variant="success" /> | 33.3% |
+   | 931 – 1190 | <Badge text="Rare" variant="note" /> | 20.6% |
+   | 1191 – 1250 | <Badge text="Legendary" variant="caution" /> | 4.8% |
+   | 1251 – 1260 | <Badge text="Mythical" variant="danger" /> | 0.8% |
+
+2. **Roll your amount** using that class's roll command below.
+</Steps>
+
+<Tabs>
+  <TabItem label="Common">
+    Roll `1d10`
+
+    | # | Level | CEP |
+    |--|--|--|
+    | 1 | Miniscule | 10 |
+    | 2 | Stunted | 20 |
+    | 3 | Modest | 30 |
+    | 4 | Trivial | 40 |
+    | 5 | Compact | 50 |
+    | 6 | Inconsequential | 60 |
+    | 7 | Fun Size | 70 |
+    | 8 | Measly | 80 |
+    | 9 | Meager | 90 |
+    | 10 | Limited | 100 |
+  </TabItem>
+  <TabItem label="Uncommon">
+    Roll `1d5`
+
+    | # | Level | CEP |
+    |--|--|--|
+    | 1 | Average | 120 |
+    | 2 | Above Average | 140 |
+    | 3 | Sub-Par | 160 |
+    | 4 | Basic | 180 |
+    | 5 | Great | 200 |
+  </TabItem>
+  <TabItem label="Rare">
+    Roll `1d10`
+
+    | # | Level | CEP |
+    |--|--|--|
+    | 1 | Large | 230 |
+    | 2 | Huge | 260 |
+    | 3 | Enormous | 290 |
+    | 4 | Extensive | 320 |
+    | 5 | Lofty | 350 |
+    | 6 | Robust | 380 |
+    | 7 | Gargantuan | 410 |
+    | 8 | Capacious | 440 |
+    | 9 | Ample | 470 |
+    | 10 | Voluminous | 500 |
+  </TabItem>
+  <TabItem label="Legendary">
+    Roll `1d5`
+
+    | # | Level | CEP |
+    |--|--|--|
+    | 1 | Vast | 540 |
+    | 2 | Expansive | 580 |
+    | 3 | Humongous | 620 |
+    | 4 | Hefty | 660 |
+    | 5 | Insane | 700 |
+  </TabItem>
+  <TabItem label="Mythical">
+    Roll `1d6`
+
+    | # | Level | CEP |
+    |--|--|--|
+    | 1 | Mammoth | 750 |
+    | 2 | Colossal | 800 |
+    | 3 | Massive | 850 |
+    | 4 | Giant | 900 |
+    | 5 | Tremendous | 950 |
+    | 6 | Monumental | 1,000 |
+  </TabItem>
+</Tabs>
+
+<CardGrid>
+  <Card title="Permission Based Levels" icon="star">
+    Not rollable. Permission only.
+
+    | Level | CEP |
+    |--|--|
+    | Immense | 1,100 |
+    | Gigantic | 1,500 |
+    | Herculean | 2,000 |
+    | Monstrous | 2,500 |
+    | Immeasurable | 4,000 |
+    | Boundless | 5,000 |
+    | Astronomical | 6,000 |
+  </Card>
+  <Card title="Unobtainable Levels" icon="error">
+    | Level | CEP |
+    |--|--|
+    | Excessive | 100K |
+    | Titanic | 500K |
+  </Card>
+</CardGrid>
+
+## Recharge
+
+Cursed Energy isn't infinite. It refills in two ways:
+
+<CardGrid>
+  <Card title="RP to RP Recharge" icon="random">
+    A small top-up at the **start of every new RP**.
+
+    | Level | Gain |
+    |--|--|
+    | 0 (start) | +2 CEP |
+    | 1 | +4 CEP |
+    | 2 | +6 CEP |
+    | 3 | +8 CEP |
+    | 4 | +10 CEP |
+  </Card>
+  <Card title="Complete Recharge" icon="warning">
+    Needed when you **fully drain** your tank. Starts when that RP ends. RP to RP Recharge is **off** until it's done.
+
+    | Level | Tank refills after |
+    |--|--|
+    | 0 (start) | 5 RPs |
+    | 1 | 4 RPs |
+    | 2 | 3 RPs |
+    | 3 | 2 RPs |
+    | 4 | 1 RP |
+    | X | Next RP |
+  </Card>
+</CardGrid>

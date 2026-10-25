@@ -1,0 +1,92 @@
+---
+title: Chants
+description: Unlocking chants, chanting in combat, and the four Chant Classes.
+sidebar:
+  order: 32
+---
+import { Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Chants are words that sound like gibberish but are powerful tools. They're usually paired with [Hand Signs](/SingularityV5/power-systems/jujutsu-kaisen/hand-signs/) for stronger effects, but work alone too.
+
+:::tip[Unlocking chants]
+Hit a **Black Flash**, then resonate with your soul. Words will appear in your mind. It's up to you to figure out what they do.
+:::
+
+## Chanting in Combat
+
+<Steps>
+1. Get an **opening**.
+2. **Channel CE** (each chant has its own cost).
+3. **Begin the chant.** Each class limits how many words you can say per post.
+</Steps>
+
+<CardGrid>
+  <Card title="While chanting" icon="warning">
+    - Once started, you **must finish**. Skipping a post = **failed chant**.
+    - You **can't fight back**. Dodging is your only defense.
+  </Card>
+  <Card title="Ways to interrupt" icon="error">
+    - **Physical:** a hit to the **throat or mouth** (risky, you need to get close).
+    - **Cursed Energy:** disrupting or disabling the caster's CE.
+    - **Environmental:** terrain or weather changes that demand the caster's focus. This can backfire and give them room to finish.
+  </Card>
+</CardGrid>
+
+## Chant Classes
+
+| Class | CE Cost | Words | Per Post | Effect |
+|--|--|--|--|--|
+| Conservation | 25 | 4 | 2 | CT costs **0.9 CEP** for 4 turns |
+| Rejuvenation (CT) | 100 | 8 | 3 | Restores a **burnt-out CT** |
+| Rejuvenation (Domain) | 150 | 6 | 2 | Restores your **Innate Domain** |
+| Unchaining | 50 | 6 | 2 | **+2 CT Grades** for one devastating attack |
+| Counter | Varies | 3–5 | 2 | Counters an opponent's chant |
+
+<Tabs>
+  <TabItem label="Conservation">
+    The **most common** class, focused on saving CE.
+
+    **Effect:** CT Efficiency becomes **Enchanted Efficiency**: **0.9 CEP** per use for **4 turns**.
+
+    **Requires:** 25 CEP · 4 words · max 2 words per post
+
+    :::danger[If you fail]
+    −75 CEP · CT Efficiency drops to the **lowest level** for 4 turns
+    :::
+  </TabItem>
+  <TabItem label="Rejuvenation">
+    **Must be used with Hand Signs.** Both versions require a technique burnt out from **both a Domain and RCT Rejuvenation**.
+
+    | | CT Rejuvenation | Domain Rejuvenation |
+    |--|--|--|
+    | Effect | Restores a burnt-out CT | Restores your Innate Domain |
+    | CE Cost | 100 | 150 |
+    | Words | 8 | 6 |
+    | Per post | 3 | 2 |
+    | Hand Sign | — | **Taishakuten-in** |
+    | **If you fail** | −160 CEP · CT **disabled 12 turns** | −200 CEP · **no Domain for 2 CRPs** · all chants **+130 CEP** for 2 CRPs |
+  </TabItem>
+  <TabItem label="Unchaining">
+    Unchains your CT for **one attack** so powerful it's your trump card. Your CT's safeguards are removed, so an **AOE will hurt you too**.
+
+    **Effect (1 turn):** CT **+2 Grades** · attack costs **2× CE** · all self-protection safeguards **lost**
+
+    **Requires:** 50 CEP · 6 words · max 2 words per post
+
+    :::danger[If you fail]
+    −150 CEP · CT **locked for 4 turns**
+    :::
+  </TabItem>
+  <TabItem label="Counter">
+    Counters the other three classes during an opponent's long chant. **Once per fight**, so choose wisely.
+
+    | | Penalty Increase | Nullification | Cost Increase |
+    |--|--|--|--|
+    | Effect | If they fail, their CE penalty and durations are **×2** | **Undo their last 3 words**. You must stay in one place | All chants cost **+200 CEP** for the fight (**both** of you) |
+    | CE Cost | 1.75× theirs | 2× theirs | 85 |
+    | Words | 3 | 5 | 3 |
+    | Per post | 2 | 2 | 2 |
+    | Hand Sign | Daikokuten-in | Taishakuten-in | Enma Ten-In |
+    | **If you fail** | −2× your CE · their penalties hit **you at ×4** for the CRP | −4× your CE · **no chants** for the CRP | −285 CEP · the increase hits **only you** · CT Efficiency **−3 levels** for the fight |
+  </TabItem>
+</Tabs>

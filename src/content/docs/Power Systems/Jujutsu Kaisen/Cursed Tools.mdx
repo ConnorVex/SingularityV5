@@ -1,0 +1,55 @@
+---
+title: Cursed Tools
+description: Cursed Tool grades, Support tools and Weapon tools.
+sidebar:
+  order: 70
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+
+Cursed Tools help **sorcerers and non-sorcerers** alike fight the Cursed Spirits threatening the Mainland. Graded from **4 (worst) to 1 (best)**.
+
+:::note[Special Grade Tools]
+A tool with a **Cursed Technique engraved** in it is automatically **Special Grade** (e.g. the *Inverted Spear of Heaven*). These **can't be made** by imbuing CE: **buy one**, or take one from the cold dead hands of a sorcerer or Curse User.
+:::
+
+<CardGrid>
+  <Card title="Support Class" icon="information">
+    Little combat use, but great for **non-sorcerers**. Usually **ordered**.
+
+    The staple: **Cursed Glasses**, which let non-sorcerers **see Cursed Spirits** so they can fight with Weapon tools.
+
+    **Grading up:**
+    - Imbue with CE at least once in **4 fights** to reach Grade 4.
+    - Each grade after needs **1 more fight** than the last (5, 6, 7…).
+
+    A Support tool **defends** against threats of its own grade.
+  </Card>
+  <Card title="Weapon Class" icon="rocket">
+    Any weapon with enough CE poured in. You can **make these yourself**, as many as you want.
+
+    **Imbue up to 5 CEP per turn.** Total CE imbued sets the grade:
+
+    | Grade | CEP | Can harm |
+    |--|--|--|
+    | Grade 4 | 10 | Grade 4 |
+    | Semi-Grade 3 | 29 | Semi-Grade 3 |
+    | Grade 3 | 37 | Grade 3 |
+    | Semi-Grade 2 | 44 | Semi-Grade 2 |
+    | Grade 2 | 51 | Grade 2 |
+    | Semi-Grade 1 | 64 | Semi-Grade 1 |
+    | Grade 1 | 110 | Grade 1 + Special Grade 1 |
+  </Card>
+</CardGrid>
+
+## Support Tool Grades
+
+| Grade | Defends against |
+|--|--|
+| Grade 4 | Grade 4 curses |
+| Semi-Grade 3 | Semi-Grade 3 threats |
+| Grade 3 | Grade 3 threats |
+| Semi-Grade 2 | Semi-Grade 2 threats |
+| Grade 2 | Grade 2 threats |
+| Semi-Grade 1 | Semi-Grade 1 threats |
+| Grade 1 | Grade 1 threats |
+| <Badge text="Special Grade" variant="danger" /> | Special Grade threats |

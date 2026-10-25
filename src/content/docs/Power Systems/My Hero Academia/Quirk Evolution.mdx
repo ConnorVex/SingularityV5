@@ -1,0 +1,77 @@
+---
+title: Quirk Evolution
+description: Quirk Upgrade Points, new skills, Quirk Awakenings and Quirk Instability.
+sidebar:
+  label: Quirk Evolution
+  order: 802
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+Quirks are one of the **easiest** systems to use **and** evolve, which makes them a great place to start.
+
+<CardGrid>
+  <Card title="Quirk Upgrade Points (QUP)" icon="rocket">
+    **+8 QUP** per training or combat session where you use your Quirk. Spend them on the Quirk Skill Tree.
+
+    :::caution
+    **Multiple Quirks** each have their **own QUP balance**, which can't be shared.
+    :::
+  </Card>
+  <Card title="New Skills" icon="star">
+    | Skill | Cost |
+    |--|--|
+    | Standard | 10 QUP |
+    | Ultimate | 20 QUP |
+
+    [Variants](/SingularityV5/power-systems/my-hero-academia/quirk-variants/) reduce these costs.
+  </Card>
+</CardGrid>
+
+## Quirk Awakening
+
+A rare evolution that gives you a **deeper understanding** of your Quirk. Each Awakening grants **one** of these:
+- Access to **higher Quirk Power**
+- **Expanded Quirk rules**
+
+It can happen several times until your Quirk is **maxed out**.
+
+**Requires:**
+1. **90 QUP** stored
+2. An **event that helps you understand your Quirk**. It's different for everyone: a psychological push (like Toga), or a ritual (like Tenya).
+
+## Quirk Instability
+
+Singularity bodies are far more capable than Old World ones, leaving **"genetic space"** a Quirk can fill. Every so often, a Quirk can go **unstable** and enter a **heightened state**. That's great if it happens at the start of a fight.
+
+<CardGrid>
+  <Card title="Requirements" icon="list-format">
+    - **Great Potential** or higher
+    - Quirk Power **maxed out** (as high as you can go)
+    - Quirk used in training/combat **3+ times**
+    - **50 QUP** stored
+
+    Then roll `1d1000`: **500+** = unstable. **Fail 3 times** and you must redo the last two requirements.
+  </Card>
+  <Card title="While unstable (3 RPs)" icon="warning">
+    Instability lasts **3 RPs**.
+
+    - Quirk Power becomes **Unstable (64, 68)** (11E, 11A)
+    - **+2 Sub-Tiers** to <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed and <InlineIcon name="stats/defense" />Defense
+    - **Quirk drugs and amplification devices don't work** on you
+  </Card>
+</CardGrid>
+
+### Spontaneous Evolution
+
+On the **final turn of the 3rd RP** of instability, roll `1d10000` for a chance to evolve:
+
+| Roll | Result |
+|--|--|
+| 0 – 1,000 | Nothing |
+| 1,001 – 5,000 | **Quirk Awakening** |
+| 5,001 – 7,999 | <Badge text="Plus Variant" variant="note" /> |
+| 8,000 – 9,949 | <Badge text="Maximum Variant" variant="caution" /> |
+| 9,950+ | <Badge text="Infinite Variant" variant="danger" /> |
+
+*YAGPDB is recommended for these rolls.*

@@ -1,0 +1,70 @@
+---
+title: Psychic Conduits
+description: Psychic phases, Mental Domination and Psychic limitations.
+sidebar:
+  label: Psychic
+  order: 213
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+import SkillTree from '../../../../../components/SkillTree.astro';
+import psychicTree from '../../../../../data/skill-trees/infamous-psychic.json';
+
+Even **stronger than Energy Conduits**. Psychics use **telekinesis** and receive **visions**, and the most dangerous ones use **mind control**.
+
+- **No fuel** and **no recharge**, but using powers too long **damages you**.
+- Has the shared Conduit perks, but **no extra perks** in exchange for its power.
+
+**Starting stats:** Psychic Power **Phase 5** · **0** Conduit Tier Points
+
+## Psychic Phases
+
+Your **Psychic Power** comes in phases. You start at **Phase 5** and want out of it fast.
+
+| Phase | Telekinesis lifts | Takeover time | Victim resists commands | Victim breaks free |
+|--|--|--|--|--|
+| **5** (start) | <InlineIcon name="stats/strength" />Strength **+1** | 5 turns | Every **3** commands · `1d60` **30+** | Every RP · `1d100` **50+** |
+| **4** | Strength **+2** | 4 turns | Every **6** commands · `1d60` **40+** | Every **2** RPs · `1d100` **60+** |
+| **3** | Strength **+4** | 3 turns (**2** if unconscious) | Every **9** commands · `1d60` **55+** | Every **6** RPs · `1d100` **90+** |
+| **2** | Strength **+6** | 2 turns (**instant** if unconscious) | <Badge text="Can't" variant="danger" /> | <Badge text="Can't" variant="danger" /> |
+| **X** | Strength **+20** (that's a building!) | **Instant** on contact | <Badge text="Can't" variant="danger" /> | <Badge text="Can't" variant="danger" /> |
+
+**Phase X** is rare, with massive requirements, and you'll need the big guns to stop one. It can also take over **Bio-Conduits and Psychic Conduits** of a **lower phase**.
+
+## Mental Domination
+
+Mind control: take over an **OC, Canon or NPC** and make them **serve you without question**.
+
+<CardGrid>
+  <Card title="Requirements" icon="list-format">
+    - **Prolonged contact** with you or a **medium substance** (like "Black Tar"). See takeover time above
+    - Target has **no Will Manipulation** and **no Psychic abilities**
+    - Target is **not** a Bio-Enhanced, Psychic, Meta or Quantum Conduit (Phase X can take Bio and lower-phase Psychics)
+
+    Upgrades can **loosen** these requirements.
+  </Card>
+  <Card title="Using your puppet" icon="star">
+    **Completely up to you.** As long as your Psychic Power holds them, they can't really resist.
+
+    Puppets also get a **slight ARC Sense**, so you can send them to **find Blast Shards, Cores and Relays** for you.
+  </Card>
+</CardGrid>
+
+## Limitations
+
+<CardGrid>
+  <Card title="Keep calm" icon="warning">
+    Psychics need a **calm, centered mind**. If you get **angry**, roll `1d50`: **30+** = **destabilized**.
+
+    Destabilized: **no powers** and **incapacitated for 2 turns**, and so is **everyone you control**.
+  </Card>
+  <Card title="Mental attacks" icon="error">
+    You're **more resilient**, but **not immune**. The best way to beat a Psychic is to turn their strengths against them.
+  </Card>
+</CardGrid>
+
+## Skill Tree
+
+Upgrades are bought with [evolution items](/SingularityV5/power-systems/infamous/conduit-evolution/).
+
+<SkillTree id="infamous-psychic" nodes={psychicTree.nodes} />

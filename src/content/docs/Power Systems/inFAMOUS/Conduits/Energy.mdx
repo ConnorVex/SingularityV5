@@ -1,0 +1,83 @@
+---
+title: Energy Conduits
+description: Energy Tank, Charge, Power, Healing, skills and starting stats.
+sidebar:
+  label: Energy
+  order: 212
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+One of the **rarest** classes, and **deadlier** than Elementals. Energy Conduits control **energy fields** like gamma rays, neutrons, photons and even **anti-matter**.
+
+| | Elemental | Energy |
+|--|--|--|
+| Fuel | **Absorbs** its element | **Generates** its own energy |
+| Become your power | <Badge text="Yes" variant="success" /> | <Badge text="No" variant="danger" /> |
+
+## Starting Stats
+
+```
+Energy: [your energy]
+Energy Power: Level 0
+Energy Heal: Level 6.6
+Energy Tank: Level 0
+```
+
+You get **5 Conduit Tier Points** to spend on any stat **except Tank**.
+
+## Capabilities
+
+<Tabs>
+  <TabItem label="Tank & Charge">
+    Your tank holds **Energy Points (EP)**. Because the energies are so intense, upgrades are small, but each one adds **Energy Specials**.
+
+    | Level | Tank | Energy Specials |
+    |--|--|--|
+    | 0 (start) | 100 EP | 2 |
+    | 1 | 110 EP | 3 |
+    | 2 | 120 EP | 4 |
+    | Max | 130 EP | 5 |
+
+    **Charge (passive):** your body slowly generates energy, **+10 EP per turn** you don't use your powers, in or out of combat. Each Charge upgrade adds **+10**.
+  </TabItem>
+  <TabItem label="Power">
+    How much damage your energy does. **17 levels**, one Defense Tier ahead of Elementals.
+
+    | Defense Tier | Level: up to **C** | Level: **whole tier** |
+    |--|--|--|
+    | 3 | 0 (start) | 0.1 |
+    | 4 | 1 | 1.1 |
+    | 5 | 2 | 2.2 |
+    | 6 | 3 | 3.3 |
+    | 7 | 4 | 4.4 |
+    | 8 | 5 | 5.5 |
+    | 9 | 6 | 6.6 |
+    | 10 | 7 | 7.7 |
+    | 20 | — | X |
+  </TabItem>
+  <TabItem label="Heal">
+    What you can **heal** while your tank regenerates, on yourself and others. The lower the level, the better.
+
+    | Injury | Self | Others |
+    |--|--|--|
+    | NL-Class 3 or below | 6.6 (start) | 6 |
+    | NL-Class 2 or below | 5.5 | 5 |
+    | NL-Class 1 or below | 4.4 | 4 |
+    | L-Class 3 or below | 3.3 | 3 |
+    | L-Class 2 or below | 2.2 | 2 |
+    | L-Class 1 or below | 1.1 | 1 |
+
+    **Healing only happens while your tank regenerates**, so you have to spend energy first. It applies **every 2 turns** of regeneration until you're fully healed.
+  </TabItem>
+</Tabs>
+
+## Skills
+
+| Skill | Class | Cost | Effect |
+|--|--|--|--|
+| **Energy Blast** | <Badge text="Standard" variant="note" /> | 50 EP | Ranged blasts. Every Energy Conduit starts with it, and its **damage can be upgraded** |
+| **Energy Special** | <Badge text="Ultimate" variant="caution" /> | 1 Special | **3× your Energy Power.** Start with **2**, **+1 per Tank upgrade**. Used Specials come back when your **tank is full** again |
+
+:::note[Skill tree coming soon]
+The Energy Conduit Skill Tree hasn't been moved over yet.
+:::

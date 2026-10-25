@@ -1,0 +1,84 @@
+---
+title: Physical Hazards
+sidebar:
+  order: 4
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import StatCard from '../../../../components/StatCard.astro';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+## <InlineIcon name="hazards/recoil" /> Recoil
+
+Having too much power without the body to handle it causes **Recoil**. Keep your stats balanced and you'll be fine.
+
+<CardGrid>
+  <Card title="The Rule">
+    Your <InlineIcon name="stats/strength" />**Strength**, <InlineIcon name="stats/speed" />**Speed** and <InlineIcon name="stats/defense" />**Defense** must all stay within **2 Sub-Tiers** of each other.
+
+    - Too much Defense: you can't lift yourself.
+    - Too much Speed: you become a human fireball.
+    - Too much Strength: you rip your arms off.
+  </Card>
+  <Card title="Examples">
+    <div class="hazard-table">
+
+    | | <InlineIcon name="stats/strength" /> | <InlineIcon name="stats/speed" /> | <InlineIcon name="stats/defense" /> |
+    |--|:--:|:--:|:--:|
+    | ✅ **Valid** | 7A | 8F | 8E |
+    | ❌ **Recoil** | 8D | 6E | 3B |
+
+    </div>
+  </Card>
+</CardGrid>
+
+### Recoil Levels
+
+The further a stat drifts from the others, the worse the Recoil: <Badge text="Lv 1 · 3 off" variant="note" /> <Badge text="Lv 2 · 4 off" variant="caution" /> <Badge text="Lv 3 · 5 off" variant="danger" />
+
+<StatCard stat="speed">
+  <div class="hazard-table">
+
+  | | ▲ Too high | ▼ Too low |
+  |--|--|--|
+  | <Badge text="Lv 1" variant="note" /> | **Muscle Irritation**<br/>−4 Power | **Mild Drain**<br/>−3 Power |
+  | <Badge text="Lv 2" variant="caution" /> | **Muscle Pain**<br/>−8 Power | **Fatigued**<br/>−6 Power |
+  | <Badge text="Lv 3" variant="danger" /> | **Extreme Muscle Pain**<br/>−16 Power | **Extreme Exhaustion**<br/>−9 Power |
+
+  </div>
+</StatCard>
+
+<StatCard stat="strength">
+  <div class="hazard-table">
+
+  | | ▲ Too high | ▼ Too low |
+  |--|--|--|
+  | <Badge text="Lv 1" variant="note" /> | **Strained Muscles**<br/>−5 Power | **Underutilized Muscle**<br/>−2 Power |
+  | <Badge text="Lv 2" variant="caution" /> | **Extremely Strained Muscles**<br/>−10 Power | **Decayed Muscles**<br/>−4 Power |
+  | <Badge text="Lv 3" variant="danger" /> | **Torn Muscles**<br/>−15 Power | **Atrophied Muscles**<br/>−9 Power |
+
+  </div>
+</StatCard>
+
+<StatCard stat="defense">
+  <div class="hazard-table">
+
+  | | ▲ Too high | ▼ Too low |
+  |--|--|--|
+  | <Badge text="Lv 1" variant="note" /> | **Trouble Moving**<br/>−3 Speed ⚔️ | **Movement Discomfort**<br/>−4 Strength & Speed ⚔️ |
+  | <Badge text="Lv 2" variant="caution" /> | **Great Movement Difficulty**<br/>−6 Speed ⚔️ | **Movement Pain**<br/>−8 Strength & Speed ⚔️ |
+  | <Badge text="Lv 3" variant="danger" /> | **Unable to Stand**<br/>Immobile | **Unbearable Movement**<br/>−12 Strength & Speed ⚔️ |
+
+  </div>
+
+  ⚔️ = only during combat
+</StatCard>
+
+---
+
+## <InlineIcon name="hazards/threshold" /> Physical Threshold
+
+Every body has a limit to how far it can be pushed. This is your **Physical Threshold**, also called your **Limiter**.
+
+:::note[Potential Traits]
+Your Physical Threshold is set by your **Potential Traits**. The higher your Potential, the higher the S.T.S Phases you can reach before you're stopped.
+:::

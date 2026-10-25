@@ -1,6 +1,47 @@
 ---
 title: Stats Explained
 sidebar:
-  order: 2
+  order: 3
 ---
-Lorum Ipsum
+import { CardGrid } from '@astrojs/starlight/components';
+import StatCard from '../../../../components/StatCard.astro';
+
+<CardGrid>
+  <StatCard stat="strength">
+   The Strength Stat represents your overall lifting strength. It tells you what you can lift over your head. From a Coffee Mug to a CAT 798 Mining Truck.
+   </StatCard>
+  <StatCard stat="speed">
+    The Speed Stat tracks the following 2:
+    - Movement Speed (How fast you move)
+    - Reflexes (What you can/cannot react to)
+    </StatCard>
+  <StatCard stat="power">
+   The Power Stat determines how hard you hit. It is a combination of the Strength and Speed Stat. Unlike the other stats, it is not a Tier and a Sub-Tier, but instead a numerical value.
+   <br/>
+   <center>
+   ## Formula: (Str + Speed)/2
+   </center>
+   :::tip[Pro Tip!]
+   Each Strength and Speed has a number value assigned to it. That is the number you use in the equation!
+   ::: 
+   </StatCard>
+  <StatCard stat="defense">
+   Defense is how durable you are. This stat plays hand in hand with power. Like Strength and Speed, Defense stats have a number value attached to them. This value represents the level of Power needed to harm that defense tier.
+   </StatCard>
+  <StatCard stat="stamina">
+   Stamina is an essential part of Singularity. Every task consumes Stamina, and as a result you need to manage it carefully. If you fail to manage your Stamina, bad things can and will happen!
+   </StatCard>
+  <StatCard stat="intelligence">
+    The Intelligence Stat represents your characters ability to comprehend concepts. A higher intelligence doesn’t mean that your character is automatically a know it all, but it does mean that your character can comprehend concepts easier than others. There are a total of <u>6 different intelligence levels</u>
+    <center>
+   - Below Average Intelligence
+   - Average Intelligence
+   - Above Average Intelligence
+   - Gifted Intelligence
+   - Genius Intelligence
+   - Super Genius Intelligence (Permission Only)
+   </center> 
+   
+   Unlike other stats, Intelligence implements a prestige system. Everyone starts at **average** intelligence. You can use your <u>STARTING</u> PTP's to upgrade your intelligence.  If you want a higher intelligence, you have to sacrifice 10 PTP to get to Above Average. If you want even higher, then you will need to sacrifice another 10 PTP's. This works in the reverse order as well. If you go with below average intelligence, you'll gain an extra 10 PTP.
+   </StatCard>
+</CardGrid>

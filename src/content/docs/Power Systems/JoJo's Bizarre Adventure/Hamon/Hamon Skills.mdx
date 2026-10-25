@@ -1,0 +1,65 @@
+---
+title: Hamon Skills
+description: Starter, Basic, Intermediate and Master Hamon techniques.
+sidebar:
+  label: Skills
+  order: 111
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+<Badge text="Standard" variant="note" /> regular skill · <Badge text="Ultimate" variant="caution" /> ultimate skill · **HP** = Hamon Points
+
+<Tabs>
+  <TabItem label="Starter">
+    *"You just started learning, don't expect to know a lot right away."*
+
+    Both are **passive** and come with Hamon.
+
+    | Skill | Effect |
+    |--|--|
+    | **Hamon Enhancements** | At **50+ HP**: **+5 Sub-Tiers** to <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed and <InlineIcon name="stats/defense" />Defense. Trade **10 HP → 5 Stamina**. |
+    | **Poison Resistance** | At **50+ HP**, most toxins are burnt out of your body. Stronger poisons need more HP. |
+  </TabItem>
+  <TabItem label="Basic">
+    *"You've got the basics down, but you've still got a long way to go!"*
+
+    | Skill | Class | Cost | Effect |
+    |--|--|--|--|
+    | **Ripple Beat** | <Badge text="Standard" variant="note" /> | 20 HP | Ripple chop: **+5 Power** |
+    | **Ripple Hair Attack** | <Badge text="Standard" variant="note" /> | Varies | Hardens hair. Defense: 10 HP **1A** · 20 HP **2A** · 30 HP **4A** · 40 HP **5A** · 50 HP **7A** (max) |
+    | **Repel** | <Badge text="Standard" variant="note" /> | 25 HP | Ripple shield: blocks attacks up to **2 tiers above** your Defense. Blocking up to **4 above** costs **50 HP** |
+    | **Overdrive** | <Badge text="Standard" variant="note" /> | 25 HP | Big Ripple pulse through an object: **AOE**, **+10 Power**. Base of other Overdrives |
+    | **Sendō Wave Kick** | <Badge text="Ultimate" variant="caution" /> | 83 HP | Knee strike: instant **L-Class 2 injury** to Vampires/Undead |
+    | **Rebuff Overdrive** | <Badge text="Ultimate" variant="caution" /> | 76 HP | Elbow strike: **+15 Power** |
+    | **Scarlet Overdrive** | <Badge text="Ultimate" variant="caution" /> | 60 HP | Flaming Ripple: **+15 Power**, sets the target on fire for **3 turns** (**18 damage/turn**). Flame can move to other body parts |
+    | **Ripple Overdrive** | <Badge text="Ultimate" variant="caution" /> | 100 HP | Chop that makes the struck body part **explode**: instant **L-Class 3 injury**, even on the living |
+    | **Sunlight Yellow Overdrive!** | <Badge text="Ultimate" variant="caution" /> | 150 HP | Single punch or barrage. **Obliterates** any Vampire/Undead regardless of resistance. Vs the living: **+25 Power** |
+  </TabItem>
+  <TabItem label="Intermediate">
+    *"Hm… I guess you are making some progress at least."*
+
+    | Skill | Class | Cost | Effect |
+    |--|--|--|--|
+    | **Ripple Cutter** | <Badge text="Standard" variant="note" /> | 36 HP | Spit Ripple-infused liquid that **cuts solid objects** and **deflects projectiles** |
+    | **Ripple Detector** | <Badge text="Standard" variant="note" /> | 15 HP | Ripple in a contained liquid lets you **sense surroundings and enemies through walls**, up to **50 m** |
+    | **Tornado Overdrive** | <Badge text="Standard" variant="note" /> | 75 HP | **Must be airborne.** Drill-like divebomb with Ripple-charged legs |
+    | **Sendō Ripple Overdrive** | <Badge text="Ultimate" variant="caution" /> | 175 HP | Ripple wave **through a solid object** (like a wall). Sends targets flying in a spiral. **Kills** Vampires/Undead |
+    | **Metal Silver Overdrive** | <Badge text="Ultimate" variant="caution" /> | 92 HP | Same as Sendō Ripple Overdrive, but **through metal** |
+    | **Turquoise Blue Overdrive** | <Badge text="Ultimate" variant="caution" /> | 109 HP | **Underwater** tempest that blasts enemies away and can drain a lake to **waist height** |
+  </TabItem>
+  <TabItem label="Master">
+    *"Welcome to the big leagues, kid!"*
+
+    | Skill | Class | Cost | Effect |
+    |--|--|--|--|
+    | **Forced Ripple Breathing** | <Badge text="Standard" variant="note" /> | 0 HP | Pinky-punch the diaphragm to **teach someone Hamon**. They briefly can't breathe, then heal. **Can fail** (rolled secretly) |
+    | **Ripple Hypnosis** | <Badge text="Standard" variant="note" /> | 80 HP | Hypnotize by kiss or touch. Target obeys and gets **+3 Sub-Tiers** to all stats except Intelligence. Can also **recover lost memories** |
+    | **Life Magnetism Overdrive** | <Badge text="Ultimate" variant="caution" /> | 75 HP | **Needs a Ripple partner.** Magnetize leaves into a giant **hang glider**. Can also restore life to plants |
+    | **Deep Pass Overdrive** | <Badge text="Ultimate" variant="caution" /> | **Everything** | Give **all your life energy** to another Ripple user. **You die.** They gain your full Hamon Gauge (e.g. 200 + 340 = 540) and your stats as **Tier Points** to spend on anything except Intelligence |
+  </TabItem>
+</Tabs>
+
+:::tip[Custom Techniques]
+Learn **every** Hamon skill to master Hamon. Then you can create your own **custom Hamon Techniques**.
+:::

@@ -1,0 +1,56 @@
+---
+title: Hamon
+description: What Hamon is, the Hamon Gauge, breathing posts, drawbacks and starting stats.
+sidebar:
+  label: Basics & Gauge
+  order: 110
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+**The Ripple** (波紋 *Hamon*) is the energy of **Sendō** (仙道, "Way of the Hermit"), an ancient martial art. Special breathing creates energy that works **like the Sun**. It can slow aging, and it's deadly in combat.
+
+:::note[Who can use it]
+Learnable in **the Mainland and the Outworld**, but only **Outworlders** can **start** with Hamon.
+:::
+
+## The Hamon Gauge
+
+Hamon Points (HP) are your fuel for Hamon Techniques, like Cursed Energy Points in JJK.
+
+<CardGrid>
+  <Card title="Breathing Post" icon="random">
+    To charge Hamon in combat, make a **Breathing Post**:
+    1. At least **4 sentences** long
+    2. **No attacking** or other actions during it
+
+    You gain HP equal to your **Charge Rate**.
+  </Card>
+  <Card title="Drain" icon="warning">
+    Hamon needs **constant breathing**. Every turn you go without a Breathing Post, you **lose HP** equal to your **Drain** rate.
+  </Card>
+</CardGrid>
+
+## Starting Stats
+
+```
+Hamon Gauge: 0/200
+Hamon Drain: 50 HP per post
+Hamon Charge Rate: 50 HP per Breathing Post
+Hamon Mastery: 0
+```
+
+## Drawbacks
+
+| Weakness | Effect |
+|--|--|
+| **Iron & steel** | Too strong for Hamon to affect |
+| **No breathing** | Gauge drains fast |
+| **NL-Class 3 to NL-Class 1 injury** | **−100** max Gauge and **−50** Charge Rate |
+| **L-Class 3+ injury** | Hamon is **completely lost**: it needs strong blood flow |
+
+## Hamon Techniques
+
+Hamon's combat applications come in skill classes. You start with the **Starter** skills, then must be **taught** the rest or learn them yourself. See [Hamon Skills](/SingularityV5/power-systems/jojos-bizarre-adventure/hamon/hamon-skills/).
+
+Hamon Points can also be traded for <InlineIcon name="stats/stamina" />**Stamina**: 10 HP → 5 Stamina.

@@ -1,0 +1,36 @@
+---
+title: Vampire Skills
+description: Fresh Vampire starter skills and Seasoned Vampire advanced skills.
+sidebar:
+  label: Skills
+  order: 121
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+<Tabs>
+  <TabItem label="Fresh (Starter)">
+    *"Heh, you're nothing… yet."*
+
+    | Skill | Class | BP Cost | Effect |
+    |--|--|--|--|
+    | **Enhanced Capabilities** | Passive | — | On turning: **+3 Primary Tiers and +3 Sub-Tiers** to all stats except <InlineIcon name="stats/intelligence" />Intelligence |
+    | **Blood Suck** | <Badge text="Standard" variant="note" /> | 0 | Fingers into the victim: **+20 BP per post**. Unlike Hamon, you **can use techniques while refilling** |
+    | **Regeneration** | <Badge text="Standard" variant="note" /> | 20 / 50 | Heals injuries that would kill, and can **control severed limbs**. **20 BP** per Non-Lethal, **50 BP** per Lethal injury |
+    | **Wall Crawling** | <Badge text="Standard" variant="note" /> | 0 | Crawl on walls and hang from ceilings |
+  </TabItem>
+  <TabItem label="Seasoned (Advanced)">
+    *"You've been at this for a while, but if you think you're the best… keep dreaming."*
+
+    All Seasoned skills are <Badge text="Ultimate" variant="caution" />.
+
+    | Skill | BP Cost | Effect |
+    |--|--|--|
+    | **Zombie Creation** | 0 | Turn the living or dead into **Zombies or Vampires**, with stats **one Tier below yours**. Always **weaker than and loyal to** you |
+    | **Space Ripper Stingy Eyes** | 30 | Pressurized fluid jets from the eyes: cuts stone columns and splits clouds |
+    | **Vaporization Freezing** | 35 | Freeze your body and transfer it by touch. A frozen victim gives a **free Auto-Hit**. **Counters Ripple** |
+    | **Fusion** | 0 | Graft organisms together, or put your **head on another body**. On a Hamon user's body you need fresh Hamon-infused blood from **their descendant**, or suffer **−4 Primary / −6 Sub-Tiers** |
+    | **Hypnosis** | 0 | Make people do your bidding (no stat boost). A Hamon user can **break it** by channeling Ripple through the victim |
+    | **Flesh Bud** | 55 | Vampire cells in the brain make the victim **completely loyal**. Ripple **can't safely destroy it**: the bud tries to **kill the host** if removed (removal is possible) |
+  </TabItem>
+</Tabs>

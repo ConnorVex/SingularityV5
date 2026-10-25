@@ -1,0 +1,26 @@
+/* Collapsible desktop sidebar, toggled by the logo in SiteTitle.astro. */
+@media (min-width: 50em) {
+	.sidebar-pane {
+		transition:
+			transform 0.25s ease,
+			visibility 0.25s;
+	}
+	.main-frame {
+		transition: padding-inline-start 0.25s ease;
+	}
+
+	:root[data-sidebar-collapsed] .sidebar-pane {
+		transform: translateX(-100%);
+		visibility: hidden;
+	}
+	:root[data-sidebar-collapsed][data-has-sidebar] {
+		--sl-content-inline-start: 0rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.sidebar-pane,
+	.main-frame {
+		transition: none;
+	}
+}

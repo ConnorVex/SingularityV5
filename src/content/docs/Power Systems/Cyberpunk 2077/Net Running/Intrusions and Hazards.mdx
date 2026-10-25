@@ -1,0 +1,55 @@
+---
+title: Intrusions & Hazards
+description: Bank and document intrusions, viruses and hostile Net Runners.
+sidebar:
+  label: Intrusions & Hazards
+  order: 323
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Intrusions
+
+<CardGrid>
+  <Card title="Bank Accounts" icon="star">
+    Most banks use the same encryption, so firewalls shouldn't stop you. Roll `1d10000`:
+
+    | Roll | Result |
+    |--|--|
+    | 0 – 5,000 | **Fail** |
+    | 5,001 – 7,000 | Success, **unsecure** line |
+    | 7,001+ | Success, **secure** line |
+
+    A **secure line** keeps less experienced Net Runners out of your intrusion.
+
+    **Then:** ping the account owner with how much you're stealing. They **must transfer it**. Big amounts might mean **retaliation**.
+  </Card>
+  <Card title="Corporate Documents" icon="open-book">
+    Attack a **corporation's** net and breach several **firewalls**.
+
+    - Each firewall gives you **3 rolls**. The thresholds are set when you start.
+    - **Fail 3 times:** locked out for **2 RPs**.
+    - Failed breaches can alert **anti-Net Running systems** or **guard Net Runners**.
+
+    **Get in** and you can access their **unsecured documents and files**. Try to make a profit.
+  </Card>
+</CardGrid>
+
+## Hazards
+
+<CardGrid>
+  <Card title="Viruses" icon="warning">
+    Malicious neural code that attacks your system. Most are easy to spot, but they slowly damage your neural net until you **flatline**.
+
+    You **can't remove them yourself**. Get scanned and cleaned at a **Ripperdoc**.
+  </Card>
+  <Card title="Hostile Net Runners" icon="error">
+    Likely to show up whether you're hacking or just roaming. They try to **siphon your info**.
+
+    | Attacker | To deflect |
+    |--|--|
+    | Regular | `1d100` ×3, **80+** on **2** rolls |
+    | **Corpo** | `1d100` ×3, **90+** on **all 3** |
+
+    **You can be the hostile one too.** Against another OC/Canon holder, you both roll `1d100` and **highest wins**.
+  </Card>
+</CardGrid>

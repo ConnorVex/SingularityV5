@@ -1,0 +1,95 @@
+---
+// Replaces Starlight's SiteTitle: the logo toggles the sidebar, the title links home.
+import { Image } from 'astro:assets';
+import logo from '../assets/singularity-logo.webp';
+
+const { siteTitle, siteTitleHref, hasSidebar } = Astro.locals.starlightRoute;
+---
+
+<div class="site-title-wrap sl-flex">
+	{
+		hasSidebar ? (
+			<button
+				type="button"
+				class="logo-button"
+				aria-controls="starlight__sidebar"
+				aria-expanded="true"
+				aria-label="Toggle sidebar"
+				data-sidebar-toggle
+			>
+				<Image src={logo} alt="" width={64} height={64} />
+			</button>
+		) : (
+			<a href={siteTitleHref} class="logo-button">
+				<Image src={logo} alt="" width={64} height={64} />
+			</a>
+		)
+	}
+	<a href={siteTitleHref} class="site-title" translate="no">{siteTitle}</a>
+</div>
+
+<script>
+	const desktop = matchMedia('(min-width: 50em)');
+	const root = document.documentElement;
+	const sidebar = document.getElementById('starlight__sidebar');
+
+	for (const button of document.querySelectorAll<HTMLButtonElement>('[data-sidebar-toggle]')) {
+		const sync = () => {
+			const open = desktop.matches
+				? !root.hasAttribute('data-sidebar-collapsed')
+				: !!sidebar?.matches(':popover-open');
+			button.setAttribute('aria-expanded', String(open));
+		};
+
+		button.addEventListener('click', () => {
+			if (desktop.matches) {
+				const collapsed = root.toggleAttribute('data-sidebar-collapsed');
+				try {
+					localStorage.setItem('sidebar-collapsed', collapsed ? '1' : '0');
+				} catch {}
+			} else {
+				// On phones, the logo opens Starlight's existing menu.
+				sidebar?.togglePopover();
+			}
+			sync();
+		});
+
+		sidebar?.addEventListener('toggle', sync);
+		desktop.addEventListener('change', sync);
+		sync();
+	}
+</script>
+
+<style>
+	.site-title-wrap {
+		align-items: center;
+		gap: var(--sl-nav-gap);
+		min-width: 0;
+	}
+	.logo-button {
+		display: flex;
+		flex-shrink: 0;
+		padding: 0;
+		border: 0;
+		background: none;
+		cursor: pointer;
+		border-radius: 0.5rem;
+		transition: transform 0.2s ease;
+	}
+	.logo-button:hover {
+		transform: rotate(-12deg) scale(1.05);
+	}
+	.logo-button img {
+		height: calc(var(--sl-nav-height) - 2 * var(--sl-nav-pad-y));
+		width: auto;
+	}
+	.site-title {
+		font-size: var(--sl-text-h4);
+		font-weight: 600;
+		color: var(--sl-color-text-accent);
+		text-decoration: none;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+</style>

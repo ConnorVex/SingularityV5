@@ -1,0 +1,17 @@
+---
+// A Starlight Card with one of the stat icons from public/icons/stats in its title.
+// Usage: <StatCard stat="strength">Text about the stat…</StatCard>
+import { Card } from '@astrojs/starlight/components';
+
+interface Props {
+	stat: 'strength' | 'speed' | 'power' | 'defense' | 'stamina' | 'intelligence';
+	/** Defaults to the stat name, capitalized. */
+	title?: string;
+}
+
+const { stat, title = stat.charAt(0).toUpperCase() + stat.slice(1) } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const iconTitle = `<img class="stat-icon" src="${base}/icons/stats/${stat}.svg" alt="" /> ${title}`;
+---
+
+<Card title={iconTitle}><slot /></Card>

@@ -1,0 +1,12 @@
+---
+// A small icon from public/icons that sits inside a line of text or a heading.
+// Usage: <InlineIcon name="stats/speed" /> or <InlineIcon name="hazards/recoil" />
+interface Props {
+	name: string;
+}
+
+const { name } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<img class="inline-icon" src={`${base}/icons/${name}.svg`} alt="" />

@@ -1,0 +1,53 @@
+---
+title: Karma System
+description: The Karma Bar, the Selfless and Selfish paths, their ranks and how you earn Karma.
+sidebar:
+  order: 220
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+A Conduit's **actions and state of mind** shape their powers. You walk the **Path of Selflessness** or the **Path of Selfishness**. The only variable? **You.**
+
+## The Karma Bar
+
+<CardGrid>
+  <Card title="How it fills" icon="random">
+    - Starts at **0**. Fill it with **Positive (PK)** or **Negative (NK)** Karma Points.
+    - First rank needs **100**, and every rank after needs **+30 more**.
+  </Card>
+  <Card title="Going against your path" icon="warning">
+    Once you lean one way, actions from the **other** side **subtract** from your bar.
+
+    *Example:* 50 PK, then you kill a civilian (10 NK), leaves you at **40 PK**.
+  </Card>
+</CardGrid>
+
+## The Two Paths
+
+| | Selflessness (Good) | Selfishness (Evil) |
+|--|--|--|
+| **Mindset** | Use your powers to **help others** | Humans are **inferior**: use your powers for **yourself** |
+| **Ranks** | Protector → Guardian → Champion → Paragon → **True Hero** | Thug → Criminal → Bio-Terrorist → Most Wanted → **Infamous** |
+| **Powers grow toward** | **Incapacitating** abilities | **Lethal** abilities |
+| **You lose** | **All lethality** by **Champion** | **All incapacitation** by **Bio-Terrorist** |
+
+## Earning Karma
+
+<CardGrid>
+  <Card title="Positive Karma (PK)" icon="approve-check">
+    | Action | PK |
+    |--|--|
+    | Rescue or heal a civilian | 5 |
+    | Stop a crime | 6 |
+    | Incapacitate a villain *(OC only)* | 10 |
+    | Incapacitate a **surrendering** villain *(OC only)* | 20 |
+  </Card>
+  <Card title="Negative Karma (NK)" icon="error">
+    | Action | NK |
+    |--|--|
+    | Kill a civilian | 10 |
+    | Commit a crime | 12 |
+    | Kill a hero/vigilante *(OC only)* | 20 |
+    | Kill a **surrendering** hero/vigilante *(OC only)* | 40 |
+  </Card>
+</CardGrid>

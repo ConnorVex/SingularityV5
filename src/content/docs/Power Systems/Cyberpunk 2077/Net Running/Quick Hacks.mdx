@@ -1,0 +1,44 @@
+---
+title: Quick Hacks
+description: Every Quick Hack with its RAM cost, timing and effect.
+sidebar:
+  label: Quick Hacks
+  order: 322
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+
+**Windup** = turns before it takes effect. **Duration** = how long it lasts. **CD** = cooldown.
+
+## Offensive
+
+| Hack | RAM | Windup | Duration | CD | Effect |
+|--|--|--|--|--|--|
+| **Blinded** | 2 | 2 | 2 | 4 | **Cyber-optics only.** Shuts off their optics: they're **blind** |
+| **Static Shock** | 3 | 5 | 1 | 8 | Electrical surge through their Cyberware: **stun**, giving you an **Auto-Hit** |
+| **Optical Flashbang** | 5 | 5 | 2 | 10 | **Multi-target.** Overloads audio and optical implants to **disorient** them, for a free **Auto-Hit** or an escape. If they're **jacked into the net**, their allies get it too |
+| **System Overload** | 8 | 5 | KO 4 | 15 | Fries their systems and **knocks them out**. Won't kill them |
+| **OS Hack** | 10 to start | 7 | — | 15 | Breaks into their **Operating System**, then spend more RAM on an option below |
+
+<CardGrid>
+  <Card title="OS Hack options" icon="random">
+    | Option | RAM | Duration | Effect |
+    |--|--|--|--|
+    | Cyberware Disable | 8 | 4 turns | Disables **all** their Cyberware (not their OS) |
+    | Optics Modification | 10 | 1 turn | Their optics can't see you: **invisible** to them |
+    | OS Shutdown | 20 | 5 turns | **Once per fight.** No Quick Hacks, no Sandevistan, Berserk disabled |
+  </Card>
+</CardGrid>
+
+## Defensive & Environmental
+
+<Badge text="D" variant="note" /> Defensive · <Badge text="E" variant="tip" /> Environmental
+
+| Hack | Type | RAM | Windup | Duration | CD | Effect |
+|--|--|--|--|--|--|--|
+| **Gun Jam** | <Badge text="D" variant="note" /> | 2 | Instant | 3 | 4 | Jams any gun with **cyber-enhancements** |
+| **Cyberware Jam** | <Badge text="D" variant="note" /> | 7 | 3 | 4 | 6 | Disables **2 Cyberware of your choice** (not their OS) |
+| **Implant Control** | <Badge text="D" variant="note" /> | 8 | 7 | 1 | 8 | Take over one of their implants: make their arm hit allies, trip their legs. **Puppets!** |
+| **Counter Quick Hack** | <Badge text="D" variant="note" /> | Their RAM **+2** | — | 1 | 2 | **Nullifies** an incoming Quick Hack. **Only during its windup** |
+| **Vehicle Hack** | <Badge text="E" variant="tip" /> | Free | Instant | Until you leave | — | Drive a vehicle forward or back, or **unlock it to steal it**. Some vehicles are immune |
+| **Camera Hack** | <Badge text="E" variant="tip" /> | Free | Instant | Forever | — | Control cameras, and **Quick Hack through them** at enemies you can't see |
+| **Turret Hack** | <Badge text="E" variant="tip" /> | 3 / 4 / 6 | Instant | Varies | — | **3 RAM:** control it manually (forever) · **4 RAM:** change its targeting (forever) · **6 RAM:** disable it for 4 turns |

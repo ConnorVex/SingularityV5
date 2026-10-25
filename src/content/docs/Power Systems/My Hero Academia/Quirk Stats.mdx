@@ -1,0 +1,46 @@
+---
+title: Quirk Stats
+description: Quirk Power and Quirk Range, with their upgrade costs.
+sidebar:
+  label: S.T.S | Quirk Stats
+  order: 801
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Power">
+    How strong your Quirk's **attacks and defense** are. Each level gives a value for **Standard** and **Ultimate** skills, plus the equivalent **tier**.
+
+    | Level | Standard | Ultimate | Upgrade cost |
+    |--|--|--|--|
+    | No Power (start) | 0 | 0 | — |
+    | Miniscule | 2 (1E) | 4 (1C) | 4 QUP |
+    | Puny | 6 (1A) | 8 (2E) | 5 QUP |
+    | Insignificant | 10 (2C) | 12 (2A) | 5 QUP |
+    | Trivial | 14 (3F) | 16 (3C) | 5 QUP |
+    | Meager | 18 (3A) | 20 (4E) | 8 QUP |
+    | Little | 25 (4A) | 30 (5B) | 10 QUP |
+    | Small | 35 (6C) | 40 (7D) | 10 QUP |
+    | Average | 45 (8E) | 50 (8S) | 12 QUP |
+    | <Badge text="Decent" variant="caution" /> | 52 (9E) | 57 (10F) | 12 QUP |
+    | <Badge text="Great" variant="caution" /> | 58 (10E) | 62 (10A) | 12 QUP |
+    | <Badge text="Plus Variant" variant="note" /> | 70 (12F) | 74 (12A) | 15 QUP |
+    | <Badge text="Maximum Variant" variant="note" /> | 76 (13F) | 80 (13A) | 15 QUP |
+    | <Badge text="Infinite Variant" variant="danger" /> | 81 (14+) | 81 (14+) | 20 QUP |
+
+    :::note[Locked levels]
+    - **Decent and Great** need the **Quirk Prodigy** trait.
+    - **Variant levels** need that [Variant](/SingularityV5/power-systems/my-hero-academia/quirk-variants/).
+    :::
+  </TabItem>
+  <TabItem label="Range">
+    How far your Quirk reaches, and the **Speed** needed to escape it.
+
+    | Range | Distance | Speed to escape | Upgrade cost |
+    |--|--|--|--|
+    | Physical (start) | 0 m | 3 Sub-Tiers above your opponent | — |
+    | Close | 1 – 5 m | 1A | 4 QUP |
+    | Medium | 10 – 15 m | 3E | 6 QUP |
+    | Long | 25+ m | 4E+ | 8 QUP |
+  </TabItem>
+</Tabs>

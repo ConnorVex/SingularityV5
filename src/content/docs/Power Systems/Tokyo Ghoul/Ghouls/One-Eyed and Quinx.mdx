@@ -1,0 +1,45 @@
+---
+title: One-Eyed Ghouls & Quinx
+description: The two Ghoul sub-species compared.
+sidebar:
+  label: One-Eyed & Quinx
+  order: 512
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+| | Regular Ghoul | One-Eyed Ghoul (隻眼の喰種) | Quinx (クインクス) |
+|--|--|--|--|
+| **What it is** | Born a Ghoul | A rare **human-Ghoul hybrid** with **one kakugan**. Most Ghouls think it's a **myth** | A **human** with a surgically implanted, **restrained** kakuhou |
+| **How to get it** | — | **Start as one:** <Badge text="Combo trait" variant="danger" /> · **Become one IRP:** a GM-approved event (e.g. a human receiving a Ghoul's organs), no trait needed | <Badge text="IRP only" variant="caution" />: made only by the **CCG**, usually as a death-sentence punishment |
+| **Starting stats** | 4C · Power 23 | **6B** · Power **36** | Random chance of a boost, or none |
+| **Physical gain multiplier** | 2× (+2 with traits) | **4×** (+4 with traits, e.g. 6× trait = **10×**) | — |
+| **Rc per Sub-Tier / Primary Tier** | 100 / 500 | **50 / 200** | — |
+| **Other Rc costs** | Normal | **−50 Rc** on everything except physical evolution | Normal |
+| **Rc lost per RP** | 18 | **8** | **13** |
+| **Starvation** | Yes | Yes | <Badge text="Immune" variant="success" /> At 0 Rc you just can't use your Kagune |
+| **Rc Tank** | 460, upgraded with GEP | 460, upgraded with GEP | Starts at **0** and **grows as you eat** (eat 500 = tank of 500) |
+| **Lifespan** | Normal | Normal | <Badge text="100 Roleplays" variant="danger" />, then natural death |
+
+*Stats shown for <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed, <InlineIcon name="stats/defense" />Defense and <InlineIcon name="stats/stamina" />Stamina.*
+
+## Quinx Frames
+
+A Quinx's kakuhou is coated in **quinque steel** and layered with **frames**. They **weaken** the Kagune but make it **easier to control**.
+
+<CardGrid>
+  <Card title="Frame penalties" icon="warning">
+    | Frame | Penalty on all boosts |
+    |--|--|
+    | Frame 1 | −2 Sub-Tiers |
+    | Frame 2 | −2 Sub-Tiers |
+    | Frame 3 | −2 Sub-Tiers |
+    | Frame 4 | −2 Sub-Tiers |
+    | Frame 5 | −2 Sub-Tiers |
+  </Card>
+  <Card title="Starting & removing frames" icon="approve-check">
+    A new Quinx starts with **all 5 frames**: **−10 Sub-Tiers** on all boosts.
+
+    Each **promotion** removes **1 frame** (+2 Sub-Tiers back). After 5 promotions, the Kagune is fully unrestrained.
+  </Card>
+</CardGrid>

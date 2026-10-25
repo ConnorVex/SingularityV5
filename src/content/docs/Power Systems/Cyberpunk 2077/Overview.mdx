@@ -1,0 +1,45 @@
+---
+title: Cyberpunk 2077
+description: Singularity's Cyberpunk 2077 system.
+sidebar:
+  label: Overview
+  order: 300
+---
+import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<Badge text="Difficulty: Moderate" variant="success" size="medium" /> <Badge text="Built for powerless builds" variant="tip" size="medium" />
+
+**Game made by** CD Projekt Red
+
+<CardGrid>
+  <Card title="Key Points" icon="star">
+    - **Cyberware** pushes your body **far beyond its limits**
+    - Designed for characters running a **powerless build**
+    - **Easy** to understand and use
+    - Cyberware is **easy to get on the Mainland**
+  </Card>
+  <Card title="Starting Stats" icon="pencil">
+    **Powered start** (you have powers):
+    ```
+    Street Cred: 0
+    Cyberware Amount: 0
+    ```
+
+    **Unpowered start** (no powers, unlocks the [Mastery System](/SingularityV5/power-systems/cyberpunk-2077/mastery-system/)):
+    ```
+    Street Cred: 0
+    XP: 0/100
+    Skill Points: 0
+    Cyberware Amount: 0
+    ```
+  </Card>
+</CardGrid>
+
+<CardGrid>
+  <LinkCard title="Cyberware" description="Slots, Ripperdocs, grades, tiers and items" href="/SingularityV5/power-systems/cyberpunk-2077/cyberware/" />
+  <LinkCard title="Cyberpsychosis" description="Rolls, stages and Immunosuppressants" href="/SingularityV5/power-systems/cyberpunk-2077/cyberpsychosis/" />
+  <LinkCard title="Net Running" description="OSes, RAM, Quick Hacks and Full Dives" href="/SingularityV5/power-systems/cyberpunk-2077/net-running/net-running-basics/" />
+  <LinkCard title="Fixers & Street Cred" description="Jobs and reputation" href="/SingularityV5/power-systems/cyberpunk-2077/fixers/" />
+  <LinkCard title="Mastery System" description="XP, levels and Skill Points" href="/SingularityV5/power-systems/cyberpunk-2077/mastery-system/" />
+  <LinkCard title="Canon Characters" description="Claimed characters" href="/SingularityV5/power-systems/cyberpunk-2077/canon-characters/" />
+</CardGrid>

@@ -1,0 +1,50 @@
+---
+title: Operating Systems
+description: Net Runner, Sandevistan and Berserk operating systems compared.
+sidebar:
+  label: Operating Systems
+  order: 321
+---
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+<Tabs>
+  <TabItem label="Net Runner OS">
+    Built for **Quick Hacking**. Higher tiers unlock more hacks, and every tier **keeps the hacks before it**.
+
+    | | Netwatch Netdriver MK1 | Biotech MK4 | Arasaka MK5 |
+    |--|--|--|--|
+    | **RAM discount** | −3 on Environmental & Defensive hacks | −2 on all hacks | −3 on all hacks (−1 if the hack costs over 3) |
+    | **Other passives** | Offensive hacks **don't alert** your target | All hacks deploy **2 turns faster** · OS Hack windup is **1 turn** (instead of 7) · Gun Jam lasts **+3 turns** · System Overload **permanently destroys** 1 Cyberware | OS Hack takes **+3 turns** on you · **Immune** to Cyberware Jam · Counter Quick Hack is **automatic** (Tier 4+) |
+    | **Tier 1** | Blinded, Camera Hack, Vehicle Hack | Camera Hack, Implant Control, Gun Jam | Camera Hack, OS Hack, Implant Control, Counter Quick Hack |
+    | **Tier 2** | Counter Quick Hack, Turret Hack, Gun Jam **(max)** | Counter Quick Hack, Turret Hack, Cyberware Jam | Vehicle Hack, Optical Flashbang, System Overload |
+    | **Tier 3** | — | Optical Flashbang, System Overload | Static Shock, Blinded, Gun Jam |
+    | **Tier 4** | — | Static Shock, Blinded **(max)** | Turret Hack |
+    | **Tier 5** | — | — | **Every Quick Hack (max)** |
+  </TabItem>
+  <TabItem label="Sandevistan OS">
+    **Slow Time:** speed up your neurons and body so the world slows down. Anyone below the **Speed to match** (and without a Sandevistan that keeps up) can be **auto-hit** while it's active.
+
+    | | Zetatech Sandevistan | Militech Falcon | Militech Apogee |
+    |--|--|--|--|
+    | **Time slowed** | 55% | 82% | 90% |
+    | **Power boost** | <InlineIcon name="stats/power" />+5 | +10 | +15 |
+    | **<InlineIcon name="stats/speed" />Speed to match** | 12F+ | 13F+ | 15F+ |
+    | **Duration** | 5 turns | 4 turns | 2 turns |
+    | **Cooldown** | 4 turns | 6 turns | 12 turns |
+    | **Passives** | **Immune** to Static Shock · OS Hack **+5 turns** · System Overload **+5 RAM** | **Immune** to System Overload · OS Hack **+3 turns** · **Auto-activates** when you're attacked faster than you can react (within its threshold): **+1 Auto-Dodge**, 10-turn cooldown | None |
+  </TabItem>
+  <TabItem label="Berserk OS">
+    **Berserk State** can't be turned on manually. It **activates automatically** once you take enough damage and stays on **until you're out of danger**, so you can take on stronger enemies or escape.
+
+    | | Zetatech Berserk | Militech Berserk |
+    |--|--|--|
+    | **Activates at** | NL-Class 2+ injury | NL-Class 1+ injury |
+    | **<InlineIcon name="stats/strength" />Strength** | +8 | +7 |
+    | **<InlineIcon name="stats/speed" />Speed** | +5 | +4 |
+    | **<InlineIcon name="stats/defense" />Defense** | +2 | +5 |
+    | **<InlineIcon name="stats/stamina" />Stamina** | +10 points | +15 points |
+    | **Recoil** | Temporarily immune | Temporarily immune |
+    | **Passives** | **Immune** to Implant Control & System Overload · OS Hack **+10 RAM** · Cyberware Jam **−2 turns** | **Immune** to OS Hack · System Overload **+10 RAM** · Optical Flashbang stun **−2 turns** · Cyberware Jam **+15 RAM** |
+  </TabItem>
+</Tabs>

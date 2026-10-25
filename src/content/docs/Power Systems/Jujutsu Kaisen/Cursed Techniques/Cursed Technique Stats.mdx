@@ -1,0 +1,69 @@
+---
+title: Cursed Technique Stats
+description: CT Power (Grade), CT Range and CT Efficiency.
+sidebar:
+  label: S.T.S | CT Stats
+  order: 21
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Every Cursed Technique has three stats. All start at a base value and must be **upgraded**.
+
+<Tabs>
+  <TabItem label="Power">
+    How potent your CT is. Works like your physical **Power** stat and is measured in **Grades**.
+
+    :::note
+    CT Grade is **not** the same as Sorcerer Grade.
+    :::
+
+    | Grade | Power |
+    |--|--|
+    | Below Grade 4 (start) | 5 |
+    | Grade 4 | 15 |
+    | Semi Grade 3 | 25 |
+    | Grade 3 | 35 |
+    | Semi Grade 2 | 40 |
+    | Grade 2 | 50 |
+    | Semi Grade 1 | 70 |
+    | Grade 1 | 120 |
+    | <Badge text="Special Grade" variant="danger" /> | 145+ |
+  </TabItem>
+  <TabItem label="Range">
+    The **maximum** reach of your CT's effects, and the Speed needed to escape it. A CT can always use **less** than its max range.
+
+    | Range | Distance | Speed to escape |
+    |--|--|--|
+    | Physical | 0 m | Combat dodge |
+    | Close | 1 – 5 m | 1A |
+    | Medium | 10 – 15 m | 3E |
+    | Long | 25+ m | 4E+ |
+    | <Badge text="Impossible" variant="caution" /> | 100 m | 6A+ |
+    | <Badge text="Heavenly" variant="danger" /> | Unknown | — |
+    | <Badge text="Unknown" variant="danger" /> | Unknown | — |
+  </TabItem>
+  <TabItem label="Efficiency">
+    How much CE **each use** of your CT costs.
+
+    :::danger[Not enough CE?]
+    You can use your CT **once per fight**. Using it again **kills you**.
+    :::
+
+    | Efficiency | CEP per use |
+    |--|--|
+    | Extremely Poor (start) | 30 |
+    | Very Poor | 29 |
+    | Poor | 25 |
+    | Subpar | 22 |
+    | Tolerable | 20 |
+    | Average | 18 |
+    | Decent | 16 |
+    | Adequate | 13 |
+    | Great | 10 |
+    | Amazing | 8 |
+    | Insane | 6 |
+    | Remarkable | 3 |
+    | <Badge text="Permission" variant="tip" /> Unparalleled | 1 |
+    | <Badge text="Permission" variant="tip" /> Terrifying | 0.5 |
+  </TabItem>
+</Tabs>

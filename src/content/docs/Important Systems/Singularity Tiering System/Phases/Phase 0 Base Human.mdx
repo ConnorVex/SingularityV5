@@ -1,0 +1,42 @@
+---
+title: "Phase 0: Base Human"
+description: Tiers 1 and 2 of the S.T.S.
+sidebar:
+  label: "Phase 0: Base Human"
+  order: 6
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Badge text="Potential: Any" variant="success" size="medium" /> <Badge text="Hop: 15 PTP" variant="note" size="medium" />
+
+**Value** is the number used in formulas (like Power = (Str + Speed) ÷ 2).
+
+<Tabs>
+  <TabItem label="Tier 1">
+    **Tier 1: Average**
+
+    | Rank | Value | Strength | Speed | Defense | Stamina |
+    |--|--|--|--|--|--|
+    | **1F** | 1 | Borderline crippled (0 KG) | 5 Km/h | The Sun is a deadly laser | 1 |
+    | **1E** | 2 | Childlike (5 – 10 KG) | 7 Km/h | Falling down a flight of stairs | 2 |
+    | **1D** | 3 | Average adult (16 – 25 KG) | 9 Km/h | Childlike durability | 5 |
+    | **1C** | 4 | Slightly above average adult (50 – 80 KG) | 12 Km/h | Average adult durability | 10 |
+    | **1B** | 5 | Above average adult (90 – 120 KG) | 14 Km/h | A car crash (over 12 kN) | 15 |
+    | **1A** | 6 | Athlete (140 – 160 KG) | 18 Km/h | A very, very small explosion (0.01 t TNT) | 18 |
+  </TabItem>
+  <TabItem label="Tier 2">
+    **Tier 2: Olympian**
+
+    | Rank | Value | Strength | Speed | Defense | Stamina |
+    |--|--|--|--|--|--|
+    | **2F** | 7 | 190 KG | 23 Km/h | A blow from a bear | 20 |
+    | **2E** | 8 | 200 KG | 25 Km/h | The weight of a horse | 22 |
+    | **2D** | 9 | 210 KG | 28 Km/h | The weight of a polar bear | 24 |
+    | **2C** | 10 | 220 KG | 32 Km/h | A blow from a novice boxer | 26 |
+    | **2B** | 11 | 222 KG | 35 Km/h | A blow from a sumo wrestler | 28 |
+    | **2A** | 12 | 225 KG | 40 Km/h | 2–3 blows from Muhammad Ali in his prime | 34 |
+    | **2S** | 13 | 230 KG | 45 Km/h | 2–3 blows from Iron Mike in his prime | 39 |
+  </TabItem>
+</Tabs>
+
+*Strength = how much you can lift. Defense = what you can withstand.*

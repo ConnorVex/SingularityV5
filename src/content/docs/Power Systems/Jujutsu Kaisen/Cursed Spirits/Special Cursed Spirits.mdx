@@ -1,0 +1,101 @@
+---
+title: Special Cursed Spirits
+description: Cursed Pests, Finger Bearers, Vengeful Cursed Spirits, Death Paintings and Disaster Curses.
+sidebar:
+  label: Special Cursed Spirits
+  order: 62
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Cursed Pests">
+    <CardGrid>
+      <Card title="Flyheads" icon="information">
+        <Badge text="Below Grade 4" variant="default" />
+
+        The **lowest** curse there is. Even a civilian who can see CE can exorcise one.
+
+        **In swarms**, they scramble the CE Perception of even great sorcerers, letting someone sneak up unseen.
+      </Card>
+      <Card title="Crawlers (Thumpers)" icon="warning">
+        <Badge text="Pest, but dangerous" variant="caution" />
+
+        A new species since the Singularity Event, like a large Old World mammal.
+
+        - **Very slow:** outrun by someone in a wheelchair
+        - **Very tough:** survives several hits from a Grade 1 sorcerer
+        - Jaws **snap off limbs**, and packs can **wipe out districts**
+
+        **Deal with any suspected Crawler immediately.**
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Finger Bearers">
+    <Badge text="Special Grade" variant="danger" />
+
+    A curse that eats one of **Ryomen Sukuna's fingers** turns into a Cursed Womb, then emerges as a Finger Bearer. **Experienced sorcerers only.**
+
+    <CardGrid>
+      <Card title="Can" icon="approve-check">
+        - Use **Cursed Extreme** levels of CE
+        - Easily wipe out groups of **Grade 3 and 2** sorcerers
+        - Fire powerful **CE blasts**
+        - Use the most **basic barrier techniques**
+      </Card>
+      <Card title="Can't" icon="error">
+        - Use **Cursed Techniques**
+        - Come close to Sukuna himself
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Vengeful">
+    <Badge text="Usually Special Grade" variant="danger" />
+
+    A **human who becomes a curse after death**. Rare, and they need **permission** to create unless an IRP event causes one.
+
+    <CardGrid>
+      <Card title="Regular Class" icon="random">
+        A human who dies and is **cursed**, usually bound to someone as a **tormentor or protector** (like Rika and Yuta).
+
+        **Sorcerer not killed with CE?** They can return as a curse:
+        - Monstrous form reflecting their **human desires**
+        - **Keeps** physical stats, CE Level, CT, CE skill, skills and memories
+        - **Loses** any extra abilities (left with the body)
+        - Automatically **Special Grade**
+      </Card>
+      <Card title="Imaginary Class" icon="open-book">
+        Born from **collective fear** of a rumor, myth, Yokai legend or ghost story. Scare enough people and one appears. *e.g. Kuchisaki-Onna.*
+
+        It has whatever powers **the legend says** it has.
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Death Paintings">
+    **Cursed Womb: Death Paintings** are Old World **Cursed Objects** made by **Kenjaku** from curse **and** human blood. Wombs **1–3** are the most dangerous. An unknown Curse User has **made more**…
+
+    <CardGrid>
+      <Card title="Finding one" icon="magnifier">
+        - Not natural: **single use**, gone forever once used
+        - Whereabouts **unknown**, rumored to be on the **Black Market**
+      </Card>
+      <Card title="Using one" icon="warning">
+        Implanted into a human, it creates a **half-human, half-curse**. Non-sorcerers can see them, and even experts struggle to tell if they're Curse Users or Cursed Spirits.
+
+        - **Wombs 1–3:** overwrite the host with **Choso, Eso or Kechizu**
+        - **Any other:** roll `1d20`, **17+** grants the Kamo Clan's **Blood Manipulation**
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Disaster">
+    <Badge text="Above Special Grade" variant="danger" />
+
+    Curses born from fear of **natural disasters**. Exceedingly rare, and they sit **above other Special Grades**. Only **Vengeful Cursed Spirits** rival them.
+
+    | Disaster | Status |
+    |--|--|
+    | Fire | Born |
+    | Tides | Born |
+    | Humanity | Born |
+    | Plants | <Badge text="Not born yet" variant="note" /> |
+  </TabItem>
+</Tabs>

@@ -1,0 +1,68 @@
+---
+title: Barrier Stats
+description: Domain Grade, Domain Range, Construction Speed, Simple Domain Grade and Domain Amplification Grade.
+sidebar:
+  label: S.T.S | Barrier Stats
+  order: 45
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Domain Grade">
+    How **refined and durable** your Domain is. Decides **Domain Clashes** and how hard it is to **break**.
+
+    Grade 4 *(start)* → Semi-Grade 3 → Grade 3 → Semi-Grade 2 → Grade 2 → Semi-Grade 1 → Grade 1 → Special Grade 1 → <Badge text="Special Grade" variant="danger" /> *(unique requirement)*
+  </TabItem>
+  <TabItem label="Range">
+    How far your Domain expands, measured in **channels**. It **can't be upgraded**: it depends on your **CE level**, since the barrier is built from CE.
+
+    | Your CE Level | Range | Covers |
+    |--|--|--|
+    | Vast – Expansive | Small | Part of one channel |
+    | Humongous – Insane | Decent | One whole channel |
+    | Mammoth – Massive | Average | Channel + 1 next door |
+    | Giant – Monumental | Great | Channel + 2 next door |
+    | Immense – Boundless | Amazing | Channel + 3 next door |
+    | Astronomical+ | Extreme | Channel + 4 next door |
+    | <Badge text="Open Domain" variant="caution" /> | — | The whole category, maybe more |
+  </TabItem>
+  <TabItem label="Construction Speed">
+    **Complete Domains only.** The outer barrier forms almost instantly, but the inside takes time. Your opponent can set up countermeasures until it's done. Then **Sure Hit activates**.
+
+    | Level | Turns to form |
+    |--|--|
+    | 0 (start) | 5 |
+    | 1 | 4 |
+    | 2 | 3 |
+    | 3 | 2 |
+    | 4 | 1 |
+    | Non-Lethal | Instant |
+  </TabItem>
+  <TabItem label="Simple Domain Grade">
+    How long your **Simple Domain** survives a Complete Domain.
+
+    Grade 4 *(start)* → Semi-Grade 3 → Grade 3 → Semi-Grade 2 → Grade 2 → Semi-Grade 1 → Grade 1
+
+    | Your SD Grade vs their Domain | Breaks after |
+    |--|--|
+    | 3+ below | 4 turns |
+    | 2 below | 6 turns |
+    | 1 below | 8 turns |
+    | Equal | 10 turns |
+    | Above | <Badge text="Never" variant="success" /> (as long as you maintain it) |
+  </TabItem>
+  <TabItem label="Amplification Grade">
+    How many CTs your **Domain Amplification** can absorb before it fills up. Each row is a separate limit, e.g. a Grade 3 DA can take **3** Grade 4 CTs, **or 2** Semi-Grade 3 CTs, **or 1** Grade 3 CT.
+
+    | DA Grade | G4 | SG3 | G3 | SG2 | G2 | SG1 | G1 |
+    |--|--|--|--|--|--|--|--|
+    | Grade 4 *(start)* | 1 | | | | | | |
+    | Semi-Grade 3 | 2 | 1 | | | | | |
+    | Grade 3 | 3 | 2 | 1 | | | | |
+    | Semi-Grade 2 | 4 | 3 | 2 | 1 | | | |
+    | Grade 2 | 5 | 4 | 3 | 2 | 1 | | |
+    | Semi-Grade 1 | 6 | 5 | 4 | 3 | 2 | 1 | |
+    | Grade 1 | 7 | 6 | 5 | 4 | 3 | 2 | 1 |
+    | Special Grade *(unobtainable)* | ? | ? | ? | ? | ? | ? | ? |
+  </TabItem>
+</Tabs>

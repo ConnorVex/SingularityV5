@@ -1,0 +1,75 @@
+---
+title: Devils
+description: What Devils are, their shared capabilities, Blood and Regeneration, and the four Devil classes.
+sidebar:
+  label: Basics & Classes
+  order: 410
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+**Devils** (悪魔 *Akuma*) are demons from **Hell** that embody a **human fear** and draw strength from it. **Any feared concept** can become a Devil.
+
+- **The more feared the concept, the stronger the Devil.** Death? Terrifying. A spray bottle? Not so much.
+- The Singularity didn't weaken Devils. They've only gotten **stronger**.
+
+## Shared Capabilities
+
+<CardGrid>
+  <Card title="Fear Empowerment" icon="rocket">
+    Devils grow stronger as **they or their concept** becomes more feared, and **weaker** if that fear fades. Stay feared to stay strong. See [Devil Evolution](/SingularityV5/power-systems/chainsaw-man/devils/devil-evolution/).
+  </Card>
+  <Card title="Corpse Possession" icon="random">
+    In life-or-death situations, possess a corpse to become a [Fiend or Hybrid](/SingularityV5/power-systems/chainsaw-man/devils/fiends-and-hybrids/). **Fiends are far more likely**: Devils think taking a human body is **disgusting**.
+  </Card>
+  <Card title="Reduced Form" icon="information">
+    Instead of a corpse, shrink into a **small, docile form** (usually an animal) with **greatly reduced** power. Avoid danger, recover, then return to your true form.
+  </Card>
+  <Card title="Reincarnation" icon="star">
+    Devils **can't be fully killed** unless their fear is erased from the world. When one dies, fear of its concept **dips** and it can't respawn. Once the dip ends it can come back, anywhere from **a few months to hundreds of years** later.
+  </Card>
+</CardGrid>
+
+## Blood & Regeneration
+
+<CardGrid>
+  <Card title="Blood Tank" icon="approve-check">
+    Blood Points (BP) are your **regeneration power** and your <InlineIcon name="stats/stamina" />**Stamina**. Keep full to last longer.
+
+    - Each class has its own **starting tank** and **max upgrade** value (table below). **Mundane** is lowest, **Primal** highest.
+    - Upgrade it with [Fear Points](/SingularityV5/power-systems/chainsaw-man/devils/devil-evolution/).
+
+    | Drink from | Gain |
+    |--|--|
+    | NPC | 10 BP |
+    | OC / Canon | 25 BP |
+  </Card>
+  <Card title="Regeneration" icon="warning">
+    **Cost: 160 BP.** Regenerate **nearly anything**, even if you're missing much of your body, as long as you're **alive** to drink.
+
+    Dead Devils can't drink, so they **can't revive**.
+  </Card>
+</CardGrid>
+
+## Devil Ability Power
+
+**Devil Ability Power (DAP)** is the **damage value of a Devil's powers**. It works like your physical **Power** stat, but for attacks that use the Devil's concept (fire from the Fire Devil, curses from the Curse Devil, and so on).
+
+- Each class starts at its own DAP (table below), and it rises when you go through **Metamorphosis**.
+- **Fiends** have their DAP **halved**. **Hybrids** use their contracted Devil's **full** DAP.
+
+## Devil Classes
+
+| Class | Starting Blood Tank | Max upgrade sets tank to | Starting DAP |
+|--|--|--|--|
+| <Badge text="Mundane" variant="default" /> | 170 BP | 300 BP | 5 |
+| <Badge text="Rational" variant="note" /> | 200 BP | 350 BP | 20 |
+| <Badge text="Irrational" variant="caution" /> | 230 BP | 400 BP | 40 |
+| <Badge text="Primal" variant="danger" /> | 270 BP | 450 BP | 80 |
+
+| Class | Fears it embodies | Power | Behavior |
+|--|--|--|--|
+| <Badge text="Mundane" variant="default" /> | Very **niche** fears | **Weakest.** Even a human can kill one easily | Sometimes aggressive, but mostly **hides** and spreads fear to evolve |
+| <Badge text="Rational" variant="note" /> | Fears people see as **reasonable** | A **huge** jump from Mundane | **Highly aggressive** |
+| <Badge text="Irrational" variant="caution" /> | **Irrational** fears, which are often more potent | Much stronger than Rational | — |
+| <Badge text="Primal" variant="danger" /> | Fears **shared by nearly all humans** | **Strongest**, nigh impossible to kill. Some can **banish people to Hell** | **Top of the hierarchy**: can order lower Devils around |

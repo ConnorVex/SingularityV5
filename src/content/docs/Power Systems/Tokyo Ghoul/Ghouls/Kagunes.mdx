@@ -1,0 +1,79 @@
+---
+title: Kagunes
+description: The Kagune predatory organ, every Rc type, and special Rc abilities.
+sidebar:
+  label: Kagunes
+  order: 511
+---
+import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+A **Kagune** (赫子, "red child") is a Ghoul's **predatory organ**, used for offense and defense. Deploying it **boosts you** and creates a **weapon made of Rc Cells**.
+
+<CardGrid>
+  <Card title="Getting your type" icon="random">
+    **Request a roll** in the Rolling Channel. Some types are **restricted** and can't be rolled.
+  </Card>
+  <Card title="Rc costs" icon="information">
+    Deploying costs Rc. **Retract it intact and you get that Rc back.** You only lose Rc if it's **severed** and you have to regenerate it.
+  </Card>
+</CardGrid>
+
+## Rc Types
+
+| Type | Availability | Deploy | Regen | Boosts | Recoil protection |
+|--|--|--|--|--|--|
+| **Ukaku** | <Badge text="Rolled" variant="success" /> | 100 | 100 | Speed **+8**, Defense **+4** | <Badge text="Yes" variant="success" /> |
+| **Koukaku** | <Badge text="Rolled" variant="success" /> | 263 | 300 | Shield **10B**, Speed **−5** | — |
+| **Bikaku** | <Badge text="Rolled" variant="success" /> | 350 | 400 | Speed **+5**, Defense **+5** | <Badge text="Yes" variant="success" /> |
+| **Ashiaku** | <Badge text="Rolled" variant="success" /> | 400 | 500 | Speed **+15** | <Badge text="Yes" variant="success" /> |
+| **Rinkaku** | <Badge text="Restricted" variant="danger" /> | 800 | 100 per tendril | Speed, Strength, Defense **+3** each, **+4 Striking Power** | — |
+| **Udeaku** | <Badge text="Restricted" variant="danger" /> | 850 | 500 per limb | Strength **+12** | <Badge text="Yes" variant="success" /> |
+| **Chimera** | <Badge text="Restricted" variant="danger" /> | Varies | Varies | Both parents' benefits | — |
+
+*Boosts are in Sub-Tiers.*
+
+<Tabs>
+  <TabItem label="Ukaku">
+    **Feather-like wings from the shoulders.** Very light: boosts your speed. Weak at melee, but fires **high-speed projectiles** that move with your speed.
+
+    **Hardening:** its Defense starts at **your Defense**, and each extra Defense Sub-Tier costs **+50 Rc**, so you can deflect attacks.
+  </TabItem>
+  <TabItem label="Koukaku">
+    **From the shoulder blade.** The **densest** Kagune. It reshapes into **shields** that absorb damage, or **sharp weapons**.
+
+    - **Shield Defense: 10B.** If your own Defense beats 10B, it adds **+4 Sub-Tiers** on top instead.
+    - **Heavy:** the **slowest** type, and you need **9A Strength** to lift it.
+  </TabItem>
+  <TabItem label="Bikaku">
+    **A tail from the tailbone.** The **balanced** type, for close and mid-range.
+
+    | Matchup | |
+    |--|--|
+    | vs **Koukaku** | <Badge text="Strong" variant="success" /> |
+    | vs **Ukaku** | <Badge text="Weak" variant="danger" /> (too fast) |
+    | vs **Rinkaku** | <Badge text="Strong" variant="success" />: fast enough to power through its brute force |
+  </TabItem>
+  <TabItem label="Ashiaku">
+    **New since the Singularity.** It comes from the tailbone like Bikaku, but **wraps around the legs**, evolved to **outrun super-speed investigators**. Ashiaku Ghouls catch prey and escape the CCG with ease.
+  </TabItem>
+  <TabItem label="Rinkaku">
+    **Tentacles from behind the waist.** One of the **most powerful** types and great at offense. Some users form **claws or blades**. Starts with **4+ tentacles**, and more grow with enough Rc.
+
+    - **Regen discount:** −50 Rc per tendril (only **2 Rc** if you're below 50 Rc)
+    - **Strong vs Koukaku**, **weak vs Bikaku** (it can sever tendrils easily)
+  </TabItem>
+  <TabItem label="Udeaku">
+    **The Ashiaku's "sister," new since the Singularity.** It evolved in Ghouls who survived **super-strong CCG investigators**. Forms around the **arms** from the forearms.
+
+    Massively boosts **lifting strength**: hurl huge objects to stop or kill pursuers and prey.
+  </TabItem>
+  <TabItem label="Chimera">
+    **Very rare.** Can appear in the **children of two Ghouls**, combining **both parents' benefits**.
+
+    **Cost (deploy and regen):** (mother's cost + father's cost) ÷ 2, **+200**.
+  </TabItem>
+</Tabs>
+
+:::tip[Special Rc Abilities]
+**Requires the Ghoulish Affinity trait.** Very rarely, a Kagune develops a **special ability**, much like a Cursed Energy Property.
+:::

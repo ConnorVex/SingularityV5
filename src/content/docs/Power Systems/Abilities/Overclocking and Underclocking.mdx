@@ -1,0 +1,64 @@
+---
+title: Overclocking & Underclocking
+description: Pushing an Ability past its limits, or lending its power to another Ability.
+sidebar:
+  label: Overclocking & Underclocking
+  order: 703
+---
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+<Tabs>
+  <TabItem label="Overclocking">
+    Push your ability to its **absolute limit** in a tough spot: a massive power surge that can overwhelm unprepared opponents.
+
+    **Unlock:** 100 AUP (per ability)
+
+    <CardGrid>
+      <Card title="While overclocked" icon="rocket">
+        - Ability Power becomes **Overclocked (115)**
+        - **+3 Sub-Tiers** to <InlineIcon name="stats/strength" />Strength, <InlineIcon name="stats/speed" />Speed and <InlineIcon name="stats/defense" />Defense
+        - **4 temporary Overclocked skills:** 2 Standard, 2 Ultimate
+      </Card>
+      <Card title="Afterwards" icon="warning">
+        - Ability Power **−3 levels** for 3 turns
+        - **−60 <InlineIcon name="stats/stamina" />Stamina**
+      </Card>
+    </CardGrid>
+
+    ### Instability
+
+    Overclocking makes your ability **unstable**, and it can **disappear forever**.
+
+    | | |
+    |--|--|
+    | Each turn overclocked | **+10** Instability (out of 100) |
+    | Each turn **not using** your ability | **−5** Instability |
+    | At **50+** | Roll `1d10` **every turn** you stay overclocked. **1–5:** nothing happens. **6–9:** you exit Overclock, **10-turn** cooldown. **10:** your ability's genes **disintegrate**: it's **gone permanently** |
+    | At **100** | **Permanent ability loss**, guaranteed |
+
+    | Upgrade | Effect | Cost |
+    |--|--|--|
+    | 1 | −2 Instability per turn | 25 AUP |
+    | 2 | −2 Instability per turn | 25 AUP |
+  </TabItem>
+  <TabItem label="Underclocking">
+    **Lend power from one ability to another** that suits the situation better. Made for users with **multiple active abilities**.
+
+    **Unlock:** 150 AUP (per ability), starting at Level 1
+
+    | Level | Power moved | Upgrade cost |
+    |--|--|--|
+    | 1 | 5 | — |
+    | 2 | 10 | 20 AUP |
+    | 3 | 15 | 20 AUP |
+    | 4 | 20 | 20 AUP |
+    | 5 | 25 | 40 AUP |
+
+    **Rules:**
+    - **1:1** transfer to **one** other ability only.
+    - The donor must actually **have** that much Power to spare.
+    - Lasts **5 turns**, then a **10-turn cooldown**.
+    - Can't be combined with **Overclocking** in either direction.
+  </TabItem>
+</Tabs>

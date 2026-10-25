@@ -1,0 +1,64 @@
+@font-face {
+	font-family: 'Anime Inept';
+	src: url('../assets/fonts/AnimeInept.otf') format('opentype');
+	font-display: swap;
+}
+
+/* Exo 2 for all regular text. */
+body {
+	font-family: 'Exo 2 Variable', sans-serif;
+}
+
+/* Center the big title at the top of every page. */
+h1#_top {
+	text-align: center;
+}
+
+/* Anime Inept for headings and the site name; body text keeps the default font. */
+h1,
+h2,
+h3,
+.site-title {
+	font-family: 'Anime Inept', sans-serif;
+}
+
+/* Custom icons in card titles, e.g. title='<img class="stat-icon" src="..." alt="" /> Strength'. */
+.sl-markdown-content .card .title img.stat-icon {
+	display: inline;
+	vertical-align: middle;
+	width: 1.6em;
+	height: 1.6em;
+	margin: 0;
+	flex-shrink: 0;
+}
+
+/* Icons inside text, tables and headings (see InlineIcon.astro). */
+.sl-markdown-content img.inline-icon {
+	display: inline;
+	vertical-align: middle;
+	width: 1.25em;
+	height: 1.25em;
+	margin: 0 0.15em 0 0;
+}
+
+/* Physical Hazards page: example and recoil tables fill the width. */
+.sl-markdown-content .hazard-table table {
+	display: table;
+	width: 100%;
+}
+/* Keep CardGrid columns equal: wide content (code blocks, tables) scrolls inside its card
+   instead of stretching its column and squashing the card next to it. */
+.sl-markdown-content .card-grid > * {
+	min-width: 0;
+}
+@media (min-width: 50rem) {
+	.sl-markdown-content .card-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+
+/* Keep badges like "Standard" or "Lv 1" on one line inside any table. */
+.sl-markdown-content table .sl-badge {
+	white-space: nowrap;
+}
+

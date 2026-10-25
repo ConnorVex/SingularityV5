@@ -1,0 +1,296 @@
+---
+// Interactive skill tree. Nodes are laid out in rows by how many requirements deep they are,
+// connected with lines, and can be clicked to plan a build (saved in the visitor's browser).
+// Usage: <SkillTree id="infamous-psychic" nodes={tree.nodes} />, with data from src/data/skill-trees/.
+interface Cost {
+	amount: number;
+	item: string;
+}
+interface SkillNode {
+	id: string;
+	label: string;
+	cost?: Cost[];
+	requires?: string[];
+	description?: string;
+	/** Already owned at the start (the root of the tree). */
+	start?: boolean;
+}
+interface Props {
+	/** Unique per tree; used as the key for the saved build. */
+	id: string;
+	nodes: SkillNode[];
+}
+
+const { id, nodes } = Astro.props;
+
+const byId = new Map(nodes.map((n) => [n.id, n]));
+const depths = new Map<string, number>();
+function depth(node: SkillNode): number {
+	if (!depths.has(node.id)) {
+		const reqs = (node.requires ?? []).map((r) => byId.get(r)).filter((n) => n !== undefined);
+		depths.set(node.id, reqs.length ? 1 + Math.max(...reqs.map(depth)) : 0);
+	}
+	return depths.get(node.id)!;
+}
+const rows: SkillNode[][] = [];
+for (const node of nodes) (rows[depth(node)] ??= []).push(node);
+
+const format = (n: number) => n.toLocaleString('en-US');
+---
+
+<div class="skill-tree not-content" data-tree={id}>
+	<div class="st-toolbar">
+		<p class="st-total" data-total>Click a node to plan it. Its requirements must be planned first.</p>
+		<button type="button" class="st-reset" data-reset>Reset</button>
+	</div>
+	<div class="st-scroll">
+		<div class="st-canvas" data-canvas>
+			<svg class="st-lines" data-lines aria-hidden="true"></svg>
+			{
+				rows.map((row) => (
+					<div class="st-row">
+						{row.map((node) => (
+							<button
+								type="button"
+								class:list={['st-node', { start: node.start }]}
+								data-node={node.id}
+								data-requires={(node.requires ?? []).join(',')}
+								data-cost={JSON.stringify(node.cost ?? [])}
+								aria-pressed={node.start ? 'true' : 'false'}
+								disabled={node.start}
+							>
+								<span class="st-label">{node.label}</span>
+								{node.cost?.length ? (
+									<span class="st-costs">
+										{node.cost.map((c) => (
+											<span class="st-cost">
+												{format(c.amount)} {c.item}
+											</span>
+										))}
+									</span>
+								) : (
+									node.start && <span class="st-costs"><span class="st-cost">Starting point</span></span>
+								)}
+								{node.description && <span class="st-desc">{node.description}</span>}
+							</button>
+						))}
+					</div>
+				))
+			}
+		</div>
+	</div>
+</div>
+
+<script>
+	type Cost = { amount: number; item: string };
+
+	for (const tree of document.querySelectorAll<HTMLElement>('.skill-tree')) {
+		const key = `skill-tree:${tree.dataset.tree}`;
+		const canvas = tree.querySelector<HTMLElement>('[data-canvas]')!;
+		const svg = tree.querySelector<SVGSVGElement>('[data-lines]')!;
+		const totalEl = tree.querySelector<HTMLElement>('[data-total]')!;
+		const nodes = [...tree.querySelectorAll<HTMLButtonElement>('[data-node]')];
+		const byId = new Map(nodes.map((n) => [n.dataset.node!, n]));
+		const requires = (n: HTMLElement) => (n.dataset.requires ? n.dataset.requires.split(',') : []);
+		const hint = totalEl.textContent;
+
+		let planned = new Set<string>();
+		try {
+			planned = new Set(JSON.parse(localStorage.getItem(key) ?? '[]'));
+		} catch {}
+		const save = () => {
+			try {
+				localStorage.setItem(key, JSON.stringify([...planned]));
+			} catch {}
+		};
+
+		const isOn = (n?: HTMLElement) => !!n && (n.classList.contains('start') || planned.has(n.dataset.node!));
+
+		// Unplanning a node also unplans everything that depends on it.
+		const unplan = (id: string) => {
+			planned.delete(id);
+			for (const n of nodes) if (planned.has(n.dataset.node!) && requires(n).includes(id)) unplan(n.dataset.node!);
+		};
+
+		const drawLines = () => {
+			svg.setAttribute('width', String(canvas.scrollWidth));
+			svg.setAttribute('height', String(canvas.scrollHeight));
+			let paths = '';
+			for (const node of nodes) {
+				for (const reqId of requires(node)) {
+					const req = byId.get(reqId);
+					if (!req) continue;
+					const x1 = req.offsetLeft + req.offsetWidth / 2;
+					const y1 = req.offsetTop + req.offsetHeight;
+					const x2 = node.offsetLeft + node.offsetWidth / 2;
+					const y2 = node.offsetTop;
+					const mid = (y1 + y2) / 2;
+					const on = isOn(req) && isOn(node);
+					paths += `<path class="${on ? 'on' : ''}" d="M${x1} ${y1} C${x1} ${mid}, ${x2} ${mid}, ${x2} ${y2}" />`;
+				}
+			}
+			svg.innerHTML = paths;
+		};
+
+		const render = () => {
+			const totals = new Map<string, number>();
+			for (const node of nodes) {
+				const on = isOn(node);
+				const available = requires(node).every((r) => isOn(byId.get(r)));
+				node.setAttribute('aria-pressed', String(on));
+				node.classList.toggle('available', !on && available);
+				node.classList.toggle('locked', !on && !available);
+				if (on && !node.classList.contains('start')) {
+					for (const c of JSON.parse(node.dataset.cost!) as Cost[]) {
+						totals.set(c.item, (totals.get(c.item) ?? 0) + c.amount);
+					}
+				}
+			}
+			totalEl.textContent = totals.size
+				? `Planned cost: ${[...totals].map(([item, n]) => `${n.toLocaleString('en-US')} ${item}`).join(' · ')}`
+				: hint;
+			drawLines();
+		};
+
+		for (const node of nodes) {
+			node.addEventListener('click', () => {
+				const id = node.dataset.node!;
+				if (planned.has(id)) unplan(id);
+				else if (node.classList.contains('available')) planned.add(id);
+				else return;
+				save();
+				render();
+			});
+		}
+		tree.querySelector('[data-reset]')!.addEventListener('click', () => {
+			planned.clear();
+			save();
+			render();
+		});
+
+		new ResizeObserver(drawLines).observe(canvas);
+		render();
+	}
+</script>
+
+<style>
+	.skill-tree {
+		margin-block: 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background: var(--sl-color-black);
+	}
+	.st-toolbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 0.75rem 1rem;
+		border-bottom: 1px solid var(--sl-color-gray-5);
+	}
+	.st-total {
+		margin: 0;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+	}
+	.st-reset {
+		flex-shrink: 0;
+		padding: 0.25rem 0.75rem;
+		border: 1px solid var(--sl-color-gray-4);
+		border-radius: 0.5rem;
+		background: none;
+		color: var(--sl-color-white);
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		cursor: pointer;
+	}
+	.st-reset:hover {
+		border-color: var(--sl-color-accent);
+	}
+	.st-scroll {
+		overflow-x: auto;
+	}
+	.st-canvas {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 2.5rem;
+		min-width: max-content;
+		padding: 1.5rem;
+	}
+	.st-lines {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		overflow: visible;
+	}
+	.st-lines :global(path) {
+		fill: none;
+		stroke: var(--sl-color-gray-4);
+		stroke-width: 2;
+	}
+	.st-lines :global(path.on) {
+		stroke: var(--sl-color-accent);
+		stroke-width: 3;
+	}
+	.st-row {
+		display: flex;
+		justify-content: center;
+		gap: 1.5rem;
+	}
+	.st-node {
+		/* No position here: node offsets must be measured against .st-canvas for the lines. */
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.35rem;
+		width: 12rem;
+		padding: 0.75rem;
+		border: 2px solid var(--sl-color-gray-4);
+		border-radius: 0.75rem;
+		background: var(--sl-color-gray-6);
+		color: var(--sl-color-white);
+		font: inherit;
+		text-align: center;
+		cursor: pointer;
+		transition:
+			border-color 0.15s,
+			background-color 0.15s,
+			opacity 0.15s;
+	}
+	.st-node.available:hover {
+		border-color: var(--sl-color-accent);
+	}
+	.st-node[aria-pressed='true'] {
+		border-color: var(--sl-color-accent);
+		background: var(--sl-color-accent-low);
+	}
+	.st-node.start {
+		cursor: default;
+	}
+	.st-node.locked {
+		opacity: 0.45;
+		cursor: not-allowed;
+	}
+	.st-label {
+		font-weight: 600;
+	}
+	.st-costs {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0.25rem;
+	}
+	.st-cost {
+		padding: 0.05rem 0.4rem;
+		border-radius: 0.35rem;
+		background: var(--sl-color-gray-5);
+		font-size: var(--sl-text-xs);
+		white-space: nowrap;
+	}
+	.st-desc {
+		font-size: var(--sl-text-xs);
+		color: var(--sl-color-gray-2);
+	}
+</style>

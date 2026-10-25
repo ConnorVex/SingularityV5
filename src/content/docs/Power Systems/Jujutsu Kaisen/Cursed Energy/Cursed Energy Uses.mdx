@@ -1,0 +1,51 @@
+---
+title: Cursed Energy Uses
+description: CE Perception, CE Enhancements and Divergent Fist.
+sidebar:
+  label: Uses
+  order: 13
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<CardGrid>
+  <Card title="CE Perception" icon="magnifier">
+    **Passive.** Anyone who uses CE can sense it: ominous presences, hotspots and other sorcerers. You can also **see Cursed Techniques**.
+
+    :::caution
+    If you **don't** use Cursed Energy, you can't defend against Cursed Techniques. They're a **guaranteed hit**.
+    :::
+  </Card>
+  <Card title="CE Enhancements" icon="approve-check">
+    Channel CE into an aura for **Temporary Physical Tiering Points (TPTP)**. Each TPTP moves a stat up **1 Sub-Tier**.
+
+    | | Cost |
+    |--|--|
+    | 1 TPTP | 10 CEP |
+    | Upkeep | 5 CEP / turn |
+    | Extra upkeep | +10 CEP / turn per 5 TPTP |
+  </Card>
+</CardGrid>
+
+## Divergent Fist
+
+**Divergent Fist** (逕庭拳 *Keitei Ken*), first used by Yuji Itadori. Your fist moves faster than your CE, so the CE lands a moment later: **two blows in one punch**.
+
+<CardGrid>
+  <Card title="When it happens" icon="information">
+    It's **involuntary**. It happens when:
+    - Speed is **4A+**, and
+    - CE Control is **Level 1**
+
+    It **disappears** once your CE Control levels up.
+  </Card>
+  <Card title="How it hits" icon="rocket">
+    - Second blow: your Power stat **+10 Power**
+    - Takes **1 turn** to come out
+    - **Slower** than your opponent: you get hit
+    - **Same speed:** both roll `1d50`, highest wins
+  </Card>
+</CardGrid>
+
+:::tip[Mastering Divergent Fist]
+With the **Sorcerer Supreme** trait, spend **25 CEUP** to use it on command. Also requires **CE Control Level 5**.
+:::

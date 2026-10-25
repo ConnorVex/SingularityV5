@@ -1,0 +1,81 @@
+---
+title: Hand Signs
+description: How Hand Signs work and what each one does.
+sidebar:
+  order: 33
+---
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Hand Signs are seals made with your hands and fingers that boost your CE while held. On their own the boosts are **minor**. They shine with [Chants](/SingularityV5/power-systems/jujutsu-kaisen/chants/) and are mainly used to open your **Innate Domain**.
+
+<CardGrid>
+  <Card title="Learning & using" icon="open-book">
+    - **Learn one** by seeing it cast.
+    - **Use one** by posting yourself performing it. Effects apply right away and last while you hold it.
+    - **No penalty** if it's disrupted.
+  </Card>
+  <Card title="Custom signs" icon="pencil">
+    You can create a **custom Hand Sign for your Domain**, but only the signs below have special effects.
+  </Card>
+</CardGrid>
+
+<Tabs>
+  <TabItem label="Taishakuten-in">
+    *Indra, the strongest god. Confidence in your own strength.*
+
+    **Alone:**
+    - CT **+2 Grades** (max G1)
+    - CT cost **−18 CEP**
+
+    **With chants that don't require it:**
+    - Chant CE penalty **−20 CEP**
+    - CT penalties over 6 turns are cut to **6 turns**
+    - **Conservation:** efficiency becomes **0.5** instead of 0.9
+    - **Unchaining:** needs **4 words** instead of 6 · on failure, CT locked **2 turns** instead of 4
+  </TabItem>
+  <TabItem label="Enma Ten-In">
+    *Enma Ten, King of Hell. Giving up your humanity for power.*
+
+    **Alone:**
+    - CT cost **−10 CEP**
+    - CT Range **+2 levels**
+    - CT **+1 Grade** (max G1)
+
+    **With chants that don't require it:**
+    - Turn-based chant penalties are set to **exactly 6 turns** (longer ones shortened, shorter ones lengthened)
+    - **Unchaining:** CT boost **+2 more** (max G1) · **no 2× CE cost** · needs **4 words** instead of 6
+  </TabItem>
+  <TabItem label="Daikokuten-in">
+    *Daikokuten / Shiva. Destruction and creation always follow each other.*
+
+    **Alone:**
+    - CT cost **−10 CEP**
+    - CE Output **+2 levels**
+    - For one turn, one CT attack at **+8 Sub-Tiers** of Speed
+
+    **With chants that don't require it:**
+
+    | Chant | Effect |
+    |--|--|
+    | Conservation | −10 CEP · only **2 words** · **1 word** per post |
+    | CT Rejuvenation | −50 CEP · per-post limit **3 → 4** · failure loss −50 CEP · lockout **−6 turns** |
+    | Domain Rejuvenation *(needs Extra Arms)* | −150 CEP · words **6 → 3** · Domain and chant-cost penalties only last **this CRP** |
+  </TabItem>
+  <TabItem label="Nyorai-In + Kujaku Myoo-in">
+    *The endless cycle of birth and rebirth, and loyalty.*
+
+    :::caution[Requires the Extra Arms trait]
+    These two must be used **together**. One alone does nothing.
+    :::
+
+    **Alone:** where these really shine.
+    - CT Efficiency **+3 levels**
+    - CT Output **+3 levels**
+    - CT Strength **+3 levels**
+    - CT Range **+3 levels**
+
+    Effects last **5 turns after** you release the sign.
+
+    **With chants:** chant costs **−24 CEP**. That's all.
+  </TabItem>
+</Tabs>

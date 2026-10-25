@@ -1,0 +1,75 @@
+---
+title: Cursed Spirit Creation
+description: Hotspots, the Cursed Womb, and starting stats for each Curse grade.
+sidebar:
+  label: Creation & Starting Stats
+  order: 61
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../../components/InlineIcon.astro';
+
+## Cursed Energy Hotspots
+
+When enough CE pools in one area, a **Hotspot** forms: a large zone where natural CE flow is greatly boosted. **This is where curses are born.**
+
+<CardGrid>
+  <Card title="Using a Hotspot" icon="approve-check">
+    Curses **and** sorcerers inside get **+10 CEP every 2 turns**.
+
+    Hotspots **can run dry**. Use up every point and it dissipates as natural CE flow returns.
+  </Card>
+  <Card title="Hotspot Grades" icon="list-format">
+    | Grade | CE stored |
+    |--|--|
+    | Small | 200 CEP |
+    | Medium | 400 CEP |
+    | Large | 600 CEP |
+    | Immense | 800 CEP |
+    | Gargantuan | 1,500 CEP |
+  </Card>
+</CardGrid>
+
+## The Cursed Womb
+
+Every curse starts as a **Cursed Womb** in a hotspot, slowly absorbing CE (faster over time). When it has enough, it **emerges**. Total CE absorbed sets its **Grade and CE Level**.
+
+<CardGrid>
+  <Card title="CE gained (real-life days)" icon="random">
+    | Days as a Womb | Gain |
+    |--|--|
+    | Days 1 – 2 | +10 CEP / day |
+    | Days 3 – 4 | +20 CEP / day |
+    | Day 5 | +50 CEP |
+    | Day 6+ | +100 CEP / day |
+  </Card>
+  <Card title="Grade on emerging" icon="star">
+    | CE absorbed | Grade |
+    |--|--|
+    | 10 – 100 | Grade 4 |
+    | 101 – 200 | Grade 3 |
+    | 201 – 400 | Grade 2 |
+    | 401 – 699 | Grade 1 |
+    | 700+ | <Badge text="Special Grade" variant="danger" /> |
+  </Card>
+</CardGrid>
+
+## Starting Stats by Grade
+
+Your **CE Level** is always *Cursed Spirit (the CE you absorbed)*, and you start with **0 CEUP / 0 CTUP**.
+
+| | Grade 4 | Grade 3 | Grade 2 | Grade 1 | Special Grade |
+|--|--|--|--|--|--|
+| <InlineIcon name="stats/strength" /><InlineIcon name="stats/speed" /><InlineIcon name="stats/defense" /> Str / Spd / Def | 1A | 2S | 3A | 8S | 18C |
+| <InlineIcon name="stats/power" />Power | 6 | 13 | 18 | 50 | 109 |
+| <InlineIcon name="stats/intelligence" />Intelligence | Average | Average | Average | Above Average | Gifted |
+| CE Output | Extremely Poor | Poor | Poor | Amazing | Maximum |
+| CE Control | Lv 1 | Lv 1 | Lv 3 | Lv 3 | Lv 5 |
+| RP2RP Recharge | Lv 1 | Lv 1 | Lv 3 | Lv 3 | Lv 4 |
+| Complete Recharge | Lv 1 | Lv 1 | Lv 3 | Lv 3 | Lv X |
+| **Cursed Technique** | — | — | Innate | Innate | Innate |
+| CT Power | — | — | Grade 2 | Grade 1 | Special Grade |
+| CT Range | — | — | Medium | Medium | Medium |
+| CT Efficiency | — | — | Extremely Poor | Extremely Poor | Remarkable |
+| Extensions | — | — | Up to 2 | Up to 2 | Up to 4 |
+
+CT Class is your choice: **General, Shikigami or Support**.

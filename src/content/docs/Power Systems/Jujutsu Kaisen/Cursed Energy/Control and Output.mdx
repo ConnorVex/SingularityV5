@@ -1,0 +1,51 @@
+---
+title: Cursed Energy Control & Output
+description: CE Control levels, leakage, and CE Output levels.
+sidebar:
+  label: Control & Output
+  order: 12
+---
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Cursed Energy Control
+
+You start with little to no control. Neglecting it locks you out of parts of Jujutsu and hurts you in combat.
+
+<CardGrid>
+  <Card title="Readable attacks" icon="magnifier">
+    Opponents can **read your attacks** from your CE flow before you throw them. In some situations this allows **Auto-Dodging**.
+  </Card>
+  <Card title="CE Leakage" icon="warning">
+    At **Stunted+** CE, you leak **10 CEP per turn** of combat or training.
+  </Card>
+</CardGrid>
+
+| Level | Effect |
+|--|--|
+| 0 (start) | Full leakage, readable attacks |
+| 1 | −2 CEP leakage |
+| 2 | −2 CEP leakage · opponents **can't read** your attacks |
+| 3 | −2 CEP leakage · unlocks **CE Re-Enforcement** skill |
+| 4 | −2 CEP leakage |
+| 5 | **No more leakage** · can use **Barrier Techniques** (if plausible) |
+
+## Cursed Energy Output
+
+Output is how much CE you can unleash at once to **boost your attacks**. Each boosted attack **spends** the CEP listed. More CE lets you reach higher output.
+
+| Output | CEP Spent | Power Bonus |
+|--|--|--|
+| None (start) | — | — |
+| Extremely Poor | 5 | +0.1 |
+| Poor | 10 | +0.5 |
+| Miniscule | 15 | +1 |
+| Small | 20 | +2 |
+| Average | 25 | +3 |
+| Above Average | 30 | +4 |
+| Good | 35 | +5 |
+| High | 40 | +6 |
+| Amazing | 45 | +7 |
+| Extremely High | 50 | +8 |
+| Intense | 55 | +9 |
+| Immense | 60 | +10 |
+| Maximum | 100 | +15 |

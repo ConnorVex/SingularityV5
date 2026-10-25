@@ -1,0 +1,47 @@
+---
+title: Ability Stats
+description: Ability Power and Ability Range, with their upgrade costs.
+sidebar:
+  label: S.T.S | Ability Stats
+  order: 701
+---
+import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+
+<Tabs>
+  <TabItem label="Power">
+    How strong your ability's **attacks and defense** are. Each level gives a value for **Standard** and **Ultimate** skills, plus the equivalent **tier**.
+
+    | Level | Standard | Ultimate | Upgrade cost |
+    |--|--|--|--|
+    | No Power (start) | 0 | 0 | — |
+    | Miniscule | 2 (1E) | 4 (1C) | 5 AUP |
+    | Puny | 6 (1A) | 8 (2E) | 5 AUP |
+    | Insignificant | 10 (2C) | 12 (2A) | 10 AUP |
+    | Trivial | 14 (3F) | 16 (3C) | 10 AUP |
+    | Meager | 18 (3A) | 20 (4E) | 15 AUP |
+    | Little | 25 (4A) | 30 (5B) | 15 AUP |
+    | Small | 35 (6C) | 40 (7D) | 20 AUP |
+    | Average | 45 (8E) | 50 (8S) | 20 AUP |
+    | Decent | 60 (10C) | 70 (12E) | 25 AUP |
+    | Vast | 80 (13A) | 90 (15D) | 25 AUP |
+    | Immense | 100 (17F) | 100 (17F) | 40 AUP |
+    | <Badge text="Colossal" variant="caution" /> | 110 (18B) | 120 (20D) | 50 AUP |
+    | <Badge text="Peak" variant="caution" /> | 125 (21E) | 130 (22F) | 50 AUP |
+    | <Badge text="Apex" variant="danger" /> | 136 (22S) | 136 (22S) | 100 AUP |
+
+    :::note[Enhanced levels]
+    **Colossal, Peak and Apex** are only available with the **BIO-KING** trait.
+    :::
+  </TabItem>
+  <TabItem label="Range">
+    How far your ability reaches, and the **Speed** needed to escape it.
+
+    | Range | Distance | Speed to escape | Upgrade cost |
+    |--|--|--|--|
+    | Physical (start) | Touch | 3 Sub-Tiers above your opponent | — |
+    | Close | 5 – 10 m | 2A | 15 AUP |
+    | Medium | 20 – 30 m | 4C | 30 AUP |
+    | Long | 45 – 65 m | 6E | 45 AUP |
+    | Extremely Long | 80+ m | 6C+ | 80 AUP |
+  </TabItem>
+</Tabs>

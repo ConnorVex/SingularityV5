@@ -1,0 +1,122 @@
+---
+title: Heavenly Restriction
+description: The four Heavenly Restriction classes and what each one gives and takes.
+sidebar:
+  order: 51
+---
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import InlineIcon from '../../../../components/InlineIcon.astro';
+
+**Heavenly Restriction** (天与呪縛 *Ten'yo Jubaku*) is a Binding Vow placed on you **at birth**. Nobody knows where it comes from. It's extremely rare and can **help or hinder** you.
+
+<CardGrid>
+  <Card title="How to get one" icon="star">
+    - Get **permission**, or
+    - **Try out** for an existing one, or create your own. Approved custom restrictions are added here for everyone, cementing you in server history.
+  </Card>
+  <Card title="Warning" icon="warning">
+    Having one **permanently locks you out** of other power systems.
+  </Card>
+</CardGrid>
+
+<Tabs>
+  <TabItem label="Physical">
+    **A fragile egg.** Everything hurts, sunlight burns your skin, and you **can't walk**: you're confined to one place. Any physical confrontation is **certain death**.
+
+    <CardGrid>
+      <Card title="Your body">
+        | Stat | Value |
+        |--|--|
+        | <InlineIcon name="stats/strength" />Strength | 1G |
+        | <InlineIcon name="stats/speed" />Speed | 1G |
+        | <InlineIcon name="stats/power" />Power | −1 |
+        | <InlineIcon name="stats/defense" />Defense | 1G |
+        | <InlineIcon name="stats/stamina" />Stamina | 1G |
+      </Card>
+      <Card title="What you gain">
+        - **Heavenly CE Level:** 12,000 CEP
+        - Start at **CE Control Level 5**
+        - **Heavenly Output:** +20 Power (CT only, not physical)
+        - **Heavenly Range:** your CT is part of the Mainland's CE Field and reaches **all Mainland territories**
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Cursed Energy">
+    The opposite: you lose **every ounce of Cursed Energy**, but your body is freed from its shackles, making you **better than a non-sorcerer**. *Toji Fushiguro, Maki Zen'in (post-Shibuya).*
+
+    You **lose access** to other ability systems like Quirks or Pyrokinetics.
+
+    <CardGrid>
+      <Card title="Starting stats">
+        | Stat | Value |
+        |--|--|
+        | <InlineIcon name="stats/strength" />Strength | 13F |
+        | <InlineIcon name="stats/speed" />Speed | 13F |
+        | <InlineIcon name="stats/power" />Power | ??? |
+        | <InlineIcon name="stats/defense" />Defense | 13F |
+        | <InlineIcon name="stats/stamina" />Stamina | 13F |
+        | <InlineIcon name="stats/intelligence" />Intelligence | Gifted |
+
+        Plus **9 Physical Tiering Points** to build your perfect Heavenly.
+      </Card>
+      <Card title="What you gain">
+        - **Enhanced Senses:** perceive curses without CE
+        - **Soul Sense:** use weapons like the **Soul Split Katana**
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Twins">
+    :::note
+    Requires **another OC holder** as your twin.
+    :::
+
+    Twins from a sorcerer family are a **bad omen**: each one holds the other back until **one of them dies**.
+
+    <CardGrid>
+      <Card title="Cursed Twin">
+        Has a CT, but barely any CE.
+        - **CE Level:** Heavenly Twin (5 CEP)
+        - **CT Efficiency:** Heavenly Twin (5 CEP per use)
+
+        **If the Physical Twin dies:** you get the **Physical Restriction benefits** without its weakness.
+      </Card>
+      <Card title="Physical Twin">
+        No CT, but a stronger body.
+
+        | Stat | Value |
+        |--|--|
+        | <InlineIcon name="stats/strength" />Strength | 6F |
+        | <InlineIcon name="stats/speed" />Speed | 6F |
+        | <InlineIcon name="stats/power" />Power | 32 |
+        | <InlineIcon name="stats/defense" />Defense | 6F |
+        | <InlineIcon name="stats/stamina" />Stamina | 6F |
+        | <InlineIcon name="stats/intelligence" />Intelligence | Above Average |
+
+        **If the Cursed Twin dies:** you get the **Cursed Energy Restriction**.
+      </Card>
+    </CardGrid>
+  </TabItem>
+  <TabItem label="Equilibrium">
+    A newer class appearing on the Mainland, representing **eternal balance**. You can hold a CT, but your **body is tied to your CE**.
+
+    <CardGrid>
+      <Card title="Your physical phase">
+        Set by your **CE Level class**. You permanently get the **middle stats** of that phase.
+
+        | CE Class | Phase |
+        |--|--|
+        | Common | Phase 0 |
+        | Uncommon – Rare | Phase 1 |
+        | Legendary | Phase 2 |
+        | Mythical | Phase 3 |
+      </Card>
+      <Card title="Losing CE weakens you">
+        Applies to Strength, Speed, Defense and Stamina:
+        - First 30 CEP lost: **−2 Sub-Tiers** per 10 CEP
+        - After 30 CEP lost: **−4 Sub-Tiers** per 10 CEP
+        - Restored when your CE is.
+        - **0 CE:** you pass out, like running out of Stamina.
+      </Card>
+    </CardGrid>
+  </TabItem>
+</Tabs>

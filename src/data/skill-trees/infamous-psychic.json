@@ -1,0 +1,45 @@
+{
+	"nodes": [
+		{ "id": "psychic-conduit", "label": "Psychic Conduit", "start": true },
+		{ "id": "phase-5-base", "label": "Phase 5 (BASE)", "start": true, "requires": ["psychic-conduit"] },
+		{
+			"id": "phase-4-upgrade",
+			"label": "Phase 4 Upgrade",
+			"cost": [
+				{ "amount": 50, "item": "Blast Shards" },
+				{ "amount": 5, "item": "Blast Cores" }
+			],
+			"requires": ["phase-5-base"]
+		},
+		{
+			"id": "phase-3-upgrade",
+			"label": "Phase 3 Upgrade",
+			"cost": [
+				{ "amount": 100, "item": "Blast Shards" },
+				{ "amount": 50, "item": "Blast Cores" },
+				{ "amount": 5, "item": "Core Relays" }
+			],
+			"requires": ["phase-4-upgrade"]
+		},
+		{
+			"id": "phase-2-upgrade",
+			"label": "Phase 2 Upgrade",
+			"cost": [
+				{ "amount": 150, "item": "Blast Shards" },
+				{ "amount": 100, "item": "Blast Cores" },
+				{ "amount": 15, "item": "Core Relays" }
+			],
+			"requires": ["phase-3-upgrade"]
+		},
+		{
+			"id": "phase-x-upgrade",
+			"label": "Phase X Upgrade",
+			"cost": [
+				{ "amount": 250, "item": "Blast Shards" },
+				{ "amount": 200, "item": "Blast Cores" },
+				{ "amount": 30, "item": "Core Relays" }
+			],
+			"requires": ["phase-2-upgrade"]
+		}
+	]
+}

@@ -1,0 +1,52 @@
+---
+title: Fiends & Hybrids
+description: The two Devil sub-species compared.
+sidebar:
+  label: Fiends & Hybrids
+  order: 412
+---
+import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
+
+| | Fiend (魔人 *Majin*) | Hybrid (悪魔人間 *Akuma-ningen*) |
+|--|--|--|
+| **What it is** | A **Devil piloting a corpse**, a desperate last resort | A **living human** merged with a Devil through an ultra-rare contract |
+| **Personality** | If enough of the brain survives, the Devil's and human's personalities **mix** | Stays **fully human** and transforms at will |
+| **How to spot one** | Sudden **physical changes on the head** | — |
+| **Physical stats** | **Halved** (e.g. 6A becomes 3A) | Normal human stats, **boosted when transformed** |
+| **Devil Ability Power** | **Halved** | **Same** as the Devil's |
+| **Blood Gauge** | **Halved**, can't be upgraded | **350 BP**, fixed |
+| **Healing** | Heals **all** injuries for **5.8 BP** | **50 BP** per injury |
+| **Contracts** | <Badge text="Can't make them" variant="danger" /> | — |
+| **On death** | Reborn in Hell as the **true Devil**, with no memories | **Functionally immortal** while the source of their Devil power is unharmed |
+
+## Fiend: Partial Transformation
+
+When **mortally injured**, a Fiend turns into a mix of its Devil and human forms: **mostly animalistic**, but it can still recognize people and speak.
+
+It stays that way until it's **killed** or fed enough blood. **A full blood tank** is needed to change back.
+
+## Hybrid: Transformation
+
+<CardGrid>
+  <Card title="Blood" icon="random">
+    Gain **25 BP** each time you **bite someone** or **eat Devil flesh**.
+
+    | | BP |
+    |--|--|
+    | Transform | 100 |
+    | Stay transformed | 20 / turn |
+    | Partial transform | Need 50 |
+
+    Hit **0 BP** and you **revert** to human.
+  </Card>
+  <Card title="Stat boost (all stats except Intelligence)" icon="rocket">
+    | Contracted Devil class | Full | Partial |
+    |--|--|--|
+    | Mundane | +3 Sub-Tiers | +1.5 |
+    | Rational | +6 Sub-Tiers | +3 |
+    | Irrational | +8 Sub-Tiers | +4 |
+    | Primal | +15 Sub-Tiers | +7.5 |
+
+    A **partial** transformation also **halves** your Devil Ability Power.
+  </Card>
+</CardGrid>
