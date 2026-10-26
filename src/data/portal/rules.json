@@ -1,0 +1,216 @@
+{
+	"roles": [
+		{
+			"id": "hero",
+			"label": "Hero",
+			"startingPtp": 15
+		},
+		{
+			"id": "vigilante",
+			"label": "Vigilante",
+			"startingPtp": 17
+		},
+		{
+			"id": "villain",
+			"label": "Villain",
+			"startingPtp": 20
+		},
+		{
+			"id": "jujutsu-sorcerer",
+			"label": "Jujutsu Sorcerer",
+			"startingPtp": 15
+		},
+		{
+			"id": "curse-user",
+			"label": "Curse User",
+			"startingPtp": 20
+		},
+		{
+			"id": "student",
+			"label": "Student",
+			"startingPtp": 10
+		},
+		{
+			"id": "civilian",
+			"label": "Civilian",
+			"startingPtp": 5
+		}
+	],
+	"traitSlots": {
+		"base": 4,
+		"note": "Extra slots come from Mythic Class Families or are gifted by an Administrator.",
+		"rarities": [
+			{
+				"id": "common",
+				"label": "Common",
+				"slots": 1
+			},
+			{
+				"id": "uncommon",
+				"label": "Uncommon",
+				"slots": 1
+			},
+			{
+				"id": "rare",
+				"label": "Rare",
+				"slots": 2
+			},
+			{
+				"id": "legendary",
+				"label": "Legendary",
+				"slots": 3
+			},
+			{
+				"id": "mythic",
+				"label": "Mythic",
+				"slots": 4
+			}
+		],
+		"familyTrait": {
+			"max": 1,
+			"slots": 1,
+			"note": "A trait offered by a family fits in a single slot no matter its rarity."
+		},
+		"sticky": "Sticky traits can't be removed once given, unless an Administrator authorizes it."
+	},
+	"potentials": [
+		{
+			"id": "limited",
+			"label": "Limited",
+			"maxPhase": 0,
+			"maxTier": 2
+		},
+		{
+			"id": "low",
+			"label": "Low",
+			"maxPhase": 1,
+			"maxTier": 8
+		},
+		{
+			"id": "average",
+			"label": "Average",
+			"maxPhase": 1,
+			"maxTier": 8
+		},
+		{
+			"id": "great",
+			"label": "Great",
+			"maxPhase": 2,
+			"maxTier": 14
+		},
+		{
+			"id": "high",
+			"label": "High",
+			"maxPhase": 2,
+			"maxTier": 14
+		},
+		{
+			"id": "insane",
+			"label": "Insane",
+			"maxPhase": 2,
+			"maxTier": 14
+		},
+		{
+			"id": "immense",
+			"label": "Immense",
+			"maxPhase": 2,
+			"maxTier": 14
+		},
+		{
+			"id": "colossal",
+			"label": "Colossal",
+			"maxPhase": 2,
+			"maxTier": 14
+		},
+		{
+			"id": "tremendous",
+			"label": "Tremendous",
+			"maxPhase": 3,
+			"maxTier": 16
+		},
+		{
+			"id": "peak",
+			"label": "Peak",
+			"maxPhase": 3,
+			"maxTier": 16,
+			"rolled": true
+		},
+		{
+			"id": "ultimate",
+			"label": "Ultimate",
+			"maxPhase": 3,
+			"maxTier": 16,
+			"rolled": true
+		},
+		{
+			"id": "apex",
+			"label": "Apex",
+			"maxPhase": 3,
+			"maxTier": 18,
+			"rolled": true
+		}
+	],
+	"potentialNote": "Peak, Ultimate and Apex are rolled silently by staff and override the existing Potential.",
+	"stats": {
+		"baseRank": "1F",
+		"baseRankNote": "Assumed starting rank for Strength, Speed, Defense and Stamina before PTP are spent; confirm with the owner.",
+		"recoilFreeGap": 2,
+		"phases": [
+			{
+				"phase": 0,
+				"label": "Phase 0: Base Human",
+				"minTier": 1,
+				"maxTier": 2,
+				"hopCost": 0
+			},
+			{
+				"phase": 1,
+				"label": "Phase 1: Inhuman",
+				"minTier": 3,
+				"maxTier": 8,
+				"hopCost": 15
+			},
+			{
+				"phase": 2,
+				"label": "Phase 2: Superhuman",
+				"minTier": 9,
+				"maxTier": 14,
+				"hopCost": 25
+			},
+			{
+				"phase": 3,
+				"label": "Phase 3: Ascended",
+				"minTier": 15,
+				"maxTier": 20,
+				"hopCost": 30
+			}
+		],
+		"intelligence": [
+			{
+				"value": "Below Average",
+				"ptp": -10
+			},
+			{
+				"value": "Average",
+				"ptp": 0
+			},
+			{
+				"value": "Above Average",
+				"ptp": 10
+			},
+			{
+				"value": "Gifted",
+				"ptp": 20
+			},
+			{
+				"value": "Genius",
+				"ptp": 30
+			},
+			{
+				"value": "Super Genius",
+				"ptp": 40,
+				"permission": true
+			}
+		]
+	}
+}

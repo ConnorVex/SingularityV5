@@ -1,10 +1,12 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import preact from '@astrojs/preact';
 
 export default defineConfig({
 	site: 'https://connorvex.github.io',
 	base: '/SingularityV5',
 	integrations: [
+		preact(),
 		starlight({
 			title: 'Singularity | Version 5.0',
 			tableOfContents: false,

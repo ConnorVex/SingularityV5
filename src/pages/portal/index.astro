@@ -30,9 +30,14 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 		</section>
 
 		<section class="portal-card" data-state="logged-in" hidden>
+			<h2>Create a character</h2>
+			<p>Make an original character or try out for a canon one. Your progress saves as you go.</p>
+			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/submit/`}>Start a new character</a>
+		</section>
+
+		<section class="portal-card" data-state="logged-in" hidden>
 			<h2>Coming soon</h2>
 			<ul>
-				<li><strong>Submit a character</strong>: OC or canon tryout, with live rule checks</li>
 				<li><strong>My Characters</strong>: your submissions, their status and review notes</li>
 				<li data-admin-only hidden><strong>Review dashboard</strong>: approve, send back or deny submissions</li>
 			</ul>

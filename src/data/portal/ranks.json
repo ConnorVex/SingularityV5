@@ -1,0 +1,1235 @@
+{
+	"source": "src/content/docs/Important Systems/Singularity Tiering System/Phases",
+	"ranks": [
+		{
+			"rank": "1F",
+			"tier": 1,
+			"phase": 0,
+			"value": 1,
+			"strength": "Borderline crippled (0 KG)",
+			"speed": "5 Km/h",
+			"defense": "The Sun is a deadly laser",
+			"stamina": "1"
+		},
+		{
+			"rank": "1E",
+			"tier": 1,
+			"phase": 0,
+			"value": 2,
+			"strength": "Childlike (5 – 10 KG)",
+			"speed": "7 Km/h",
+			"defense": "Falling down a flight of stairs",
+			"stamina": "2"
+		},
+		{
+			"rank": "1D",
+			"tier": 1,
+			"phase": 0,
+			"value": 3,
+			"strength": "Average adult (16 – 25 KG)",
+			"speed": "9 Km/h",
+			"defense": "Childlike durability",
+			"stamina": "5"
+		},
+		{
+			"rank": "1C",
+			"tier": 1,
+			"phase": 0,
+			"value": 4,
+			"strength": "Slightly above average adult (50 – 80 KG)",
+			"speed": "12 Km/h",
+			"defense": "Average adult durability",
+			"stamina": "10"
+		},
+		{
+			"rank": "1B",
+			"tier": 1,
+			"phase": 0,
+			"value": 5,
+			"strength": "Above average adult (90 – 120 KG)",
+			"speed": "14 Km/h",
+			"defense": "A car crash (over 12 kN)",
+			"stamina": "15"
+		},
+		{
+			"rank": "1A",
+			"tier": 1,
+			"phase": 0,
+			"value": 6,
+			"strength": "Athlete (140 – 160 KG)",
+			"speed": "18 Km/h",
+			"defense": "A very, very small explosion (0.01 t TNT)",
+			"stamina": "18"
+		},
+		{
+			"rank": "2F",
+			"tier": 2,
+			"phase": 0,
+			"value": 7,
+			"strength": "190 KG",
+			"speed": "23 Km/h",
+			"defense": "A blow from a bear",
+			"stamina": "20"
+		},
+		{
+			"rank": "2E",
+			"tier": 2,
+			"phase": 0,
+			"value": 8,
+			"strength": "200 KG",
+			"speed": "25 Km/h",
+			"defense": "The weight of a horse",
+			"stamina": "22"
+		},
+		{
+			"rank": "2D",
+			"tier": 2,
+			"phase": 0,
+			"value": 9,
+			"strength": "210 KG",
+			"speed": "28 Km/h",
+			"defense": "The weight of a polar bear",
+			"stamina": "24"
+		},
+		{
+			"rank": "2C",
+			"tier": 2,
+			"phase": 0,
+			"value": 10,
+			"strength": "220 KG",
+			"speed": "32 Km/h",
+			"defense": "A blow from a novice boxer",
+			"stamina": "26"
+		},
+		{
+			"rank": "2B",
+			"tier": 2,
+			"phase": 0,
+			"value": 11,
+			"strength": "222 KG",
+			"speed": "35 Km/h",
+			"defense": "A blow from a sumo wrestler",
+			"stamina": "28"
+		},
+		{
+			"rank": "2A",
+			"tier": 2,
+			"phase": 0,
+			"value": 12,
+			"strength": "225 KG",
+			"speed": "40 Km/h",
+			"defense": "2–3 blows from Muhammad Ali in his prime",
+			"stamina": "34"
+		},
+		{
+			"rank": "2S",
+			"tier": 2,
+			"phase": 0,
+			"value": 13,
+			"strength": "230 KG",
+			"speed": "45 Km/h",
+			"defense": "2–3 blows from Iron Mike in his prime",
+			"stamina": "39"
+		},
+		{
+			"rank": "3F",
+			"tier": 3,
+			"phase": 1,
+			"value": 14,
+			"strength": "500 KG",
+			"speed": "50 Km/h",
+			"defense": "0.5 t TNT",
+			"stamina": "43"
+		},
+		{
+			"rank": "3E",
+			"tier": 3,
+			"phase": 1,
+			"value": 15,
+			"strength": "594 KG",
+			"speed": "55 Km/h",
+			"defense": "0.8 t TNT",
+			"stamina": "45"
+		},
+		{
+			"rank": "3D",
+			"tier": 3,
+			"phase": 1,
+			"value": 16,
+			"strength": "630 KG",
+			"speed": "60 Km/h",
+			"defense": "1 t TNT",
+			"stamina": "50"
+		},
+		{
+			"rank": "3C",
+			"tier": 3,
+			"phase": 1,
+			"value": 17,
+			"strength": "758 KG",
+			"speed": "65 Km/h",
+			"defense": "1.5 t TNT",
+			"stamina": "60"
+		},
+		{
+			"rank": "3B",
+			"tier": 3,
+			"phase": 1,
+			"value": 18,
+			"strength": "Small car (843 KG)",
+			"speed": "70 Km/h",
+			"defense": "2 t TNT",
+			"stamina": "64"
+		},
+		{
+			"rank": "3A",
+			"tier": 3,
+			"phase": 1,
+			"value": 19,
+			"strength": "910 KG",
+			"speed": "75 Km/h",
+			"defense": "2.5 t TNT",
+			"stamina": "68"
+		},
+		{
+			"rank": "4F",
+			"tier": 4,
+			"phase": 1,
+			"value": 20,
+			"strength": "1,103 KG",
+			"speed": "85 Km/h",
+			"defense": "3 t TNT",
+			"stamina": "70"
+		},
+		{
+			"rank": "4E",
+			"tier": 4,
+			"phase": 1,
+			"value": 21,
+			"strength": "Car (1,500 KG)",
+			"speed": "95 Km/h",
+			"defense": "3.6 t TNT",
+			"stamina": "74"
+		},
+		{
+			"rank": "4D",
+			"tier": 4,
+			"phase": 1,
+			"value": 22,
+			"strength": "Small pickup truck (2,040 KG)",
+			"speed": "100 Km/h",
+			"defense": "3.9 t TNT",
+			"stamina": "78"
+		},
+		{
+			"rank": "4C",
+			"tier": 4,
+			"phase": 1,
+			"value": 23,
+			"strength": "Light-duty box truck (2,722 KG)",
+			"speed": "110 Km/h",
+			"defense": "4 t TNT",
+			"stamina": "86"
+		},
+		{
+			"rank": "4B",
+			"tier": 4,
+			"phase": 1,
+			"value": 24,
+			"strength": "Empty truck (4,535 KG)",
+			"speed": "118 Km/h",
+			"defense": "4.2 t TNT",
+			"stamina": "90"
+		},
+		{
+			"rank": "4A",
+			"tier": 4,
+			"phase": 1,
+			"value": 25,
+			"strength": "4 empty trucks (18,140 KG)",
+			"speed": "124 Km/h (Sub-Sonic)",
+			"defense": "4.5 t TNT",
+			"stamina": "100"
+		},
+		{
+			"rank": "5F",
+			"tier": 5,
+			"phase": 1,
+			"value": 26,
+			"strength": "19,340 KG",
+			"speed": "135 Km/h",
+			"defense": "5.6 t TNT",
+			"stamina": "110"
+		},
+		{
+			"rank": "5E",
+			"tier": 5,
+			"phase": 1,
+			"value": 27,
+			"strength": "20,804 KG",
+			"speed": "140 Km/h",
+			"defense": "5.9 t TNT",
+			"stamina": "115"
+		},
+		{
+			"rank": "5D",
+			"tier": 5,
+			"phase": 1,
+			"value": 28,
+			"strength": "22,402 KG",
+			"speed": "150 Km/h",
+			"defense": "6.5 t TNT",
+			"stamina": "120"
+		},
+		{
+			"rank": "5C",
+			"tier": 5,
+			"phase": 1,
+			"value": 29,
+			"strength": "24,204 KG",
+			"speed": "170 Km/h",
+			"defense": "7.5 t TNT",
+			"stamina": "125"
+		},
+		{
+			"rank": "5B",
+			"tier": 5,
+			"phase": 1,
+			"value": 30,
+			"strength": "27,931 KG",
+			"speed": "185 Km/h",
+			"defense": "8.5 t TNT",
+			"stamina": "130"
+		},
+		{
+			"rank": "5A",
+			"tier": 5,
+			"phase": 1,
+			"value": 31,
+			"strength": "29,374 KG",
+			"speed": "193 Km/h",
+			"defense": "9.5 t TNT",
+			"stamina": "135"
+		},
+		{
+			"rank": "6F",
+			"tier": 6,
+			"phase": 1,
+			"value": 32,
+			"strength": "30,401 KG",
+			"speed": "220 Km/h",
+			"defense": "10 t TNT",
+			"stamina": "140"
+		},
+		{
+			"rank": "6E",
+			"tier": 6,
+			"phase": 1,
+			"value": 33,
+			"strength": "31,621 KG",
+			"speed": "235 Km/h",
+			"defense": "10.9 t TNT",
+			"stamina": "144"
+		},
+		{
+			"rank": "6D",
+			"tier": 6,
+			"phase": 1,
+			"value": 34,
+			"strength": "32,305 KG",
+			"speed": "255 Km/h",
+			"defense": "12.8 t TNT",
+			"stamina": "148"
+		},
+		{
+			"rank": "6C",
+			"tier": 6,
+			"phase": 1,
+			"value": 35,
+			"strength": "32,394 KG",
+			"speed": "300 Km/h",
+			"defense": "14.3 t TNT",
+			"stamina": "151"
+		},
+		{
+			"rank": "6B",
+			"tier": 6,
+			"phase": 1,
+			"value": 36,
+			"strength": "33,832 KG",
+			"speed": "349 Km/h",
+			"defense": "15.5 t TNT",
+			"stamina": "160"
+		},
+		{
+			"rank": "6A",
+			"tier": 6,
+			"phase": 1,
+			"value": 37,
+			"strength": "34,942 KG",
+			"speed": "385 Km/h",
+			"defense": "16.4 t TNT",
+			"stamina": "167"
+		},
+		{
+			"rank": "7F",
+			"tier": 7,
+			"phase": 1,
+			"value": 38,
+			"strength": "35,311 KG",
+			"speed": "402 Km/h",
+			"defense": "18.4 t TNT",
+			"stamina": "170"
+		},
+		{
+			"rank": "7E",
+			"tier": 7,
+			"phase": 1,
+			"value": 39,
+			"strength": "35,932 KG",
+			"speed": "420 Km/h",
+			"defense": "20 t TNT",
+			"stamina": "173"
+		},
+		{
+			"rank": "7D",
+			"tier": 7,
+			"phase": 1,
+			"value": 40,
+			"strength": "36,402 KG",
+			"speed": "450 Km/h",
+			"defense": "22 t TNT",
+			"stamina": "175"
+		},
+		{
+			"rank": "7C",
+			"tier": 7,
+			"phase": 1,
+			"value": 41,
+			"strength": "36,664 KG",
+			"speed": "460 Km/h",
+			"defense": "24 t TNT",
+			"stamina": "180"
+		},
+		{
+			"rank": "7B",
+			"tier": 7,
+			"phase": 1,
+			"value": 42,
+			"strength": "37,421 KG",
+			"speed": "465 Km/h",
+			"defense": "25 t TNT",
+			"stamina": "182"
+		},
+		{
+			"rank": "7A",
+			"tier": 7,
+			"phase": 1,
+			"value": 43,
+			"strength": "37,842 KG",
+			"speed": "522 Km/h",
+			"defense": "29 t TNT",
+			"stamina": "185"
+		},
+		{
+			"rank": "8F",
+			"tier": 8,
+			"phase": 1,
+			"value": 44,
+			"strength": "38,492 KG",
+			"speed": "535 Km/h",
+			"defense": "30 t TNT",
+			"stamina": "189"
+		},
+		{
+			"rank": "8E",
+			"tier": 8,
+			"phase": 1,
+			"value": 45,
+			"strength": "39,993 KG",
+			"speed": "542 Km/h",
+			"defense": "35 t TNT",
+			"stamina": "190"
+		},
+		{
+			"rank": "8D",
+			"tier": 8,
+			"phase": 1,
+			"value": 46,
+			"strength": "40,312 KG",
+			"speed": "559 Km/h",
+			"defense": "55 t TNT",
+			"stamina": "191"
+		},
+		{
+			"rank": "8C",
+			"tier": 8,
+			"phase": 1,
+			"value": 47,
+			"strength": "40,532 KG",
+			"speed": "575 Km/h",
+			"defense": "65 t TNT",
+			"stamina": "193"
+		},
+		{
+			"rank": "8B",
+			"tier": 8,
+			"phase": 1,
+			"value": 48,
+			"strength": "41,535 KG",
+			"speed": "584 Km/h",
+			"defense": "80 t TNT",
+			"stamina": "195"
+		},
+		{
+			"rank": "8A",
+			"tier": 8,
+			"phase": 1,
+			"value": 49,
+			"strength": "Passenger plane (45K KG)",
+			"speed": "600 Km/h",
+			"defense": "90 t TNT",
+			"stamina": "196"
+		},
+		{
+			"rank": "8S",
+			"tier": 8,
+			"phase": 1,
+			"value": 50,
+			"strength": "Tank (62K KG)",
+			"speed": "617 Km/h (Sub-Sonic+)",
+			"defense": "100 t TNT",
+			"stamina": "200"
+		},
+		{
+			"rank": "9F",
+			"tier": 9,
+			"phase": 2,
+			"value": 51,
+			"strength": "70K KG",
+			"speed": "900 Km/h",
+			"defense": "120 t TNT",
+			"stamina": "300"
+		},
+		{
+			"rank": "9E",
+			"tier": 9,
+			"phase": 2,
+			"value": 52,
+			"strength": "76K KG",
+			"speed": "910 Km/h",
+			"defense": "125 t TNT",
+			"stamina": "310"
+		},
+		{
+			"rank": "9D",
+			"tier": 9,
+			"phase": 2,
+			"value": 53,
+			"strength": "85K KG",
+			"speed": "920 Km/h",
+			"defense": "150 t TNT",
+			"stamina": "320"
+		},
+		{
+			"rank": "9C",
+			"tier": 9,
+			"phase": 2,
+			"value": 54,
+			"strength": "87,493 KG",
+			"speed": "940 Km/h",
+			"defense": "155 t TNT",
+			"stamina": "330"
+		},
+		{
+			"rank": "9B",
+			"tier": 9,
+			"phase": 2,
+			"value": 55,
+			"strength": "88K KG",
+			"speed": "950 Km/h",
+			"defense": "160 t TNT",
+			"stamina": "340"
+		},
+		{
+			"rank": "9A",
+			"tier": 9,
+			"phase": 2,
+			"value": 56,
+			"strength": "95K KG",
+			"speed": "990 Km/h",
+			"defense": "165 t TNT",
+			"stamina": "350"
+		},
+		{
+			"rank": "10F",
+			"tier": 10,
+			"phase": 2,
+			"value": 57,
+			"strength": "Average house (100 MT)",
+			"speed": "1,110 Km/h (Transonic)",
+			"defense": "178 t TNT",
+			"stamina": "360"
+		},
+		{
+			"rank": "10E",
+			"tier": 10,
+			"phase": 2,
+			"value": 58,
+			"strength": "115 MT",
+			"speed": "1,120 Km/h",
+			"defense": "185 t TNT",
+			"stamina": "380"
+		},
+		{
+			"rank": "10D",
+			"tier": 10,
+			"phase": 2,
+			"value": 59,
+			"strength": "120 MT",
+			"speed": "1,130 Km/h",
+			"defense": "193 t TNT",
+			"stamina": "390"
+		},
+		{
+			"rank": "10C",
+			"tier": 10,
+			"phase": 2,
+			"value": 60,
+			"strength": "130 MT",
+			"speed": "1,150 Km/h",
+			"defense": "200 t TNT",
+			"stamina": "400"
+		},
+		{
+			"rank": "10B",
+			"tier": 10,
+			"phase": 2,
+			"value": 61,
+			"strength": "145 MT",
+			"speed": "1,170 Km/h",
+			"defense": "220 t TNT",
+			"stamina": "410"
+		},
+		{
+			"rank": "10A",
+			"tier": 10,
+			"phase": 2,
+			"value": 62,
+			"strength": "155 MT",
+			"speed": "1,190 Km/h",
+			"defense": "250 t TNT",
+			"stamina": "460"
+		},
+		{
+			"rank": "11F",
+			"tier": 11,
+			"phase": 2,
+			"value": 63,
+			"strength": "200 MT",
+			"speed": "1,200 Km/h",
+			"defense": "260 t TNT",
+			"stamina": "510"
+		},
+		{
+			"rank": "11E",
+			"tier": 11,
+			"phase": 2,
+			"value": 64,
+			"strength": "235 MT",
+			"speed": "1,210 Km/h",
+			"defense": "270 t TNT",
+			"stamina": "515"
+		},
+		{
+			"rank": "11D",
+			"tier": 11,
+			"phase": 2,
+			"value": 65,
+			"strength": "259 MT",
+			"speed": "1,215 Km/h",
+			"defense": "280 t TNT",
+			"stamina": "520"
+		},
+		{
+			"rank": "11C",
+			"tier": 11,
+			"phase": 2,
+			"value": 66,
+			"strength": "280 MT",
+			"speed": "1,220 Km/h",
+			"defense": "290 t TNT",
+			"stamina": "525"
+		},
+		{
+			"rank": "11B",
+			"tier": 11,
+			"phase": 2,
+			"value": 67,
+			"strength": "295 MT",
+			"speed": "1,225 Km/h",
+			"defense": "295 t TNT",
+			"stamina": "530"
+		},
+		{
+			"rank": "11A",
+			"tier": 11,
+			"phase": 2,
+			"value": 68,
+			"strength": "300 MT",
+			"speed": "1,230 Km/h",
+			"defense": "300 t TNT (Neutron Bomb)",
+			"stamina": "535"
+		},
+		{
+			"rank": "12F",
+			"tier": 12,
+			"phase": 2,
+			"value": 69,
+			"strength": "350 MT",
+			"speed": "Mach 1 (1,234 Km/h)",
+			"defense": "320 t TNT",
+			"stamina": "540"
+		},
+		{
+			"rank": "12E",
+			"tier": 12,
+			"phase": 2,
+			"value": 70,
+			"strength": "373 MT",
+			"speed": "Mach 1.5 (Supersonic)",
+			"defense": "329 t TNT",
+			"stamina": "590"
+		},
+		{
+			"rank": "12D",
+			"tier": 12,
+			"phase": 2,
+			"value": 71,
+			"strength": "385 MT",
+			"speed": "Mach 1.7",
+			"defense": "340 t TNT",
+			"stamina": "620"
+		},
+		{
+			"rank": "12C",
+			"tier": 12,
+			"phase": 2,
+			"value": 72,
+			"strength": "392 MT",
+			"speed": "Mach 1.8",
+			"defense": "349 t TNT",
+			"stamina": "640"
+		},
+		{
+			"rank": "12B",
+			"tier": 12,
+			"phase": 2,
+			"value": 73,
+			"strength": "398 MT",
+			"speed": "Mach 1.9",
+			"defense": "365 t TNT",
+			"stamina": "660"
+		},
+		{
+			"rank": "12A",
+			"tier": 12,
+			"phase": 2,
+			"value": 74,
+			"strength": "425 MT",
+			"speed": "Mach 2",
+			"defense": "385 t TNT",
+			"stamina": "680"
+		},
+		{
+			"rank": "13F",
+			"tier": 13,
+			"phase": 2,
+			"value": 75,
+			"strength": "450 MT",
+			"speed": "Mach 2.5 (Supersonic+)",
+			"defense": "400 t TNT",
+			"stamina": "690"
+		},
+		{
+			"rank": "13E",
+			"tier": 13,
+			"phase": 2,
+			"value": 76,
+			"strength": "475 MT",
+			"speed": "Mach 3.5",
+			"defense": "459 t TNT",
+			"stamina": "700"
+		},
+		{
+			"rank": "13D",
+			"tier": 13,
+			"phase": 2,
+			"value": 77,
+			"strength": "500 MT",
+			"speed": "Mach 4.2",
+			"defense": "476 t TNT",
+			"stamina": "780"
+		},
+		{
+			"rank": "13C",
+			"tier": 13,
+			"phase": 2,
+			"value": 78,
+			"strength": "530 MT",
+			"speed": "Mach 5 (Hypersonic)",
+			"defense": "485 t TNT",
+			"stamina": "784"
+		},
+		{
+			"rank": "13B",
+			"tier": 13,
+			"phase": 2,
+			"value": 79,
+			"strength": "560 MT",
+			"speed": "Mach 6.5",
+			"defense": "490 t TNT",
+			"stamina": "790"
+		},
+		{
+			"rank": "13A",
+			"tier": 13,
+			"phase": 2,
+			"value": 80,
+			"strength": "590 MT",
+			"speed": "Mach 7.5",
+			"defense": "500 t TNT",
+			"stamina": "800"
+		},
+		{
+			"rank": "14F",
+			"tier": 14,
+			"phase": 2,
+			"value": 81,
+			"strength": "620 MT",
+			"speed": "Mach 8",
+			"defense": "520 t TNT",
+			"stamina": "850"
+		},
+		{
+			"rank": "14E",
+			"tier": 14,
+			"phase": 2,
+			"value": 82,
+			"strength": "665 MT",
+			"speed": "Mach 8.5",
+			"defense": "600 t TNT",
+			"stamina": "890"
+		},
+		{
+			"rank": "14D",
+			"tier": 14,
+			"phase": 2,
+			"value": 83,
+			"strength": "673 MT",
+			"speed": "Mach 9",
+			"defense": "659 t TNT",
+			"stamina": "900"
+		},
+		{
+			"rank": "14C",
+			"tier": 14,
+			"phase": 2,
+			"value": 84,
+			"strength": "700 MT",
+			"speed": "Mach 9.5",
+			"defense": "670 t TNT",
+			"stamina": "920"
+		},
+		{
+			"rank": "14B",
+			"tier": 14,
+			"phase": 2,
+			"value": 85,
+			"strength": "775 MT",
+			"speed": "Mach 10 (Hypersonic+)",
+			"defense": "680 t TNT",
+			"stamina": "930"
+		},
+		{
+			"rank": "14A",
+			"tier": 14,
+			"phase": 2,
+			"value": 86,
+			"strength": "800 MT",
+			"speed": "Mach 10.5",
+			"defense": "690 t TNT",
+			"stamina": "960"
+		},
+		{
+			"rank": "14S",
+			"tier": 14,
+			"phase": 2,
+			"value": 87,
+			"strength": "999 MT",
+			"speed": "Mach 11",
+			"defense": "700 t TNT",
+			"stamina": "999"
+		},
+		{
+			"rank": "15F",
+			"tier": 15,
+			"phase": 3,
+			"value": 88,
+			"strength": "1 KT",
+			"speed": "Mach 25 (High Hypersonic)",
+			"defense": "1 kt TNT",
+			"stamina": "1,000"
+		},
+		{
+			"rank": "15E",
+			"tier": 15,
+			"phase": 3,
+			"value": 89,
+			"strength": "10 KT",
+			"speed": "Mach 32",
+			"defense": "5 kt TNT",
+			"stamina": "1,150"
+		},
+		{
+			"rank": "15D",
+			"tier": 15,
+			"phase": 3,
+			"value": 90,
+			"strength": "20 KT",
+			"speed": "Mach 45",
+			"defense": "10 kt TNT",
+			"stamina": "1,250"
+		},
+		{
+			"rank": "15C",
+			"tier": 15,
+			"phase": 3,
+			"value": 91,
+			"strength": "25 KT",
+			"speed": "Mach 50 (High Hypersonic+)",
+			"defense": "15 kt TNT",
+			"stamina": "1,350"
+		},
+		{
+			"rank": "15B",
+			"tier": 15,
+			"phase": 3,
+			"value": 92,
+			"strength": "30 KT",
+			"speed": "Mach 75",
+			"defense": "20 kt TNT (Atomic Bomb)",
+			"stamina": "1,450"
+		},
+		{
+			"rank": "15A",
+			"tier": 15,
+			"phase": 3,
+			"value": 93,
+			"strength": "35 KT",
+			"speed": "Mach 100 (Massively Hypersonic)",
+			"defense": "25 kt TNT",
+			"stamina": "1,500"
+		},
+		{
+			"rank": "16F",
+			"tier": 16,
+			"phase": 3,
+			"value": 94,
+			"strength": "40 KT",
+			"speed": "Mach 150",
+			"defense": "30 kt TNT",
+			"stamina": "1,650"
+		},
+		{
+			"rank": "16E",
+			"tier": 16,
+			"phase": 3,
+			"value": 95,
+			"strength": "55 KT",
+			"speed": "Mach 200",
+			"defense": "40 kt TNT",
+			"stamina": "1,750"
+		},
+		{
+			"rank": "16D",
+			"tier": 16,
+			"phase": 3,
+			"value": 96,
+			"strength": "75 KT",
+			"speed": "Mach 290",
+			"defense": "45 kt TNT",
+			"stamina": "1,850"
+		},
+		{
+			"rank": "16C",
+			"tier": 16,
+			"phase": 3,
+			"value": 97,
+			"strength": "85 KT",
+			"speed": "Mach 400",
+			"defense": "50 kt TNT",
+			"stamina": "1,950"
+		},
+		{
+			"rank": "16B",
+			"tier": 16,
+			"phase": 3,
+			"value": 98,
+			"strength": "95 KT",
+			"speed": "Mach 450",
+			"defense": "70 kt TNT",
+			"stamina": "2,000"
+		},
+		{
+			"rank": "16A",
+			"tier": 16,
+			"phase": 3,
+			"value": 99,
+			"strength": "100 KT",
+			"speed": "Mach 500",
+			"defense": "90 kt TNT",
+			"stamina": "2,100"
+		},
+		{
+			"rank": "17F",
+			"tier": 17,
+			"phase": 3,
+			"value": 100,
+			"strength": "125 KT",
+			"speed": "Mach 650",
+			"defense": "100 kt TNT",
+			"stamina": "2,200"
+		},
+		{
+			"rank": "17E",
+			"tier": 17,
+			"phase": 3,
+			"value": 101,
+			"strength": "160 KT",
+			"speed": "Mach 850",
+			"defense": "200 kt TNT",
+			"stamina": "2,400"
+		},
+		{
+			"rank": "17D",
+			"tier": 17,
+			"phase": 3,
+			"value": 102,
+			"strength": "190 KT",
+			"speed": "Mach 900",
+			"defense": "300 kt TNT",
+			"stamina": "2,500"
+		},
+		{
+			"rank": "17C",
+			"tier": 17,
+			"phase": 3,
+			"value": 103,
+			"strength": "220 KT",
+			"speed": "Mach 1,000 (Massively Hypersonic+)",
+			"defense": "400 kt TNT",
+			"stamina": "2,600"
+		},
+		{
+			"rank": "17B",
+			"tier": 17,
+			"phase": 3,
+			"value": 104,
+			"strength": "328 KT",
+			"speed": "Mach 1,504",
+			"defense": "500 kt TNT",
+			"stamina": "2,700"
+		},
+		{
+			"rank": "17A",
+			"tier": 17,
+			"phase": 3,
+			"value": 105,
+			"strength": "Dubai Tower (449 KT)",
+			"speed": "Mach 2,365",
+			"defense": "600 kt TNT",
+			"stamina": "2,800"
+		},
+		{
+			"rank": "18F",
+			"tier": 18,
+			"phase": 3,
+			"value": 106,
+			"strength": "500 KT",
+			"speed": "Mach 4,851",
+			"defense": "775 kt TNT",
+			"stamina": "2,900"
+		},
+		{
+			"rank": "18E",
+			"tier": 18,
+			"phase": 3,
+			"value": 107,
+			"strength": "1,000 KT",
+			"speed": "Mach 5,104",
+			"defense": "800 kt TNT",
+			"stamina": "3,500"
+		},
+		{
+			"rank": "18D",
+			"tier": 18,
+			"phase": 3,
+			"value": 108,
+			"strength": "1,150 KT",
+			"speed": "Mach 6,000",
+			"defense": "900 kt TNT",
+			"stamina": "3,600"
+		},
+		{
+			"rank": "18C",
+			"tier": 18,
+			"phase": 3,
+			"value": 109,
+			"strength": "1,300 KT",
+			"speed": "Mach 8,740 (Sub-Relativistic)",
+			"defense": "1 Mt TNT (Hydrogen Bomb)",
+			"stamina": "3,900"
+		},
+		{
+			"rank": "18B",
+			"tier": 18,
+			"phase": 3,
+			"value": 110,
+			"strength": "2,304 KT",
+			"speed": "Mach 15,495",
+			"defense": "50 Mt TNT",
+			"stamina": "4,542"
+		},
+		{
+			"rank": "18A",
+			"tier": 18,
+			"phase": 3,
+			"value": 111,
+			"strength": "5,304 KT",
+			"speed": "Mach 20,405",
+			"defense": "100 Mt TNT (2× Tsar Bombas)",
+			"stamina": "4,603"
+		},
+		{
+			"rank": "19F",
+			"tier": 19,
+			"phase": 3,
+			"value": 112,
+			"strength": "15,394 KT",
+			"speed": "Mach 35,304",
+			"defense": "150 Mt TNT",
+			"stamina": "4,700"
+		},
+		{
+			"rank": "19E",
+			"tier": 19,
+			"phase": 3,
+			"value": 113,
+			"strength": "20,379 KT",
+			"speed": "Mach 43,701 (Sub-Relativistic+)",
+			"defense": "200 Mt TNT",
+			"stamina": "4,800"
+		},
+		{
+			"rank": "19D",
+			"tier": 19,
+			"phase": 3,
+			"value": 114,
+			"strength": "30,934 KT",
+			"speed": "Mach 50,842",
+			"defense": "285 Mt TNT",
+			"stamina": "4,900"
+		},
+		{
+			"rank": "19C",
+			"tier": 19,
+			"phase": 3,
+			"value": 115,
+			"strength": "40K KT",
+			"speed": "Mach 60,951",
+			"defense": "300 Mt TNT",
+			"stamina": "5,000"
+		},
+		{
+			"rank": "19B",
+			"tier": 19,
+			"phase": 3,
+			"value": 116,
+			"strength": "80K KT",
+			"speed": "Mach 65,831",
+			"defense": "350 Mt TNT",
+			"stamina": "5,900"
+		},
+		{
+			"rank": "19A",
+			"tier": 19,
+			"phase": 3,
+			"value": 117,
+			"strength": "120K KT",
+			"speed": "Mach 90,384",
+			"defense": "384 Mt TNT",
+			"stamina": "6,000"
+		},
+		{
+			"rank": "20F",
+			"tier": 20,
+			"phase": 3,
+			"value": 118,
+			"strength": "200K KT",
+			"speed": "Mach 100K",
+			"defense": "473 Mt TNT",
+			"stamina": "6,492"
+		},
+		{
+			"rank": "20E",
+			"tier": 20,
+			"phase": 3,
+			"value": 119,
+			"strength": "300K KT",
+			"speed": "Mach 150K",
+			"defense": "500 Mt TNT",
+			"stamina": "6,695"
+		},
+		{
+			"rank": "20D",
+			"tier": 20,
+			"phase": 3,
+			"value": 120,
+			"strength": "400K KT",
+			"speed": "Mach 180K",
+			"defense": "550 Mt TNT",
+			"stamina": "6,776"
+		},
+		{
+			"rank": "20C",
+			"tier": 20,
+			"phase": 3,
+			"value": 121,
+			"strength": "500K KT",
+			"speed": "Mach 200K",
+			"defense": "594 Mt TNT",
+			"stamina": "6,930"
+		},
+		{
+			"rank": "20B",
+			"tier": 20,
+			"phase": 3,
+			"value": 122,
+			"strength": "600K KT",
+			"speed": "Mach 205K",
+			"defense": "600 Mt TNT",
+			"stamina": "6,999"
+		},
+		{
+			"rank": "20A",
+			"tier": 20,
+			"phase": 3,
+			"value": 123,
+			"strength": "650K KT",
+			"speed": "Mach 210K",
+			"defense": "650 Mt TNT",
+			"stamina": "7,777"
+		}
+	]
+}

@@ -1,0 +1,544 @@
+{
+	"source": "Discord trait forum, exported 2026-10-26",
+	"traits": [
+		{
+			"name": "Body Of Adaptation",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "mythic",
+			"sticky": true
+		},
+		{
+			"name": "Genius",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Physically Fit",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Anomalous Body",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": true
+		},
+		{
+			"name": "Unnatural Body",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Ghoulish Affinity",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Humanity",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Endurance Star",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Enhanced ARC Sense",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Cyberpsychosis Resistant",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Cyberpsychosis Immune",
+			"category": "physical",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": true
+		},
+		{
+			"name": "Nocturnal",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Frail Body",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Lazy",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Vessel",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Glass Cannon",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Narcoleptic",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Diminished Arc Sense",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Motion Sickness",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Impaired Cognitive Skills",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Attention Deficit Hyperactive Disorder (ADHD)",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Terminal",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Incompatible Genetics",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Dual Gift",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "mythic",
+			"sticky": true
+		},
+		{
+			"name": "Blessed By The Sparks",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Kingly",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Cyberpsychosis Vulnerable",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Slow Energy Collector",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Asthma",
+			"category": "physical",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Lucky Break",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Soul Striker",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Menacing Aura",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Soul Theme",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Personality Complex",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "Split Personality",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": true
+		},
+		{
+			"name": "Cursed",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Best Friends",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Potential Breaker",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "mythic",
+			"sticky": false
+		},
+		{
+			"name": "Pain Tolerance",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Executive",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Berserk",
+			"category": "phenomena",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Diminishing Returns",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Domino Effect",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Symmetrical Mandate",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Observer Effect",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Shitty Luck",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Submissive",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Comedic Relief",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Quick Learner",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Motivated",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Pyrotechnic",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": true
+		},
+		{
+			"name": "RCE Proficiency",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Forsaken Sparks",
+			"category": "phenomena",
+			"effect": "debuff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Hamon Prodigy",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Prepared",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Quirk Prodigy",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Bio-King",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Barrier Prodigy",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Gimmick",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Crafting Prodigy",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "mythic",
+			"sticky": false
+		},
+		{
+			"name": "Barrier Specialist",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "mythic",
+			"sticky": false
+		},
+		{
+			"name": "Sorcerer Supreme",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Spinning Soul",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "legendary",
+			"sticky": false
+		},
+		{
+			"name": "Vampiric Tendencies",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Stand Prodigy",
+			"category": "skill",
+			"effect": "buff",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Bounding Frailty",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Timid",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Unmotivated",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Careless Callouts",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Social Anxiety",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Compulsive Spender",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		},
+		{
+			"name": "Misogynist",
+			"category": "skill",
+			"effect": "neutral",
+			"rarity": "rare",
+			"sticky": false
+		},
+		{
+			"name": "Restraint",
+			"category": "skill",
+			"effect": "neutral",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Chivalrous",
+			"category": "skill",
+			"effect": "neutral",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Smoker",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": true
+		},
+		{
+			"name": "Forgetful",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "uncommon",
+			"sticky": false
+		},
+		{
+			"name": "Hard Headed",
+			"category": "skill",
+			"effect": "debuff",
+			"rarity": "common",
+			"sticky": false
+		}
+	]
+}

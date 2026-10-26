@@ -19,3 +19,6 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# Secret portal data (trait combos). Loaded into Supabase by hand; never commit.
+supabase/private/
