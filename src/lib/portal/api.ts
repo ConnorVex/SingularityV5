@@ -312,3 +312,55 @@ export async function deleteCharacter(id: string) {
 	fail(error);
 	if (!data?.length) throw new Error('This character can’t be deleted.');
 }
+
+// ───────────────────────────── Admin: review ─────────────────────────────
+
+export interface AdminCharacter {
+	id: string;
+	owner_id: string;
+	name: string;
+	kind: 'oc' | 'canon';
+	canon_universe: string | null;
+	status: Status;
+	hidden: boolean;
+	extra_trait_slots: number;
+	requested_claims: string[];
+	sheet: Sheet;
+	approved_sheet: Sheet | null;
+	approved_at: string | null;
+	submitted_at: string | null;
+	reviewed_at: string | null;
+	updated_at: string;
+	created_at: string;
+}
+
+/** Every character (admins only; row-level security returns just your own otherwise). */
+export async function loadAllCharacters(): Promise<AdminCharacter[]> {
+	const { data, error } = await db()
+		.from('characters')
+		.select(
+			'id, owner_id, name, kind, canon_universe, status, hidden, extra_trait_slots, requested_claims, sheet, approved_sheet, approved_at, submitted_at, reviewed_at, updated_at, created_at',
+		)
+		.order('submitted_at', { ascending: true, nullsFirst: false });
+	fail(error);
+	return (data ?? []).map((c) => ({
+		...c,
+		sheet: normalizeSheet(c.sheet),
+		approved_sheet: c.approved_sheet ? normalizeSheet(c.approved_sheet) : null,
+	})) as AdminCharacter[];
+}
+
+export async function reviewCharacter(id: string, outcome: 'approved' | 'needs_correction' | 'denied', note: string) {
+	const { error } = await db().rpc('review_character', { p_character_id: id, p_outcome: outcome, p_note: note });
+	fail(error);
+}
+
+export async function setCharacterHidden(id: string, hidden: boolean) {
+	const { error } = await db().from('characters').update({ hidden }).eq('id', id);
+	fail(error);
+}
+
+export async function setExtraTraitSlots(id: string, slots: number) {
+	const { error } = await db().from('characters').update({ extra_trait_slots: slots }).eq('id', id);
+	fail(error);
+}

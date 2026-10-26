@@ -264,3 +264,10 @@ test('traits change starting PTP: Physically Fit +5, Lazy −5, Frail Body none'
 	s.stats.strength = '1E';
 	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /start with 0 \(none/);
 });
+
+test('a missing Cursed Energy roll is reported once', () => {
+	const s = goodSheet();
+	s.systems = [{ key: 'j', system: 'jujutsu-kaisen', fields: {}, description: '', skills: [{ name: 'x', type: 'standard', effect: '', mastery: '' }], rollProofs: {} }];
+	const ce = messages(checkSheet(s, ocCtx), 'error').filter((m) => m.includes('Cursed Energy'));
+	assert.deepEqual(ce, ['Jujutsu Kaisen: roll your Cursed Energy.']);
+});

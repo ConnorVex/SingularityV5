@@ -256,7 +256,16 @@ function checkSystems(sheet: Sheet, ctx: CheckContext, add: (level: IssueLevel, 
 				}
 			}
 		}
-		for (const field of visibleFields(def, entry.fields)) checkField(field, entry.fields[field.key], where, add, entry.rollProofs?.[field.key]);
+		// Rolled fields come from one roll: report a missing roll once, not once per field.
+		const missingRolls = new Set<string>();
+		for (const field of visibleFields(def, entry.fields)) {
+			if (field.rolled && field.required && blank(entry.fields[field.key])) {
+				if (!missingRolls.has(field.rolled)) add('error', 'Systems', `${where}: roll your ${field.label}.`);
+				missingRolls.add(field.rolled);
+				continue;
+			}
+			checkField(field, entry.fields[field.key], where, add, entry.rollProofs?.[field.key]);
+		}
 
 		if (!ctx.isEvolution && def.budget) {
 			const total = def.budget.total(entry.fields);

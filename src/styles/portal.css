@@ -897,7 +897,8 @@
 	border-left-width: 4px;
 	background: var(--pf-field);
 }
-.pf-issue-group h3 {
+.pf .pf-issue-group h3 {
+	font-family: var(--pf-font);
 	margin: 0 0 0.45rem;
 	font-size: 0.8rem;
 	text-transform: uppercase;
@@ -1446,4 +1447,157 @@
 }
 .pf-back:hover {
 	color: var(--pf-accent);
+}
+
+/* ── Review dashboard (ReviewDashboard.tsx) ── */
+.rv {
+	gap: 1rem;
+}
+.rv .pf-nav {
+	position: static;
+}
+.rv-item {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	flex: 1;
+}
+.rv-item strong {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.rv-flag {
+	font-family: var(--pf-mono);
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-red-high);
+	white-space: nowrap;
+}
+.rv-detail {
+	--card-accent: var(--pf-accent);
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	min-width: 0;
+	border-left: 4px solid var(--card-accent);
+	padding-left: 1rem;
+}
+.rv-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.pf .rv-head h2 {
+	margin: 0;
+	font-family: var(--pf-font);
+	font-size: 1.5rem;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+.rv-sheet {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+.rv-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+	gap: 0.5rem 1.25rem;
+}
+.rv-row {
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	margin: 0;
+}
+.rv-value {
+	font-size: var(--sl-text-sm);
+	color: var(--pf-text);
+	overflow-wrap: anywhere;
+}
+.rv-field + .rv-field {
+	margin-top: 0.75rem;
+}
+.pf .rv-text {
+	margin: 0.25rem 0 0;
+	font-size: var(--sl-text-sm);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+.rv-traits,
+.rv-skills,
+.rv-links {
+	list-style: none;
+	padding: 0;
+	margin: 0.5rem 0 0;
+}
+.rv-traits li,
+.rv-skills li {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.35rem 0;
+	margin: 0;
+	border-bottom: 1px solid var(--pf-line);
+}
+.rv-skills li p {
+	flex-basis: 100%;
+	margin: 0;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+}
+.rv-proof {
+	font-size: var(--sl-text-xs);
+}
+.rv-combo {
+	margin-top: 0.5rem;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--pf-accent);
+	border-radius: 0.5rem;
+	font-size: var(--sl-text-sm);
+}
+.rv-combo summary {
+	cursor: pointer;
+	font-weight: 700;
+	color: var(--pf-accent);
+}
+.rv-diff td.was {
+	color: var(--pf-faint);
+	text-decoration: line-through;
+}
+.rv-diff td.now {
+	color: var(--pf-accent);
+	font-weight: 600;
+}
+.rv-diff td {
+	overflow-wrap: anywhere;
+}
+.rv-slots {
+	max-width: 10rem;
+}
+.rv-decide {
+	position: sticky;
+	bottom: 0.75rem;
+	z-index: 6;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 1rem;
+	border-radius: var(--pf-radius);
+	border: 1px solid var(--pf-line-strong);
+	background: color-mix(in srgb, var(--pf-panel) 94%, transparent);
+	backdrop-filter: blur(8px);
+	box-shadow: 0 0 2rem rgb(0 0 0 / 0.45);
+}
+.rv-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+}
+.pf :is(.rv-detail, .rv-head, .rv-sheet, .rv-decide, .rv-buttons, .rv-row, .rv-block, .rv-traits li, .rv-skills li) > * {
+	margin-top: 0;
 }

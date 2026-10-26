@@ -41,16 +41,13 @@ import '../../styles/portal.css';
 
 		<section class="portal-card" data-state="logged-in" data-admin-only hidden>
 			<h2>Admin tools</h2>
-			<p>Manage player rolls: override codes, rolling locks and setting rolls by hand.</p>
-			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/admin/override/`}>Open the Override panel</a>
+			<p>Review submissions, and manage player rolls with override codes, rolling locks and hand-set rolls.</p>
+			<div class="portal-actions">
+				<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/admin/review/`}>Review dashboard</a>
+				<a class="portal-button" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/admin/override/`}>Override panel</a>
+			</div>
 		</section>
 
-		<section class="portal-card" data-state="logged-in" data-admin-only hidden>
-			<h2>Coming soon</h2>
-			<ul>
-				<li><strong>Review dashboard</strong>: approve, send back or deny submissions</li>
-			</ul>
-		</section>
 
 		<p class="portal-error" data-error hidden></p>
 	</div>

@@ -1,0 +1,10 @@
+---
+// Admin review dashboard. The database enforces admin rights on every read and decision.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import ReviewDashboard from '../../../components/portal/ReviewDashboard.tsx';
+import '../../../styles/portal.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Review', description: 'Admin review dashboard for character submissions.', tableOfContents: false, pagefind: false }}>
+	<ReviewDashboard client:only="preact" />
+</StarlightPage>
