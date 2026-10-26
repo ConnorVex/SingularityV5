@@ -31,9 +31,12 @@ import '../../styles/portal.css';
 		</section>
 
 		<section class="portal-card" data-state="logged-in" hidden>
-			<h2>Create a character</h2>
-			<p>Make an original character or try out for a canon one. Your progress saves as you go.</p>
-			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/submit/`}>Start a new character</a>
+			<h2>Your characters</h2>
+			<p>Make an original character or try out for a canon one, and follow your submissions and admin notes.</p>
+			<div class="portal-actions">
+				<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/submit/`}>Start a new character</a>
+				<a class="portal-button" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/characters/`}>My Characters</a>
+			</div>
 		</section>
 
 		<section class="portal-card" data-state="logged-in" data-admin-only hidden>
@@ -42,11 +45,10 @@ import '../../styles/portal.css';
 			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/admin/override/`}>Open the Override panel</a>
 		</section>
 
-		<section class="portal-card" data-state="logged-in" hidden>
+		<section class="portal-card" data-state="logged-in" data-admin-only hidden>
 			<h2>Coming soon</h2>
 			<ul>
-				<li><strong>My Characters</strong>: your submissions, their status and review notes</li>
-				<li data-admin-only hidden><strong>Review dashboard</strong>: approve, send back or deny submissions</li>
+				<li><strong>Review dashboard</strong>: approve, send back or deny submissions</li>
 			</ul>
 		</section>
 
@@ -69,6 +71,14 @@ import '../../styles/portal.css';
 	}
 	.portal-button.subtle {
 		margin-inline-start: auto;
+	}
+	.portal-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.6rem;
+	}
+	.portal-actions > * {
+		margin-top: 0;
 	}
 	.player {
 		display: flex;

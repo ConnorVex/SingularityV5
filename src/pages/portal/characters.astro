@@ -1,0 +1,10 @@
+---
+// "My Characters": the logged-in player's submissions and their review status.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import MyCharacters from '../../components/portal/MyCharacters.tsx';
+import '../../styles/portal.css';
+---
+
+<StarlightPage frontmatter={{ title: 'My Characters', description: 'Your characters, their review status and admin notes.', tableOfContents: false, pagefind: false }}>
+	<MyCharacters client:only="preact" />
+</StarlightPage>

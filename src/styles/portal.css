@@ -1244,3 +1244,206 @@
 .pf .hud-panel > * + * {
 	margin-top: 0.75rem;
 }
+
+/* ── My Characters (MyCharacters.tsx) ── */
+.mc {
+	gap: 1.25rem;
+}
+.mc-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.mc-top .pf-nav {
+	position: static;
+}
+.mc-count {
+	font-family: var(--pf-mono);
+	opacity: 0.7;
+	margin-inline-start: 0.25rem;
+}
+.mc-banner {
+	display: flex;
+	gap: 0.75rem;
+	align-items: flex-start;
+	padding: 0.85rem 1.1rem;
+	border-radius: var(--pf-radius);
+	border: 1px solid var(--pf-line-strong);
+	border-left: 4px solid var(--pf-accent);
+	background: var(--pf-panel);
+	font-size: var(--sl-text-sm);
+}
+.mc-banner p {
+	margin: 0;
+}
+.mc-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 30rem), 1fr));
+	gap: 1rem;
+}
+/* Status colours mean state; the left edge carries the role colour. */
+.mc-card {
+	--tone: var(--pf-muted);
+	--card-accent: var(--pf-accent);
+	display: grid;
+	grid-template-columns: 6.5rem 1fr;
+	gap: 1rem;
+	padding: 1rem;
+	border-radius: var(--pf-radius);
+	border: 1px solid var(--pf-line);
+	border-left: 4px solid var(--card-accent);
+	background: var(--pf-panel);
+	box-shadow: 0 0 1.5rem color-mix(in srgb, var(--card-accent) 8%, transparent);
+	margin: 0;
+}
+.mc-card.tone-info { --tone: var(--sl-color-blue-high); }
+.mc-card.tone-good { --tone: var(--sl-color-green-high); }
+.mc-card.tone-warn { --tone: var(--sl-color-orange-high); }
+.mc-card.tone-bad { --tone: var(--sl-color-red-high); }
+.mc-art {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 3 / 4;
+	border-radius: 0.6rem;
+	overflow: hidden;
+	background: color-mix(in srgb, var(--card-accent) 18%, var(--pf-field));
+	border: 1px solid var(--pf-line);
+	text-decoration: none;
+}
+.mc-art img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+}
+.mc-art span {
+	font-family: var(--pf-mono);
+	font-size: 2.2rem;
+	font-weight: 800;
+	color: var(--card-accent);
+}
+.mc-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+	min-width: 0;
+}
+.mc-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+.pf .mc-head h3 {
+	margin: 0;
+	font-family: var(--pf-font);
+	font-size: 1.15rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+.mc-head h3 a {
+	color: var(--pf-text);
+	text-decoration: none;
+}
+.mc-head h3 a:hover {
+	color: var(--card-accent);
+}
+.mc-status {
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--tone);
+	border: 1px solid currentColor;
+	border-radius: 0.4rem;
+	padding: 0.15rem 0.5rem;
+	white-space: nowrap;
+}
+.pf .mc-meta,
+.pf .mc-help {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	color: var(--pf-muted);
+}
+.pf .mc-help {
+	color: var(--pf-faint);
+}
+.mc-note {
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-line-strong);
+	border-radius: 0.5rem;
+	padding: 0.6rem 0.8rem;
+	background: var(--pf-field);
+	font-size: var(--sl-text-sm);
+}
+.mc-note.approved { border-left-color: var(--sl-color-green); }
+.mc-note.needs_correction { border-left-color: var(--sl-color-orange); }
+.mc-note.denied { border-left-color: var(--sl-color-red); }
+.pf .mc-note p {
+	margin: 0;
+}
+.pf .mc-note-body {
+	margin-top: 0.3rem;
+	white-space: pre-wrap;
+}
+.mc-note-body.empty {
+	color: var(--pf-faint);
+	font-style: italic;
+}
+.mc-link {
+	margin-top: 0.4rem;
+	padding: 0;
+	border: 0;
+	background: none;
+	color: var(--pf-accent);
+	font: inherit;
+	font-size: var(--sl-text-xs);
+	cursor: pointer;
+}
+.mc-history {
+	list-style: none;
+	padding: 0;
+	margin: 0.5rem 0 0;
+	border-top: 1px solid var(--pf-line);
+}
+.mc-history li {
+	padding: 0.4rem 0;
+	margin: 0;
+	border-bottom: 1px solid var(--pf-line);
+	font-size: var(--sl-text-xs);
+}
+.mc-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	margin-top: auto;
+	padding-top: 0.35rem;
+}
+.mc-empty {
+	text-align: center;
+}
+.pf :is(.mc-top, .mc-banner, .mc-card, .mc-body, .mc-head, .mc-actions, .mc-note) > * {
+	margin-top: 0;
+}
+@media (max-width: 30rem) {
+	.mc-card {
+		grid-template-columns: 4.5rem 1fr;
+	}
+}
+.pf-back {
+	align-self: flex-start;
+	font-size: 0.72rem;
+	font-weight: 700;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--pf-muted);
+	text-decoration: none;
+}
+.pf-back:hover {
+	color: var(--pf-accent);
+}

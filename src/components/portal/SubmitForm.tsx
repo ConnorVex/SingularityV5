@@ -259,8 +259,8 @@ export default function SubmitForm() {
 					<a class="pf-button primary" href={location.pathname + location.search} onClick={() => setSubmitted(false)}>
 						Back to the character
 					</a>{' '}
-					<a class="pf-button" href={location.pathname}>
-						Create another character
+					<a class="pf-button" href={location.pathname.replace(/submit\/?$/, 'characters/')}>
+						My Characters
 					</a>
 				</p>
 			</div>
@@ -281,6 +281,9 @@ export default function SubmitForm() {
 				</div>
 			)}
 
+			<a class="pf-back" href={location.pathname.replace(/submit\/?$/, 'characters/')}>
+				← My Characters
+			</a>
 			<nav class="pf-nav" aria-label="Form sections">
 				{SECTIONS.filter(([id]) => oc || ['basics', 'appearance', 'lore'].includes(id)).map(([id, label]) => (
 					<a key={id} href={`#${id}`} class={activeSection === id ? 'active' : undefined} aria-current={activeSection === id ? 'true' : undefined}>

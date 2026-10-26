@@ -253,3 +253,62 @@ export async function adminVoidRoll(ownerId: string, kind: RollKind) {
 	const { error } = await db().rpc('admin_void_roll', { p_owner: ownerId, p_kind: kind });
 	fail(error);
 }
+
+// ───────────────────────────── My Characters ─────────────────────────────
+
+export interface CharacterSummary {
+	id: string;
+	name: string;
+	kind: 'oc' | 'canon';
+	canon_universe: string | null;
+	status: Status;
+	approved_at: string | null;
+	submitted_at: string | null;
+	updated_at: string;
+	created_at: string;
+	image: string | null;
+	role: string | null;
+	potential: string | null;
+}
+
+export interface ReviewNote {
+	id: string;
+	character_id: string;
+	outcome: 'approved' | 'needs_correction' | 'denied' | null;
+	body: string;
+	created_at: string;
+}
+
+/** The logged-in player's own characters, newest activity first. (Admins can read everyone's,
+ * so this filters to the player explicitly.) */
+export async function loadMyCharacters(): Promise<CharacterSummary[]> {
+	const { data: auth } = await db().auth.getSession();
+	const uid = auth.session?.user.id;
+	if (!uid) return [];
+	const { data, error } = await db()
+		.from('characters')
+		.select(
+			'id, name, kind, canon_universe, status, approved_at, submitted_at, updated_at, created_at, image:sheet->appearance->>image, role:sheet->>role, potential:sheet->potential->>grade',
+		)
+		.eq('owner_id', uid)
+		.order('updated_at', { ascending: false });
+	fail(error);
+	return (data ?? []) as CharacterSummary[];
+}
+
+export async function loadReviewNotes(characterIds: string[]): Promise<ReviewNote[]> {
+	if (characterIds.length === 0) return [];
+	const { data, error } = await db()
+		.from('review_notes')
+		.select('id, character_id, outcome, body, created_at')
+		.in('character_id', characterIds)
+		.order('created_at', { ascending: false });
+	fail(error);
+	return (data ?? []) as ReviewNote[];
+}
+
+export async function deleteCharacter(id: string) {
+	const { data, error } = await db().from('characters').delete().eq('id', id).select('id');
+	fail(error);
+	if (!data?.length) throw new Error('This character can’t be deleted.');
+}
