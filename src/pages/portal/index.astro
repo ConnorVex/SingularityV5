@@ -1,0 +1,201 @@
+---
+// Character Portal home: Discord login, and links to the portal's tools as they're built.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+---
+
+<StarlightPage
+	frontmatter={{
+		title: 'Character Portal',
+		description: 'Submit your characters and evolutions for review.',
+		tableOfContents: false,
+	}}
+>
+	<div class="portal" data-portal>
+		<p class="portal-status" data-state="loading">Checking your login…</p>
+
+		<section class="portal-card" data-state="logged-out" hidden>
+			<p>Log in with your Discord account to submit characters and evolutions, and to see how your reviews went.</p>
+			<button type="button" class="portal-button discord" data-login>Log in with Discord</button>
+		</section>
+
+		<section class="portal-card" data-state="logged-in" hidden>
+			<div class="player">
+				<img class="player-avatar" data-avatar alt="" width="56" height="56" hidden />
+				<div>
+					<p class="player-name"><span data-name></span> <span class="admin-badge" data-admin-badge hidden>Admin</span></p>
+					<p class="player-sub">Logged in with Discord</p>
+				</div>
+				<button type="button" class="portal-button subtle" data-logout>Log out</button>
+			</div>
+		</section>
+
+		<section class="portal-card" data-state="logged-in" hidden>
+			<h2>Coming soon</h2>
+			<ul>
+				<li><strong>Submit a character</strong>: OC or canon tryout, with live rule checks</li>
+				<li><strong>My Characters</strong>: your submissions, their status and review notes</li>
+				<li data-admin-only hidden><strong>Review dashboard</strong>: approve, send back or deny submissions</li>
+			</ul>
+		</section>
+
+		<p class="portal-error" data-error hidden></p>
+	</div>
+</StarlightPage>
+
+<style>
+	.portal {
+		max-width: 40rem;
+		margin-inline: auto;
+	}
+	.portal-card {
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 0.75rem;
+		background: var(--sl-color-gray-6);
+		padding: 1.25rem;
+		margin-block: 1rem;
+	}
+	.portal-card h2 {
+		margin-top: 0;
+		font-size: var(--sl-text-h4);
+	}
+	.portal-status {
+		text-align: center;
+		color: var(--sl-color-gray-2);
+	}
+	.portal-button {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		border: 0;
+		border-radius: 0.5rem;
+		padding: 0.6rem 1.1rem;
+		font: inherit;
+		font-weight: 600;
+		cursor: pointer;
+	}
+	.portal-button:disabled {
+		opacity: 0.6;
+		cursor: wait;
+	}
+	.portal-button.discord {
+		background: #5865f2;
+		color: #fff;
+	}
+	.portal-button.discord:hover:not(:disabled) {
+		background: #4752c4;
+	}
+	.portal-button.subtle {
+		background: transparent;
+		color: var(--sl-color-gray-2);
+		border: 1px solid var(--sl-color-gray-4);
+		margin-inline-start: auto;
+	}
+	.player {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		flex-wrap: wrap;
+	}
+	.player p {
+		margin: 0;
+	}
+	.player-avatar {
+		border-radius: 50%;
+		margin: 0;
+	}
+	.player-name {
+		font-size: var(--sl-text-lg);
+		font-weight: 600;
+		color: var(--sl-color-white);
+	}
+	.player-sub {
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-3);
+	}
+	.admin-badge {
+		font-size: var(--sl-text-xs);
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+		padding: 0.15rem 0.5rem;
+		border-radius: 999px;
+		background: #20e0a0;
+		color: #062;
+		vertical-align: middle;
+	}
+	.portal-error {
+		border: 1px solid var(--sl-color-red);
+		background: var(--sl-color-red-low);
+		color: var(--sl-color-red-high);
+		border-radius: 0.5rem;
+		padding: 0.75rem 1rem;
+	}
+</style>
+
+<script>
+	import { logIn, logOut, loginErrorFromUrl, portalConfigured, watchPlayer, type Player } from '../../lib/supabase';
+
+	const root = document.querySelector<HTMLElement>('[data-portal]')!;
+	const errorBox = root.querySelector<HTMLElement>('[data-error]')!;
+
+	// Supabase errors are plain objects with a message, not Error instances.
+	const messageOf = (error: unknown) =>
+		typeof error === 'object' && error && 'message' in error ? String(error.message) : String(error);
+
+	function showError(message: string) {
+		errorBox.textContent = message;
+		errorBox.hidden = false;
+	}
+
+	function show(state: 'loading' | 'logged-out' | 'logged-in') {
+		for (const el of root.querySelectorAll<HTMLElement>('[data-state]')) el.hidden = el.dataset.state !== state;
+	}
+
+	function render(player: Player | null) {
+		if (!player) return show('logged-out');
+		root.querySelector('[data-name]')!.textContent = player.displayName;
+		const avatar = root.querySelector<HTMLImageElement>('[data-avatar]')!;
+		avatar.hidden = !player.avatarUrl;
+		if (player.avatarUrl) avatar.src = player.avatarUrl;
+		root.querySelector<HTMLElement>('[data-admin-badge]')!.hidden = !player.isAdmin;
+		for (const el of root.querySelectorAll<HTMLElement>('[data-admin-only]')) el.hidden = !player.isAdmin;
+		show('logged-in');
+	}
+
+	async function run(button: HTMLButtonElement, action: () => Promise<void>) {
+		button.disabled = true;
+		errorBox.hidden = true;
+		try {
+			await action();
+		} catch (error) {
+			showError(`Something went wrong: ${messageOf(error)}`);
+			button.disabled = false;
+		}
+	}
+
+	const urlError = loginErrorFromUrl();
+	if (urlError) showError(`Discord login didn't finish: ${urlError}`);
+
+	if (!portalConfigured) {
+		show('logged-out');
+		root.querySelector<HTMLButtonElement>('[data-login]')!.disabled = true;
+		showError('The portal is not connected to its database yet. (PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY are missing from this build.)');
+	} else {
+		const login = root.querySelector<HTMLButtonElement>('[data-login]')!;
+		const logout = root.querySelector<HTMLButtonElement>('[data-logout]')!;
+		login.addEventListener('click', () => run(login, logIn));
+		logout.addEventListener('click', () => run(logout, async () => {
+			await logOut();
+			logout.disabled = false;
+		}));
+		watchPlayer((player, error) => {
+			login.disabled = false;
+			if (error) {
+				show('logged-out');
+				showError(`Couldn't load your account: ${messageOf(error)}`);
+				return;
+			}
+			render(player);
+		});
+	}
+</script>

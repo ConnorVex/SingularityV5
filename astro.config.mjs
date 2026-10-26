@@ -16,6 +16,7 @@ export default defineConfig({
 			// the current page always opens.
 			sidebar: [
 				'index',
+				{ label: 'Character Portal', link: '/portal/' },
 				{
 					label: 'Important Systems',
 					collapsed: true,
