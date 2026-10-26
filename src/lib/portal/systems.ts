@@ -28,6 +28,8 @@ export interface Field {
 	required?: boolean;
 	/** A Discord message link proving a roll. */
 	rollProof?: boolean;
+	/** Filled by a roll on the portal (read-only on the card). */
+	rolled?: 'cursed_energy';
 }
 
 export interface SystemDef {
@@ -44,6 +46,9 @@ export interface SystemDef {
 	startingMoves?: (f: Fields) => { standard?: number; ultimate?: number; label?: string };
 	/** Extra Physical Tiering Points this system grants. */
 	ptpBonus?: (f: Fields) => number;
+	/** When only some cards count toward the one-per-character limit, e.g. only Stands for JoJo.
+	 * Without it, every card of this system counts. */
+	limitedChoice?: { key: string; value: string; label: string };
 	/** Systems this one can be combined with; others are blocked. */
 	onlyWith?: (f: Fields) => string[] | null;
 	/** Sets the character's base physical stats instead of PTP. */
@@ -140,13 +145,13 @@ export const systems: SystemDef[] = [
 		fields: [
 			{
 				key: 'ceClass',
-				label: 'Cursed Energy class (rolled)',
+				label: 'Cursed Energy',
 				type: 'select',
 				options: [{ value: 'Common' }, { value: 'Uncommon' }, { value: 'Rare' }, { value: 'Legendary' }, { value: 'Mythical' }],
 				required: true,
-				rollProof: true,
+				rolled: 'cursed_energy',
 			},
-			{ key: 'ceAmount', label: 'Cursed Energy Points (rolled amount)', type: 'number', min: 0, required: true },
+			{ key: 'ceAmount', label: 'Cursed Energy Points', type: 'number', min: 0, required: true, rolled: 'cursed_energy' },
 			{
 				key: 'ceOutput',
 				label: 'Cursed Energy Output',
@@ -197,7 +202,7 @@ export const systems: SystemDef[] = [
 			{ key: 'bindingVows', label: 'Binding Vows', type: 'textarea' },
 			{ key: 'cursedTools', label: 'Cursed Tools', type: 'textarea' },
 		],
-		startingMoves: () => ({ standard: 2, label: 'Extension Techniques' }),
+		startingMoves: () => ({ standard: 2, label: 'Extension Technique' }),
 		ptpBonus: (f) => (f.heavenlyRestriction === 'Physical' ? 9 : 0),
 		notes: ['Barriers and Domain Expansions are added later as evolutions.'],
 	},
@@ -206,6 +211,7 @@ export const systems: SystemDef[] = [
 		label: "JoJo's Bizarre Adventure",
 		universe: 'jojo',
 		claimLabel: 'Canon Stand',
+		limitedChoice: { key: 'path', value: 'Stand', label: 'Stand' },
 		fields: [
 			{
 				key: 'path',
@@ -360,3 +366,7 @@ export const systemById = new Map(systems.map((s) => [s.id, s]));
 
 export const visibleFields = (def: SystemDef, f: Fields) =>
 	def.fields.filter((field) => !field.showIf || field.showIf.in.includes(String(f[field.showIf.key] ?? '')));
+
+/** Whether a card counts toward its system's one-per-character limit. */
+export const countsTowardLimit = (def: SystemDef | undefined, f: Fields) =>
+	!def?.limitedChoice || f[def.limitedChoice.key] === def.limitedChoice.value;

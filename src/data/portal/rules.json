@@ -3,37 +3,51 @@
 		{
 			"id": "hero",
 			"label": "Hero",
-			"startingPtp": 15
+			"startingPtp": 15,
+			"color": "#f5c542",
+			"ink": "#2a1f00"
 		},
 		{
 			"id": "vigilante",
 			"label": "Vigilante",
-			"startingPtp": 17
+			"startingPtp": 17,
+			"color": "#9b5de5",
+			"ink": "#12051f"
 		},
 		{
 			"id": "villain",
 			"label": "Villain",
-			"startingPtp": 20
+			"startingPtp": 20,
+			"color": "#e63946",
+			"ink": "#1a0004"
 		},
 		{
 			"id": "jujutsu-sorcerer",
 			"label": "Jujutsu Sorcerer",
-			"startingPtp": 15
+			"startingPtp": 15,
+			"color": "#3a86ff",
+			"ink": "#00122e"
 		},
 		{
 			"id": "curse-user",
 			"label": "Curse User",
-			"startingPtp": 20
+			"startingPtp": 20,
+			"color": "#c026d3",
+			"ink": "#ffffff"
 		},
 		{
 			"id": "student",
 			"label": "Student",
-			"startingPtp": 10
+			"startingPtp": 10,
+			"color": "#3ee6a8",
+			"ink": "#032a1d"
 		},
 		{
 			"id": "civilian",
 			"label": "Civilian",
-			"startingPtp": 5
+			"startingPtp": 5,
+			"color": "#8fb8b8",
+			"ink": "#0b1f1f"
 		}
 	],
 	"traitSlots": {
@@ -211,6 +225,205 @@
 				"ptp": 40,
 				"permission": true
 			}
+		],
+		"traitPtp": [
+			{
+				"trait": "Physically Fit",
+				"ptp": 5
+			},
+			{
+				"trait": "Lazy",
+				"ptp": -5
+			},
+			{
+				"trait": "Frail Body",
+				"noStartingPtp": true,
+				"baseRanks": {
+					"stamina": "1E"
+				},
+				"note": "Starts at Str 1F, Spd 1F, Def 1F, Sta 1E; no starting PTP can be applied."
+			}
+		]
+	},
+	"powerSets": {
+		"note": "Each character can have one of each power system, except the unlimited ones. Traits (and secret combinations, via the database) can raise a system's limit.",
+		"unlimited": [
+			"abilities",
+			"quirk"
+		],
+		"traitLimits": [
+			{
+				"trait": "Dual Gift",
+				"limits": {
+					"jujutsu-kaisen": 2,
+					"infamous": 2
+				}
+			}
+		]
+	},
+	"permissionClaimCategories": [
+		"Family Locked"
+	],
+	"defaultTheme": {
+		"color": "#20e0a0",
+		"ink": "#032a1d",
+		"note": "Used before a role is picked, for canon tryouts, and on the other portal pages."
+	},
+	"cursedEnergyLevels": {
+		"note": "Mirrors public.ce_levels() in the portal_rolls migration (from the wiki's CE Levels page).",
+		"Common": [
+			[
+				"Miniscule",
+				10
+			],
+			[
+				"Stunted",
+				20
+			],
+			[
+				"Modest",
+				30
+			],
+			[
+				"Trivial",
+				40
+			],
+			[
+				"Compact",
+				50
+			],
+			[
+				"Inconsequential",
+				60
+			],
+			[
+				"Fun Size",
+				70
+			],
+			[
+				"Measly",
+				80
+			],
+			[
+				"Meager",
+				90
+			],
+			[
+				"Limited",
+				100
+			]
+		],
+		"Uncommon": [
+			[
+				"Average",
+				120
+			],
+			[
+				"Above Average",
+				140
+			],
+			[
+				"Sub-Par",
+				160
+			],
+			[
+				"Basic",
+				180
+			],
+			[
+				"Great",
+				200
+			]
+		],
+		"Rare": [
+			[
+				"Large",
+				230
+			],
+			[
+				"Huge",
+				260
+			],
+			[
+				"Enormous",
+				290
+			],
+			[
+				"Extensive",
+				320
+			],
+			[
+				"Lofty",
+				350
+			],
+			[
+				"Robust",
+				380
+			],
+			[
+				"Gargantuan",
+				410
+			],
+			[
+				"Capacious",
+				440
+			],
+			[
+				"Ample",
+				470
+			],
+			[
+				"Voluminous",
+				500
+			]
+		],
+		"Legendary": [
+			[
+				"Vast",
+				540
+			],
+			[
+				"Expansive",
+				580
+			],
+			[
+				"Humongous",
+				620
+			],
+			[
+				"Hefty",
+				660
+			],
+			[
+				"Insane",
+				700
+			]
+		],
+		"Mythical": [
+			[
+				"Mammoth",
+				750
+			],
+			[
+				"Colossal",
+				800
+			],
+			[
+				"Massive",
+				850
+			],
+			[
+				"Giant",
+				900
+			],
+			[
+				"Tremendous",
+				950
+			],
+			[
+				"Monumental",
+				1000
+			]
 		]
 	}
 }

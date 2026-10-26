@@ -1,6 +1,7 @@
 ---
 // Character Portal home: Discord login, and links to the portal's tools as they're built.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import '../../styles/portal.css';
 ---
 
 <StarlightPage
@@ -35,6 +36,12 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/submit/`}>Start a new character</a>
 		</section>
 
+		<section class="portal-card" data-state="logged-in" data-admin-only hidden>
+			<h2>Admin tools</h2>
+			<p>Manage player rolls: override codes, rolling locks and setting rolls by hand.</p>
+			<a class="portal-button discord" href={`${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/admin/override/`}>Open the Override panel</a>
+		</section>
+
 		<section class="portal-card" data-state="logged-in" hidden>
 			<h2>Coming soon</h2>
 			<ul>
@@ -48,51 +55,19 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 </StarlightPage>
 
 <style>
+	/* Shared card, button and error styles live in src/styles/portal.css. */
 	.portal {
 		max-width: 40rem;
 		margin-inline: auto;
-	}
-	.portal-card {
-		border: 1px solid var(--sl-color-gray-5);
-		border-radius: 0.75rem;
-		background: var(--sl-color-gray-6);
-		padding: 1.25rem;
-		margin-block: 1rem;
 	}
 	.portal-card h2 {
 		margin-top: 0;
 		font-size: var(--sl-text-h4);
 	}
-	.portal-status {
-		text-align: center;
-		color: var(--sl-color-gray-2);
-	}
-	.portal-button {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		border: 0;
-		border-radius: 0.5rem;
-		padding: 0.6rem 1.1rem;
-		font: inherit;
-		font-weight: 600;
-		cursor: pointer;
-	}
-	.portal-button:disabled {
-		opacity: 0.6;
-		cursor: wait;
-	}
-	.portal-button.discord {
-		background: #5865f2;
-		color: #fff;
-	}
 	.portal-button.discord:hover:not(:disabled) {
 		background: #4752c4;
 	}
 	.portal-button.subtle {
-		background: transparent;
-		color: var(--sl-color-gray-2);
-		border: 1px solid var(--sl-color-gray-4);
 		margin-inline-start: auto;
 	}
 	.player {
@@ -107,6 +82,7 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 	.player-avatar {
 		border-radius: 50%;
 		margin: 0;
+		box-shadow: 0 0 0 2px var(--pf-accent);
 	}
 	.player-name {
 		font-size: var(--sl-text-lg);
@@ -124,21 +100,17 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 		letter-spacing: 0.05em;
 		padding: 0.15rem 0.5rem;
 		border-radius: 999px;
-		background: #20e0a0;
-		color: #062;
+		background: var(--pf-accent);
+		color: var(--pf-ink);
 		vertical-align: middle;
-	}
-	.portal-error {
-		border: 1px solid var(--sl-color-red);
-		background: var(--sl-color-red-low);
-		color: var(--sl-color-red-high);
-		border-radius: 0.5rem;
-		padding: 0.75rem 1rem;
 	}
 </style>
 
 <script>
 	import { logIn, logOut, loginErrorFromUrl, portalConfigured, watchPlayer, type Player } from '../../lib/supabase';
+	import { startPortalTheme } from '../../lib/portal/theme';
+
+	startPortalTheme();
 
 	const root = document.querySelector<HTMLElement>('[data-portal]')!;
 	const errorBox = root.querySelector<HTMLElement>('[data-error]')!;
@@ -163,8 +135,9 @@ import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 		avatar.hidden = !player.avatarUrl;
 		if (player.avatarUrl) avatar.src = player.avatarUrl;
 		root.querySelector<HTMLElement>('[data-admin-badge]')!.hidden = !player.isAdmin;
-		for (const el of root.querySelectorAll<HTMLElement>('[data-admin-only]')) el.hidden = !player.isAdmin;
 		show('logged-in');
+		// After show(), which reveals every logged-in card: admin-only ones stay hidden for players.
+		for (const el of root.querySelectorAll<HTMLElement>('[data-admin-only]')) el.hidden = !player.isAdmin;
 	}
 
 	async function run(button: HTMLButtonElement, action: () => Promise<void>) {

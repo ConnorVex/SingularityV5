@@ -38,6 +38,8 @@ export interface Combo {
 	name: string;
 	requires: string[][];
 	perks: string;
+	/** Power systems this combination lets the character have more of, e.g. { system: 3 }. */
+	system_limits?: Record<string, number>;
 }
 
 function db() {
@@ -119,4 +121,135 @@ export async function loadHeldClaims(characterId: string): Promise<Set<string>> 
 	const { data, error } = await db().from('claims').select('claimable_id').eq('character_id', characterId);
 	fail(error);
 	return new Set((data ?? []).map((r) => r.claimable_id));
+}
+
+// ───────────────────────────── Rolls ─────────────────────────────
+
+export type RollKind = 'potential' | 'cursed_energy';
+
+export interface RollResult {
+	roll?: number | null;
+	grade?: string;
+	classRoll?: number | null;
+	class?: string;
+	amountRoll?: number;
+	level?: string;
+	cep?: number;
+	/** The character already had this roll. */
+	existing?: boolean;
+	/** An unsettled roll moved over from a deleted or denied character. */
+	carried?: boolean;
+}
+
+export interface RollRow {
+	id: string;
+	kind: RollKind;
+	result: RollResult;
+	status: 'active' | 'consumed' | 'void';
+	character_id: string | null;
+	created_at: string;
+}
+
+export interface MyRolls {
+	/** Unsettled rolls, with the character each is tied to (if it still exists and isn't denied). */
+	active: Partial<Record<RollKind, { row: RollRow; heldBy: { id: string; name: string } | null }>>;
+	lock: { reason: string } | null;
+}
+
+/** Rolls through the 'roll' Edge Function, which checks Singularity membership first. */
+export async function rollFor(kind: RollKind, characterId: string): Promise<RollResult> {
+	const { data, error } = await db().functions.invoke('roll', { body: { kind, characterId } });
+	if (error) {
+		let message = error.message;
+		try {
+			const body = await (error as { context?: Response }).context?.json();
+			if (body?.error) message = body.error;
+		} catch {
+			// keep the generic message
+		}
+		throw new Error(message);
+	}
+	return (data as { roll: RollResult }).roll;
+}
+
+export async function loadMyRolls(): Promise<MyRolls> {
+	const [rolls, lock, chars] = await Promise.all([
+		db().from('player_rolls').select('id, kind, result, status, character_id, created_at').eq('status', 'active'),
+		db().from('roll_locks').select('reason').maybeSingle(),
+		db().from('characters').select('id, name, status'),
+	]);
+	fail(rolls.error);
+	fail(lock.error);
+	fail(chars.error);
+	const active: MyRolls['active'] = {};
+	for (const row of (rolls.data ?? []) as RollRow[]) {
+		const c = (chars.data ?? []).find((x) => x.id === row.character_id && x.status !== 'denied');
+		active[row.kind] = { row, heldBy: c ? { id: c.id, name: c.name } : null };
+	}
+	return { active, lock: lock.data };
+}
+
+export async function redeemOverride(code: string): Promise<{ ok: boolean; message: string }> {
+	const { data, error } = await db().rpc('redeem_roll_override', { p_code: code });
+	fail(error);
+	return data as { ok: boolean; message: string };
+}
+
+// ───────────────────────────── Admin: rolls ─────────────────────────────
+
+export interface PlayerSummary {
+	id: string;
+	discord_id: string;
+	display_name: string;
+	avatar_url: string | null;
+}
+
+export interface PlayerRollInfo {
+	rolls: RollRow[];
+	lock: { reason: string; locked_at: string } | null;
+	events: { id: number; action: string; detail: Record<string, unknown>; created_at: string; actor_id: string | null }[];
+	characters: { id: string; name: string; status: Status; kind: 'oc' | 'canon' }[];
+}
+
+export async function listPlayers(): Promise<PlayerSummary[]> {
+	const { data, error } = await db().from('profiles').select('id, discord_id, display_name, avatar_url').order('display_name');
+	fail(error);
+	return data ?? [];
+}
+
+export async function loadPlayerRolls(ownerId: string): Promise<PlayerRollInfo> {
+	const [rolls, lock, events, characters] = await Promise.all([
+		db().from('player_rolls').select('id, kind, result, status, character_id, created_at').eq('owner_id', ownerId).order('created_at', { ascending: false }),
+		db().from('roll_locks').select('reason, locked_at').eq('owner_id', ownerId).maybeSingle(),
+		db().from('roll_events').select('id, action, detail, created_at, actor_id').eq('owner_id', ownerId).order('id', { ascending: false }).limit(40),
+		db().from('characters').select('id, name, status, kind').eq('owner_id', ownerId).order('created_at', { ascending: false }),
+	]);
+	for (const r of [rolls, lock, events, characters]) fail(r.error);
+	return {
+		rolls: (rolls.data ?? []) as RollRow[],
+		lock: lock.data,
+		events: (events.data ?? []) as PlayerRollInfo['events'],
+		characters: (characters.data ?? []) as PlayerRollInfo['characters'],
+	};
+}
+
+export async function createOverrideCode(ownerId: string, hours: number): Promise<{ code: string; expires: string }> {
+	const { data, error } = await db().rpc('create_roll_override', { p_owner: ownerId, p_hours: hours });
+	fail(error);
+	return data as { code: string; expires: string };
+}
+
+export async function setRollLock(ownerId: string, locked: boolean, reason: string) {
+	const { error } = await db().rpc('set_roll_lock', { p_owner: ownerId, p_locked: locked, p_reason: reason });
+	fail(error);
+}
+
+export async function adminSetRoll(ownerId: string, kind: RollKind, value: string, characterId: string | null) {
+	const { error } = await db().rpc('admin_set_roll', { p_owner: ownerId, p_kind: kind, p_value: value, p_character: characterId });
+	fail(error);
+}
+
+export async function adminVoidRoll(ownerId: string, kind: RollKind) {
+	const { error } = await db().rpc('admin_void_roll', { p_owner: ownerId, p_kind: kind });
+	fail(error);
 }

@@ -1,0 +1,10 @@
+---
+// Admin "Override" panel for Potential / Cursed Energy rolls. The database enforces admin rights.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import OverridePanel from '../../../components/portal/OverridePanel.tsx';
+import '../../../styles/portal.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Override', description: 'Admin tools for player rolls.', tableOfContents: false, pagefind: false }}>
+	<OverridePanel client:only="preact" />
+</StarlightPage>

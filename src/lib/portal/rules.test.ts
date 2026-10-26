@@ -1,7 +1,7 @@
 // Run with: node --test src/lib/portal/
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { checkSheet, power, ptp, recoil, traitSlots, type Issue } from './rules.ts';
+import { checkSheet, power, ptp, recoil, systemLimit, traitSlots, type Issue } from './rules.ts';
 import { emptySheet, normalizeSheet, type Sheet } from './sheet.ts';
 
 const ocCtx = { kind: 'oc' as const, name: 'Kaito' };
@@ -59,7 +59,9 @@ test('PTP: role start vs spent sub-tiers, intelligence and phase hops', () => {
 	assert.deepEqual([ptp(s).spent, ptp(s).available], [17, 20]);
 	s.stats.intelligence = 'Above Average';
 	assert.equal(ptp(s).spent, 27);
-	assert.match(messages(checkSheet(s, ocCtx), 'warning').join(), /Spending 27 PTP but only 20/);
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /spending 27 PTP, but you start with 20/);
+	s.stats.earnedPtp = 50; // PTP earned in RP never counts toward a new character's budget
+	assert.equal(ptp(s).available, 20);
 	assert.deepEqual(checkSheet(s, { ...ocCtx, isEvolution: true }).filter((i) => /PTP/.test(i.message)), []);
 	s.stats.intelligence = 'Average';
 	s.stats.phase = 1;
@@ -80,7 +82,7 @@ test('trait slots by rarity, family traits take one slot', () => {
 	s.traits = [{ name: 'Genius' }, { name: 'Lazy' }]; // Rare 2 + Common 1
 	assert.deepEqual(traitSlots(s), { used: 3, total: 4 });
 	s.traits.push({ name: 'Anomalous Body' }); // Legendary 3
-	assert.match(messages(checkSheet(s, ocCtx)).join(), /take 6 slots, but you have 4/);
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /take 6 slots, but you only have 4/);
 	s.traits[2].family = true;
 	assert.equal(traitSlots(s).used, 4);
 	assert.equal(traitSlots(s, 2).total, 6);
@@ -142,6 +144,7 @@ test('Ghouls cannot be combined with other systems except Chainsaw Man', () => {
 	const ghoul = { key: 'g', system: 'tokyo-ghoul', fields: { path: 'Ghoul', kagune: 'Ukaku' }, description: '', skills: [], rollProofs: { kagune: 'https://x' } };
 	s.systems = [ghoul, { key: 'c', system: 'chainsaw-man', fields: { path: 'Human with contracts', contracts: [] }, description: '', skills: [], rollProofs: {} }];
 	s.prioritySystem = 'g';
+	Object.assign(s.stats, { strength: '4C', speed: '4C', defense: '1F', stamina: '1F' }); // Ghouls get no PTP
 	assert.deepEqual(messages(checkSheet(s, ocCtx), 'error'), []);
 	s.systems.push({ key: 'q', system: 'quirk', fields: { type: 'Emitter' }, description: '', skills: [], rollProofs: {} });
 	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /can’t be combined with My Hero Academia/);
@@ -183,4 +186,81 @@ test('normalizeSheet fills in missing parts', () => {
 	assert.equal(s.lore.personality, '');
 	assert.deepEqual(s.systems[0].skills, []);
 	assert.deepEqual(s.traits, []);
+});
+
+const card = (key: string, system: string, fields = {}, skills: { name: string; type: 'standard' | 'ultimate' | 'passive' }[] = []) => ({
+	key,
+	system,
+	fields,
+	description: '',
+	skills: skills.map((s) => ({ ...s, effect: '', mastery: '' })),
+	rollProofs: {},
+});
+
+test('one of each power set, except Abilities and Quirks', () => {
+	const s = goodSheet();
+	s.prioritySystem = 'a';
+	s.systems = [card('a', 'abilities', { classes: ['Generation'] }, [{ name: 'x', type: 'standard' }]), card('b', 'abilities', { classes: ['Generation'] }, [{ name: 'y', type: 'standard' }])];
+	assert.doesNotMatch(messages(checkSheet(s, ocCtx), 'error').join(), /only have/);
+	s.systems.push(card('c', 'fire-force', { generation: 'Second', theme: 'Ash' }), card('d', 'fire-force', { generation: 'Second', theme: 'Ash' }));
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /only have one Fire Force power set, but you have 2/);
+	assert.equal(systemLimit(s, 'abilities'), Infinity);
+	assert.equal(systemLimit(s, 'quirk'), Infinity);
+});
+
+test('Dual Gift allows 2 Cursed Techniques and Conduits; combinations can raise limits further', () => {
+	const s = goodSheet();
+	assert.equal(systemLimit(s, 'jujutsu-kaisen'), 1);
+	s.traits = [{ name: 'Dual Gift' }];
+	assert.equal(systemLimit(s, 'jujutsu-kaisen'), 2);
+	assert.equal(systemLimit(s, 'infamous'), 2);
+	assert.equal(systemLimit(s, 'jojo'), 1);
+	assert.equal(systemLimit(s, 'jujutsu-kaisen', [{ 'jujutsu-kaisen': 3 }]), 3);
+});
+
+test('starting skills: at least one less than the maximum', () => {
+	const s = goodSheet();
+	s.systems = [card('q', 'quirk', { type: 'Emitter' }, [{ name: 'a', type: 'standard' }])]; // needs 2 standard + 1 ultimate
+	const errors = messages(checkSheet(s, ocCtx), 'error').join();
+	assert.match(errors, /add at least 2 Standard skills \(you have 1\)/);
+	assert.match(errors, /add at least 1 Ultimate skill \(you have 0\)/);
+	s.systems = [card('j', 'jujutsu-kaisen', { ceClass: 'Common', ceAmount: 100 }, [])];
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /add at least 1 Extension Technique \(you have 0\)/);
+	s.systems[0].skills = [{ name: 'Ext', type: 'standard', effect: '', mastery: '' }];
+	assert.doesNotMatch(messages(checkSheet(s, ocCtx), 'error').join(), /Extension/);
+	s.systems = [card('a', 'abilities', { classes: ['Generation'] }, [])]; // needs 1 standard, 0 ultimate
+	assert.deepEqual(messages(checkSheet(s, ocCtx), 'error'), ['Abilities: add at least 1 Standard skill (you have 0).']);
+});
+
+test('Family Locked claims need permission', () => {
+	const s = goodSheet();
+	const claims = new Map([['l', { name: 'Limitless', usedSlots: 0, maxUsers: null, category: 'Family Locked' }]]);
+	assert.match(messages(checkSheet(s, { ...ocCtx, claims, requestedClaims: ['l'] }), 'permission').join(), /Limitless is Family Locked/);
+});
+
+test('JoJo: only Stands are limited to one', () => {
+	const s = goodSheet();
+	s.prioritySystem = 'h';
+	s.systems = [card('h', 'jojo', { path: 'Hamon' }), card('p', 'jojo', { path: 'Spin' }), card('v', 'jojo', { path: 'Vampire' })];
+	assert.doesNotMatch(messages(checkSheet(s, ocCtx), 'error').join(), /only have/);
+	const stand = { path: 'Stand', standName: 'A', standDestructivePower: 'E', standSpeed: 'E', standRange: 'E', standDurability: 'E', standPrecision: 'E', standDevelopmentalPotential: 'E' };
+	s.systems.push(card('s1', 'jojo', stand));
+	assert.doesNotMatch(messages(checkSheet(s, ocCtx), 'error').join(), /only have/);
+	s.systems.push(card('s2', 'jojo', { ...stand, standName: 'B' }));
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /You can only have one Stand, but you have 2/);
+});
+
+test('traits change starting PTP: Physically Fit +5, Lazy −5, Frail Body none', () => {
+	const s = goodSheet(); // Villain: 20 starting PTP, spends 17
+	s.traits = [{ name: 'Physically Fit' }];
+	assert.deepEqual([ptp(s).available, ptp(s).traitBonus], [25, 5]);
+	s.traits = [{ name: 'Lazy' }];
+	assert.equal(ptp(s).available, 15);
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /spending 17 PTP, but you start with 15 \(20 from your role, 0 from systems, -5 from traits\)/);
+	s.traits = [{ name: 'Frail Body' }];
+	Object.assign(s.stats, { strength: '1F', speed: '1F', defense: '1F', stamina: '1E' });
+	assert.deepEqual([ptp(s).spent, ptp(s).available, ptp(s).noPtp], [0, 0, true]); // 1E Stamina is free for Frail Body
+	assert.doesNotMatch(messages(checkSheet(s, ocCtx), 'error').join(), /PTP/);
+	s.stats.strength = '1E';
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /start with 0 \(none/);
 });

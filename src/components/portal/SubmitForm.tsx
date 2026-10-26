@@ -5,21 +5,25 @@ import {
 	loadCharacter,
 	loadClaimBoard,
 	loadHeldClaims,
+	loadMyRolls,
 	loadUniverses,
 	newDraft,
 	saveCharacter,
 	type CharacterDraft,
 	type ClaimRow,
 	type Combo,
+	type MyRolls,
 	type Universe,
 } from '../../lib/portal/api.ts';
 import { checkSheet, hasBlockingIssues, rules, type Issue } from '../../lib/portal/rules.ts';
 import type { Sheet } from '../../lib/portal/sheet.ts';
 import { systemById } from '../../lib/portal/systems.ts';
+import { applyTheme, defaultTheme, startPortalTheme, themeForRole } from '../../lib/portal/theme.ts';
 import { logIn, watchPlayer, type Player } from '../../lib/supabase.ts';
 import { Section, SelectField, TextArea, TextField } from './fields.tsx';
 import { StatsSection } from './StatsSection.tsx';
 import { SystemsSection } from './SystemsSection.tsx';
+import type { Roller } from './RollPanel.tsx';
 import { ComboReveal, TraitsSection } from './TraitsSection.tsx';
 
 const STATUS_TEXT: Record<string, { label: string; text: string }> = {
@@ -59,6 +63,9 @@ export default function SubmitForm() {
 	const [saveState, setSaveState] = useState<SaveState>('idle');
 	const [saveError, setSaveError] = useState('');
 	const [submitted, setSubmitted] = useState(false);
+	const [activeSection, setActiveSection] = useState('basics');
+	const [myRolls, setMyRolls] = useState<MyRolls | null>(null);
+	const refreshRolls = () => void loadMyRolls().then(setMyRolls, () => setMyRolls(null));
 	const version = useRef(0);
 	const discoveredFor = useRef<string | null>(null);
 	const saving = useRef(false);
@@ -70,6 +77,11 @@ export default function SubmitForm() {
 	latest.current = draft;
 
 	useEffect(() => watchPlayer((p, error) => (error ? setLoadError(messageOf(error)) : setPlayer(p))), []);
+	useEffect(() => startPortalTheme(), []);
+
+	// The page takes on the role's colour (canon tryouts keep the default).
+	const role = draft?.kind === 'oc' ? draft.sheet.role : null;
+	useEffect(() => applyTheme(role ? themeForRole(role) : defaultTheme), [role]);
 
 	useEffect(() => {
 		if (!player) return;
@@ -80,6 +92,7 @@ export default function SubmitForm() {
 				setBoard(b);
 				setHeld(h);
 				setDraft(c);
+				refreshRolls();
 				if (c.id) {
 					setCombos(await discoverCombos(c.id));
 					discoveredFor.current = traitKey(c.sheet);
@@ -160,7 +173,7 @@ export default function SubmitForm() {
 
 	const issues: Issue[] = useMemo(() => {
 		if (!draft) return [];
-		const claims = new Map(board.map((r) => [r.id, { name: r.name, usedSlots: r.used_slots, maxUsers: r.max_users }]));
+		const claims = new Map(board.map((r) => [r.id, { name: r.name, usedSlots: r.used_slots, maxUsers: r.max_users, category: r.category }]));
 		const list = checkSheet(draft.sheet, {
 			kind: draft.kind,
 			name: draft.name,
@@ -170,6 +183,7 @@ export default function SubmitForm() {
 			claims,
 			heldClaimIds: held,
 			requestedClaims: effectiveClaims(draft),
+			comboSystemLimits: combos.map((c) => c.system_limits ?? {}),
 		});
 		if (draft.kind === 'canon' && draft.canonUniverse && draft.name.trim()) {
 			const taken = board.find(
@@ -180,10 +194,35 @@ export default function SubmitForm() {
 			}
 		}
 		return list;
-	}, [draft, board, held]);
+	}, [draft, board, held, combos]);
+
+	// Highlight the tab of the section being read.
+	const loaded = Boolean(draft);
+	useEffect(() => {
+		if (!loaded) return;
+		const observer = new IntersectionObserver(
+			(entries) => {
+				const visible = entries.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)[0];
+				if (visible) setActiveSection(visible.target.id);
+			},
+			{ rootMargin: '-35% 0px -55% 0px' },
+		);
+		document.querySelectorAll('.pf-section[id]').forEach((el) => observer.observe(el));
+		return () => observer.disconnect();
+	}, [loaded, draft?.kind]);
 
 	// Combinations whose reveal hasn't played yet for this character.
 	const unseen = draft ? combos.filter((c) => !draft.sheet.seenCombos.includes(c.name)) : [];
+
+	/** Saves now (waiting for any running save) and returns the character's id, or null without a name. */
+	async function ensureSaved(): Promise<string | null> {
+		while (saving.current) await new Promise((r) => setTimeout(r, 100));
+		if (!latest.current?.name.trim()) return null;
+		const result = await save();
+		return result?.id ?? latest.current?.id ?? savedId.current;
+	}
+
+	const roller: Roller = { characterId: draft?.id ?? null, myRolls, ensureSaved, refresh: refreshRolls };
 
 	async function submit() {
 		if (hasBlockingIssues(issues)) {
@@ -244,11 +283,13 @@ export default function SubmitForm() {
 
 			<nav class="pf-nav" aria-label="Form sections">
 				{SECTIONS.filter(([id]) => oc || ['basics', 'appearance', 'lore'].includes(id)).map(([id, label]) => (
-					<a key={id} href={`#${id}`}>
+					<a key={id} href={`#${id}`} class={activeSection === id ? 'active' : undefined} aria-current={activeSection === id ? 'true' : undefined}>
 						{id === 'lore' && !oc ? 'Tryout' : label}
 					</a>
 				))}
-				<a href="#pf-issues">Review & send</a>
+				<a href="#pf-issues" class={activeSection === 'pf-issues' ? 'active' : undefined}>
+					Review & send
+				</a>
 			</nav>
 
 			<Section id="basics" title="Basics">
@@ -395,6 +436,7 @@ export default function SubmitForm() {
 						extraSlots={draft.extraTraitSlots}
 						lockedTraits={new Set(draft.approvedSheet?.traits.map((t) => t.name) ?? [])}
 						readOnly={readOnly}
+						roller={roller}
 					/>
 
 					<Section id="combat" title="Combat">
@@ -452,8 +494,10 @@ export default function SubmitForm() {
 						claimBoard={board}
 						universes={universes}
 						heldClaims={held}
+						comboSystemLimits={combos.map((c) => c.system_limits ?? {})}
 						readOnly={readOnly}
 						isEvolution={isEvolution}
+						roller={roller}
 					/>
 
 					<Section id="storage" title="Storage & evolutions">

@@ -1,9 +1,12 @@
 // Power system cards: each system's own stat block, canon picks and skills.
 import { Fragment } from 'preact';
+import { useState } from 'preact/hooks';
 import type { ClaimRow, Universe } from '../../lib/portal/api.ts';
+import { minimumMoves, rules, systemLimit } from '../../lib/portal/rules.ts';
 import type { Sheet, Skill, SystemEntry } from '../../lib/portal/sheet.ts';
-import { systemById, systems, visibleFields, type Field, type FieldValue } from '../../lib/portal/systems.ts';
+import { countsTowardLimit, systemById, systems, visibleFields, type Field, type FieldValue, type Option } from '../../lib/portal/systems.ts';
 import { CheckboxGroup, NumberField, Section, SelectField, TextArea, TextField } from './fields.tsx';
+import { RollPanel, type Roller } from './RollPanel.tsx';
 
 interface Props {
 	sheet: Sheet;
@@ -13,8 +16,10 @@ interface Props {
 	claimBoard: ClaimRow[];
 	universes: Universe[];
 	heldClaims: Set<string>;
+	comboSystemLimits: Record<string, number>[];
 	readOnly: boolean;
 	isEvolution: boolean;
+	roller: Roller;
 }
 
 const newKey = () => Math.random().toString(36).slice(2, 10);
@@ -25,10 +30,14 @@ function defaults(fields: Field[]) {
 	return out;
 }
 
-function FieldInput({ field, value, onChange, disabled }: { field: Field; value: FieldValue | undefined; onChange: (v: FieldValue) => void; disabled: boolean }) {
+function FieldInput(props: { field: Field; value: FieldValue | undefined; onChange: (v: FieldValue) => void; disabled: boolean; blocked?: { value: string; reason: string } }) {
+	const { field, value, onChange, disabled, blocked } = props;
 	const label = field.label;
 	const help = field.help;
-	const options = (field.options ?? []).map((o) => ({ value: o.value, label: `${o.label ?? o.value}${o.permission ? ' 🔑' : ''}` }));
+	const options = (field.options ?? []).map((o: Option) => {
+		const isBlocked = blocked?.value === o.value && value !== o.value;
+		return { value: o.value, label: `${o.label ?? o.value}${o.permission ? ' 🔑' : ''}${isBlocked ? ` (${blocked!.reason})` : ''}`, disabled: isBlocked };
+	});
 	switch (field.type) {
 		case 'select':
 			return <SelectField label={label} help={help} required={field.required} value={String(value ?? '')} options={options} disabled={disabled} onChange={onChange} />;
@@ -88,18 +97,29 @@ function FieldInput({ field, value, onChange, disabled }: { field: Field; value:
 	}
 }
 
-function SkillsEditor({ skills, onChange, disabled, limits }: { skills: Skill[]; onChange: (s: Skill[]) => void; disabled: boolean; limits?: { standard?: number; ultimate?: number; label?: string } }) {
+type MoveLimits = { standard?: number; ultimate?: number; label?: string };
+
+/** e.g. "needs 1–2 Extension Techniques" or "needs at least 2 Standard skills" */
+function describeMoves(limits: MoveLimits, showMax: boolean) {
+	const part = (max: number | undefined, name: string) => {
+		if (max === undefined) return null;
+		const min = minimumMoves(max);
+		const plural = (n: number) => `${name}${n === 1 ? '' : 's'}`;
+		if (!showMax) return min > 0 ? `at least ${min} ${plural(min)}` : null;
+		return min === max ? `${max} ${plural(max)}` : `${min}–${max} ${plural(max)}`;
+	};
+	return [part(limits.standard, limits.label ?? 'Standard skill'), part(limits.ultimate, 'Ultimate skill')].filter(Boolean).join(' and ');
+}
+
+function SkillsEditor({ skills, onChange, disabled, limits, isEvolution }: { skills: Skill[]; onChange: (s: Skill[]) => void; disabled: boolean; limits?: MoveLimits; isEvolution: boolean }) {
 	const set = (i: number, patch: Partial<Skill>) => onChange(skills.map((s, j) => (j === i ? { ...s, ...patch } : s)));
+	const needs = limits ? describeMoves(limits, !isEvolution) : '';
+	const standardName = limits?.label ?? 'Standard';
 	return (
 		<div class="pf-wide pf-list">
 			<h4 class="pf-subhead">
-				Skills
-				{limits && (
-					<span class="pf-help">
-						{' '}
-						(start with up to {[limits.standard !== undefined && `${limits.standard} ${limits.label ?? 'Standard'}`, limits.ultimate !== undefined && `${limits.ultimate} Ultimate`].filter(Boolean).join(' and ')})
-					</span>
-				)}
+				{limits?.label ? `${limits.label}s & skills` : 'Skills'}
+				{needs && <span class="pf-help"> (needs {needs})</span>}
 			</h4>
 			{skills.map((skill, i) => (
 				<div class="pf-list-row" key={i}>
@@ -111,7 +131,7 @@ function SkillsEditor({ skills, onChange, disabled, limits }: { skills: Skill[];
 						onChange={(v) => set(i, { type: (v || 'standard') as Skill['type'] })}
 						options={[
 							{ value: 'passive', label: 'Passive (free, needs permission) 🔑' },
-							{ value: 'standard', label: 'Standard (10% Stamina)' },
+							{ value: 'standard', label: limits?.label ? `${standardName} (Standard, 10% Stamina)` : 'Standard (10% Stamina)' },
 							{ value: 'ultimate', label: 'Ultimate (30% Stamina, 3-turn cooldown)' },
 						]}
 					/>
@@ -145,7 +165,11 @@ function ClaimPicker(props: { universe: string; label: string; board: ClaimRow[]
 				<ul class="claim-picked">
 					{mine.map((r) => (
 						<li key={r.id}>
-							<strong>{r.name}</strong> <span class="pf-help">{r.category} · {usage(r)}</span>
+							<strong>{r.name}</strong>
+							{rules.permissionClaimCategories.includes(r.category) && <span title="Needs permission"> 🔑</span>}{' '}
+							<span class="pf-help">
+								{r.category} · {usage(r)}
+							</span>
 							{!props.disabled && (
 								<button type="button" class="pf-button subtle" onClick={() => props.onChange(props.picked.filter((id) => id !== r.id))}>
 									Remove
@@ -162,12 +186,39 @@ function ClaimPicker(props: { universe: string; label: string; board: ClaimRow[]
 					placeholder="Pick from the canon list…"
 					options={rows
 						.filter((r) => !props.picked.includes(r.id))
-						.map((r) => ({ value: r.id, label: `${r.name} (${usage(r)}${full(r) ? ', full' : ''})${r.note ? ` · ${r.note}` : ''}`, group: r.category || 'Other', disabled: full(r) }))}
+						.map((r) => ({
+							value: r.id,
+							label: `${r.name} (${usage(r)}${full(r) ? ', full' : ''})${r.note ? ` · ${r.note}` : ''}${rules.permissionClaimCategories.includes(r.category) ? ' 🔑' : ''}`,
+							group: r.category || 'Other',
+							disabled: full(r),
+						}))}
 					onChange={(id) => id && props.onChange([...props.picked, id])}
 					help="Full claims can’t be picked. Admins confirm claims when they approve your character."
 				/>
 			)}
 		</div>
+	);
+}
+
+/** Asks on the page itself, since some browsers silently block confirm() pop-ups. */
+function RemoveButton({ label, confirmLabel, onConfirm }: { label: string; confirmLabel: string; onConfirm: () => void }) {
+	const [asking, setAsking] = useState(false);
+	if (!asking)
+		return (
+			<button type="button" class="pf-button subtle" onClick={() => setAsking(true)}>
+				{label}
+			</button>
+		);
+	return (
+		<span class="pf-confirm" role="group" aria-label={confirmLabel}>
+			<span>{confirmLabel}</span>
+			<button type="button" class="pf-button danger" onClick={onConfirm} autoFocus>
+				Yes, remove
+			</button>
+			<button type="button" class="pf-button subtle" onClick={() => setAsking(false)}>
+				Cancel
+			</button>
+		</span>
 	);
 }
 
@@ -178,6 +229,13 @@ export function SystemsSection(props: Props) {
 			const e = s.systems.find((x) => x.key === key);
 			if (e) fn(e);
 		});
+
+	/** True when the other cards of this system already use up its limited choice (e.g. a second Stand). */
+	const limitedChoiceFull = (entry: SystemEntry) => {
+		const def = systemById.get(entry.system);
+		const others = sheet.systems.filter((e) => e !== entry && e.system === entry.system && countsTowardLimit(def, e.fields)).length;
+		return others >= systemLimit(sheet, entry.system, props.comboSystemLimits);
+	};
 
 	return (
 		<Section id="systems" title="Power systems" intro="Add a card for each power system your character has. With more than one, pick a priority system.">
@@ -208,19 +266,16 @@ export function SystemsSection(props: Props) {
 								</span>
 							)}
 							{!readOnly && (
-								<button
-									type="button"
-									class="pf-button subtle"
-									onClick={() =>
-										confirm(`Remove ${def.label} from this character?`) &&
+								<RemoveButton
+									label="Remove system"
+									confirmLabel={`Remove ${def.label}?`}
+									onConfirm={() =>
 										update((s) => {
 											s.systems = s.systems.filter((x) => x.key !== entry.key);
-											if (s.prioritySystem === entry.key) s.prioritySystem = '';
+											if (s.prioritySystem === entry.key || s.systems.length === 1) s.prioritySystem = s.systems[0]?.key ?? '';
 										})
 									}
-								>
-									Remove system
-								</button>
+								/>
 							)}
 						</header>
 						{def.notes?.map((n) => (
@@ -229,9 +284,40 @@ export function SystemsSection(props: Props) {
 							</p>
 						))}
 						<div class="pf-grid">
-							{visibleFields(def, entry.fields).map((field) => (
+							{def.fields.some((f) => f.rolled === 'cursed_energy') && (
+								<RollPanel
+									kind="cursed_energy"
+									current={
+										entry.fields.ceClass
+											? { class: String(entry.fields.ceClass), cep: Number(entry.fields.ceAmount) || 0, level: String(entry.fields.ceLevel ?? '') }
+											: null
+									}
+									characterId={props.roller.characterId}
+									myRolls={props.roller.myRolls}
+									ensureSaved={props.roller.ensureSaved}
+									refresh={props.roller.refresh}
+									readOnly={readOnly}
+									onRolled={(r) =>
+										update((s) => {
+											for (const e of s.systems) {
+												if (e.system !== entry.system) continue;
+												e.fields.ceClass = r.class ?? '';
+												e.fields.ceAmount = r.cep ?? 0;
+												e.fields.ceLevel = r.level ?? '';
+											}
+										})
+									}
+								/>
+							)}
+							{visibleFields(def, entry.fields).filter((field) => !field.rolled).map((field) => (
 								<Fragment key={field.key}>
-									<FieldInput field={field} value={entry.fields[field.key]} disabled={readOnly} onChange={(v) => setEntry(entry.key, (e) => void (e.fields[field.key] = v))} />
+									<FieldInput
+										field={field}
+										value={entry.fields[field.key]}
+										disabled={readOnly}
+										blocked={def.limitedChoice?.key === field.key && limitedChoiceFull(entry) ? { value: def.limitedChoice.value, reason: 'max reached' } : undefined}
+										onChange={(v) => setEntry(entry.key, (e) => void (e.fields[field.key] = v))}
+									/>
 									{field.rollProof && (
 										<TextField
 											label={`${field.label}: roll link`}
@@ -264,7 +350,8 @@ export function SystemsSection(props: Props) {
 							<SkillsEditor
 								skills={entry.skills}
 								disabled={readOnly}
-								limits={props.isEvolution ? undefined : def.startingMoves?.(entry.fields)}
+								limits={def.startingMoves?.(entry.fields)}
+								isEvolution={props.isEvolution}
 								onChange={(skills) => setEntry(entry.key, (e) => void (e.skills = skills))}
 							/>
 						</div>
@@ -277,7 +364,14 @@ export function SystemsSection(props: Props) {
 					label="Add a power system"
 					value=""
 					placeholder="Choose a system to add…"
-					options={systems.map((s) => ({ value: s.id, label: s.label }))}
+					options={systems.map((sys) => {
+						// Systems where only one choice is limited (JoJo's Stand) can always get another card.
+						const limit = systemLimit(sheet, sys.id, props.comboSystemLimits);
+						const have = sheet.systems.filter((e) => e.system === sys.id).length;
+						const full = !sys.limitedChoice && have >= limit;
+						return { value: sys.id, label: `${sys.label}${full ? ` (only ${limit === 1 ? 'one' : limit} allowed)` : ''}`, disabled: full };
+					})}
+					help={`${rules.powerSets.unlimited.map((id) => systemById.get(id)?.label).join(' and ')} can be added more than once. Every other system can be added once, unless a trait like Dual Gift allows more.`}
 					onChange={(id) =>
 						id &&
 						update((s) => {

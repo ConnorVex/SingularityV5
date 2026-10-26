@@ -3,7 +3,8 @@ import { useEffect, useMemo, useState } from 'preact/hooks';
 import type { Combo } from '../../lib/portal/api.ts';
 import { rules, traits, traitSlots } from '../../lib/portal/rules.ts';
 import type { PickedTrait, Sheet } from '../../lib/portal/sheet.ts';
-import { Section, SelectField, TextField } from './fields.tsx';
+import { Section } from './fields.tsx';
+import { RollPanel, type Roller } from './RollPanel.tsx';
 
 const traitByName = new Map(traits.map((t) => [t.name, t]));
 const rarityLabel = new Map(rules.traitSlots.rarities.map((r) => [r.id, r]));
@@ -116,9 +117,10 @@ interface Props {
 	/** Sticky traits from the approved version can't be removed by the player. */
 	lockedTraits: Set<string>;
 	readOnly: boolean;
+	roller: Roller;
 }
 
-export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits, readOnly }: Props) {
+export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits, readOnly, roller }: Props) {
 	const [query, setQuery] = useState('');
 	const [open, setOpen] = useState<Combo | null>(null);
 	const picked = sheet.traits.map((t) => t.name);
@@ -135,37 +137,40 @@ export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits,
 	}, [query, picked.join('|')]);
 
 	const setTrait = (i: number, patch: Partial<PickedTrait>) => update((s) => Object.assign(s.traits[i], patch));
+	const left = slots.total - slots.used;
+	const slotsOf = (name: string) => rarityLabel.get(traitByName.get(name)?.rarity ?? '')?.slots ?? 1;
+	const familyTaken = sheet.traits.some((t) => t.family);
 
 	return (
 		<Section
 			id="traits"
 			title="Traits"
-			intro="Your Potential and the traits you rolled. Common and Uncommon traits take 1 slot, Rare 2, Legendary 3, Mythic 4."
+			intro="Roll your Potential here, then add the traits you rolled. Common and Uncommon traits take 1 slot, Rare 2, Legendary 3, Mythic 4."
 			badge={
 				<span class={`pf-badge ${slots.used > slots.total ? 'bad' : 'ok'}`}>
 					Slots {slots.used} / {slots.total}
 				</span>
 			}
 		>
-			<SelectField
-				label="Potential"
-				required
-				value={sheet.potential.grade}
-				disabled={readOnly}
-				onChange={(v) => update((s) => void (s.potential.grade = v))}
-				options={rules.potentials.map((p) => ({ value: p.id, label: `${p.label}${'rolled' in p && p.rolled ? ' (rolled by staff)' : ''}` }))}
-				help={(() => {
-					const p = rules.potentials.find((x) => x.id === sheet.potential.grade);
-					return p ? `Reaches up to Phase ${p.maxPhase} (Tier ${p.maxTier}).` : undefined;
-				})()}
+			<RollPanel
+				kind="potential"
+				current={sheet.potential.grade ? { grade: sheet.potential.grade, roll: sheet.potential.roll } : null}
+				characterId={roller.characterId}
+				myRolls={roller.myRolls}
+				ensureSaved={roller.ensureSaved}
+				refresh={roller.refresh}
+				readOnly={readOnly}
+				onRolled={(r) =>
+					update((s) => {
+						s.potential.grade = r.grade ?? '';
+						s.potential.roll = r.roll ?? null;
+					})
+				}
 			/>
-			<TextField
-				label="Potential roll (Discord link)"
-				value={sheet.potential.rollProof}
-				disabled={readOnly}
-				placeholder="https://discord.com/channels/…"
-				onInput={(v) => update((s) => void (s.potential.rollProof = v))}
-			/>
+			{(() => {
+				const p = rules.potentials.find((x) => x.id === sheet.potential.grade);
+				return p ? <p class="pf-help pf-wide">{`${p.label} Potential reaches up to Phase ${p.maxPhase} (Tier ${p.maxTier}).`}</p> : null;
+			})()}
 
 			<div class="pf-wide">
 				<h3 class="pf-subhead">Your traits</h3>
@@ -194,10 +199,24 @@ export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits,
 										disabled={readOnly}
 										onInput={(e) => setTrait(i, { rollProof: e.currentTarget.value })}
 									/>
-									<label class="pf-check">
-										<input type="checkbox" checked={Boolean(t.family)} disabled={readOnly} onChange={(e) => setTrait(i, { family: e.currentTarget.checked })} />
-										Family trait
-									</label>
+									{(() => {
+										const cantUntick = t.family && slotsOf(t.name) - 1 > left;
+										const cantTick = !t.family && familyTaken;
+										return (
+											<label
+												class="pf-check"
+												title={cantUntick ? 'Not enough free slots to make this a regular trait.' : cantTick ? 'Only one trait can be a Family trait.' : undefined}
+											>
+												<input
+													type="checkbox"
+													checked={Boolean(t.family)}
+													disabled={readOnly || cantUntick || cantTick}
+													onChange={(e) => setTrait(i, { family: e.currentTarget.checked })}
+												/>
+												Family trait
+											</label>
+										);
+									})()}
 									<button
 										type="button"
 										class="pf-button subtle"
@@ -235,17 +254,31 @@ export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits,
 						Add a trait
 					</label>
 					<input id="trait-search" type="search" placeholder="Search by name, rarity or type (e.g. “rare”, “skill”)" value={query} onInput={(e) => setQuery(e.currentTarget.value)} />
+					<p class="pf-help" role="status">
+						{left <= 0
+							? 'All your trait slots are full. Remove a trait to add a different one.'
+							: `${left} slot${left === 1 ? '' : 's'} left. Traits that don’t fit are greyed out.`}
+					</p>
 					<ul class="trait-results" aria-label="Matching traits">
-						{results.slice(0, 40).map((t) => (
-							<li key={t.name}>
-								<button type="button" onClick={() => update((s) => void s.traits.push({ name: t.name }))}>
-									<TraitChip name={t.name} />
-									<span class="trait-meta">
-										{rarityLabel.get(t.rarity)?.label} · {t.category} · {t.effect}
-									</span>
-								</button>
-							</li>
-						))}
+						{results.slice(0, 40).map((t) => {
+							const need = slotsOf(t.name);
+							const fits = need <= left;
+							return (
+								<li key={t.name}>
+									<button type="button" disabled={!fits} onClick={() => fits && update((s) => void s.traits.push({ name: t.name }))}>
+										<TraitChip name={t.name} />
+										<span class="trait-meta">
+											{rarityLabel.get(t.rarity)?.label} · {t.category} · {t.effect}
+										</span>
+										{!fits && (
+											<span class="trait-need">
+												Needs {need} slot{need === 1 ? '' : 's'}, {Math.max(0, left)} left
+											</span>
+										)}
+									</button>
+								</li>
+							);
+						})}
 						{results.length === 0 && <li class="pf-empty">No matching traits.</li>}
 					</ul>
 				</div>

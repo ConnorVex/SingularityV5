@@ -46,7 +46,8 @@ export interface Sheet {
 		/** PTP earned in RP since the character started. */
 		earnedPtp: number;
 	};
-	potential: { grade: string; rollProof: string };
+	/** Filled from the player's roll by the database; `roll` is the 1d500 result. */
+	potential: { grade: string; rollProof: string; roll?: number | null };
 	traits: PickedTrait[];
 	/** Combinations whose reveal animation has already played. */
 	seenCombos: string[];
