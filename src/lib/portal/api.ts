@@ -364,3 +364,10 @@ export async function setExtraTraitSlots(id: string, slots: number) {
 	const { error } = await db().from('characters').update({ extra_trait_slots: slots }).eq('id', id);
 	fail(error);
 }
+
+/** Deletes a character and frees its canon claims (admins only). */
+export async function adminDeleteCharacter(id: string): Promise<{ name: string; releasedClaims: string[] }> {
+	const { data, error } = await db().rpc('admin_delete_character', { p_character_id: id });
+	fail(error);
+	return data as { name: string; releasedClaims: string[] };
+}

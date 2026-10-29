@@ -1601,3 +1601,19 @@
 .pf :is(.rv-detail, .rv-head, .rv-sheet, .rv-decide, .rv-buttons, .rv-row, .rv-block, .rv-traits li, .rv-skills li) > * {
 	margin-top: 0;
 }
+.rv-danger {
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px dashed var(--pf-line);
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+}
+.pf .rv-danger p {
+	margin: 0;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-red-high);
+}
+.pf .rv-danger > * {
+	margin-top: 0;
+}

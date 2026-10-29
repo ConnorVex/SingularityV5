@@ -3,6 +3,7 @@
 import type { ComponentChildren } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import {
+	adminDeleteCharacter,
 	discoverCombos,
 	listPlayers,
 	loadAllCharacters,
@@ -303,10 +304,12 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 	const [busy, setBusy] = useState(false);
 	const [error, setError] = useState('');
 	const [slots, setSlots] = useState(String(c.extra_trait_slots));
+	const [confirmDelete, setConfirmDelete] = useState(false);
 
 	useEffect(() => {
 		setNote('');
 		setConfirm(null);
+		setConfirmDelete(false);
 		setError('');
 		setSlots(String(c.extra_trait_slots));
 		Promise.all([discoverCombos(c.id), loadHeldClaims(c.id), loadReviewNotes([c.id])]).then(
@@ -355,6 +358,21 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 		} finally {
 			setBusy(false);
 			setConfirm(null);
+		}
+	}
+
+	const heldNames = props.board.filter((b) => held.has(b.id)).map((b) => b.name);
+
+	async function remove() {
+		setBusy(true);
+		setError('');
+		try {
+			await adminDeleteCharacter(c.id);
+			props.onDecided();
+		} catch (e) {
+			setError(messageOf(e));
+			setBusy(false);
+			setConfirmDelete(false);
 		}
 	}
 
@@ -439,6 +457,28 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 								onBlur={() => Number(slots) !== c.extra_trait_slots && change(() => setExtraTraitSlots(c.id, Math.max(0, Math.min(20, Number(slots) || 0))))}
 							/>
 						</div>
+					)}
+				</div>
+				<div class="rv-danger">
+					{confirmDelete ? (
+						<>
+							<p role="alert">
+								Delete <strong>{c.name}</strong> for good? Its review history goes too
+								{heldNames.length > 0 ? `, and its canon claims are freed: ${heldNames.join(', ')}` : ''}. The player’s rolls stay in their history.
+							</p>
+							<div class="rv-buttons">
+								<button type="button" class="pf-button danger" disabled={busy} onClick={remove}>
+									Yes, delete
+								</button>
+								<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(false)}>
+									Cancel
+								</button>
+							</div>
+						</>
+					) : (
+						<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(true)}>
+							Delete character…
+						</button>
 					)}
 				</div>
 			</Block>
