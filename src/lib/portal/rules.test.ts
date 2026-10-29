@@ -271,3 +271,28 @@ test('a missing Cursed Energy roll is reported once', () => {
 	const ce = messages(checkSheet(s, ocCtx), 'error').filter((m) => m.includes('Cursed Energy'));
 	assert.deepEqual(ce, ['Jujutsu Kaisen: roll your Cursed Energy.']);
 });
+
+test('cyberware: slot counts, and starting characters only get Civilian Tier 1', () => {
+	const s = goodSheet();
+	const cyber = (items: Record<string, string>[]) => [{ key: 'c', system: 'cyberpunk', fields: { start: 'Powered', cyberware: items }, description: '', skills: [], rollProofs: {} }];
+	s.systems = cyber([
+		{ slot: 'Ocular', name: 'Kiroshi Optics', grade: 'Civilian', tier: '1' },
+		{ slot: 'Nervous System', name: 'Reflex Tuner', grade: 'Civilian', tier: '1' },
+		{ slot: 'Nervous System', name: 'Synaptic Boost', grade: 'Civilian', tier: '1' },
+	]);
+	assert.deepEqual(messages(checkSheet(s, ocCtx), 'error'), []);
+	s.systems = cyber([
+		{ slot: 'Ocular', name: 'A', grade: 'Civilian', tier: '1' },
+		{ slot: 'Ocular', name: 'B', grade: 'Military', tier: '3' },
+		{ slot: 'Arms', name: 'C', grade: 'Modified', tier: '1' },
+	]);
+	const errors = messages(checkSheet(s, ocCtx), 'error').join(' | ');
+	assert.match(errors, /2 pieces in Ocular, but it has 1 slot/);
+	assert.match(errors, /B is Military\. Starting characters can only take Civilian/);
+	assert.match(errors, /B is Tier 3\. Starting characters can only take Tier 1/);
+	assert.match(messages(checkSheet(s, ocCtx), 'permission').join(), /C is Modified/);
+	// Approved characters evolving may have better cyberware; slot counts still apply.
+	const evo = messages(checkSheet(s, { ...ocCtx, isEvolution: true }), 'error').join(' | ');
+	assert.doesNotMatch(evo, /Starting characters/);
+	assert.match(evo, /2 pieces in Ocular/);
+});

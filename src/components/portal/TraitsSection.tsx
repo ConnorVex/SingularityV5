@@ -154,6 +154,7 @@ export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits,
 		>
 			<RollPanel
 				kind="potential"
+				record={roller.characterRolls.potential}
 				current={sheet.potential.grade ? { grade: sheet.potential.grade, roll: sheet.potential.roll } : null}
 				characterId={roller.characterId}
 				myRolls={roller.myRolls}
@@ -164,6 +165,12 @@ export function TraitsSection({ sheet, update, combos, extraSlots, lockedTraits,
 					update((s) => {
 						s.potential.grade = r.grade ?? '';
 						s.potential.roll = r.roll ?? null;
+					})
+				}
+				onCleared={() =>
+					update((s) => {
+						s.potential.grade = '';
+						s.potential.roll = null;
 					})
 				}
 			/>

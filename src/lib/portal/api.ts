@@ -150,10 +150,19 @@ export interface RollRow {
 	created_at: string;
 }
 
+export interface PendingOverride {
+	roll_id: string;
+	kind: RollKind;
+	character_id: string | null;
+	expires_at: string;
+}
+
 export interface MyRolls {
 	/** Unsettled rolls, with the character each is tied to (if it still exists and isn't denied). */
 	active: Partial<Record<RollKind, { row: RollRow; heldBy: { id: string; name: string } | null }>>;
 	lock: { reason: string } | null;
+	/** Rolls an admin has made an override code for (the code itself stays with the admin). */
+	pending: PendingOverride[];
 }
 
 /** Rolls through the 'roll' Edge Function, which checks Singularity membership first. */
@@ -173,10 +182,13 @@ export async function rollFor(kind: RollKind, characterId: string): Promise<Roll
 }
 
 export async function loadMyRolls(): Promise<MyRolls> {
-	const [rolls, lock, chars] = await Promise.all([
-		db().from('player_rolls').select('id, kind, result, status, character_id, created_at').eq('status', 'active'),
-		db().from('roll_locks').select('reason').maybeSingle(),
-		db().from('characters').select('id, name, status'),
+	const { data: auth } = await db().auth.getSession();
+	const uid = auth.session?.user.id ?? '';
+	const [rolls, lock, chars, pending] = await Promise.all([
+		db().from('player_rolls').select('id, kind, result, status, character_id, created_at').eq('owner_id', uid).eq('status', 'active'),
+		db().from('roll_locks').select('reason').eq('owner_id', uid).maybeSingle(),
+		db().from('characters').select('id, name, status').eq('owner_id', uid),
+		db().rpc('my_pending_overrides'),
 	]);
 	fail(rolls.error);
 	fail(lock.error);
@@ -186,11 +198,27 @@ export async function loadMyRolls(): Promise<MyRolls> {
 		const c = (chars.data ?? []).find((x) => x.id === row.character_id && x.status !== 'denied');
 		active[row.kind] = { row, heldBy: c ? { id: c.id, name: c.name } : null };
 	}
-	return { active, lock: lock.data };
+	return { active, lock: lock.data, pending: pending.error ? [] : ((pending.data ?? []) as PendingOverride[]) };
 }
 
-export async function redeemOverride(code: string): Promise<{ ok: boolean; message: string }> {
-	const { data, error } = await db().rpc('redeem_roll_override', { p_code: code });
+/** This character's own rolls (any not thrown away), newest first per kind. They stick to the
+ * character even when the card that shows them is removed and added again. */
+export async function loadCharacterRolls(characterId: string): Promise<Partial<Record<RollKind, RollResult>>> {
+	const { data, error } = await db()
+		.from('player_rolls')
+		.select('kind, result, created_at')
+		.eq('character_id', characterId)
+		.neq('status', 'void')
+		.order('created_at', { ascending: false });
+	fail(error);
+	const out: Partial<Record<RollKind, RollResult>> = {};
+	for (const r of data ?? []) out[r.kind as RollKind] ??= r.result as RollResult;
+	return out;
+}
+
+/** Uses an override code; with rollId, the code must be the one made for that roll. */
+export async function redeemOverride(code: string, rollId?: string): Promise<{ ok: boolean; message: string }> {
+	const { data, error } = await db().rpc('redeem_roll_override', { p_code: code, p_roll: rollId ?? null });
 	fail(error);
 	return data as { ok: boolean; message: string };
 }
@@ -204,11 +232,21 @@ export interface PlayerSummary {
 	avatar_url: string | null;
 }
 
+export interface ActiveCode {
+	id: string;
+	roll_id: string | null;
+	kind: RollKind | null;
+	character_id: string | null;
+	code_plain: string | null;
+	expires_at: string;
+}
+
 export interface PlayerRollInfo {
 	rolls: RollRow[];
 	lock: { reason: string; locked_at: string } | null;
 	events: { id: number; action: string; detail: Record<string, unknown>; created_at: string; actor_id: string | null }[];
-	characters: { id: string; name: string; status: Status; kind: 'oc' | 'canon' }[];
+	characters: { id: string; name: string; status: Status; kind: 'oc' | 'canon'; systems: { system: string }[] | null }[];
+	codes: ActiveCode[];
 }
 
 export async function listPlayers(): Promise<PlayerSummary[]> {
@@ -218,18 +256,26 @@ export async function listPlayers(): Promise<PlayerSummary[]> {
 }
 
 export async function loadPlayerRolls(ownerId: string): Promise<PlayerRollInfo> {
-	const [rolls, lock, events, characters] = await Promise.all([
+	const [rolls, lock, events, characters, codes] = await Promise.all([
 		db().from('player_rolls').select('id, kind, result, status, character_id, created_at').eq('owner_id', ownerId).order('created_at', { ascending: false }),
 		db().from('roll_locks').select('reason, locked_at').eq('owner_id', ownerId).maybeSingle(),
 		db().from('roll_events').select('id, action, detail, created_at, actor_id').eq('owner_id', ownerId).order('id', { ascending: false }).limit(40),
-		db().from('characters').select('id, name, status, kind').eq('owner_id', ownerId).order('created_at', { ascending: false }),
+		db().from('characters').select('id, name, status, kind, systems:sheet->systems').eq('owner_id', ownerId).order('created_at', { ascending: false }),
+		db()
+			.from('roll_override_codes')
+			.select('id, roll_id, kind, character_id, code_plain, expires_at')
+			.eq('owner_id', ownerId)
+			.is('used_at', null)
+			.is('cancelled_at', null)
+			.gt('expires_at', new Date().toISOString()),
 	]);
-	for (const r of [rolls, lock, events, characters]) fail(r.error);
+	for (const r of [rolls, lock, events, characters, codes]) fail(r.error);
 	return {
 		rolls: (rolls.data ?? []) as RollRow[],
 		lock: lock.data,
 		events: (events.data ?? []) as PlayerRollInfo['events'],
 		characters: (characters.data ?? []) as PlayerRollInfo['characters'],
+		codes: (codes.data ?? []) as ActiveCode[],
 	};
 }
 
@@ -237,6 +283,18 @@ export async function createOverrideCode(ownerId: string, hours: number): Promis
 	const { data, error } = await db().rpc('create_roll_override', { p_owner: ownerId, p_hours: hours });
 	fail(error);
 	return data as { code: string; expires: string };
+}
+
+/** A single-use code that lets the player re-roll this one roll. */
+export async function createOverrideFor(rollId: string, hours: number): Promise<{ id: string; code: string; expires: string }> {
+	const { data, error } = await db().rpc('create_roll_override_for', { p_roll: rollId, p_hours: hours });
+	fail(error);
+	return data as { id: string; code: string; expires: string };
+}
+
+export async function cancelOverride(codeId: string) {
+	const { error } = await db().rpc('cancel_roll_override', { p_code_id: codeId });
+	fail(error);
 }
 
 export async function setRollLock(ownerId: string, locked: boolean, reason: string) {

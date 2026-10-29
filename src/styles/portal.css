@@ -1617,3 +1617,53 @@
 .pf .rv-danger > * {
 	margin-top: 0;
 }
+
+/* Override panel: characters and their rolls */
+.ov-char {
+	padding: 0.85rem 0;
+	border-bottom: 1px solid var(--pf-line);
+}
+.ov-char:last-child {
+	border-bottom: 0;
+}
+.pf .ov-char-name {
+	margin: 0 0 0.5rem;
+	font-size: var(--sl-text-base);
+}
+.ov-roll {
+	padding: 0.75rem 0.9rem;
+	margin: 0 0 0.6rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 0.6rem;
+	background: var(--pf-panel);
+}
+.ov-roll-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.4rem 0.9rem;
+}
+.ov-roll-value {
+	font-family: var(--pf-mono);
+	color: var(--pf-accent);
+}
+.ov-roll-status {
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--pf-faint);
+	margin-inline-start: auto;
+}
+.ov-roll-status.active {
+	color: var(--sl-color-orange-high);
+}
+.ov-roll-status.consumed {
+	color: var(--sl-color-green-high);
+}
+.ov-roll .ov-code {
+	margin-top: 0.6rem;
+}
+.pf :is(.ov-roll, .ov-roll-head, .ov-char) > * {
+	margin-top: 0;
+}

@@ -272,6 +272,7 @@ function checkSystems(sheet: Sheet, ctx: CheckContext, add: (level: IssueLevel, 
 			const spent = def.budget.spent(entry.fields);
 			if (spent > total) add('warning', 'Systems', `${where}: ${spent} ${def.budget.label} spent, but you start with ${total}.`);
 		}
+		for (const extra of def.checks?.(entry.fields, !ctx.isEvolution) ?? []) add(extra.level, 'Systems', extra.message);
 		const moves = def.startingMoves?.(entry.fields);
 		for (const type of ['standard', 'ultimate'] as const) {
 			const max = moves?.[type];

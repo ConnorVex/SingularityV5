@@ -1,5 +1,8 @@
 // What the submit form asks for on each power system's card, mirrored from the wiki's
 // Power Systems pages. Edit here when a system's rules change.
+import rulesData from '../../data/portal/rules.json' with { type: 'json' };
+
+const cyber = rulesData.cyberware;
 
 export type FieldValue = string | number | string[] | Record<string, string>[];
 export type Fields = Record<string, FieldValue | undefined>;
@@ -53,6 +56,8 @@ export interface SystemDef {
 	onlyWith?: (f: Fields) => string[] | null;
 	/** Sets the character's base physical stats instead of PTP. */
 	baseStats?: (f: Fields) => { rank: string; stats: string[]; noPtp: boolean } | null;
+	/** Extra rule checks for this system; `starting` is true for characters not yet approved. */
+	checks?: (f: Fields, starting: boolean) => { level: 'error' | 'warning' | 'permission'; message: string }[];
 	notes?: string[];
 }
 
@@ -357,8 +362,38 @@ export const systems: SystemDef[] = [
 			{ key: 'streetCred', label: 'Street Cred', type: 'number', default: 0, min: 0 },
 			{ key: 'xp', label: 'XP (out of 100)', type: 'number', default: 0, min: 0, showIf: { key: 'start', in: ['Unpowered'] } },
 			{ key: 'skillPoints', label: 'Skill Points', type: 'number', default: 0, min: 0, showIf: { key: 'start', in: ['Unpowered'] } },
-			{ key: 'cyberware', label: 'Cyberware', type: 'textarea' },
+			{
+				key: 'cyberware',
+				label: 'Cyberware',
+				type: 'list',
+				help: 'Starting characters can only install basic cyberware: Civilian grade, Tier 1.',
+				columns: [
+					{ key: 'slot', label: 'Slot', type: 'select', options: cyber.slots.map((x) => ({ value: x.id, label: `${x.id} (${x.count})` })), required: true },
+					{ key: 'name', label: 'Cyberware', type: 'text', required: true },
+					{ key: 'grade', label: 'Grade', type: 'select', options: cyber.grades.map((g) => ({ value: g })), required: true, default: 'Civilian' },
+					{ key: 'tier', label: 'Tier', type: 'select', options: cyber.tiers.map((t) => ({ value: String(t.tier), label: `Tier ${t.tier} (level ${t.level}+)` })), required: true, default: '1' },
+				],
+			},
 		],
+		checks: (f, starting) => {
+			const out: { level: 'error' | 'warning' | 'permission'; message: string }[] = [];
+			const items = (Array.isArray(f.cyberware) ? f.cyberware : []) as Record<string, string>[];
+			for (const slot of cyber.slots) {
+				const used = items.filter((i) => i.slot === slot.id).length;
+				if (used > slot.count) out.push({ level: 'error', message: `Cyberware: ${used} pieces in ${slot.id}, but it has ${slot.count} slot${slot.count === 1 ? '' : 's'}.` });
+			}
+			items.forEach((i, n) => {
+				const label = i.name || `#${n + 1}`;
+				if (starting && i.grade && !cyber.starting.grades.includes(i.grade)) {
+					out.push({ level: 'error', message: `Cyberware: ${label} is ${i.grade}. Starting characters can only take Civilian cyberware.` });
+				}
+				if (starting && Number(i.tier) > cyber.starting.maxTier) {
+					out.push({ level: 'error', message: `Cyberware: ${label} is Tier ${i.tier}. Starting characters can only take Tier ${cyber.starting.maxTier}.` });
+				}
+				if (i.grade === 'Modified') out.push({ level: 'permission', message: `Cyberware: ${label} is Modified (scavenged or made; making it needs Genius Intelligence).` });
+			});
+			return out;
+		},
 	},
 ];
 

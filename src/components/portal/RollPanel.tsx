@@ -1,5 +1,5 @@
 // Potential / Cursed Energy rolling on the portal, with the account lock and override codes.
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useEffect, useId, useRef, useState } from 'preact/hooks';
 import { redeemOverride, rollFor, type MyRolls, type RollKind, type RollResult } from '../../lib/portal/api.ts';
 import { rules } from '../../lib/portal/rules.ts';
 
@@ -11,7 +11,10 @@ const DICE: Record<RollKind, { sides: number; name: string; die: string }> = {
 const potentialLabel = (grade?: string) => rules.potentials.find((p) => p.id === grade)?.label ?? grade ?? '';
 const messageOf = (e: unknown) => (e && typeof e === 'object' && 'message' in e ? String(e.message) : String(e));
 
-function OverrideBox({ onDone }: { onDone: () => void }) {
+/** Shown next to one roll while an admin's override code for it is active. The code only
+ * works here, on the roll it was made for. */
+function OverrideBox({ rollId, expires, onDone }: { rollId: string; expires: string; onDone: () => void }) {
+	const id = useId();
 	const [code, setCode] = useState('');
 	const [busy, setBusy] = useState(false);
 	const [note, setNote] = useState<{ ok: boolean; message: string } | null>(null);
@@ -22,7 +25,7 @@ function OverrideBox({ onDone }: { onDone: () => void }) {
 				e.preventDefault();
 				setBusy(true);
 				try {
-					const result = await redeemOverride(code);
+					const result = await redeemOverride(code, rollId);
 					setNote(result);
 					if (result.ok) {
 						setCode('');
@@ -35,12 +38,13 @@ function OverrideBox({ onDone }: { onDone: () => void }) {
 				}
 			}}
 		>
-			<label class="pf-label" for="roll-override-code">
-				Override code from an admin
+			<label class="pf-label" for={id}>
+				Override code for this roll
 			</label>
+			<p class="pf-help">An admin made a code that lets you re-roll this. It expires {new Date(expires).toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' })}.</p>
 			<div class="roll-override-row">
 				<input
-					id="roll-override-code"
+					id={id}
 					inputMode="numeric"
 					autoComplete="off"
 					placeholder="8-digit code"
@@ -65,6 +69,8 @@ function OverrideBox({ onDone }: { onDone: () => void }) {
 export interface Roller {
 	characterId: string | null;
 	myRolls: MyRolls | null;
+	/** This character's own rolls from the database, even if not in the sheet yet. */
+	characterRolls: Partial<Record<RollKind, RollResult>>;
 	ensureSaved: () => Promise<string | null>;
 	refresh: () => void;
 }
@@ -73,16 +79,20 @@ interface Props {
 	kind: RollKind;
 	/** The character's current roll, as stored in its sheet. */
 	current: RollResult | null;
+	/** The roll record tied to this character, if any. */
+	record?: RollResult | null;
 	characterId: string | null;
 	myRolls: MyRolls | null;
 	/** Saves the character first (the roll is tied to it); returns its id. */
 	ensureSaved: () => Promise<string | null>;
 	onRolled: (result: RollResult) => void;
+	/** Called when an override code clears this roll, so the form can empty the value. */
+	onCleared: () => void;
 	refresh: () => void;
 	readOnly: boolean;
 }
 
-export function RollPanel({ kind, current, characterId, myRolls, ensureSaved, onRolled, refresh, readOnly }: Props) {
+export function RollPanel({ kind, current, record, characterId, myRolls, ensureSaved, onRolled, onCleared, refresh, readOnly }: Props) {
 	const dice = DICE[kind];
 	const [rolling, setRolling] = useState(false);
 	const [ticker, setTicker] = useState(0);
@@ -90,13 +100,17 @@ export function RollPanel({ kind, current, characterId, myRolls, ensureSaved, on
 	const timer = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 	useEffect(() => () => clearInterval(timer.current), []);
 
-	const has = kind === 'potential' ? Boolean(current?.grade) : Boolean(current?.class);
 	const active = myRolls?.active[kind];
-	// The sheet only keeps the result; the dice numbers live on the roll record.
-	const shown: RollResult | null = active?.heldBy?.id === characterId && characterId ? { ...current, ...active.row.result } : current;
+	// The sheet only keeps the result; the dice numbers live on the roll record, which also
+	// keeps the roll showing if its card was removed and added back.
+	const shown: RollResult | null = record ? { ...current, ...record } : active?.heldBy?.id === characterId && characterId ? { ...current, ...active.row.result } : current;
+	const has = kind === 'potential' ? Boolean(shown?.grade) : Boolean(shown?.class);
 	const heldElsewhere = active?.heldBy && active.heldBy.id !== characterId ? active.heldBy : null;
 	const carried = active && !active.heldBy;
 	const locked = myRolls?.lock;
+	// An admin's override code waiting for this roll (on this character, or the one it's locked to).
+	const pendingHere = has && characterId ? myRolls?.pending.find((p) => p.kind === kind && p.character_id === characterId) : undefined;
+	const pendingElsewhere = heldElsewhere ? myRolls?.pending.find((p) => p.kind === kind && p.roll_id === active?.row.id) : undefined;
 
 	async function roll() {
 		setError('');
@@ -154,6 +168,16 @@ export function RollPanel({ kind, current, characterId, myRolls, ensureSaved, on
 							</span>
 						</>
 					)}
+					{pendingHere && !readOnly && (
+						<OverrideBox
+							rollId={pendingHere.roll_id}
+							expires={pendingHere.expires_at}
+							onDone={() => {
+								onCleared();
+								refresh();
+							}}
+						/>
+					)}
 				</div>
 			) : readOnly ? (
 				<p class="pf-help">Not rolled.</p>
@@ -163,7 +187,11 @@ export function RollPanel({ kind, current, characterId, myRolls, ensureSaved, on
 						🔒 Your {dice.name} roll is locked to <strong>{heldElsewhere.name}</strong>. Get that character approved first. Deleting it or starting over won’t give you a new
 						roll.
 					</p>
-					<OverrideBox onDone={refresh} />
+					{pendingElsewhere ? (
+						<OverrideBox rollId={pendingElsewhere.roll_id} expires={pendingElsewhere.expires_at} onDone={refresh} />
+					) : (
+						<p class="pf-help">If you think you should get a new roll, ask an admin. They can give you a code for it.</p>
+					)}
 				</div>
 			) : locked && !carried ? (
 				<div class="roll-locked">

@@ -425,5 +425,87 @@
 				1000
 			]
 		]
+	},
+	"cyberware": {
+		"note": "From the wiki's Cyberpunk 2077 › Cyberware page. Starting characters may only take basic (Civilian, Tier 1) cyberware.",
+		"slots": [
+			{
+				"id": "Frontal Cortex",
+				"count": 1
+			},
+			{
+				"id": "Ocular",
+				"count": 1
+			},
+			{
+				"id": "Arms",
+				"count": 1
+			},
+			{
+				"id": "Nervous System",
+				"count": 2
+			},
+			{
+				"id": "Operating System",
+				"count": 1
+			},
+			{
+				"id": "Legs",
+				"count": 1
+			},
+			{
+				"id": "Hands",
+				"count": 1
+			},
+			{
+				"id": "Skeleton",
+				"count": 1
+			},
+			{
+				"id": "Face",
+				"count": 1
+			},
+			{
+				"id": "Integumentary System",
+				"count": 1
+			},
+			{
+				"id": "Circulatory System",
+				"count": 1
+			}
+		],
+		"grades": [
+			"Civilian",
+			"Military",
+			"Modified"
+		],
+		"tiers": [
+			{
+				"tier": 1,
+				"level": 0
+			},
+			{
+				"tier": 2,
+				"level": 10
+			},
+			{
+				"tier": 3,
+				"level": 15
+			},
+			{
+				"tier": 4,
+				"level": 25
+			},
+			{
+				"tier": 5,
+				"level": 50
+			}
+		],
+		"starting": {
+			"grades": [
+				"Civilian"
+			],
+			"maxTier": 1
+		}
 	}
 }

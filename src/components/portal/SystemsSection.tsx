@@ -30,7 +30,15 @@ function defaults(fields: Field[]) {
 	return out;
 }
 
-function FieldInput(props: { field: Field; value: FieldValue | undefined; onChange: (v: FieldValue) => void; disabled: boolean; blocked?: { value: string; reason: string } }) {
+function FieldInput(props: {
+	field: Field;
+	value: FieldValue | undefined;
+	onChange: (v: FieldValue) => void;
+	/** For lists: change the latest value, so quick edits to several cells don't overwrite each other. */
+	onUpdate?: (fn: (prev: FieldValue | undefined) => FieldValue) => void;
+	disabled: boolean;
+	blocked?: { value: string; reason: string };
+}) {
 	const { field, value, onChange, disabled, blocked } = props;
 	const label = field.label;
 	const help = field.help;
@@ -49,7 +57,10 @@ function FieldInput(props: { field: Field; value: FieldValue | undefined; onChan
 			return <TextArea label={label} help={help} required={field.required} rows={3} value={String(value ?? '')} disabled={disabled} onInput={onChange} />;
 		case 'list': {
 			const rows = (Array.isArray(value) ? value : []) as Record<string, string>[];
-			const set = (next: Record<string, string>[]) => onChange(next);
+			type Rows = Record<string, string>[];
+			// Each edit is applied to the newest rows, not the ones this render saw.
+			const set = (fn: (prev: Rows) => Rows) =>
+				props.onUpdate ? props.onUpdate((prev) => fn((Array.isArray(prev) ? prev : []) as Rows)) : onChange(fn(rows));
 			return (
 				<div class="pf-wide pf-list">
 					<h4 class="pf-subhead">{label}</h4>
@@ -64,7 +75,7 @@ function FieldInput(props: { field: Field; value: FieldValue | undefined; onChan
 										value={row[col.key] ?? ''}
 										options={(col.options ?? []).map((o) => ({ value: o.value }))}
 										disabled={disabled}
-										onChange={(v) => set(rows.map((r, j) => (j === i ? { ...r, [col.key]: v } : r)))}
+										onChange={(v) => set((prev) => prev.map((r, j) => (j === i ? { ...r, [col.key]: v } : r)))}
 									/>
 								) : (
 									<TextField
@@ -73,19 +84,19 @@ function FieldInput(props: { field: Field; value: FieldValue | undefined; onChan
 										required={col.required}
 										value={row[col.key] ?? ''}
 										disabled={disabled}
-										onInput={(v) => set(rows.map((r, j) => (j === i ? { ...r, [col.key]: v } : r)))}
+										onInput={(v) => set((prev) => prev.map((r, j) => (j === i ? { ...r, [col.key]: v } : r)))}
 									/>
 								),
 							)}
 							{!disabled && (
-								<button type="button" class="pf-button subtle" onClick={() => set(rows.filter((_, j) => j !== i))}>
+								<button type="button" class="pf-button subtle" onClick={() => set((prev) => prev.filter((_, j) => j !== i))}>
 									Remove
 								</button>
 							)}
 						</div>
 					))}
 					{!disabled && (
-						<button type="button" class="pf-button" onClick={() => set([...rows, {}])}>
+						<button type="button" class="pf-button" onClick={() => set((prev) => [...prev, Object.fromEntries((field.columns ?? []).filter((c) => c.default !== undefined).map((c) => [c.key, String(c.default)]))])}>
 							+ Add {label.replace(/s$/, '').toLowerCase()}
 						</button>
 					)}
@@ -111,8 +122,9 @@ function describeMoves(limits: MoveLimits, showMax: boolean) {
 	return [part(limits.standard, limits.label ?? 'Standard skill'), part(limits.ultimate, 'Ultimate skill')].filter(Boolean).join(' and ');
 }
 
-function SkillsEditor({ skills, onChange, disabled, limits, isEvolution }: { skills: Skill[]; onChange: (s: Skill[]) => void; disabled: boolean; limits?: MoveLimits; isEvolution: boolean }) {
-	const set = (i: number, patch: Partial<Skill>) => onChange(skills.map((s, j) => (j === i ? { ...s, ...patch } : s)));
+function SkillsEditor({ skills, onUpdate, disabled, limits, isEvolution }: { skills: Skill[]; onUpdate: (fn: (prev: Skill[]) => Skill[]) => void; disabled: boolean; limits?: MoveLimits; isEvolution: boolean }) {
+	// Edits apply to the newest skills, so quick changes to several fields don't overwrite each other.
+	const set = (i: number, patch: Partial<Skill>) => onUpdate((prev) => prev.map((s, j) => (j === i ? { ...s, ...patch } : s)));
 	const needs = limits ? describeMoves(limits, !isEvolution) : '';
 	const standardName = limits?.label ?? 'Standard';
 	return (
@@ -138,14 +150,14 @@ function SkillsEditor({ skills, onChange, disabled, limits, isEvolution }: { ski
 					<TextField label="Mastery" value={skill.mastery} disabled={disabled} onInput={(v) => set(i, { mastery: v })} />
 					<TextArea label="What it does" rows={2} value={skill.effect} disabled={disabled} onInput={(v) => set(i, { effect: v })} />
 					{!disabled && (
-						<button type="button" class="pf-button subtle" onClick={() => onChange(skills.filter((_, j) => j !== i))}>
+						<button type="button" class="pf-button subtle" onClick={() => onUpdate((prev) => prev.filter((_, j) => j !== i))}>
 							Remove skill
 						</button>
 					)}
 				</div>
 			))}
 			{!disabled && (
-				<button type="button" class="pf-button" onClick={() => onChange([...skills, { name: '', type: 'standard', effect: '', mastery: 'Untrained (0/5)' }])}>
+				<button type="button" class="pf-button" onClick={() => onUpdate((prev) => [...prev, { name: '', type: 'standard', effect: '', mastery: 'Untrained (0/5)' }])}>
 					+ Add skill
 				</button>
 			)}
@@ -287,6 +299,7 @@ export function SystemsSection(props: Props) {
 							{def.fields.some((f) => f.rolled === 'cursed_energy') && (
 								<RollPanel
 									kind="cursed_energy"
+									record={props.roller.characterRolls.cursed_energy}
 									current={
 										entry.fields.ceClass
 											? { class: String(entry.fields.ceClass), cep: Number(entry.fields.ceAmount) || 0, level: String(entry.fields.ceLevel ?? '') }
@@ -307,6 +320,16 @@ export function SystemsSection(props: Props) {
 											}
 										})
 									}
+									onCleared={() =>
+										update((s) => {
+											for (const e of s.systems) {
+												if (e.system !== entry.system) continue;
+												e.fields.ceClass = '';
+												e.fields.ceAmount = 0;
+												e.fields.ceLevel = '';
+											}
+										})
+									}
 								/>
 							)}
 							{visibleFields(def, entry.fields).filter((field) => !field.rolled).map((field) => (
@@ -317,6 +340,7 @@ export function SystemsSection(props: Props) {
 										disabled={readOnly}
 										blocked={def.limitedChoice?.key === field.key && limitedChoiceFull(entry) ? { value: def.limitedChoice.value, reason: 'max reached' } : undefined}
 										onChange={(v) => setEntry(entry.key, (e) => void (e.fields[field.key] = v))}
+										onUpdate={(fn) => setEntry(entry.key, (e) => void (e.fields[field.key] = fn(e.fields[field.key])))}
 									/>
 									{field.rollProof && (
 										<TextField
@@ -352,7 +376,7 @@ export function SystemsSection(props: Props) {
 								disabled={readOnly}
 								limits={def.startingMoves?.(entry.fields)}
 								isEvolution={props.isEvolution}
-								onChange={(skills) => setEntry(entry.key, (e) => void (e.skills = skills))}
+								onUpdate={(fn) => setEntry(entry.key, (e) => void (e.skills = fn(e.skills)))}
 							/>
 						</div>
 					</article>

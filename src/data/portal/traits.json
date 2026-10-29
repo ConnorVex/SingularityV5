@@ -142,7 +142,7 @@
 			"sticky": true
 		},
 		{
-			"name": "Attention Deficit Hyperactive Disorder (ADHD)",
+			"name": "ADHD",
 			"category": "physical",
 			"effect": "debuff",
 			"rarity": "common",

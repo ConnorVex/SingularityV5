@@ -5,6 +5,7 @@ import {
 	loadCharacter,
 	loadClaimBoard,
 	loadHeldClaims,
+	loadCharacterRolls,
 	loadMyRolls,
 	loadUniverses,
 	newDraft,
@@ -13,6 +14,8 @@ import {
 	type ClaimRow,
 	type Combo,
 	type MyRolls,
+	type RollKind,
+	type RollResult,
 	type Universe,
 } from '../../lib/portal/api.ts';
 import { checkSheet, hasBlockingIssues, rules, type Issue } from '../../lib/portal/rules.ts';
@@ -65,7 +68,12 @@ export default function SubmitForm() {
 	const [submitted, setSubmitted] = useState(false);
 	const [activeSection, setActiveSection] = useState('basics');
 	const [myRolls, setMyRolls] = useState<MyRolls | null>(null);
-	const refreshRolls = () => void loadMyRolls().then(setMyRolls, () => setMyRolls(null));
+	const [characterRolls, setCharacterRolls] = useState<Partial<Record<RollKind, RollResult>>>({});
+	const refreshRolls = (characterId?: string | null) => {
+		loadMyRolls().then(setMyRolls, () => setMyRolls(null));
+		const id = characterId ?? latest.current?.id ?? savedId.current;
+		if (id) loadCharacterRolls(id).then(setCharacterRolls, () => undefined);
+	};
 	const version = useRef(0);
 	const discoveredFor = useRef<string | null>(null);
 	const saving = useRef(false);
@@ -92,7 +100,7 @@ export default function SubmitForm() {
 				setBoard(b);
 				setHeld(h);
 				setDraft(c);
-				refreshRolls();
+				refreshRolls(c.id);
 				if (c.id) {
 					setCombos(await discoverCombos(c.id));
 					discoveredFor.current = traitKey(c.sheet);
@@ -222,7 +230,24 @@ export default function SubmitForm() {
 		return result?.id ?? latest.current?.id ?? savedId.current;
 	}
 
-	const roller: Roller = { characterId: draft?.id ?? null, myRolls, ensureSaved, refresh: refreshRolls };
+	const roller: Roller = { characterId: draft?.id ?? null, myRolls, characterRolls, ensureSaved, refresh: () => refreshRolls() };
+
+	// Rolls stick to the character: a Jujutsu Kaisen card added (again) gets the character's
+	// Cursed Energy straight away, without waiting for a save.
+	useEffect(() => {
+		const ce = characterRolls.cursed_energy;
+		if (!draft || readOnly || !ce?.class) return;
+		const missing = draft.sheet.systems.some((e) => e.system === 'jujutsu-kaisen' && e.fields.ceClass !== ce.class);
+		if (!missing) return;
+		updateSheet((x) => {
+			for (const e of x.systems) {
+				if (e.system !== 'jujutsu-kaisen') continue;
+				e.fields.ceClass = ce.class ?? '';
+				e.fields.ceAmount = ce.cep ?? 0;
+				e.fields.ceLevel = ce.level ?? '';
+			}
+		});
+	}, [characterRolls, draft?.sheet.systems.length]);
 
 	async function submit() {
 		if (hasBlockingIssues(issues)) {
