@@ -1667,3 +1667,38 @@
 .pf :is(.ov-roll, .ov-roll-head, .ov-char) > * {
 	margin-top: 0;
 }
+
+/* ── Evolutions ── */
+.pf-evo-note {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border-radius: 0.65rem;
+	border: 1px solid var(--sl-color-orange);
+	color: var(--sl-color-orange-high);
+}
+.pf-evo-log ol {
+	list-style: none;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	display: grid;
+	gap: 0.6rem;
+}
+.pf-evo-log li {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border-radius: 0.65rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-accent);
+	background: var(--pf-field);
+}
+.pf-evo-log li > * {
+	margin: 0.2rem 0 0;
+}
+.pf-evo-date {
+	font-size: var(--sl-text-xs);
+	color: var(--pf-faint);
+	font-variant-numeric: tabular-nums;
+}
+.pf-evo-summary {
+	white-space: pre-wrap;
+}

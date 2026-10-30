@@ -2,11 +2,13 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import {
 	deleteCharacter,
+	loadEvolutions,
 	loadMyCharacters,
 	loadMyRolls,
 	loadReviewNotes,
 	loadUniverses,
 	type CharacterSummary,
+	type EvolutionRequest,
 	type MyRolls,
 	type ReviewNote,
 	type Status,
@@ -39,13 +41,28 @@ const FILTERS: { id: string; label: string; match: (c: CharacterSummary) => bool
 
 const OUTCOME: Record<string, string> = { approved: 'Approved', needs_correction: 'Sent back for correction', denied: 'Denied' };
 
-function CharacterCard({ c, notes, universes, onDeleted }: { c: CharacterSummary; notes: ReviewNote[]; universes: Universe[]; onDeleted: () => void }) {
+function CharacterCard({
+	c,
+	notes,
+	evolutions,
+	universes,
+	onDeleted,
+}: {
+	c: CharacterSummary;
+	notes: ReviewNote[];
+	evolutions: EvolutionRequest[];
+	universes: Universe[];
+	onDeleted: () => void;
+}) {
 	const [showAll, setShowAll] = useState(false);
 	const [confirming, setConfirming] = useState(false);
 	const [error, setError] = useState('');
 	const status = STATUS[c.status];
-	// An approved character with unsent or pending changes is an evolution in progress.
-	const evolving = Boolean(c.approved_at) && (c.status === 'draft' || c.status === 'pending');
+	// An approved character with unsent, pending or sent-back changes is an evolution in progress.
+	const evolving = Boolean(c.approved_at) && c.status !== 'approved' && c.status !== 'denied';
+	const approvedEvolutions = evolutions.filter((e) => e.status === 'approved').length;
+	const evolutionStatus =
+		c.status === 'pending' ? 'Evolution in review' : c.status === 'needs_correction' ? 'Evolution needs correction' : 'Approved · changes not sent';
 	const theme = c.kind === 'oc' ? themeForRole(c.role) : null;
 	const roleLabel = rules.roles.find((r) => r.id === c.role)?.label;
 	const series = universes.find((u) => u.slug === c.canon_universe)?.name;
@@ -55,7 +72,7 @@ function CharacterCard({ c, notes, universes, onDeleted }: { c: CharacterSummary
 	const editHref = `${base}submit/?id=${c.id}`;
 
 	return (
-		<article class={`mc-card tone-${evolving ? 'info' : status.tone}`} style={theme ? { '--card-accent': theme.color } : undefined}>
+		<article class={`mc-card tone-${evolving ? (c.status === 'needs_correction' ? 'warn' : 'info') : status.tone}`} style={theme ? { '--card-accent': theme.color } : undefined}>
 			<a class="mc-art" href={editHref} tabIndex={-1} aria-hidden="true">
 				{c.image && /^https:\/\//.test(c.image) ? <img src={c.image} alt="" loading="lazy" /> : <span>{c.name.slice(0, 1).toUpperCase()}</span>}
 			</a>
@@ -64,14 +81,23 @@ function CharacterCard({ c, notes, universes, onDeleted }: { c: CharacterSummary
 					<h3>
 						<a href={editHref}>{c.name}</a>
 					</h3>
-					<span class="mc-status">{evolving ? (c.status === 'pending' ? 'Evolution in review' : 'Approved · edits not sent') : status.label}</span>
+					<span class="mc-status">{evolving ? evolutionStatus : status.label}</span>
 				</header>
 				<p class="mc-meta">
 					{c.kind === 'canon' ? `Canon tryout · ${series ?? 'unknown series'}` : `OC${roleLabel ? ` · ${roleLabel}` : ''}`}
 					{potential ? ` · ${potential} Potential` : ''}
+					{approvedEvolutions > 0 ? ` · ${approvedEvolutions} evolution${approvedEvolutions === 1 ? '' : 's'}` : ''}
 					{` · updated ${when(c.updated_at)}`}
 				</p>
-				<p class="mc-help">{evolving ? 'The approved version stays public until these changes are approved.' : status.help}</p>
+				<p class="mc-help">
+					{evolving
+						? c.status === 'needs_correction'
+							? 'An admin sent the evolution back. Fix it and send it again; the approved version stays public meanwhile.'
+							: 'The approved version stays public until the evolution is approved.'
+						: c.approved_at && c.status === 'approved'
+							? 'Approved and in the gallery. Submit an evolution when your character grows.'
+							: status.help}
+				</p>
 
 				{latest && (
 					<div class={`mc-note ${latest.outcome ?? ''}`}>
@@ -98,8 +124,18 @@ function CharacterCard({ c, notes, universes, onDeleted }: { c: CharacterSummary
 				)}
 
 				<div class="mc-actions">
-					<a class="pf-button primary" href={editHref}>
-						{c.status === 'denied' ? 'View' : c.status === 'needs_correction' ? 'Fix and resend' : 'Edit'}
+					<a class="pf-button primary" href={c.approved_at && c.status !== 'denied' ? `${editHref}#evolution` : editHref}>
+						{c.status === 'denied'
+							? 'View'
+							: c.approved_at
+								? c.status === 'approved'
+									? 'Submit evolution'
+									: c.status === 'needs_correction'
+										? 'Fix evolution'
+										: 'Continue evolution'
+								: c.status === 'needs_correction'
+									? 'Fix and resend'
+									: 'Edit'}
 					</a>
 					{canDelete &&
 						(confirming ? (
@@ -168,6 +204,7 @@ export default function MyCharacters() {
 	const [player, setPlayer] = useState<Player | null | undefined>(undefined);
 	const [characters, setCharacters] = useState<CharacterSummary[] | null>(null);
 	const [notes, setNotes] = useState<ReviewNote[]>([]);
+	const [evolutions, setEvolutions] = useState<EvolutionRequest[]>([]);
 	const [universes, setUniverses] = useState<Universe[]>([]);
 	const [rolls, setRolls] = useState<MyRolls | null>(null);
 	const [filter, setFilter] = useState('all');
@@ -181,7 +218,10 @@ export default function MyCharacters() {
 			const [list, u] = await Promise.all([loadMyCharacters(), loadUniverses()]);
 			setCharacters(list);
 			setUniverses(u);
-			setNotes(await loadReviewNotes(list.map((c) => c.id)));
+			const ids = list.map((c) => c.id);
+			const [n, e] = await Promise.all([loadReviewNotes(ids), loadEvolutions(ids).catch(() => [])]);
+			setNotes(n);
+			setEvolutions(e);
 			loadMyRolls().then(setRolls, () => setRolls(null));
 		} catch (e) {
 			setError(messageOf(e));
@@ -246,7 +286,14 @@ export default function MyCharacters() {
 			) : (
 				<div class="mc-grid">
 					{shown.map((c) => (
-						<CharacterCard key={c.id} c={c} notes={notes.filter((n) => n.character_id === c.id)} universes={universes} onDeleted={load} />
+						<CharacterCard
+							key={c.id}
+							c={c}
+							notes={notes.filter((n) => n.character_id === c.id)}
+							evolutions={evolutions.filter((e) => e.character_id === c.id)}
+							universes={universes}
+							onDeleted={load}
+						/>
 					))}
 				</div>
 			)}

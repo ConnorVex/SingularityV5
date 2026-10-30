@@ -73,9 +73,9 @@ function FieldInput(props: {
 										label={col.label}
 										required={col.required}
 										value={row[col.key] ?? ''}
-										options={(col.options ?? []).map((o) => ({ value: o.value }))}
+										options={(col.options ?? []).map((o) => ({ value: o.value, label: o.label, group: o.group }))}
 										disabled={disabled}
-										onChange={(v) => set((prev) => prev.map((r, j) => (j === i ? { ...r, [col.key]: v } : r)))}
+										onChange={(v) => set((prev) => prev.map((r, j) => (j === i ? { ...r, [col.key]: v, ...(col.derive?.(v) ?? {}) } : r)))}
 									/>
 								) : (
 									<TextField

@@ -8,15 +8,18 @@ import {
 	listPlayers,
 	loadAllCharacters,
 	loadClaimBoard,
+	loadEvolutions,
 	loadHeldClaims,
 	loadReviewNotes,
 	loadUniverses,
 	reviewCharacter,
+	reviewEvolution,
 	setCharacterHidden,
 	setExtraTraitSlots,
 	type AdminCharacter,
 	type ClaimRow,
 	type Combo,
+	type EvolutionRequest,
 	type PlayerSummary,
 	type ReviewNote,
 	type Status,
@@ -299,6 +302,7 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 	const [combos, setCombos] = useState<Combo[]>([]);
 	const [held, setHeld] = useState<Set<string>>(new Set());
 	const [notes, setNotes] = useState<ReviewNote[]>([]);
+	const [evolutions, setEvolutions] = useState<EvolutionRequest[]>([]);
 	const [note, setNote] = useState('');
 	const [confirm, setConfirm] = useState<'approved' | 'denied' | null>(null);
 	const [busy, setBusy] = useState(false);
@@ -312,17 +316,20 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 		setConfirmDelete(false);
 		setError('');
 		setSlots(String(c.extra_trait_slots));
-		Promise.all([discoverCombos(c.id), loadHeldClaims(c.id), loadReviewNotes([c.id])]).then(
-			([k, h, n]) => {
+		Promise.all([discoverCombos(c.id), loadHeldClaims(c.id), loadReviewNotes([c.id]), c.approved_at ? loadEvolutions([c.id]).catch(() => []) : Promise.resolve([])]).then(
+			([k, h, n, e]) => {
 				setCombos(k);
 				setHeld(h);
 				setNotes(n);
+				setEvolutions(e);
 			},
 			(e) => setError(messageOf(e)),
 		);
 	}, [c.id, c.updated_at]);
 
 	const isEvolution = Boolean(c.approved_at);
+	// The evolution submission waiting for a decision, if any.
+	const openEvolution = evolutions.find((e) => e.status === 'pending' || e.status === 'needs_correction') ?? null;
 	const issues = useMemo(
 		() =>
 			checkSheet(c.sheet, {
@@ -351,7 +358,8 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 		setBusy(true);
 		setError('');
 		try {
-			await reviewCharacter(c.id, outcome, note.trim());
+			if (openEvolution) await reviewEvolution(openEvolution.id, outcome, note.trim());
+			else await reviewCharacter(c.id, outcome, note.trim());
 			props.onDecided();
 		} catch (e) {
 			setError(messageOf(e));
@@ -406,6 +414,26 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 			<Block title="Checks">
 				<IssueList issues={issues} />
 			</Block>
+
+			{openEvolution && (
+				<Block title="Evolution submission">
+					<p class="pf-help">Sent {when(openEvolution.submitted_at)}. Approving adds this to the character’s evolution log.</p>
+					<Row label="What evolved" value={openEvolution.summary} />
+					{openEvolution.earned && <Row label="How it was earned" value={openEvolution.earned} />}
+					{openEvolution.links && (
+						<p class="rv-text">
+							{openEvolution.links
+								.split(/\s+/)
+								.filter((l) => /^https:\/\//.test(l))
+								.map((l, i) => (
+									<a key={l} href={l} target="_blank" rel="noreferrer noopener">
+										{i === 0 ? 'Proof ↗' : ` · proof ${i + 1} ↗`}
+									</a>
+								))}
+						</p>
+					)}
+				</Block>
+			)}
 
 			{isEvolution && c.status !== 'approved' && (
 				<Block title={`What changed since approval (${changes.length})`}>
@@ -512,20 +540,22 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 					</div>
 					{confirm && (
 						<p class="roll-note bad" role="alert">
-							{confirm === 'denied'
+							{confirm === 'denied' && openEvolution
+								? 'Denying the evolution throws these changes away; the character goes back to its last approved version. Click again to confirm.'
+								: confirm === 'denied'
 								? 'Denying is final for the player: the character is locked and they must make a new one. Click Deny again to confirm.'
 								: `This sheet still has ${errors} rule problem${errors === 1 ? '' : 's'}. Click Approve again to approve anyway.`}
 						</p>
 					)}
 					<div class="rv-buttons">
 						<button type="button" class="pf-button primary" disabled={busy} onClick={() => decide('approved')}>
-							{confirm === 'approved' ? 'Approve anyway' : 'Approve'}
+							{confirm === 'approved' ? 'Approve anyway' : openEvolution ? 'Approve evolution' : 'Approve'}
 						</button>
 						<button type="button" class="pf-button" disabled={busy || c.status === 'needs_correction'} onClick={() => decide('needs_correction')}>
 							Send back
 						</button>
-						<button type="button" class="pf-button danger" disabled={busy || c.status === 'denied'} onClick={() => decide('denied')}>
-							{confirm === 'denied' ? 'Yes, deny' : 'Deny'}
+						<button type="button" class="pf-button danger" disabled={busy || c.status === 'denied' || (isEvolution && !openEvolution)} onClick={() => decide('denied')}>
+							{confirm === 'denied' ? 'Yes, deny' : openEvolution ? 'Deny evolution' : 'Deny'}
 						</button>
 					</div>
 				</div>

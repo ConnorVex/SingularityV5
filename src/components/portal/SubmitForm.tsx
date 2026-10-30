@@ -3,6 +3,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import {
 	discoverCombos,
 	loadCharacter,
+	loadEvolutions,
 	loadClaimBoard,
 	loadHeldClaims,
 	loadCharacterRolls,
@@ -10,7 +11,9 @@ import {
 	loadUniverses,
 	newDraft,
 	saveCharacter,
+	submitEvolution,
 	type CharacterDraft,
+	type EvolutionRequest,
 	type ClaimRow,
 	type Combo,
 	type MyRolls,
@@ -32,7 +35,7 @@ import { ComboReveal, TraitsSection } from './TraitsSection.tsx';
 const STATUS_TEXT: Record<string, { label: string; text: string }> = {
 	draft: { label: 'Draft', text: 'Saved, but not sent for review yet.' },
 	pending: { label: 'Waiting for review', text: 'An admin will review it soon. You can still make changes.' },
-	approved: { label: 'Approved', text: 'Any change you make here is an evolution: the public version stays as it is until an admin approves the changes.' },
+	approved: { label: 'Approved', text: 'To evolve this character, make the changes here, describe them under Evolution, and send it. The public version stays as it is until an admin approves.' },
 	needs_correction: { label: 'Needs correction', text: 'An admin sent this back. Fix what they asked for, then send it for review again.' },
 	denied: { label: 'Denied', text: 'This character was denied and is locked. You’ll need to create a new character.' },
 };
@@ -47,7 +50,7 @@ const SECTIONS: [string, string][] = [
 	['traits', 'Traits'],
 	['combat', 'Combat'],
 	['systems', 'Systems'],
-	['storage', 'Storage & evolutions'],
+	['storage', 'Storage'],
 ];
 
 const messageOf = (e: unknown) => (e && typeof e === 'object' && 'message' in e ? String(e.message) : String(e));
@@ -69,6 +72,10 @@ export default function SubmitForm() {
 	const [activeSection, setActiveSection] = useState('basics');
 	const [myRolls, setMyRolls] = useState<MyRolls | null>(null);
 	const [characterRolls, setCharacterRolls] = useState<Partial<Record<RollKind, RollResult>>>({});
+	// The evolution being written (or the open submission, once sent) for an approved character.
+	const [evolution, setEvolution] = useState({ summary: '', earned: '', links: '' });
+	const [openEvolution, setOpenEvolution] = useState<EvolutionRequest | null>(null);
+	const [evolutionError, setEvolutionError] = useState('');
 	const refreshRolls = (characterId?: string | null) => {
 		loadMyRolls().then(setMyRolls, () => setMyRolls(null));
 		const id = characterId ?? latest.current?.id ?? savedId.current;
@@ -102,6 +109,11 @@ export default function SubmitForm() {
 				setDraft(c);
 				refreshRolls(c.id);
 				if (c.id) {
+					if (c.approvedAt) {
+						const open = (await loadEvolutions([c.id]).catch(() => [])).find((r) => r.status === 'pending' || r.status === 'needs_correction') ?? null;
+						setOpenEvolution(open);
+						if (open) setEvolution({ summary: open.summary, earned: open.earned, links: open.links });
+					}
 					setCombos(await discoverCombos(c.id));
 					discoveredFor.current = traitKey(c.sheet);
 					setSaveState('saved');
@@ -254,9 +266,29 @@ export default function SubmitForm() {
 			document.getElementById('pf-issues')?.scrollIntoView({ behavior: 'smooth' });
 			return;
 		}
+		if (isEvolution && !evolution.summary.trim()) {
+			setEvolutionError('Describe what evolved before sending.');
+			document.getElementById('evolution')?.scrollIntoView({ behavior: 'smooth' });
+			return;
+		}
 		while (saving.current) await new Promise((r) => setTimeout(r, 100));
-		const result = await save('pending');
-		if (result) setSubmitted(true);
+		if (!isEvolution) {
+			const result = await save('pending');
+			if (result) setSubmitted(true);
+			return;
+		}
+		// Evolutions: save the changes, then send them with the evolution submission.
+		const result = await save();
+		if (!result) return;
+		try {
+			setEvolutionError('');
+			await submitEvolution(result.id, evolution.summary.trim(), evolution.earned.trim(), evolution.links.trim());
+			setDraft((d) => (d ? { ...d, status: 'pending' } : d));
+			setSubmitted(true);
+		} catch (e) {
+			setEvolutionError(messageOf(e));
+			document.getElementById('evolution')?.scrollIntoView({ behavior: 'smooth' });
+		}
 	}
 
 	if (loadError) return <p class="portal-error">Couldn’t load the form: {loadError}</p>;
@@ -275,8 +307,9 @@ export default function SubmitForm() {
 	if (submitted)
 		return (
 			<div class="portal-card pf-done">
-				<h2>Sent for review! 🎉</h2>
+				<h2>{isEvolution ? 'Evolution sent for review! 🧬' : 'Sent for review! 🎉'}</h2>
 				<p>
+					{isEvolution ? 'The evolution of ' : ''}
 					<strong>{draft.name}</strong> is now waiting for an admin. You’ll get a ping in the announcements channel when it’s been reviewed, and you can keep
 					editing it in the meantime.
 				</p>
@@ -310,7 +343,7 @@ export default function SubmitForm() {
 				← My Characters
 			</a>
 			<nav class="pf-nav" aria-label="Form sections">
-				{SECTIONS.filter(([id]) => oc || ['basics', 'appearance', 'lore'].includes(id)).map(([id, label]) => (
+				{[...SECTIONS.filter(([id]) => oc || ['basics', 'appearance', 'lore'].includes(id)), ...(isEvolution ? [['evolution', 'Evolution']] : [])].map(([id, label]) => (
 					<a key={id} href={`#${id}`} class={activeSection === id ? 'active' : undefined} aria-current={activeSection === id ? 'true' : undefined}>
 						{id === 'lore' && !oc ? 'Tryout' : label}
 					</a>
@@ -528,7 +561,7 @@ export default function SubmitForm() {
 						roller={roller}
 					/>
 
-					<Section id="storage" title="Storage & evolutions">
+					<Section id="storage" title="Storage">
 						<TextArea
 							label="Storage"
 							value={s.storage}
@@ -536,51 +569,46 @@ export default function SubmitForm() {
 							onInput={(v) => updateSheet((x) => void (x.storage = v))}
 							help="What you currently have: technique slots, physical points and so on."
 						/>
-						<div class="pf-wide pf-list">
-							<h3 class="pf-subhead">Evolution log</h3>
-							<p class="pf-help">When your character evolves, add an entry here and send the character for review again.</p>
-							{s.evolutions.map((ev, i) => (
-								<div class="pf-list-row" key={i}>
-									<TextField label="Date" type="date" value={ev.date} disabled={readOnly} onInput={(v) => updateSheet((x) => void (x.evolutions[i].date = v))} />
-									<TextField
-										label="What changed"
-										required
-										value={ev.summary}
-										disabled={readOnly}
-										onInput={(v) => updateSheet((x) => void (x.evolutions[i].summary = v))}
-									/>
-									<TextField
-										label="How it was earned"
-										value={ev.earned}
-										disabled={readOnly}
-										onInput={(v) => updateSheet((x) => void (x.evolutions[i].earned = v))}
-									/>
-									<TextField
-										label="RP link"
-										value={ev.link}
-										placeholder="https://discord.com/channels/…"
-										disabled={readOnly}
-										onInput={(v) => updateSheet((x) => void (x.evolutions[i].link = v))}
-									/>
-									{!readOnly && (
-										<button type="button" class="pf-button subtle" onClick={() => updateSheet((x) => void x.evolutions.splice(i, 1))}>
-											Remove
-										</button>
-									)}
-								</div>
-							))}
-							{!readOnly && (
-								<button
-									type="button"
-									class="pf-button"
-									onClick={() => updateSheet((x) => void x.evolutions.push({ date: new Date().toISOString().slice(0, 10), summary: '', earned: '', link: '' }))}
-								>
-									+ Add evolution
-								</button>
-							)}
-						</div>
 					</Section>
 				</>
+			)}
+
+			{isEvolution && (
+				<Section id="evolution" title="Evolution">
+					{openEvolution?.status === 'needs_correction' && (
+						<p class="pf-wide pf-evo-note">
+							<strong>Sent back:</strong> {openEvolution.review_note || 'An admin asked for changes. Open a ticket if you’re not sure what to fix.'}
+						</p>
+					)}
+					{openEvolution?.status === 'pending' && <p class="pf-wide pf-help">This evolution is waiting for review. You can still change it; press Update evolution to send the changes.</p>}
+					<TextArea
+						label="What evolved"
+						required
+						rows={4}
+						value={evolution.summary}
+						disabled={readOnly}
+						onInput={(v) => setEvolution((e) => ({ ...e, summary: v }))}
+						help="The changes you made to the sheet: new skills, stats, systems, traits…"
+					/>
+					<TextArea
+						label="How it was earned"
+						rows={3}
+						value={evolution.earned}
+						disabled={readOnly}
+						onInput={(v) => setEvolution((e) => ({ ...e, earned: v }))}
+						help="The fight, training, event or reward that earned it."
+					/>
+					<TextArea
+						label="Proof (one link per line)"
+						rows={2}
+						value={evolution.links}
+						disabled={readOnly}
+						placeholder="https://discord.com/channels/…"
+						onInput={(v) => setEvolution((e) => ({ ...e, links: v }))}
+					/>
+					{evolutionError && <p class="pf-wide portal-error">{evolutionError}</p>}
+					<EvolutionLog entries={s.evolutions} />
+				</Section>
 			)}
 
 			<section class="pf-section pf-review" id="pf-issues" aria-labelledby="pf-issues-title">
@@ -627,7 +655,13 @@ export default function SubmitForm() {
 							Save draft
 						</button>
 						<button type="button" class="pf-button primary" disabled={saveState === 'saving'} onClick={submit}>
-							{draft.status === 'pending' ? 'Save changes' : 'Send for review'}
+							{isEvolution
+								? openEvolution?.status === 'pending' || draft.status === 'pending'
+									? 'Update evolution'
+									: 'Send evolution for review'
+								: draft.status === 'pending'
+									? 'Save changes'
+									: 'Send for review'}
 						</button>
 					</>
 				)}
@@ -640,6 +674,36 @@ export default function SubmitForm() {
 					picked={s.traits.map((t) => t.name)}
 					onDone={() => updateSheet((x) => void x.seenCombos.push(unseen[0].name))}
 				/>
+			)}
+		</div>
+	);
+}
+
+/** The character's approved evolutions; only admins add to it, by approving an evolution. */
+export function EvolutionLog({ entries }: { entries: Sheet['evolutions'] }) {
+	return (
+		<div class="pf-wide pf-evo-log">
+			<h3 class="pf-subhead">Evolution log</h3>
+			{entries.length === 0 ? (
+				<p class="pf-help">No approved evolutions yet. Approved evolutions are added here automatically.</p>
+			) : (
+				<ol>
+					{[...entries].reverse().map((ev, i) => (
+						<li key={i}>
+							<span class="pf-evo-date">{ev.date}</span>
+							<p class="pf-evo-summary">{ev.summary}</p>
+							{ev.earned && <p class="pf-help">Earned: {ev.earned}</p>}
+							{ev.link
+								.split(/\s+/)
+								.filter((l) => /^https:\/\//.test(l))
+								.map((l) => (
+									<a key={l} href={l} target="_blank" rel="noopener noreferrer">
+										Proof ↗
+									</a>
+								))}
+						</li>
+					))}
+				</ol>
 			)}
 		</div>
 	);

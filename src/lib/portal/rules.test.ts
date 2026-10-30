@@ -272,27 +272,29 @@ test('a missing Cursed Energy roll is reported once', () => {
 	assert.deepEqual(ce, ['Jujutsu Kaisen: roll your Cursed Energy.']);
 });
 
-test('cyberware: slot counts, and starting characters only get Civilian Tier 1', () => {
+test('cyberware: catalog slots, slot counts, and starting with any needs permission', () => {
 	const s = goodSheet();
 	const cyber = (items: Record<string, string>[]) => [{ key: 'c', system: 'cyberpunk', fields: { start: 'Powered', cyberware: items }, description: '', skills: [], rollProofs: {} }];
 	s.systems = cyber([
-		{ slot: 'Ocular', name: 'Kiroshi Optics', grade: 'Civilian', tier: '1' },
-		{ slot: 'Nervous System', name: 'Reflex Tuner', grade: 'Civilian', tier: '1' },
-		{ slot: 'Nervous System', name: 'Synaptic Boost', grade: 'Civilian', tier: '1' },
+		{ name: 'Basic Kiroshi Optics', slot: 'Ocular', grade: 'Civilian', tier: '1' },
+		{ name: 'Reflex Tuner', slot: 'Nervous System', grade: 'Civilian', tier: '1' },
+		{ name: 'Kerenzikov', slot: 'Nervous System', grade: 'Civilian', tier: '1' },
 	]);
 	assert.deepEqual(messages(checkSheet(s, ocCtx), 'error'), []);
+	assert.equal(messages(checkSheet(s, ocCtx), 'permission').filter((m) => /starting with/.test(m)).length, 3, 'every starting piece needs permission');
+	assert.deepEqual(checkSheet(s, { ...ocCtx, isEvolution: true }).filter((i) => /Cyberware/.test(i.message)), [], 'approved characters can have it');
+
 	s.systems = cyber([
-		{ slot: 'Ocular', name: 'A', grade: 'Civilian', tier: '1' },
-		{ slot: 'Ocular', name: 'B', grade: 'Military', tier: '3' },
-		{ slot: 'Arms', name: 'C', grade: 'Modified', tier: '1' },
+		{ name: 'Basic Kiroshi Optics', slot: 'Ocular', grade: 'Civilian', tier: '1' },
+		{ name: 'Kiroshi Sentry Optics', slot: 'Ocular', grade: 'Civilian', tier: '1' },
+		{ name: 'Mantis Blades', slot: 'Legs', grade: 'Military', tier: '3' },
+		{ name: 'Other (not on the list)', custom: '', slot: 'Face', grade: 'Modified', tier: '1' },
 	]);
-	const errors = messages(checkSheet(s, ocCtx), 'error').join(' | ');
+	const errors = messages(checkSheet(s, { ...ocCtx, isEvolution: true }), 'error').join(' | ');
 	assert.match(errors, /2 pieces in Ocular, but it has 1 slot/);
-	assert.match(errors, /B is Military\. Starting characters can only take Civilian/);
-	assert.match(errors, /B is Tier 3\. Starting characters can only take Tier 1/);
-	assert.match(messages(checkSheet(s, ocCtx), 'permission').join(), /C is Modified/);
-	// Approved characters evolving may have better cyberware; slot counts still apply.
-	const evo = messages(checkSheet(s, { ...ocCtx, isEvolution: true }), 'error').join(' | ');
-	assert.doesNotMatch(evo, /Starting characters/);
-	assert.match(evo, /2 pieces in Ocular/);
+	assert.match(errors, /Mantis Blades goes in Arms, not Legs/);
+	assert.match(errors, /write the name of the Other cyberware/);
+	const perms = messages(checkSheet(s, { ...ocCtx, isEvolution: true }), 'permission').join(' | ');
+	assert.match(perms, /isn’t on the cyberware list/);
+	assert.match(perms, /is Modified/);
 });

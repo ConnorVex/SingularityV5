@@ -429,3 +429,43 @@ export async function adminDeleteCharacter(id: string): Promise<{ name: string; 
 	fail(error);
 	return data as { name: string; releasedClaims: string[] };
 }
+
+// ───────────────────────────── Evolutions ─────────────────────────────
+
+export type EvolutionStatus = 'pending' | 'approved' | 'needs_correction' | 'denied';
+
+export interface EvolutionRequest {
+	id: string;
+	character_id: string;
+	summary: string;
+	earned: string;
+	links: string;
+	status: EvolutionStatus;
+	review_note: string;
+	submitted_at: string;
+	reviewed_at: string | null;
+}
+
+/** Evolution submissions for these characters, newest first. */
+export async function loadEvolutions(characterIds: string[]): Promise<EvolutionRequest[]> {
+	if (characterIds.length === 0) return [];
+	const { data, error } = await db()
+		.from('evolution_requests')
+		.select('id, character_id, summary, earned, links, status, review_note, submitted_at, reviewed_at')
+		.in('character_id', characterIds)
+		.order('submitted_at', { ascending: false });
+	fail(error);
+	return (data ?? []) as EvolutionRequest[];
+}
+
+/** Sends an approved character's saved changes for review as an evolution. */
+export async function submitEvolution(characterId: string, summary: string, earned: string, links: string) {
+	const { error } = await db().rpc('submit_evolution', { p_character_id: characterId, p_summary: summary, p_earned: earned, p_links: links });
+	fail(error);
+}
+
+/** Approve (changes + log entry), send back, or deny (back to the last approved version). */
+export async function reviewEvolution(requestId: string, outcome: Exclude<EvolutionStatus, 'pending'>, note: string) {
+	const { error } = await db().rpc('review_evolution', { p_request: requestId, p_outcome: outcome, p_note: note });
+	fail(error);
+}

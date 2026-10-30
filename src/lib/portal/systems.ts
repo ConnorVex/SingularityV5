@@ -1,8 +1,12 @@
 // What the submit form asks for on each power system's card, mirrored from the wiki's
 // Power Systems pages. Edit here when a system's rules change.
+import cyberwareData from '../../data/portal/cyberware.json' with { type: 'json' };
 import rulesData from '../../data/portal/rules.json' with { type: 'json' };
 
 const cyber = rulesData.cyberware;
+const cyberItems = cyberwareData.items;
+const cyberSlotOf = new Map(cyberItems.map((i) => [i.name, i.slot]));
+const OTHER_CYBERWARE = 'Other (not on the list)';
 
 export type FieldValue = string | number | string[] | Record<string, string>[];
 export type Fields = Record<string, FieldValue | undefined>;
@@ -14,6 +18,8 @@ export interface Option {
 	points?: number;
 	/** Needs admin permission; flagged for reviewers. */
 	permission?: boolean;
+	/** Optional heading the option is listed under. */
+	group?: string;
 }
 
 export interface Field {
@@ -33,6 +39,8 @@ export interface Field {
 	rollProof?: boolean;
 	/** Filled by a roll on the portal (read-only on the card). */
 	rolled?: 'cursed_energy';
+	/** For list columns: other cells to fill in when this one is picked (e.g. an item's slot). */
+	derive?: (value: string) => Record<string, string>;
 }
 
 export interface SystemDef {
@@ -366,10 +374,21 @@ export const systems: SystemDef[] = [
 				key: 'cyberware',
 				label: 'Cyberware',
 				type: 'list',
-				help: 'Starting characters can only install basic cyberware: Civilian grade, Tier 1.',
+				help: 'Cyberware is obtained in RP. A new character starting with any needs an admin’s permission.',
 				columns: [
+					{
+						key: 'name',
+						label: 'Cyberware',
+						type: 'select',
+						options: [
+							...cyberItems.map((i) => ({ value: i.name, group: i.slot })),
+							{ value: OTHER_CYBERWARE, group: 'Other' },
+						],
+						required: true,
+						derive: (name): Record<string, string> => (cyberSlotOf.has(name) ? { slot: cyberSlotOf.get(name)! } : {}),
+					},
+					{ key: 'custom', label: 'Name (if Other)', type: 'text' },
 					{ key: 'slot', label: 'Slot', type: 'select', options: cyber.slots.map((x) => ({ value: x.id, label: `${x.id} (${x.count})` })), required: true },
-					{ key: 'name', label: 'Cyberware', type: 'text', required: true },
 					{ key: 'grade', label: 'Grade', type: 'select', options: cyber.grades.map((g) => ({ value: g })), required: true, default: 'Civilian' },
 					{ key: 'tier', label: 'Tier', type: 'select', options: cyber.tiers.map((t) => ({ value: String(t.tier), label: `Tier ${t.tier} (level ${t.level}+)` })), required: true, default: '1' },
 				],
@@ -383,13 +402,13 @@ export const systems: SystemDef[] = [
 				if (used > slot.count) out.push({ level: 'error', message: `Cyberware: ${used} pieces in ${slot.id}, but it has ${slot.count} slot${slot.count === 1 ? '' : 's'}.` });
 			}
 			items.forEach((i, n) => {
-				const label = i.name || `#${n + 1}`;
-				if (starting && i.grade && !cyber.starting.grades.includes(i.grade)) {
-					out.push({ level: 'error', message: `Cyberware: ${label} is ${i.grade}. Starting characters can only take Civilian cyberware.` });
-				}
-				if (starting && Number(i.tier) > cyber.starting.maxTier) {
-					out.push({ level: 'error', message: `Cyberware: ${label} is Tier ${i.tier}. Starting characters can only take Tier ${cyber.starting.maxTier}.` });
-				}
+				const other = i.name === OTHER_CYBERWARE;
+				const label = (other ? i.custom : i.name) || `#${n + 1}`;
+				const home = cyberSlotOf.get(i.name);
+				if (home && i.slot && i.slot !== home) out.push({ level: 'error', message: `Cyberware: ${label} goes in ${home}, not ${i.slot}.` });
+				if (other && !i.custom?.trim()) out.push({ level: 'error', message: `Cyberware #${n + 1}: write the name of the Other cyberware.` });
+				if (other) out.push({ level: 'permission', message: `Cyberware: ${label} isn’t on the cyberware list.` });
+				if (starting && i.name) out.push({ level: 'permission', message: `Cyberware: starting with ${label} needs permission (cyberware is obtained in RP).` });
 				if (i.grade === 'Modified') out.push({ level: 'permission', message: `Cyberware: ${label} is Modified (scavenged or made; making it needs Genius Intelligence).` });
 			});
 			return out;

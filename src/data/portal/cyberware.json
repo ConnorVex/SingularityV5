@@ -1,0 +1,565 @@
+{
+	"note": "Cyberware players can pick. 'singularity' items are defined on the Singularity wiki (Cyberpunk 2077 › Net Running); 'cp2077' items come from Cyberpunk 2077 2.x (Fextralife wiki slot pages, Sep 2026), with Kiroshi optics moved to the Ocular slot. Cyberware is obtained in RP: starting with any of it needs permission.",
+	"items": [
+		{
+			"name": "RAM Upgrade",
+			"slot": "Frontal Cortex",
+			"source": "singularity"
+		},
+		{
+			"name": "Netwatch Netdriver MK1",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Biotech MK4",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Arasaka MK5",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Zetatech Sandevistan",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Militech Falcon Sandevistan",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Militech Apogee Sandevistan",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Zetatech Berserk",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Militech Berserk",
+			"slot": "Operating System",
+			"source": "singularity"
+		},
+		{
+			"name": "Axolotl",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Bioconductor",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Camillo RAM Manager",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Cox-2 Cybersomatic Optimizer",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Ex-Disk",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kerenzikov Boost System",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Mechatronic Core",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Memory Boost",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Newton Module",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "RAM Reallocator",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Self-ICE",
+			"slot": "Frontal Cortex",
+			"source": "cp2077"
+		},
+		{
+			"name": "Basic Kiroshi Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi Doomsayer Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi Stalker Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi The Oracle Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi Clairvoyant Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi Sentry Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kiroshi Cockatrice Optics",
+			"slot": "Ocular",
+			"source": "cp2077"
+		},
+		{
+			"name": "Tetratronic Rippler MK5",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Militech Paraline MK4",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Raven Microcyber MK3",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Qiant Warp Dancer Sandevistan",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Dynalar Sandevistan",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Moore Tech Berserk",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Biodyne Berserk",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Chrome Compressor",
+			"slot": "Operating System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Adrenaline Booster",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Biomonitor",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Black Mamba",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Blood Pump",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Clutch Padding",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Electromag Recycler",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Feedback Circuit",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Heal-on-Kill",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Isometric Stabilizer",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Microrotors",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Second Heart",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Threatevac",
+			"slot": "Circulatory System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Adrenaline Converter",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Adreno-Trigger",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Atomic Sensors",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Deep-Field Visual Interface",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kerenzikov",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Neofiber",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Reflex Tuner",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Revulsor",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Stabber",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Synaptic Accelerator",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Tyrosine Injector",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Visual Cortex Support",
+			"slot": "Nervous System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Carapace",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Cellular Adapter",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Chitin",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Countershell",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Defenzikov",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Nano-Plating",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Optical Camo",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Pain Editor",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Painducer",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Subdermal Armor",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Proxishield",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Rangeguard",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Shock-N-Awe",
+			"slot": "Integumentary System",
+			"source": "cp2077"
+		},
+		{
+			"name": "Bionic Joints",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Titanium Bones",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Epimorphic Skeleton",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Universal Booster",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Scarab",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Spring Joints",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Scar Coalescer",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "RAM Recoup",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Kinetic Frame",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Dense Marrow",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Para Bellum",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Rara Avis",
+			"slot": "Skeleton",
+			"source": "cp2077"
+		},
+		{
+			"name": "Smart Link",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Ballistic Coprocessor",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Shock Absorber",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Microgenerator",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Handle Wrap",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Tattoo: Tyger Claws Dermal Imprint",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Immovable Force",
+			"slot": "Hands",
+			"source": "cp2077"
+		},
+		{
+			"name": "Mantis Blades",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Electrifying Mantis Blades",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Thermal Mantis Blades",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Toxic Mantis Blades",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Gorilla Arms",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Electrifying Gorilla Arms",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Thermal Gorilla Arms",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Toxic Gorilla Arms",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Monowire",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Electrifying Monowire",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Thermal Monowire",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Toxic Monowire",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Projectile Launch System",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Electrifying Projectile Launch System",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Thermal Projectile Launch System",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Toxic Projectile Launch System",
+			"slot": "Arms",
+			"source": "cp2077"
+		},
+		{
+			"name": "Fortified Ankles",
+			"slot": "Legs",
+			"source": "cp2077"
+		},
+		{
+			"name": "Jenkins' Tendons",
+			"slot": "Legs",
+			"source": "cp2077"
+		},
+		{
+			"name": "Leeroy Ligament System",
+			"slot": "Legs",
+			"source": "cp2077"
+		},
+		{
+			"name": "Lynx Paws",
+			"slot": "Legs",
+			"source": "cp2077"
+		},
+		{
+			"name": "Reinforced Tendons",
+			"slot": "Legs",
+			"source": "cp2077"
+		}
+	]
+}
