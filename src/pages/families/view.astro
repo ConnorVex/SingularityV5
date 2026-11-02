@@ -1,13 +1,5 @@
 ---
-// One family's page (?f=slug). Its owner edits it here.
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import PortalNav from '../../components/portal/PortalNav.astro';
-import FamilyPage from '../../components/families/FamilyPage.tsx';
-import '../../styles/portal.css';
-import '../../styles/families.css';
+import Moved from '../../components/Moved.astro';
 ---
 
-<StarlightPage frontmatter={{ title: 'Family', description: 'A family in Singularity.', tableOfContents: false, pagefind: false }}>
-	<PortalNav current="families" />
-	<FamilyPage client:only="preact" />
-</StarlightPage>
+<Moved to="families/view/" />

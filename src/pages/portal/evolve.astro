@@ -1,12 +1,5 @@
 ---
-// Evolve an approved character (?id=…): what changed, how it was earned, and sending it for review.
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import PortalNav from '../../components/portal/PortalNav.astro';
-import EvolvePage from '../../components/portal/EvolvePage.tsx';
-import '../../styles/portal.css';
+import Moved from '../../components/Moved.astro';
 ---
 
-<StarlightPage frontmatter={{ title: 'Evolve a Character', description: 'Send what changed on an approved character for review.', tableOfContents: false, pagefind: false }}>
-	<PortalNav current="submit" />
-	<EvolvePage client:only="preact" />
-</StarlightPage>
+<Moved to="evolve/" />

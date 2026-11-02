@@ -1,12 +1,5 @@
 ---
-// "My Stuff": the logged-in player's characters, families and (later) equipment.
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import PortalNav from '../../components/portal/PortalNav.astro';
-import MyCharacters from '../../components/portal/MyCharacters.tsx';
-import '../../styles/portal.css';
+import Moved from '../../components/Moved.astro';
 ---
 
-<StarlightPage frontmatter={{ title: 'My Stuff', description: 'Your characters, families and equipment.', tableOfContents: false, pagefind: false }}>
-	<PortalNav current="mine" />
-	<MyCharacters client:only="preact" />
-</StarlightPage>
+<Moved to="characters/" />

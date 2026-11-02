@@ -1,13 +1,5 @@
 ---
-// The shared review inbox, for admins and family owners. The database enforces who can read and decide what.
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import PortalNav from '../../../components/portal/PortalNav.astro';
-import ReviewDashboard from '../../../components/portal/ReviewDashboard.tsx';
-import '../../../styles/portal.css';
-import '../../../styles/families.css';
+import Moved from '../../../components/Moved.astro';
 ---
 
-<StarlightPage frontmatter={{ title: 'Review', description: 'Review characters, evolutions, families and perks.', tableOfContents: false, pagefind: false }}>
-	<PortalNav current="review" />
-	<ReviewDashboard client:only="preact" />
-</StarlightPage>
+<Moved to="admin/review/" />

@@ -1,12 +1,10 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
-import preact from '@astrojs/preact';
 
 export default defineConfig({
 	site: 'https://connorvex.github.io',
 	base: '/SingularityV5',
 	integrations: [
-		preact(),
 		starlight({
 			title: 'Singularity | Version 5.0',
 			tableOfContents: false,
@@ -18,7 +16,7 @@ export default defineConfig({
 			// the current page always opens.
 			sidebar: [
 				'index',
-				{ label: 'Divine Database', link: '/portal/' },
+				{ label: 'Divine Database', link: 'https://connorvex.github.io/DivineDatabase/' },
 				{
 					label: 'Important Systems',
 					collapsed: true,
@@ -42,7 +40,7 @@ export default defineConfig({
 				{
 					label: 'RP Systems',
 					collapsed: true,
-					items: [{ autogenerate: { directory: 'RP Systems', collapsed: true } }, { label: 'Family Directory', link: '/families/' }],
+					items: [{ autogenerate: { directory: 'RP Systems', collapsed: true } }, { label: 'Family Directory', link: 'https://connorvex.github.io/DivineDatabase/families/' }],
 				},
 			],
 			components: {

@@ -1,18 +1,5 @@
 ---
-// Divine Database home: what you can submit, what's waiting on you, and your stuff at a glance.
-import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
-import PortalNav from '../../components/portal/PortalNav.astro';
-import PortalHome from '../../components/portal/PortalHome.tsx';
-import '../../styles/portal.css';
+import Moved from '../../components/Moved.astro';
 ---
 
-<StarlightPage
-	frontmatter={{
-		title: 'Divine Database',
-		description: 'Submit characters, evolutions, equipment and families for review.',
-		tableOfContents: false,
-	}}
->
-	<PortalNav current="home" />
-	<PortalHome client:only="preact" />
-</StarlightPage>
+<Moved to="" />
