@@ -17,7 +17,7 @@ import HubTile from '../../components/HubTile.astro';
 {/* Background Stuff */}
  <style>{`
   body {
-    background-image:  linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/SingularityV5/welcomepage/DMA.webp');
+    background-image:  linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/welcomepage/DMA.webp');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -27,32 +27,32 @@ import HubTile from '../../components/HubTile.astro';
   <HubTile
     title="The Systems"
     icon="puzzle"
-    href="/SingularityV5/systems/"
+    href="/systems/"
     description="Your stats, how strong you can get, and every power system."
     links={[
-      { label: 'S.T.S', href: '/SingularityV5/important-systems/singularity-tiering-system/system-information/' },
-      { label: 'Priority System', href: '/SingularityV5/important-systems/priority-system/' },
-      { label: 'Power Systems', href: '/SingularityV5/systems/#power-systems' },
+      { label: 'S.T.S', href: '/important-systems/singularity-tiering-system/system-information/' },
+      { label: 'Priority System', href: '/important-systems/priority-system/' },
+      { label: 'Power Systems', href: '/systems/#power-systems' },
     ]}
   />
   <HubTile
     title="Submissions"
     icon="pencil"
-    href="https://connorvex.github.io/DivineDatabase/"
+    href="https://database.singularityeco.us/"
     description="Submit your characters and evolutions, and follow your reviews."
     links={[
-      { label: 'Submit a character', href: 'https://connorvex.github.io/DivineDatabase/submit/' },
-      { label: 'My characters', href: 'https://connorvex.github.io/DivineDatabase/characters/' },
+      { label: 'Submit a character', href: 'https://database.singularityeco.us/submit/' },
+      { label: 'My characters', href: 'https://database.singularityeco.us/characters/' },
     ]}
   />
   <HubTile
     title="Roleplay Systems"
     icon="rocket"
-    href="/SingularityV5/roleplay/"
+    href="/roleplay/"
     description="How fights play out: fighting styles, skills and Stamina."
     links={[
-      { label: 'Fighting Styles', href: '/SingularityV5/fighting-styles/overview/' },
-      { label: 'Skill System', href: '/SingularityV5/skill-system/overview/' },
+      { label: 'Fighting Styles', href: '/fighting-styles/overview/' },
+      { label: 'Skill System', href: '/skill-system/overview/' },
     ]}
   />
 </HubGrid>
