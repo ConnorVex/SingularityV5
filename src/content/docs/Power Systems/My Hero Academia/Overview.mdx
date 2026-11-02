@@ -5,11 +5,15 @@ sidebar:
   label: Overview
   order: 2.2
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Easy" variant="success" size="medium" /> <Badge text="Great first system" variant="tip" size="medium" />
-
-**Mangaka:** Kohei Horikoshi
+<KeyFacts items={[
+  { label: "Difficulty", value: "Easy" },
+  { label: "Best for", value: "Your first system" },
+  { label: "Mangaka", value: "Kohei Horikoshi" },
+  { label: "Starting skills", value: "3 Standard, 2 Ultimate" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -30,6 +34,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     - **Multiple Quirks?** Each gets its **own** Tier Points, which can't be shared.
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Quirk Classes" description="Emitter, Transformation, Mutation and Accumulation" href="/SingularityV5/power-systems/my-hero-academia/quirk-classes/" />

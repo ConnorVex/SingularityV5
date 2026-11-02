@@ -6,6 +6,7 @@ sidebar:
   order: 20
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Cursed Techniques (CTs)** are special abilities used by Jujutsu Sorcerers, Curse Users and Curses alike.
 
@@ -14,6 +15,12 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 - Every CT is **fuelled by Cursed Energy**, and each has its own strengths and downsides.
 
 Every CT has **1 Type** and **1 Class**.
+
+<KeyFacts items={[
+  { label: "Born with one", value: "Rare" },
+  { label: "Types", value: "Innate or Inherited" },
+  { label: "Fuel", value: "Cursed Energy" },
+]} />
 
 ## Types
 

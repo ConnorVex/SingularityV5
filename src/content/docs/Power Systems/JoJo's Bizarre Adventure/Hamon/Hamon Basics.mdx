@@ -7,8 +7,15 @@ sidebar:
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import InlineIcon from '../../../../../components/InlineIcon.astro';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **The Ripple** (波紋 *Hamon*) is the energy of **Sendō** (仙道, "Way of the Hermit"), an ancient martial art. Special breathing creates energy that works **like the Sun**. It can slow aging, and it's deadly in combat.
+
+<KeyFacts items={[
+  { label: "Who can start", value: "Outworlders" },
+  { label: "Fuel", value: "Hamon Points (HP)" },
+  { label: "Starting gauge", value: "0/200" },
+]} />
 
 :::note[Who can use it]
 Learnable in **the Mainland and the Outworld**, but only **Outworlders** can **start** with Hamon.

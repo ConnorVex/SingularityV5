@@ -5,11 +5,17 @@ sidebar:
   label: Moveset Basics
   order: 920
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
-
-<Badge text="Hand to Hand" variant="note" size="medium" /> <Badge text="Weapon Based" variant="caution" size="medium" />
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
 Moveset styles come with a **set list of moves** that **can't be altered**, which makes them a bit rigid. In exchange, they unlock **Ultimate Modes**.
+
+<KeyFacts items={[
+  { label: 'Fight with', value: "Hands or weapons" },
+  { label: 'Moves per turn', value: "1" },
+  { label: 'Ultimate Modes', value: "Yes" },
+  { label: 'Styles', value: "5" },
+]} />
 
 <CardGrid>
   <Card title="One attack per turn" icon="warning">

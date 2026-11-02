@@ -1,0 +1,25 @@
+---
+// Lays out HubTiles: one column on phones, `columns` across on wider screens.
+interface Props {
+	columns?: 2 | 3;
+}
+
+const { columns = 3 } = Astro.props;
+---
+
+<div class="hub-grid not-content" style={`--hub-columns: ${columns}`}>
+	<slot />
+</div>
+
+<style>
+	.hub-grid {
+		display: grid;
+		gap: 1rem;
+		margin-block: 1.5rem;
+	}
+	@media (min-width: 50rem) {
+		.hub-grid {
+			grid-template-columns: repeat(var(--hub-columns), minmax(0, 1fr));
+		}
+	}
+</style>

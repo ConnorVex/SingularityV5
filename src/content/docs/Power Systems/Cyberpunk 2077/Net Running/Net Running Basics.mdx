@@ -6,8 +6,15 @@ sidebar:
   order: 320
 ---
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Net Runners** modify themselves with Cyberware to **hack their way out of situations**, or run special **Operating Systems** that boost their bodies.
+
+<KeyFacts items={[
+  { label: "Starting RAM", value: "4" },
+  { label: "RAM recovery", value: "1 bar / 15 turns" },
+  { label: "Quick Hack limit", value: "1 per person" },
+]} />
 
 <CardGrid>
   <Card title="Operating Systems (OS)" icon="setting">

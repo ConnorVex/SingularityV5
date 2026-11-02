@@ -7,11 +7,19 @@ sidebar:
 ---
 import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
 import InlineIcon from '../../../../../components/InlineIcon.astro';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Devils** (悪魔 *Akuma*) are demons from **Hell** that embody a **human fear** and draw strength from it. **Any feared concept** can become a Devil.
 
 - **The more feared the concept, the stronger the Devil.** Death? Terrifying. A spray bottle? Not so much.
 - The Singularity didn't weaken Devils. They've only gotten **stronger**.
+
+<KeyFacts items={[
+  { label: "Born from", value: "Human fears" },
+  { label: "Power source", value: "Being feared" },
+  { label: "Fuel", value: "Blood Points (BP)" },
+  { label: "On death", value: "Reincarnates" },
+]} />
 
 ## Shared Capabilities
 

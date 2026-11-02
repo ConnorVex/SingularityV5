@@ -5,9 +5,15 @@ sidebar:
   label: "Phase 2: Superhuman"
   order: 8
 ---
-import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
-<Badge text="Potential: Great → Colossal" variant="caution" size="medium" /> <Badge text="Hop: 30 PTP" variant="note" size="medium" />
+<KeyFacts items={[
+  { label: 'Tiers', value: '9 – 14' },
+  { label: 'Potential', value: 'Great → Colossal' },
+  { label: 'Training meter', value: '0/45' },
+  { label: 'Hop to Phase 3', value: '30 PTP' },
+]} />
 
 *Strength = how much you can lift (MT = metric tons). Defense = explosive force you can withstand (t TNT = tons of TNT).*
 

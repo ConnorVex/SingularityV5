@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 100
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Difficult" variant="caution" size="medium" /> <Badge text="Hybrid: Mainland & Outworld" variant="tip" size="medium" />
-
-**Mangaka:** Hirohiko Araki
+<KeyFacts items={[
+  { label: "Difficulty", value: "Difficult" },
+  { label: "Works in", value: "Mainland & Outworld" },
+  { label: "Mangaka", value: "Hirohiko Araki" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -27,6 +30,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     | Race | The Ultimate Life Form |
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Hamon" description="Fighting Style" href="/SingularityV5/power-systems/jojos-bizarre-adventure/hamon/hamon-basics/" />

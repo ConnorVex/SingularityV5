@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 300
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Moderate" variant="success" size="medium" /> <Badge text="Built for powerless builds" variant="tip" size="medium" />
-
-**Game made by** CD Projekt Red
+<KeyFacts items={[
+  { label: "Difficulty", value: "Moderate" },
+  { label: "Best for", value: "Powerless builds" },
+  { label: "Game by", value: "CD Projekt Red" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -34,6 +37,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     ```
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Cyberware" description="Slots, Ripperdocs, grades, tiers and items" href="/SingularityV5/power-systems/cyberpunk-2077/cyberware/" />

@@ -5,11 +5,15 @@ sidebar:
   label: Hamon Bubble
   order: 923
 ---
-import { Badge } from '@astrojs/starlight/components';
-
-<Badge text="Hamon" variant="tip" size="medium" />
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
 Infuse soap bubbles with **Hamon** to attack, defend and blind. **HP** = Hamon Points.
+
+<KeyFacts items={[
+  { label: 'Skills', value: "5" },
+  { label: 'Costs', value: "Hamon Points (HP)" },
+  { label: 'Ultimate', value: "None" },
+]} />
 
 :::note[Requirements]
 - [Hamon](/SingularityV5/power-systems/jojos-bizarre-adventure/hamon/hamon-basics/)

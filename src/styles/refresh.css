@@ -1,0 +1,95 @@
+/* Visual refresh, scoped to `.refresh` (see MarkdownContent.astro). Calmer spacing, clearer
+   section breaks, and tables and cards that are easier to scan. */
+
+.sl-markdown-content.refresh {
+	line-height: 1.75;
+}
+
+/* Sections: more room above, and a quiet rule under each heading (not hub tile titles). */
+.refresh h2:not(.hub-tile-title) {
+	margin-top: 3rem;
+	padding-bottom: 0.4rem;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+.refresh h3 {
+	margin-top: 2rem;
+}
+
+/* A wide banner image at the top of a page. */
+.refresh .banner {
+	width: 100%;
+	aspect-ratio: 2.4;
+	object-fit: cover;
+	border-radius: 1rem;
+	border: 1px solid var(--sl-color-gray-5);
+}
+
+/* Tables: rounded frame, shaded header, striped rows. */
+.refresh table {
+	width: fit-content;
+	max-width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+}
+.refresh :is(th, td) {
+	padding: 0.6rem 0.9rem;
+	border: 0;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+.refresh tr:last-child td {
+	border-bottom: 0;
+}
+.refresh th {
+	background: var(--sl-color-gray-6);
+	font-size: var(--sl-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-2);
+}
+.refresh tbody tr:nth-child(even) {
+	background: color-mix(in srgb, var(--sl-color-gray-6) 45%, transparent);
+}
+.refresh tbody tr:hover {
+	background: color-mix(in srgb, var(--sl-color-accent) 12%, transparent);
+}
+
+/* Cards: rounder and quieter, so the content leads. */
+.refresh .card {
+	border-radius: 1rem;
+	border-color: var(--sl-color-gray-5);
+	background: var(--sl-color-gray-6);
+}
+
+/* Tabs: the active tab stands out more. */
+.refresh starlight-tabs [role='tab'][aria-selected='true'] {
+	color: var(--sl-color-white);
+}
+
+/* Formulas and other one-line callouts. */
+.refresh .formula {
+	padding: 0.75rem 1rem;
+	border-radius: 0.75rem;
+	background: var(--sl-color-black);
+	text-align: center;
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+
+/* Card grids: room above, and an odd last card fills the row instead of leaving a gap. */
+.refresh .card-grid {
+	margin-top: 1.5rem;
+}
+@media (min-width: 50rem) {
+	.refresh .card-grid > :last-child:nth-child(odd) {
+		grid-column: 1 / -1;
+	}
+}
+
+/* Grids holding a sheet template (code block) stack, so the template has room to breathe. */
+@media (min-width: 50rem) {
+	.refresh .card-grid:has(.expressive-code) {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}

@@ -4,11 +4,16 @@ description: Rules for creating a custom Flow or Moveset Fighting Style.
 sidebar:
   order: 940
 ---
-import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
-
-<Badge text="Custom Class" variant="tip" size="medium" />
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import KeyFacts from '../../../components/KeyFacts.astro';
 
 Don't want to roll for a listed style? **Create your own!** Pick a type and follow its rules.
+
+<KeyFacts items={[
+  { label: 'Types', value: "Flow or Moveset" },
+  { label: 'Moveset moves', value: "4" },
+  { label: 'Passives', value: "Permission Based" },
+]} />
 
 <CardGrid>
   <Card title="Flow Type" icon="pencil">

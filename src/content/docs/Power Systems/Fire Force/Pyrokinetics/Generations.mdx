@@ -6,6 +6,7 @@ sidebar:
   order: 610
 ---
 import { Badge } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 ## Spontaneous Human Combustion
 
@@ -14,6 +15,12 @@ import { Badge } from '@astrojs/starlight/components';
 - It can happen to **anyone, at any age**.
 - **90% mortality rate.** Survive it and you become a **First, Second or Third** Generation.
 - **XO** isn't a natural S.H.C outcome (it's Permission Based), and the **Fourth** only comes later through Adolla.
+
+<KeyFacts items={[
+  { label: "Can happen to", value: "Anyone" },
+  { label: "Mortality", value: "90%" },
+  { label: "Generations", value: "First – Fourth, plus XO" },
+]} />
 
 ## The Generations
 

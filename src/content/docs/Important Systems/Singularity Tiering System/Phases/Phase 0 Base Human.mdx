@@ -5,9 +5,15 @@ sidebar:
   label: "Phase 0: Base Human"
   order: 6
 ---
-import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
-<Badge text="Potential: Any" variant="success" size="medium" /> <Badge text="Hop: 15 PTP" variant="note" size="medium" />
+<KeyFacts items={[
+  { label: 'Tiers', value: '1 – 2' },
+  { label: 'Potential', value: 'Any' },
+  { label: 'Training meter', value: '0/25' },
+  { label: 'Hop to Phase 1', value: '15 PTP' },
+]} />
 
 **Value** is the number used in formulas (like Power = (Str + Speed) ÷ 2).
 

@@ -62,3 +62,30 @@ h3,
 	white-space: nowrap;
 }
 
+
+/* Home page and section hubs (index.mdx, systems.mdx, roleplay.mdx). */
+.hero {
+	padding-block: 2.5rem 1rem;
+}
+.hero img {
+	max-width: 12rem;
+}
+.hero .tagline {
+	max-width: 38rem;
+	line-height: 1.6;
+}
+.hub-lead {
+	max-width: 40rem;
+	margin-inline: auto;
+	text-align: center;
+	font-size: var(--sl-text-lg);
+	line-height: 1.6;
+	color: var(--sl-color-gray-2);
+}
+.home-motto {
+	margin-block: 2.5rem 1rem;
+	text-align: center;
+	font-family: 'Anime Inept', sans-serif;
+	font-size: var(--sl-text-h3);
+	color: var(--sl-color-gray-2);
+}

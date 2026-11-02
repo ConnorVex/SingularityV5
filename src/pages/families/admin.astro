@@ -1,0 +1,13 @@
+---
+// Admin tools for families (admins only).
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import PortalNav from '../../components/portal/PortalNav.astro';
+import FamilyAdmin from '../../components/families/FamilyAdmin.tsx';
+import '../../styles/portal.css';
+import '../../styles/families.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Family Admin', description: 'Review families and perks.', tableOfContents: false, pagefind: false }}>
+	<PortalNav current="review" />
+	<FamilyAdmin client:only="preact" />
+</StarlightPage>

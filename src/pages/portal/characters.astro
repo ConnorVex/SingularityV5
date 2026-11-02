@@ -1,10 +1,12 @@
 ---
-// "My Characters": the logged-in player's submissions and their review status.
+// "My Stuff": the logged-in player's characters, families and (later) equipment.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import PortalNav from '../../components/portal/PortalNav.astro';
 import MyCharacters from '../../components/portal/MyCharacters.tsx';
 import '../../styles/portal.css';
 ---
 
-<StarlightPage frontmatter={{ title: 'My Characters', description: 'Your characters, their review status and admin notes.', tableOfContents: false, pagefind: false }}>
+<StarlightPage frontmatter={{ title: 'My Stuff', description: 'Your characters, families and equipment.', tableOfContents: false, pagefind: false }}>
+	<PortalNav current="mine" />
 	<MyCharacters client:only="preact" />
 </StarlightPage>

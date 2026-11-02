@@ -57,6 +57,8 @@ export interface Sheet {
 	prioritySystem: string;
 	storage: string;
 	evolutions: { date: string; summary: string; earned: string; link: string }[];
+	/** Families the character asks to join when it's submitted (family ids). */
+	families: string[];
 	/** Canon tryouts only. */
 	canon: { portrayal: string; sample: string };
 }
@@ -73,6 +75,7 @@ export const emptySheet = (): Sheet => ({
 	prioritySystem: '',
 	storage: '',
 	evolutions: [],
+	families: [],
 	canon: { portrayal: '', sample: '' },
 });
 
@@ -93,5 +96,6 @@ export function normalizeSheet(raw: unknown): Sheet {
 		seenCombos: Array.isArray(s.seenCombos) ? s.seenCombos : [],
 		systems: Array.isArray(s.systems) ? s.systems.map((e: Partial<SystemEntry>) => ({ key: '', system: '', rollProofs: {}, skills: [], description: '', fields: {}, ...e })) : [],
 		evolutions: Array.isArray(s.evolutions) ? s.evolutions : [],
+		families: Array.isArray(s.families) ? s.families.filter((f): f is string => typeof f === 'string') : [],
 	};
 }

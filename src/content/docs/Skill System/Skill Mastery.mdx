@@ -6,8 +6,16 @@ sidebar:
 ---
 import { Badge, Card, CardGrid } from '@astrojs/starlight/components';
 import InlineIcon from '../../../components/InlineIcon.astro';
+import KeyFacts from '../../../components/KeyFacts.astro';
 
 Knowing a move and **mastering** it aren't the same thing. Every Standard and Ultimate skill has its own **Mastery Rank**, which goes up as you use it.
+
+<KeyFacts items={[
+  { label: 'Practiced', value: '5 uses' },
+  { label: 'Mastered', value: '15 uses' },
+  { label: 'Counted uses', value: '3 per session' },
+  { label: 'Mastery perk', value: '1 per skill' },
+]} />
 
 ## Ranks
 

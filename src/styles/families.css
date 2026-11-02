@@ -1,0 +1,915 @@
+/* Family System pages (src/components/families/). Builds on portal.css: same panels, buttons and
+   fields; the accent follows the family's colour (useFamilyTheme). */
+
+.fm {
+	gap: 1rem;
+}
+.fm p {
+	margin-top: 0;
+}
+
+/* ── Chips and tags ── */
+.fm-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	margin: 0;
+}
+.fm-chip,
+.fm-tag {
+	font-family: var(--pf-mono);
+	font-size: 0.68rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	padding: 0.2rem 0.55rem;
+	border-radius: 0.4rem;
+	border: 1px solid currentColor;
+	background: color-mix(in srgb, currentColor 12%, transparent);
+	color: var(--pf-muted);
+	white-space: nowrap;
+}
+.fm-chip.special {
+	color: var(--pf-accent);
+}
+.fm-chip.good {
+	color: var(--sl-color-green-high);
+}
+.fm-chip.warn {
+	color: var(--sl-color-orange-high);
+}
+.fm-tag {
+	font-size: 0.6rem;
+	padding: 0.05rem 0.35rem;
+	color: var(--pf-accent);
+	vertical-align: middle;
+}
+
+/* ── Directory ── */
+.fm-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.75rem;
+}
+.fm-top .pf-nav {
+	position: static;
+}
+.fm-search {
+	flex: 1 1 12rem;
+}
+.fm-top-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-inline-start: auto;
+}
+.fm-top-actions > *,
+.fm-toolbar > * {
+	margin-top: 0;
+}
+.fm-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 21rem), 1fr));
+	gap: 1rem;
+	margin-top: 0.5rem;
+}
+.fm-grid > * {
+	margin-top: 0;
+}
+.fm-card {
+	--fam: var(--pf-accent);
+	display: flex;
+	flex-direction: column;
+	border-radius: var(--pf-radius);
+	border: 1px solid color-mix(in srgb, var(--fam) 35%, var(--pf-line));
+	background: var(--pf-panel);
+	overflow: hidden;
+	box-shadow: 0 0 1.5rem color-mix(in srgb, var(--fam) 10%, transparent);
+	transition:
+		border-color 0.2s,
+		box-shadow 0.2s,
+		transform 0.2s;
+}
+.fm-card:hover,
+.fm-card:focus-within {
+	border-color: var(--fam);
+	box-shadow: 0 0 2rem color-mix(in srgb, var(--fam) 30%, transparent);
+	transform: translateY(-2px);
+}
+.fm-card-art {
+	display: grid;
+	place-items: center;
+	aspect-ratio: 16 / 6;
+	background:
+		radial-gradient(circle at 30% 20%, color-mix(in srgb, var(--fam) 55%, transparent), transparent 60%),
+		linear-gradient(135deg, color-mix(in srgb, var(--fam) 35%, #08090c), #08090c);
+	text-decoration: none;
+}
+.fm-card-art img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+}
+.fm-card-art span {
+		font-size: 2.6rem;
+	font-weight: 800;
+	color: color-mix(in srgb, var(--fam) 70%, white);
+	text-shadow: 0 0 1.5rem var(--fam);
+}
+.fm-card-body {
+	display: flex;
+	flex-direction: column;
+	gap: 0.55rem;
+	padding: 1rem 1.1rem 1.1rem;
+	flex: 1;
+}
+.fm-card-body > * {
+	margin: 0;
+}
+.fm-card-title {
+	font-size: var(--sl-text-xl);
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	margin: 0;
+}
+.fm-card-title a {
+	color: var(--pf-text);
+	text-decoration: none;
+}
+/* The whole card is clickable through its title link. */
+.fm-card {
+	position: relative;
+}
+.fm-card-title a::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+}
+.fm-card-text {
+	color: var(--pf-text);
+	font-size: var(--sl-text-sm);
+	line-height: 1.6;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+.fm-card-meta {
+	margin-top: auto;
+	font-size: var(--sl-text-xs);
+	color: var(--pf-faint);
+	letter-spacing: 0.04em;
+}
+
+/* ── Family page ── */
+/* The page's own title is the hero below, so Starlight's heading is hidden. */
+:root:has(.fm-page) .content-panel:has(h1#_top) {
+	display: none;
+}
+.fm-toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+.fm-hero {
+	position: relative;
+	display: grid;
+	align-items: end;
+	min-height: 12rem;
+	border-radius: var(--pf-radius);
+	overflow: hidden;
+	border: 1px solid var(--pf-line-strong);
+	background:
+		radial-gradient(circle at 15% 0%, color-mix(in srgb, var(--pf-accent) 45%, transparent), transparent 55%),
+		radial-gradient(circle at 90% 120%, color-mix(in srgb, var(--pf-accent) 30%, transparent), transparent 50%),
+		var(--pf-bg);
+	box-shadow: 0 0 3rem color-mix(in srgb, var(--pf-accent) 15%, transparent);
+}
+.fm-hero.has-banner {
+	min-height: clamp(14rem, 32vw, 22rem);
+}
+.fm-hero-img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+}
+.fm-hero.has-banner::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to top, rgb(5 6 9 / 0.92), rgb(5 6 9 / 0.35) 55%, transparent);
+}
+.fm-hero-text {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: clamp(1.1rem, 3vw, 2rem);
+}
+.fm-hero-text > * {
+	margin: 0;
+}
+.fm-title {
+		font-size: clamp(2rem, 5vw, 3.2rem);
+	font-weight: 800;
+	line-height: 1.05;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: #fff;
+	text-shadow: 0 0 1.5rem color-mix(in srgb, var(--pf-accent) 60%, transparent);
+}
+:root[data-theme='light'] .fm-hero:not(.has-banner) .fm-title {
+	color: var(--pf-text);
+}
+.fm-lead {
+	max-width: 48rem;
+	font-size: var(--sl-text-base);
+	line-height: 1.6;
+	color: color-mix(in srgb, #fff 85%, transparent);
+}
+:root[data-theme='light'] .fm-hero:not(.has-banner) .fm-lead {
+	color: var(--pf-text);
+}
+
+/* Key facts, like the character HUD tiles. */
+.fm-facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr));
+	gap: 0.6rem;
+	margin: 0;
+}
+.fm-fact {
+	margin: 0;
+	padding: 0.7rem 0.9rem;
+	border-radius: 0.6rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-accent);
+	background: var(--pf-panel);
+}
+.fm-fact dt {
+	font-size: 0.66rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-muted);
+}
+.fm-fact dd {
+	margin: 0.2rem 0 0;
+	font-weight: 700;
+	color: var(--pf-text);
+}
+
+.fm-block {
+	margin-block: 0;
+}
+.fm-prose {
+	margin-top: 1rem;
+	line-height: 1.75;
+}
+.fm-prose p {
+	margin: 0 0 0.9rem;
+}
+.fm-prose strong {
+	color: var(--pf-accent);
+}
+
+/* Divisions and their rosters */
+.fm-divisions {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 19rem), 1fr));
+	gap: 1rem;
+	margin-top: 1rem;
+}
+.fm-divisions > * {
+	margin-top: 0;
+}
+.fm-division {
+	padding: 1rem;
+	border-radius: 0.75rem;
+	border: 1px solid var(--pf-line);
+	background: var(--pf-field);
+}
+.fm-division h3 {
+	margin: 0 0 0.4rem;
+		font-size: var(--sl-text-base);
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-accent);
+}
+.fm-division-text {
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+	line-height: 1.55;
+	margin-bottom: 0.75rem;
+}
+.fm-members {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+}
+.fm-member {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	margin: 0;
+	padding: 0.35rem 0.45rem;
+	border-radius: 0.5rem;
+}
+.fm-member.titled {
+	background: color-mix(in srgb, var(--pf-accent) 9%, transparent);
+}
+.fm-member.open {
+	opacity: 0.6;
+	border: 1px dashed var(--pf-line-strong);
+}
+.fm-face {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 2.2rem;
+	height: 2.2rem;
+	border-radius: 50%;
+	overflow: hidden;
+	font-weight: 800;
+	color: var(--pf-ink);
+	background: var(--pf-accent);
+	box-shadow: 0 0 0 2px var(--pf-panel), 0 0 0 3px color-mix(in srgb, var(--pf-accent) 50%, transparent);
+}
+.fm-face img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	margin: 0;
+}
+.fm-member-text {
+	display: flex;
+	flex-direction: column;
+	min-width: 0;
+	line-height: 1.3;
+}
+.fm-member-text strong {
+	font-size: var(--sl-text-sm);
+}
+.fm-member-sub {
+	font-size: var(--sl-text-xs);
+	color: var(--pf-muted);
+}
+.fm-member .fm-tag {
+	margin-inline-start: auto;
+}
+
+/* Relations */
+.fm-relations {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 15rem), 1fr));
+	gap: 0.75rem;
+	margin-top: 1rem;
+}
+.fm-relations > * {
+	margin-top: 0;
+}
+.fm-standing {
+	--tone: var(--pf-muted);
+	padding: 0.85rem 1rem;
+	border-radius: 0.65rem;
+	border: 1px solid var(--pf-line);
+	border-top: 3px solid var(--tone);
+	background: var(--pf-field);
+}
+.fm-standing.tone-sister {
+	--tone: var(--pf-accent);
+}
+.fm-standing.tone-good {
+	--tone: var(--sl-color-green);
+}
+.fm-standing.tone-tip {
+	--tone: var(--sl-color-purple);
+}
+.fm-standing.tone-info {
+	--tone: var(--sl-color-blue);
+}
+.fm-standing.tone-warn {
+	--tone: var(--sl-color-orange);
+}
+.fm-standing.tone-bad {
+	--tone: var(--sl-color-red);
+}
+.fm-standing-label {
+	font-size: 0.7rem;
+	font-weight: 800;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--tone);
+	margin-bottom: 0.4rem;
+}
+.fm-standing ul {
+	margin: 0;
+	padding-inline-start: 1.1rem;
+	font-size: var(--sl-text-sm);
+}
+.fm-standing-note {
+	margin: 0.6rem 0 0;
+	font-size: var(--sl-text-xs);
+	color: var(--pf-muted);
+	line-height: 1.5;
+}
+
+/* Perks */
+.fm-perk-group + .fm-perk-group,
+.fm-perk-group + .fm-perk-locked {
+	margin-top: 1.25rem;
+}
+.fm-perk-group {
+	display: grid;
+	gap: 0.5rem;
+}
+.fm .fm-perk-kind {
+	margin: 0;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-accent);
+}
+.fm-perk {
+	margin: 0;
+	border-radius: 0.6rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-accent);
+	background: var(--pf-field);
+}
+.fm-perk summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem 0.75rem;
+	padding: 0.75rem 1rem;
+	cursor: pointer;
+	list-style: none;
+}
+.fm-perk summary::before {
+	background-color: var(--pf-accent);
+}
+.fm-perk summary strong {
+	flex: 1 1 10rem;
+}
+.fm-perk-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+	color: var(--pf-muted);
+}
+.fm-chip.lock {
+	color: var(--pf-accent);
+}
+.fm-perk .fm-prose {
+	padding: 0 1rem 0.9rem;
+	font-size: var(--sl-text-sm);
+}
+.fm-perk-locked {
+	display: flex;
+	gap: 0.85rem;
+	align-items: center;
+	padding: 0.85rem 1rem;
+	border-radius: 0.6rem;
+	border: 1px dashed var(--pf-line-strong);
+	background: repeating-linear-gradient(135deg, transparent 0 10px, color-mix(in srgb, var(--pf-accent) 5%, transparent) 10px 20px);
+}
+.fm-perk-locked > * {
+	margin: 0;
+}
+.fm-lock {
+	font-size: 1.5rem;
+}
+.fm-perk-locked p {
+	margin: 0.2rem 0 0;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+}
+
+/* Join */
+.fm-mine {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0 0.5rem;
+	display: grid;
+	gap: 0.4rem;
+}
+.fm-mine li {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+}
+.fm-mine .pf-button {
+	margin-inline-start: auto;
+	padding: 0.35rem 0.75rem;
+}
+.fm .pf-wide > .pf-button {
+	margin: 0 0.5rem 0 0;
+}
+.fm-done {
+	margin-top: 0.75rem;
+	color: var(--pf-accent);
+	font-weight: 600;
+}
+.fm-note {
+	margin: 0.4rem 0 0;
+}
+
+/* ── Owner editor ── */
+.fm-edit-row {
+	margin-top: 1rem;
+	padding: 1rem;
+	border-radius: 0.75rem;
+	border: 1px solid var(--pf-line);
+	background: var(--pf-field);
+}
+.fm-edit-row .pf-grid {
+	margin-top: 0;
+}
+.fm-edit-row-tools {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.5rem;
+	margin-top: 0.85rem;
+}
+.fm-edit-row-tools > * {
+	margin: 0;
+}
+.fm-move {
+	display: inline-flex;
+	gap: 0.25rem;
+	margin-inline-end: auto;
+}
+.fm-move .pf-button {
+	margin: 0;
+	width: 2.4rem;
+	height: 2.4rem;
+	padding: 0;
+	letter-spacing: 0;
+}
+/* Family save bars hold one button, so the message can stay beside it on phones. */
+.fm .pf-actions .pf-save-state {
+	flex: 1 1 0;
+	min-width: 0;
+}
+.fm-edit-row + .pf-button,
+.fm-edit-row ~ .pf-button {
+	margin-top: 1rem;
+}
+.fm-roster-grid {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+.fm-colour {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+}
+.fm-colour input[type='color'] {
+	width: 3rem;
+	height: 2.4rem;
+	padding: 0.2rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 0.5rem;
+	background: var(--pf-field);
+	cursor: pointer;
+}
+.fm-colour code {
+	font-size: var(--sl-text-sm);
+}
+.fm-requests {
+	list-style: none;
+	padding: 0;
+	margin: 1rem 0 0;
+	display: grid;
+	gap: 0.6rem;
+}
+.fm-requests li {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border-radius: 0.6rem;
+	border: 1px solid var(--pf-line-strong);
+	border-left: 3px solid var(--pf-accent);
+	background: var(--pf-field);
+}
+.fm-request-msg {
+	margin: 0.3rem 0 0;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+	font-style: italic;
+}
+.fm-perk-state {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0 0 0.75rem;
+	font-size: var(--sl-text-xs);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-muted);
+}
+.perk-approved .fm-perk-state strong {
+	color: var(--sl-color-green-high);
+}
+.perk-pending .fm-perk-state strong {
+	color: var(--sl-color-orange-high);
+}
+.perk-denied .fm-perk-state strong {
+	color: var(--sl-color-red-high);
+}
+.fm .pf-subhead {
+	margin-top: 1.5rem;
+}
+
+/* Owner's perk list: one collapsible card per perk, sent together. */
+.fm .fm-perk-edit {
+	margin: 0 0 0.6rem;
+	padding: 0;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-line-strong);
+	border-radius: 0.6rem;
+	background: var(--pf-field);
+}
+.fm .fm-perk-edit.perk-approved {
+	border-left-color: var(--sl-color-green-high);
+}
+.fm .fm-perk-edit.perk-pending {
+	border-left-color: var(--sl-color-orange-high);
+}
+.fm .fm-perk-edit.perk-denied {
+	border-left-color: var(--sl-color-red-high);
+}
+.fm .fm-perk-edit:not([class*='perk-']) {
+	border-left-color: var(--pf-accent);
+}
+.fm .fm-perk-edit.removed {
+	opacity: 0.6;
+}
+.fm-perk-edit summary {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem 0.75rem;
+	padding: 0.7rem 0.9rem;
+	cursor: pointer;
+}
+.fm-perk-edit summary::before {
+	background-color: var(--pf-accent);
+}
+.fm-perk-edit-name {
+	flex: 1 1 10rem;
+	font-weight: 700;
+	color: var(--pf-text);
+}
+.fm-perk-edit.removed .fm-perk-edit-name {
+	text-decoration: line-through;
+}
+.fm-perk-edit-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.35rem;
+}
+.fm-chip.state-approved {
+	color: var(--sl-color-green-high);
+}
+.fm-chip.state-pending {
+	color: var(--sl-color-orange-high);
+}
+.fm-chip.state-denied {
+	color: var(--sl-color-red-high);
+}
+.fm-perk-edit-body {
+	padding: 0.25rem 0.9rem 0.9rem;
+}
+.fm-perk-edit-body .pf-grid {
+	margin-top: 0;
+}
+.fm .fm-perk-edit-body .fm-perk-state {
+	text-transform: none;
+	letter-spacing: 0;
+	font-size: var(--sl-text-sm);
+}
+.fm .fm-perk-note {
+	margin-top: 1rem;
+}
+
+/* Admin: one request, a decision per perk. */
+.fm .fm-request-note {
+	font-style: italic;
+	color: var(--pf-muted);
+}
+.fm .fm-review-perks {
+	display: grid;
+	gap: 0.6rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.fm .fm-review-perk {
+	display: grid;
+	gap: 0.45rem;
+	margin: 0;
+	padding: 0.8rem 0.9rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-line-strong);
+	border-radius: 0.6rem;
+	background: var(--pf-field);
+}
+.fm .fm-review-perk > * {
+	margin: 0;
+}
+.fm .fm-review-perk.is-approved {
+	border-left-color: var(--sl-color-green-high);
+}
+.fm .fm-review-perk.is-denied {
+	border-left-color: var(--sl-color-red-high);
+}
+.fm-review-perk h4 {
+	font-size: var(--sl-text-base);
+}
+.fm-review-perk .fm-prose {
+	font-size: var(--sl-text-sm);
+}
+.fm-review-choice {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+}
+.fm .fm-review-choice .pf-button {
+	margin: 0;
+}
+.fm .fm-review-note {
+	flex: 1 1 12rem;
+	margin: 0;
+}
+.fm-admin-card .pf-actions {
+	margin-top: 0.25rem;
+}
+/* The card is narrow, so the tally gets its own line above the buttons. */
+.fm .fm-admin-card .pf-actions .pf-save-state {
+	flex: 1 1 100%;
+}
+
+/* ── Admin ── */
+.fm-admin-list {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 28rem), 1fr));
+	gap: 1rem;
+}
+.fm-admin-list > * {
+	margin-top: 0;
+}
+.fm-admin-card {
+	--fam: var(--pf-accent);
+	display: flex;
+	flex-direction: column;
+	gap: 0.6rem;
+	padding: 1rem 1.1rem;
+	border-radius: var(--pf-radius);
+	border: 1px solid var(--pf-line);
+	border-left: 4px solid var(--fam);
+	background: var(--pf-panel);
+}
+.fm-admin-card > *,
+.fm-admin-card header > * {
+	margin: 0;
+}
+.fm-admin-card h3 {
+	font-size: var(--sl-text-lg);
+}
+.fm-admin-card .pf-grid {
+	margin-top: 0;
+}
+
+@media (max-width: 40rem) {
+	.fm-top-actions {
+		width: 100%;
+	}
+	.fm-top-actions > * {
+		flex: 1;
+	}
+}
+/* Checkboxes inside a .pf-field would otherwise take the text inputs' full width. */
+.fm .pf-check input {
+	width: auto;
+	flex: none;
+}
+
+/* ── Long rosters ── */
+.fm .fm-division-count {
+	margin: -0.35rem 0 0.5rem;
+	font-family: var(--pf-mono);
+	font-size: 0.7rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--pf-faint);
+}
+.fm .fm-more {
+	margin: 0.5rem 0 0;
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+	border: 1px dashed var(--pf-line-strong);
+	background: transparent;
+	color: var(--pf-accent);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 700;
+	cursor: pointer;
+}
+.fm .fm-more:hover {
+	border-color: var(--pf-accent);
+}
+
+/* ── Tryouts ── */
+.fm-tryout .pf-subhead {
+	margin: 0 0 0.35rem;
+}
+.fm-tryout > .pf-help {
+	margin: 0 0 0.85rem;
+}
+.fm-tryout-state {
+	font-family: var(--pf-mono);
+	font-size: 0.68rem;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--sl-color-orange-high);
+}
+.tryout-accepted .fm-tryout-state {
+	color: var(--sl-color-green-high);
+}
+.tryout-declined .fm-tryout-state {
+	color: var(--sl-color-red-high);
+}
+.fm-tryout-list {
+	display: grid;
+	gap: 0.6rem;
+}
+.fm .fm-tryout-card {
+	margin: 0;
+	padding: 0;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-accent);
+	border-radius: 0.6rem;
+	background: var(--pf-field);
+}
+.fm-tryout-card summary {
+	display: flex;
+	align-items: center;
+	gap: 0.65rem;
+	padding: 0.7rem 0.9rem;
+	cursor: pointer;
+}
+.fm-tryout-card summary::before {
+	background-color: var(--pf-accent);
+}
+.fm-tryout-card summary .fm-member-text {
+	flex: 1;
+	min-width: 0;
+}
+.fm-tryout-card img.fm-face {
+	object-fit: cover;
+}
+.fm-tryout-body {
+	padding: 0 0.9rem 0.9rem;
+}
+.fm .fm-tryout-body h4 {
+	margin: 0.85rem 0 0.3rem;
+	font-size: 0.7rem;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-accent);
+}
+.fm-tryout-body .fm-prose {
+	font-size: var(--sl-text-sm);
+}
+.fm-sample {
+	padding: 0.6rem 0.8rem;
+	border-left: 2px solid var(--pf-accent);
+	background: color-mix(in srgb, var(--pf-accent) 6%, transparent);
+	border-radius: 0.4rem;
+}
+.fm-tryout-body .pf-field {
+	margin-top: 0.85rem;
+}

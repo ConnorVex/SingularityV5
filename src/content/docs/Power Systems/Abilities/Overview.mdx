@@ -5,11 +5,15 @@ sidebar:
   label: Overview
   order: 2.5
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Easy" variant="success" size="medium" />
-
-**System created by** Tatsuya.1545
+<KeyFacts items={[
+  { label: "Difficulty", value: "Easy" },
+  { label: "Created by", value: "Tatsuya.1545" },
+  { label: "Tier Points", value: "4 to start" },
+  { label: "Starting skills", value: "2 Standard, 1 Ultimate" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -31,6 +35,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     - **Multiple abilities?** Each gets its **own** Tier Points and moves, which can't be shared.
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Ability Classes" description="Manipulation, Generation, Transformation and God" href="/SingularityV5/power-systems/abilities/ability-classes/" />

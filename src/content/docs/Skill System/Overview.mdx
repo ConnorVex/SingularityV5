@@ -7,8 +7,16 @@ sidebar:
 ---
 import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import InlineIcon from '../../../components/InlineIcon.astro';
+import KeyFacts from '../../../components/KeyFacts.astro';
 
 Being born with an ability doesn't mean you have the **skill** to use it. The **Skill System** sets what you can do with your ability (or **abilities**), what each move costs, and how you get better at them over time.
+
+<KeyFacts items={[
+  { label: 'Skill types', value: '3' },
+  { label: 'Standard cost', value: '10% Stamina' },
+  { label: 'Ultimate cost', value: '30% Stamina' },
+  { label: 'Mastery ranks', value: '3' },
+]} />
 
 <CardGrid>
   <Card title="Skills cost Stamina" icon="rocket">

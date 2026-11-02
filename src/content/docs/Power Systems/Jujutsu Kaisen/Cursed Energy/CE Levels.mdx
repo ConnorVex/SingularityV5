@@ -1,6 +1,6 @@
 ---
 title: Cursed Energy Levels
-description: Rolling your Cursed Energy Points, and how your CE recharges.
+description: How Cursed Energy is rolled in the Divine Database, the odds, and how your CE recharges.
 sidebar:
   label: CE Levels & Recharge
   order: 11
@@ -11,8 +11,23 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
 
 ## Rolling Your Level
 
+Cursed Energy is rolled in the [Divine Database](/SingularityV5/portal/), not in Discord. When you add **Jujutsu Kaisen** to a character, press **Roll Cursed Energy**: the portal rolls your **class** and then your **amount**, and fills them into your sheet.
+
+<CardGrid>
+  <Card title="One roll" icon="warning">
+    You get **one** Cursed Energy roll. It's **locked to your account** until a character with it is **approved**. Deleting the character or starting over **won't** give you a new roll: it carries over to your next character.
+  </Card>
+  <Card title="Re-rolls" icon="approve-check">
+    Only an **admin** can allow a re-roll, by giving you an **override code** for that roll.
+  </Card>
+</CardGrid>
+
+### The Odds
+
+The portal uses these tables.
+
 <Steps>
-1. **Roll your class:** `/roll 1d1260`
+1. **Class:** `1d1260`
 
    | Roll | Class | Chance |
    |--|--|--|
@@ -22,12 +37,12 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
    | 1191 – 1250 | <Badge text="Legendary" variant="caution" /> | 4.8% |
    | 1251 – 1260 | <Badge text="Mythical" variant="danger" /> | 0.8% |
 
-2. **Roll your amount** using that class's roll command below.
+2. **Amount:** that class's die, below.
 </Steps>
 
 <Tabs>
   <TabItem label="Common">
-    Roll `1d10`
+    Amount roll: `1d10`
 
     | # | Level | CEP |
     |--|--|--|
@@ -43,7 +58,7 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
     | 10 | Limited | 100 |
   </TabItem>
   <TabItem label="Uncommon">
-    Roll `1d5`
+    Amount roll: `1d5`
 
     | # | Level | CEP |
     |--|--|--|
@@ -54,7 +69,7 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
     | 5 | Great | 200 |
   </TabItem>
   <TabItem label="Rare">
-    Roll `1d10`
+    Amount roll: `1d10`
 
     | # | Level | CEP |
     |--|--|--|
@@ -70,7 +85,7 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
     | 10 | Voluminous | 500 |
   </TabItem>
   <TabItem label="Legendary">
-    Roll `1d5`
+    Amount roll: `1d5`
 
     | # | Level | CEP |
     |--|--|--|
@@ -81,7 +96,7 @@ Your Cursed Energy is measured in **Cursed Energy Points (CEP)**. Once rolled, y
     | 5 | Insane | 700 |
   </TabItem>
   <TabItem label="Mythical">
-    Roll `1d6`
+    Amount roll: `1d6`
 
     | # | Level | CEP |
     |--|--|--|

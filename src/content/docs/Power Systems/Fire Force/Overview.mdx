@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 3
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Hard" variant="caution" size="medium" /> <Badge text="Anyone can become a Pyrokinetic" variant="tip" size="medium" />
-
-**Mangaka:** Atsushi Ohkubo
+<KeyFacts items={[
+  { label: "Difficulty", value: "Hard" },
+  { label: "Who can use it", value: "Anyone" },
+  { label: "Mangaka", value: "Atsushi Ohkubo" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -38,6 +41,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     **8 Fire Force Tier Points (FFTP)** to spend. Each one raises a starting stat by **1 level** (e.g. Power Level 0 → 1).
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Spontaneous Combustion & Generations" href="/SingularityV5/power-systems/fire-force/pyrokinetics/generations/" />

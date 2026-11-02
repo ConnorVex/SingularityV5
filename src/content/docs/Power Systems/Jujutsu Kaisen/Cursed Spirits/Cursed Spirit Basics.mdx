@@ -6,8 +6,15 @@ sidebar:
   order: 60
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Cursed Spirits** (呪霊 *Jurei*) are metaphysical beings made **entirely of Cursed Energy**. They're born where CE pools: **Cursed Energy Hotspots**, the "knots" in the Mainland's CE field. What they can do depends on their class.
+
+<KeyFacts items={[
+  { label: "Made of", value: "Cursed Energy" },
+  { label: "Weakness", value: "RCE (4× damage)" },
+  { label: "Heals with", value: "Plain CE" },
+]} />
 
 :::caution[Things to keep in mind]
 - Curses lack the physical functions needed for training, so they **can't physically evolve**.

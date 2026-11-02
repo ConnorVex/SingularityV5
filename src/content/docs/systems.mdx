@@ -1,0 +1,45 @@
+---
+title: The Systems
+description: The S.T.S, the Priority System and every power system in Singularity.
+template: splash
+---
+import HubGrid from '../../components/HubGrid.astro';
+import HubTile from '../../components/HubTile.astro';
+
+<p class="hub-lead">Start with the <strong>S.T.S</strong>: it sets your stats and how far you can grow. Then pick a power system.</p>
+
+## Core Systems
+
+<HubGrid columns={2}>
+  <HubTile
+    title="S.T.S"
+    icon="star"
+    href="/SingularityV5/important-systems/singularity-tiering-system/system-information/"
+    description="The Singularity Tiering System: your stats, Phases and physical limits."
+    links={[
+      { label: 'Stats Explained', href: '/SingularityV5/important-systems/singularity-tiering-system/stats-explained/' },
+      { label: 'Phases', href: '/SingularityV5/important-systems/singularity-tiering-system/phases/phases-overview/' },
+      { label: 'Physical Hazards', href: '/SingularityV5/important-systems/singularity-tiering-system/physical-hazards/' },
+    ]}
+  />
+  <HubTile
+    title="Priority System"
+    icon="list-format"
+    href="/SingularityV5/important-systems/priority-system/"
+    description="Running more than one power system? Choose which one comes first."
+  />
+</HubGrid>
+
+## Power Systems
+
+<HubGrid>
+  <HubTile size="small" title="My Hero Academia" href="/SingularityV5/power-systems/my-hero-academia/overview/" badge={{ text: 'Easy', variant: 'success' }} description="Quirks: quick to make, easy to evolve." />
+  <HubTile size="small" title="Abilities" href="/SingularityV5/power-systems/abilities/overview/" badge={{ text: 'Easy', variant: 'success' }} description="Build your own power from scratch." />
+  <HubTile size="small" title="Cyberpunk 2077" href="/SingularityV5/power-systems/cyberpunk-2077/overview/" badge={{ text: 'Moderate', variant: 'note' }} description="Cyberware and netrunning. Built for powerless builds." />
+  <HubTile size="small" title="Chainsaw Man" href="/SingularityV5/power-systems/chainsaw-man/overview/" badge={{ text: 'Moderate', variant: 'note' }} description="Devils and contracts. Player driven." />
+  <HubTile size="small" title="Fire Force" href="/SingularityV5/power-systems/fire-force/overview/" badge={{ text: 'Hard', variant: 'caution' }} description="Pyrokinetics. Anyone can become one." />
+  <HubTile size="small" title="JoJo's Bizarre Adventure" href="/SingularityV5/power-systems/jojos-bizarre-adventure/overview/" badge={{ text: 'Difficult', variant: 'caution' }} description="Stands, Hamon, Spin and Vampires." />
+  <HubTile size="small" title="Tokyo Ghoul" href="/SingularityV5/power-systems/tokyo-ghoul/overview/" badge={{ text: 'Difficult', variant: 'caution' }} description="Humans and Ghouls, Kagune and Quinques." />
+  <HubTile size="small" title="inFAMOUS" href="/SingularityV5/power-systems/infamous/overview/" badge={{ text: 'Very Difficult', variant: 'danger' }} description="Conduits and the Karma System." />
+  <HubTile size="small" title="Jujutsu Kaisen" href="/SingularityV5/power-systems/jujutsu-kaisen/overview/" badge={{ text: 'Extremely Hard', variant: 'danger' }} description="Cursed Energy and Techniques. RNG heavy." />
+</HubGrid>

@@ -6,8 +6,15 @@ sidebar:
   order: 5
 ---
 import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 The S.T.S is split into **Phases**. Each Phase unlocks **new stat tiers** to reach, with its own **physical evolution** requirements.
+
+<KeyFacts items={[
+  { label: 'Phases', value: '4, then Ω' },
+  { label: 'Full meter', value: '15 PTP' },
+  { label: 'Hop needs', value: 'Maxed stats + Potential' },
+]} />
 
 :::caution[Potential sets your limit]
 Your **Potential** trait decides how far you can go. The higher your Potential, the further you can climb.

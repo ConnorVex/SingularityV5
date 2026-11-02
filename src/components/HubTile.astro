@@ -1,0 +1,136 @@
+---
+// A big clickable tile for the home page and section hubs. The whole tile goes to `href`;
+// optional `links` show what's inside and can be clicked on their own.
+// Usage: <HubTile title="The Systems" href="/SingularityV5/systems/" icon="puzzle" description="…" links={[…]} />
+import { Badge, Icon } from '@astrojs/starlight/components';
+import type { StarlightIcon } from '@astrojs/starlight/types';
+
+interface Props {
+	title: string;
+	href: string;
+	description?: string;
+	icon?: StarlightIcon;
+	badge?: { text: string; variant?: 'note' | 'tip' | 'caution' | 'danger' | 'success' | 'default' };
+	links?: { label: string; href: string }[];
+	size?: 'large' | 'small';
+}
+
+const { title, href, description, icon, badge, links = [], size = 'large' } = Astro.props;
+---
+
+<article class:list={['hub-tile', size]}>
+	{icon && <Icon name={icon} class="hub-tile-icon" size="1.75rem" />}
+	<h2 class="hub-tile-title">
+		<a href={href}>{title}</a>
+	</h2>
+	{badge && <Badge text={badge.text} variant={badge.variant ?? 'default'} />}
+	{description && <p class="hub-tile-text">{description}</p>}
+	{
+		links.length > 0 && (
+			<ul class="hub-tile-links">
+				{links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))}
+			</ul>
+		)
+	}
+	<Icon name="right-arrow" class="hub-tile-arrow" size="1.25rem" />
+</article>
+
+<style>
+	.hub-tile {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
+		padding: 1.5rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 1rem;
+		background: color-mix(in srgb, var(--sl-color-black) 75%, transparent);
+		backdrop-filter: blur(6px);
+		transition:
+			border-color 0.2s ease,
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+	.hub-tile:hover,
+	.hub-tile:focus-within {
+		border-color: var(--sl-color-accent);
+		transform: translateY(-2px);
+		box-shadow: 0 0.75rem 2rem -1rem var(--sl-color-accent);
+	}
+	.hub-tile :global(.hub-tile-icon) {
+		color: var(--sl-color-text-accent);
+	}
+	.hub-tile-title {
+		margin: 0;
+		font-size: var(--sl-text-h3);
+		line-height: 1.2;
+	}
+	.small .hub-tile-title {
+		font-size: var(--sl-text-h4);
+	}
+	.hub-tile-title a {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	/* The title's link covers the whole tile. */
+	.hub-tile-title a::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+	.hub-tile-text {
+		margin: 0;
+		color: var(--sl-color-gray-2);
+		line-height: 1.6;
+	}
+	.hub-tile-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.4rem;
+		margin: 0.25rem 0 0;
+		padding: 0;
+		list-style: none;
+	}
+	/* Sub-links sit above the tile-wide link so they stay clickable. */
+	.hub-tile-links a {
+		position: relative;
+		z-index: 1;
+		display: inline-block;
+		padding: 0.2rem 0.65rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 999px;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		text-decoration: none;
+	}
+	.hub-tile-links a:hover {
+		border-color: var(--sl-color-accent);
+		color: var(--sl-color-white);
+	}
+	.hub-tile :global(.hub-tile-arrow) {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		color: var(--sl-color-gray-3);
+		transition: transform 0.2s ease;
+	}
+	.hub-tile:hover :global(.hub-tile-arrow) {
+		color: var(--sl-color-text-accent);
+		transform: translateX(3px);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.hub-tile,
+		.hub-tile :global(.hub-tile-arrow) {
+			transition: none;
+		}
+		.hub-tile:hover {
+			transform: none;
+		}
+	}
+</style>

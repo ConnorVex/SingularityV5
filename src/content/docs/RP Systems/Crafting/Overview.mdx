@@ -1,0 +1,69 @@
+---
+title: Crafting System
+description: Gather components and combine them into items that give your character new capabilities.
+sidebar:
+  label: Overview
+  order: 100
+---
+import { Badge, Card, CardGrid, LinkCard, Steps } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
+
+The **Crafting System** lets you gather items and smash them together into new ones. The items you make can give your character **extra capabilities**, and crafting can make you a bit of **money** to push your story forward.
+
+<KeyFacts items={[
+  { label: "Component tiers", value: "5" },
+  { label: "Recipes", value: "13 + custom" },
+  { label: "Craft time", value: "5 min – 1 week (IRL)" },
+]} />
+
+## How Crafting Works
+
+<Steps>
+
+1. **Collect components.** You get them as rewards from **events** and **quests**, and sometimes you just **find** them. See [Components](/SingularityV5/rp-systems/crafting/components/).
+
+2. **Pick a recipe** and check what it needs: its components, and the **Intelligence** level it asks for, if any. See [Recipes](/SingularityV5/rp-systems/crafting/recipes/).
+
+3. **Craft it.** The components are used up, and the item is ready once its **crafting time** (real-life time) has passed.
+
+4. **Keep it.** Using a crafted item **doesn't use it up**. It's yours until it's **destroyed**.
+
+</Steps>
+
+## Requirements
+
+Every recipe lists what you need besides its components.
+
+| Requirement | Who can craft it |
+|--|--|
+| <Badge text="No Unique Requirements" variant="success" /> | **Anyone** |
+| <Badge text="Gifted" variant="note" /> | Gifted Intelligence **or higher** |
+| <Badge text="Genius" variant="caution" /> | Genius Intelligence **or higher** |
+| <Badge text="Super Genius" variant="danger" /> | Super Genius Intelligence |
+
+Your Intelligence level is set on your character sheet. See [Intelligence Levels](/SingularityV5/important-systems/singularity-tiering-system/stats-explained/#intelligence-levels).
+
+## Building Blocks
+
+<CardGrid>
+  <Card title="Components" icon="puzzle">
+    The raw materials, in five tiers from **Common** to **Mythic**. Mythic components each have their own **unique way** to get them.
+  </Card>
+  <Card title="Crafted Components" icon="setting">
+    Parts you **craft from components** and then use in bigger recipes, like the **Residue Containment Unit** that stores unstable energy.
+  </Card>
+  <Card title="Special Items" icon="star">
+    Some recipes also need items that **can't be crafted**, like **Velocity-X** or **Blast Shards**. You get these from **shops** and **special drops**.
+  </Card>
+  <Card title="Custom Items" icon="pencil">
+    Want something that isn't a recipe yet, like a **suit** or a **weapon**? Send an **Equipment Submission** and a Gamemaster will tell you exactly what it takes to craft it.
+  </Card>
+</CardGrid>
+
+## Explore
+
+<CardGrid>
+  <LinkCard title="Components" description="The five tiers and the Mythic components" href="/SingularityV5/rp-systems/crafting/components/" />
+  <LinkCard title="Crafted Components" description="Parts for bigger recipes, and storage for unstable energy" href="/SingularityV5/rp-systems/crafting/crafted-components/" />
+  <LinkCard title="Recipes" description="Every item you can craft, what it needs and what it does" href="/SingularityV5/rp-systems/crafting/recipes/" />
+</CardGrid>

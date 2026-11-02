@@ -18,7 +18,7 @@ export default defineConfig({
 			// the current page always opens.
 			sidebar: [
 				'index',
-				{ label: 'Character Portal', link: '/portal/' },
+				{ label: 'Divine Database', link: '/portal/' },
 				{
 					label: 'Important Systems',
 					collapsed: true,
@@ -39,9 +39,15 @@ export default defineConfig({
 					collapsed: true,
 					items: [{ autogenerate: { directory: 'Skill System', collapsed: true } }],
 				},
+				{
+					label: 'RP Systems',
+					collapsed: true,
+					items: [{ autogenerate: { directory: 'RP Systems', collapsed: true } }, { label: 'Family Directory', link: '/families/' }],
+				},
 			],
 			components: {
 				SiteTitle: './src/components/SiteTitle.astro',
+				MarkdownContent: './src/components/MarkdownContent.astro',
 			},
 			customCss: [
 				'@fontsource-variable/exo-2',

@@ -1,76 +1,134 @@
-/* Character portal: a dark "control panel" look. Every accent comes from --pf-accent, which
-   follows the character's role (src/lib/portal/theme.ts) and fades between roles. */
+/* Divine Database: the same calm look as the refreshed wiki pages (refresh.css). Surfaces and text
+   come from Starlight's colours, so light and dark mode just work. --pf-accent is the site accent,
+   or a character's role colour on their pages (src/lib/portal/theme.ts), and fades between them. */
 
 /* Registered so the browser can animate them; plain custom properties would snap. */
 @property --pf-accent {
 	syntax: '<color>';
 	inherits: true;
-	initial-value: #20e0a0;
+	initial-value: #8b7bff;
 }
 @property --pf-ink {
 	syntax: '<color>';
 	inherits: true;
-	initial-value: #032a1d;
+	initial-value: #000;
 }
 
 :root {
+	--pf-accent: var(--sl-color-accent);
+	--pf-ink: var(--sl-color-black);
 	--pf-common: #3ba55d;
 	--pf-uncommon: #f0932b;
 	--pf-rare: #3b82f6;
 	--pf-legendary: #eab308;
 	--pf-mythic: #ef4444;
-	--pf-radius: 0.9rem;
-	--pf-font: 'Exo 2 Variable', 'Exo 2', sans-serif;
+	--pf-radius: 1rem;
+	--pf-font: inherit;
 	--pf-mono: var(--sl-font-mono, ui-monospace, monospace);
-	/* Surfaces: near-black, faintly tinted by the role colour. */
-	--pf-bg: color-mix(in srgb, #08090c 96%, var(--pf-accent));
-	--pf-panel: color-mix(in srgb, #0d0f13 94%, var(--pf-accent));
-	--pf-field: color-mix(in srgb, #07080b 97%, var(--pf-accent));
-	--pf-line: color-mix(in srgb, var(--pf-accent) 16%, #23272f);
-	--pf-line-strong: color-mix(in srgb, var(--pf-accent) 45%, #23272f);
-	--pf-text: #e8edf2;
-	--pf-muted: #8b95a3;
-	--pf-faint: #5d6672;
-	--pf-glow: color-mix(in srgb, var(--pf-accent) 35%, transparent);
+	--pf-bg: var(--sl-color-black);
+	--pf-panel: var(--sl-color-gray-6);
+	--pf-field: var(--sl-color-black);
+	--pf-line: var(--sl-color-gray-5);
+	--pf-line-strong: color-mix(in srgb, var(--pf-accent) 45%, var(--sl-color-gray-5));
+	--pf-text: var(--sl-color-white);
+	--pf-muted: var(--sl-color-gray-2);
+	--pf-faint: var(--sl-color-gray-3);
+	--pf-glow: color-mix(in srgb, var(--pf-accent) 14%, transparent);
 	transition:
 		--pf-accent 1s ease,
 		--pf-ink 1s ease;
 }
-:root[data-theme='light'] {
-	--pf-bg: color-mix(in srgb, #f4f6f9 96%, var(--pf-accent));
-	--pf-panel: color-mix(in srgb, #ffffff 95%, var(--pf-accent));
-	--pf-field: #ffffff;
-	--pf-line: color-mix(in srgb, var(--pf-accent) 22%, #d5dae1);
-	--pf-line-strong: color-mix(in srgb, var(--pf-accent) 60%, #b9c0ca);
-	--pf-text: #11151b;
-	--pf-muted: #4f5966;
-	--pf-faint: #77808c;
-	--pf-glow: color-mix(in srgb, var(--pf-accent) 25%, transparent);
-}
 
 /* Portal pages get a wider column, like a dashboard. */
-:root:has(.pf, .portal) {
+:root:has(.pf, .portal, .dd-nav) {
 	--sl-content-width: 72rem;
 }
 
-/* ── Digital rain (src/lib/portal/matrix.ts) ── */
-.matrix-rain {
-	position: fixed;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	z-index: -1;
-	pointer-events: none;
-	opacity: 0.28;
+/* ── Top bar on every Divine Database page (PortalNav.astro) ── */
+.dd-nav {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	flex-wrap: wrap;
+	margin: 0 0 1.5rem;
+	padding: 0.4rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--pf-panel) 85%, transparent);
+	backdrop-filter: blur(6px);
 }
-:root[data-theme='light'] .matrix-rain {
-	opacity: 0.14;
+.dd-nav-links {
+	display: flex;
+	gap: 0.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	overflow-x: auto;
+	scrollbar-width: none;
+	flex: 1;
+	min-width: 0;
+}
+.dd-nav-links li {
+	margin: 0;
+	flex: none;
+}
+.dd-nav-links a {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	padding: 0.45rem 0.95rem;
+	border-radius: 999px;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	color: var(--pf-muted);
+	text-decoration: none;
+	transition:
+		background 0.2s,
+		color 0.2s;
+}
+.dd-nav-links a:hover {
+	color: var(--pf-text);
+	background: var(--pf-bg);
+}
+.dd-nav-links a[aria-current='page'] {
+	background: var(--pf-accent);
+	color: var(--pf-ink);
+}
+.dd-nav-player {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin: 0;
+	padding-inline-end: 0.5rem;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+}
+.dd-nav-player img {
+	width: 1.75rem;
+	height: 1.75rem;
+	margin: 0;
+	border-radius: 50%;
+}
+@media (max-width: 40rem) {
+	.dd-nav {
+		border-radius: var(--pf-radius);
+	}
+	/* The links get the whole row; a fade on the right shows there's more to scroll to. */
+	.dd-nav-player {
+		display: none;
+	}
+	.dd-nav-links {
+		mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+		padding-inline-end: 1.5rem;
+	}
+	.dd-nav-links a {
+		padding: 0.45rem 0.75rem;
+	}
 }
 
 /* ── Shared pieces ── */
 .portal,
 .pf {
-	font-family: var(--pf-font);
 	color: var(--pf-text);
 }
 .portal-card,
@@ -79,61 +137,22 @@
 	border: 1px solid var(--pf-line);
 	border-radius: var(--pf-radius);
 	background: var(--pf-panel);
-	box-shadow:
-		0 0 0 1px color-mix(in srgb, var(--pf-accent) 5%, transparent),
-		0 1.5rem 3rem -2rem rgb(0 0 0 / 0.6);
 	padding: 1.5rem;
 	margin-block: 1rem;
 }
-/* Corner ticks, like a HUD frame. */
-.portal-card::before,
-.pf-section::before {
-	content: '';
-	position: absolute;
-	inset: -1px;
-	border-radius: inherit;
-	pointer-events: none;
-	background:
-		linear-gradient(var(--pf-accent), var(--pf-accent)) top left / 1.25rem 2px no-repeat,
-		linear-gradient(var(--pf-accent), var(--pf-accent)) top left / 2px 1.25rem no-repeat,
-		linear-gradient(var(--pf-accent), var(--pf-accent)) bottom right / 1.25rem 2px no-repeat,
-		linear-gradient(var(--pf-accent), var(--pf-accent)) bottom right / 2px 1.25rem no-repeat;
-	opacity: 0.8;
-}
 .portal-card > h2,
-.pf-section-head h2,
-.pf .pf-subhead,
-.pf .hud-panel-title {
-	font-family: var(--pf-font);
-	text-transform: uppercase;
-	letter-spacing: 0.14em;
+.pf-section-head h2 {
 	color: var(--pf-text);
 }
 .portal-card > h2 {
-	display: flex;
-	align-items: center;
-	gap: 0.75rem;
-	font-size: var(--sl-text-lg);
-	font-weight: 800;
+	font-size: var(--sl-text-h4);
 	margin: 0 0 1rem;
-	padding-bottom: 0.9rem;
+	padding-bottom: 0.6rem;
 	border-bottom: 1px solid var(--pf-line);
-}
-.portal-card > h2::before,
-.pf-section-head h2::before {
-	content: '';
-	width: 0.6rem;
-	height: 0.6rem;
-	flex: none;
-	background: var(--pf-accent);
-	box-shadow: 0 0 0.75rem var(--pf-accent);
-	transform: rotate(45deg);
 }
 .portal-status {
 	text-align: center;
 	color: var(--pf-muted);
-	letter-spacing: 0.12em;
-	text-transform: uppercase;
 	font-size: var(--sl-text-sm);
 }
 .portal-error {
@@ -152,14 +171,11 @@
 	justify-content: center;
 	gap: 0.5rem;
 	border: 1px solid var(--pf-line-strong);
-	border-radius: 0.55rem;
-	padding: 0.6rem 1.1rem;
+	border-radius: 999px;
+	padding: 0.55rem 1.15rem;
 	font: inherit;
-	font-family: var(--pf-font);
 	font-size: var(--sl-text-sm);
-	font-weight: 700;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
+	font-weight: 600;
 	background: transparent;
 	color: var(--pf-text);
 	cursor: pointer;
@@ -172,7 +188,7 @@
 .pf-button:hover:not(:disabled),
 .portal-button:hover:not(:disabled) {
 	border-color: var(--pf-accent);
-	box-shadow: 0 0 1rem var(--pf-glow);
+	background: var(--pf-glow);
 }
 .portal-button:disabled,
 .pf-button:disabled {
@@ -188,7 +204,9 @@
 	background: var(--pf-accent);
 	border-color: var(--pf-accent);
 	color: var(--pf-ink);
-	box-shadow: 0 0 1.25rem var(--pf-glow);
+}
+.pf-button.primary:hover:not(:disabled) {
+	background: color-mix(in srgb, var(--pf-accent) 85%, var(--sl-color-white));
 }
 .pf-button.subtle,
 .portal-button.subtle {
@@ -232,9 +250,7 @@
 	background: var(--pf-panel);
 }
 .pf-status strong {
-	text-transform: uppercase;
-	letter-spacing: 0.1em;
-	color: var(--pf-accent);
+	color: var(--pf-text);
 }
 .pf-status.status-needs_correction {
 	border-left-color: var(--sl-color-orange);
@@ -260,10 +276,8 @@
 	max-width: 100%;
 }
 .pf-nav a {
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.16em;
-	text-transform: uppercase;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
 	padding: 0.5rem 0.85rem;
 	border-radius: 0.5rem;
 	text-decoration: none;
@@ -278,7 +292,6 @@
 .pf-nav a.active {
 	background: var(--pf-accent);
 	color: var(--pf-ink);
-	box-shadow: 0 0 1rem var(--pf-glow);
 }
 
 .pf-section {
@@ -332,7 +345,7 @@
 .hud-tile-label {
 	font-size: 0.72rem;
 	font-weight: 700;
-	letter-spacing: 0.16em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--pf-muted);
 }
@@ -346,8 +359,7 @@
 .trait-proof {
 	width: 100%;
 	font: inherit;
-	font-family: var(--pf-font);
-	font-size: var(--sl-text-sm);
+		font-size: var(--sl-text-sm);
 	color: var(--pf-text);
 	background: var(--pf-field);
 	border: 1px solid var(--pf-line);
@@ -592,10 +604,9 @@
 	cursor: help;
 }
 .hud-radar-label {
-	font-family: var(--pf-font);
-	font-size: 12px;
+		font-size: 12px;
 	font-weight: 700;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.06em;
 	fill: var(--pf-muted);
 }
 .hud-radar-tip rect {
@@ -603,8 +614,7 @@
 	stroke: var(--pf-line-strong);
 }
 .hud-radar-tip text {
-	font-family: var(--pf-font);
-	font-size: 12px;
+		font-size: 12px;
 	fill: var(--pf-text);
 }
 
@@ -736,7 +746,7 @@
 	font-size: 0.7rem;
 	font-weight: 700;
 	text-transform: uppercase;
-	letter-spacing: 0.16em;
+	letter-spacing: 0.06em;
 	color: var(--pf-accent);
 	margin: 0;
 }
@@ -760,8 +770,7 @@
 	background: var(--pf-panel);
 	box-shadow: 0 0 3rem var(--pf-glow);
 	color: var(--pf-text);
-	font-family: var(--pf-font);
-}
+	}
 .combo-card h2 {
 	margin: 0.25rem 0 0.6rem;
 	font-size: var(--sl-text-h2);
@@ -868,7 +877,7 @@
 	flex: 1;
 	font-size: 1rem;
 	font-weight: 800;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--pf-accent);
 }
@@ -898,11 +907,10 @@
 	background: var(--pf-field);
 }
 .pf .pf-issue-group h3 {
-	font-family: var(--pf-font);
-	margin: 0 0 0.45rem;
+		margin: 0 0 0.45rem;
 	font-size: 0.8rem;
 	text-transform: uppercase;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.06em;
 }
 .pf-issue-group ul {
 	margin: 0;
@@ -996,7 +1004,7 @@
 	}
 	.pf-nav a {
 		padding: 0.45rem 0.6rem;
-		letter-spacing: 0.1em;
+		letter-spacing: 0.06em;
 	}
 	.pf-save-state {
 		flex-basis: 100%;
@@ -1074,7 +1082,7 @@
 	flex: 1;
 	min-width: 0;
 	font-family: var(--pf-mono);
-	letter-spacing: 0.2em;
+	letter-spacing: 0.06em;
 	color: var(--pf-text);
 	background: var(--pf-panel);
 	border: 1px solid var(--pf-line);
@@ -1201,7 +1209,7 @@
 .ov-code strong {
 	font-family: var(--pf-mono);
 	font-size: 1.8rem;
-	letter-spacing: 0.15em;
+	letter-spacing: 0.06em;
 	color: var(--pf-accent);
 }
 .ov-table {
@@ -1212,7 +1220,7 @@
 }
 .ov-table th {
 	font-size: 0.7rem;
-	letter-spacing: 0.14em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--pf-muted);
 	text-align: start;
@@ -1340,8 +1348,7 @@
 }
 .pf .mc-head h3 {
 	margin: 0;
-	font-family: var(--pf-font);
-	font-size: 1.15rem;
+		font-size: 1.15rem;
 	font-weight: 800;
 	letter-spacing: 0.06em;
 	text-transform: uppercase;
@@ -1356,7 +1363,7 @@
 .mc-status {
 	font-size: 0.7rem;
 	font-weight: 800;
-	letter-spacing: 0.12em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--tone);
 	border: 1px solid currentColor;
@@ -1438,10 +1445,8 @@
 }
 .pf-back {
 	align-self: flex-start;
-	font-size: 0.72rem;
-	font-weight: 700;
-	letter-spacing: 0.14em;
-	text-transform: uppercase;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
 	color: var(--pf-muted);
 	text-decoration: none;
 }
@@ -1491,8 +1496,7 @@
 }
 .pf .rv-head h2 {
 	margin: 0;
-	font-family: var(--pf-font);
-	font-size: 1.5rem;
+		font-size: 1.5rem;
 	font-weight: 800;
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
@@ -1650,7 +1654,7 @@
 .ov-roll-status {
 	font-size: 0.7rem;
 	font-weight: 700;
-	letter-spacing: 0.1em;
+	letter-spacing: 0.06em;
 	text-transform: uppercase;
 	color: var(--pf-faint);
 	margin-inline-start: auto;
@@ -1701,4 +1705,918 @@
 }
 .pf-evo-summary {
 	white-space: pre-wrap;
+}
+
+/* ── Divine Database home (PortalHome.tsx) ── */
+.dd-home {
+	display: flex;
+	flex-direction: column;
+}
+.dd-home > * + * {
+	margin-top: 0;
+}
+.dd-hero {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.25rem;
+	text-align: center;
+	padding-block: 0.5rem 1rem;
+}
+.dd-hero > * {
+	margin: 0;
+}
+.dd-lead {
+	max-width: 40rem;
+	font-size: var(--sl-text-lg);
+	line-height: 1.6;
+	color: var(--pf-muted);
+}
+.dd-welcome {
+	font-size: var(--sl-text-h3);
+}
+/* Same look as KeyFacts.astro on the wiki pages. */
+.dd-facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+	gap: 0.75rem;
+	width: 100%;
+	text-align: start;
+}
+.dd-facts > div {
+	margin: 0;
+	padding: 0.85rem 1rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--pf-accent);
+	border-radius: 0.75rem;
+	background: var(--pf-panel);
+}
+.dd-facts dt {
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-faint);
+}
+.dd-facts dd {
+	margin: 0.2rem 0 0;
+	font-size: var(--sl-text-h4);
+	font-weight: 600;
+	color: var(--pf-text);
+}
+.dd-heading {
+	margin: 2.5rem 0 1rem;
+	padding-bottom: 0.4rem;
+	border-bottom: 1px solid var(--pf-line);
+	font-size: var(--sl-text-h4);
+}
+
+/* Submission tiles, like HubTile.astro. */
+.dd-tiles {
+	display: grid;
+	gap: 1rem;
+}
+@media (min-width: 50rem) {
+	.dd-tiles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+@media (min-width: 72rem) {
+	.dd-tiles {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+}
+.dd-tile {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 0.6rem;
+	margin: 0;
+	padding: 1.4rem;
+	border: 1px solid var(--pf-line);
+	border-radius: var(--pf-radius);
+	background: var(--pf-panel);
+	transition:
+		border-color 0.2s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+}
+.dd-tile > * {
+	margin: 0;
+}
+.dd-tile.linked:hover,
+.dd-tile.linked:focus-within,
+.dd-tile:has(.dd-chips a):hover {
+	border-color: var(--pf-accent);
+	transform: translateY(-2px);
+	box-shadow: 0 0.75rem 2rem -1rem var(--pf-accent);
+}
+.dd-tile.dim {
+	opacity: 0.65;
+}
+.dd-icon {
+	color: var(--pf-accent);
+}
+.dd-tile h3 {
+	font-size: var(--sl-text-h4);
+	line-height: 1.2;
+}
+.dd-tile h3 a {
+	color: var(--pf-text);
+	text-decoration: none;
+}
+/* The title's link covers the whole tile. */
+.dd-tile h3 a::after {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+}
+.dd-tile p {
+	color: var(--pf-muted);
+	line-height: 1.6;
+}
+.dd-badge {
+	padding: 0.1rem 0.6rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 999px;
+	font-size: var(--sl-text-xs);
+	color: var(--pf-muted);
+}
+.dd-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	padding: 0;
+	list-style: none;
+}
+.dd-chips li {
+	margin: 0;
+}
+.dd-chips a {
+	display: inline-block;
+	padding: 0.2rem 0.7rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 999px;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-text);
+	text-decoration: none;
+}
+.dd-chips a:hover {
+	border-color: var(--pf-accent);
+	background: var(--pf-glow);
+}
+
+/* Needs your attention */
+.dd-todos {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.dd-todos li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin: 0;
+	padding: 0.7rem 0.7rem 0.7rem 1rem;
+	border: 1px solid var(--pf-line);
+	border-left: 3px solid var(--tone, var(--pf-line));
+	border-radius: 0.75rem;
+	background: var(--pf-panel);
+}
+.dd-todos .pf-button {
+	flex: none;
+	padding: 0.35rem 0.9rem;
+}
+
+/* My Stuff */
+.dd-stuff {
+	display: grid;
+	gap: 1rem;
+}
+@media (min-width: 50rem) {
+	.dd-stuff {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+}
+.dd-stuff .portal-card {
+	margin: 0;
+}
+.dd-stuff-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	margin-bottom: 0.5rem;
+}
+.dd-stuff-head h3 {
+	margin: 0;
+	font-size: var(--sl-text-lg);
+}
+.dd-stuff-head a {
+	font-size: var(--sl-text-sm);
+}
+.dd-rows {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.dd-rows li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.25rem 1rem;
+	margin: 0;
+	padding: 0.6rem 0;
+	border-bottom: 1px solid var(--pf-line);
+}
+.dd-rows li:last-child {
+	border-bottom: 0;
+}
+.dd-rows a {
+	font-weight: 600;
+	color: var(--pf-text);
+	text-decoration: none;
+}
+.dd-rows a:hover {
+	color: var(--pf-accent);
+}
+.dd-status {
+	font-size: var(--sl-text-sm);
+	color: var(--tone, var(--pf-muted));
+}
+.dd-home .tone-good,
+.me .tone-good,
+.eqr .tone-good { --tone: var(--sl-color-green-high); }
+.dd-home .tone-info,
+.me .tone-info,
+.eqr .tone-info { --tone: var(--sl-color-blue-high); }
+.dd-home .tone-warn,
+.me .tone-warn,
+.eqr .tone-warn { --tone: var(--sl-color-orange-high); }
+.dd-home .tone-bad,
+.me .tone-bad,
+.eqr .tone-bad { --tone: var(--sl-color-red-high); }
+.dd-home .tone-muted { --tone: var(--pf-faint); }
+@media (prefers-reduced-motion: reduce) {
+	.dd-tile {
+		transition: none;
+	}
+	.dd-tile:hover {
+		transform: none;
+	}
+}
+
+/* ── Character form as steps (SubmitForm.tsx) ── */
+.pf-layout {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 1.25rem;
+	align-items: start;
+	margin-top: 0.75rem;
+}
+@media (min-width: 60rem) {
+	.pf-layout {
+		grid-template-columns: 13rem minmax(0, 1fr);
+	}
+}
+.pf-layout > * {
+	margin: 0;
+}
+/* The progress rail: a column beside the form on wide screens, a scrolling row on phones. */
+.pf-rail {
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+.pf-rail > * {
+	margin: 0;
+}
+.pf-rail ol {
+	display: flex;
+	gap: 0.25rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.pf-rail li {
+	margin: 0;
+	flex: none;
+}
+.pf-rail-step {
+	display: flex;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 0.3rem 0.75rem 0.3rem 0.3rem;
+	border-radius: 999px;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	color: var(--pf-muted);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.pf-rail-step:hover {
+	color: var(--pf-text);
+	background: var(--pf-panel);
+}
+.pf-rail-step.current {
+	color: var(--pf-text);
+	background: var(--pf-panel);
+	box-shadow: inset 0 0 0 1px var(--pf-line-strong);
+}
+.pf-rail-mark {
+	display: inline-grid;
+	place-items: center;
+	width: 1.6rem;
+	height: 1.6rem;
+	flex: none;
+	border-radius: 50%;
+	border: 1px solid var(--pf-line);
+	background: var(--pf-bg);
+	font-size: var(--sl-text-xs);
+	font-weight: 700;
+	color: var(--pf-faint);
+}
+.done .pf-rail-mark {
+	border-color: var(--sl-color-green);
+	color: var(--sl-color-green-high);
+}
+.warn .pf-rail-mark {
+	border-color: var(--sl-color-orange);
+	color: var(--sl-color-orange-high);
+}
+.error .pf-rail-mark {
+	border-color: var(--sl-color-red);
+	background: var(--sl-color-red-low);
+	color: var(--sl-color-red-high);
+}
+/* The step you're on always shows in the accent colour. */
+.pf-rail-step.current .pf-rail-mark {
+	border-color: var(--pf-accent);
+	background: var(--pf-accent);
+	color: var(--pf-ink);
+}
+@media (min-width: 60rem) {
+	.pf-rail {
+		position: sticky;
+		top: calc(var(--sl-nav-height, 4rem) + 1rem);
+	}
+	.pf-rail ol {
+		flex-direction: column;
+	}
+}
+@media (max-width: 59.99rem) {
+	.pf-rail ol {
+		overflow-x: auto;
+		scrollbar-width: none;
+		padding-bottom: 0.25rem;
+		mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+	}
+}
+.pf-stage > * {
+	margin-top: 0;
+}
+.pf-stage .pf-section {
+	margin-top: 0.4rem;
+}
+.pf-step-count {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-faint);
+}
+.pf-actions .pf-button.subtle {
+	margin-inline-end: auto;
+	order: -1;
+}
+
+/* Review step */
+.pf-summary {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-top: 1rem;
+	padding: 1rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 0.75rem;
+	background: var(--pf-field);
+}
+.pf-summary > * {
+	margin: 0;
+}
+.pf-summary img {
+	width: 4.5rem;
+	height: 4.5rem;
+	flex: none;
+	object-fit: cover;
+	border-radius: 0.6rem;
+}
+.pf-summary p {
+	margin: 0;
+}
+.pf-summary-name {
+	font-size: var(--sl-text-lg);
+	font-weight: 700;
+	color: var(--pf-text);
+}
+.pf-issue-group li {
+	margin: 0;
+}
+.pf-issue-group li + li {
+	margin-top: 0.1rem;
+}
+.pf-issue-jump {
+	padding: 0;
+	line-height: 1.6;
+	border: 0;
+	background: none;
+	font: inherit;
+	color: inherit;
+	text-align: start;
+	cursor: pointer;
+}
+.pf-issue-jump:hover {
+	color: var(--pf-accent);
+}
+
+/* Families step (FamiliesSection.tsx) */
+.fs-tryouts {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.fs-tryouts > * {
+	margin: 0;
+}
+.fs-tryout {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.5rem 1rem;
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--sl-color-green);
+	border-radius: 0.75rem;
+	background: color-mix(in srgb, var(--sl-color-green-low) 50%, transparent);
+}
+.fs-tryout > * {
+	margin: 0;
+}
+.fs-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.fs-card {
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+	margin: 0;
+	padding: 1rem;
+	border: 1px solid var(--pf-line);
+	border-top: 3px solid var(--fs-colour, var(--pf-line));
+	border-radius: 0.75rem;
+	background: var(--pf-field);
+}
+.fs-card > * {
+	margin: 0;
+}
+.fs-card.picked {
+	border-color: var(--pf-accent);
+	border-top-color: var(--fs-colour, var(--pf-accent));
+	background: color-mix(in srgb, var(--pf-glow) 60%, var(--pf-field));
+}
+.fs-card.blocked {
+	opacity: 0.7;
+}
+.fs-head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem;
+}
+.fs-head a {
+	font-weight: 700;
+	color: var(--pf-text);
+	text-decoration: none;
+}
+.fs-head a:hover {
+	color: var(--pf-accent);
+}
+.fs-tag {
+	flex: none;
+	font-size: var(--sl-text-xs);
+	color: var(--pf-muted);
+}
+.fs-text {
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	font-size: var(--sl-text-sm);
+	color: var(--pf-muted);
+}
+.fs-pick {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	cursor: pointer;
+}
+.fs-pick input {
+	accent-color: var(--pf-accent);
+	width: 1.05rem;
+	height: 1.05rem;
+}
+@media (max-width: 40rem) {
+	/* Phones: the save status sits on its own small line, the buttons share one row. */
+	.pf-wizard .pf-save-state {
+		order: -2;
+		font-size: var(--sl-text-xs);
+	}
+	.pf-wizard .pf-actions {
+		row-gap: 0.25rem;
+	}
+}
+@media (max-width: 40rem) {
+	.pf-wizard .pf-long {
+		display: none;
+	}
+}
+
+/* ── Evolution page (EvolvePage.tsx) ── */
+.ev-head {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	margin-bottom: 0.5rem;
+}
+.ev-head > * {
+	margin: 0;
+}
+.ev-head img,
+.ev-initial {
+	width: 4.5rem;
+	height: 4.5rem;
+	flex: none;
+	border-radius: 0.9rem;
+	object-fit: cover;
+	border: 2px solid var(--pf-accent);
+}
+.ev-initial {
+	display: grid;
+	place-items: center;
+	font-size: var(--sl-text-h3);
+	font-weight: 700;
+	color: var(--pf-accent);
+	background: var(--pf-panel);
+}
+.ev-head h2 {
+	margin: 0;
+	font-size: var(--sl-text-h3);
+}
+.ev-head p {
+	margin: 0.2rem 0 0;
+}
+.ev-num {
+	display: inline-grid;
+	place-items: center;
+	width: 1.9rem;
+	height: 1.9rem;
+	flex: none;
+	border-radius: 50%;
+	background: var(--pf-accent);
+	color: var(--pf-ink);
+	font-weight: 700;
+}
+.ev-changes {
+	margin-top: 1rem;
+}
+.ev-send {
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 1rem;
+}
+
+/* ── What changed (ChangeList.tsx) ── */
+.cl {
+	display: grid;
+	gap: 0.75rem;
+	margin-top: 0.5rem;
+}
+.cl-group {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 0.75rem;
+	background: var(--pf-field);
+}
+.cl-group h4 {
+	margin: 0 0 0.4rem;
+	font-size: var(--sl-text-base);
+	color: var(--pf-text);
+}
+.cl-count {
+	display: inline-block;
+	min-width: 1.4rem;
+	padding: 0 0.4rem;
+	border-radius: 999px;
+	background: var(--pf-glow);
+	color: var(--pf-text);
+	font-size: var(--sl-text-xs);
+	text-align: center;
+	vertical-align: middle;
+}
+.cl-group ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.cl-item {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.25rem 1rem;
+	margin: 0;
+	padding: 0.4rem 0;
+	border-top: 1px solid var(--pf-line);
+	font-size: var(--sl-text-sm);
+}
+.cl-item:first-child {
+	border-top: 0;
+}
+.cl-item > details {
+	width: 100%;
+}
+.cl-field {
+	color: var(--pf-muted);
+}
+.cl-pair {
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.4rem;
+	overflow-wrap: anywhere;
+}
+.cl-value.was {
+	color: var(--pf-faint);
+	text-decoration: line-through;
+}
+.cl-value.now {
+	color: var(--sl-color-green-high);
+	font-weight: 600;
+}
+.cl-value.empty {
+	font-style: italic;
+	text-decoration: none;
+}
+.cl-arrow {
+	color: var(--pf-faint);
+}
+.cl-edited {
+	color: var(--sl-color-green-high);
+	font-weight: 600;
+}
+.cl-item summary {
+	cursor: pointer;
+}
+.cl-label {
+	margin: 0.6rem 0 0.2rem;
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--pf-faint);
+}
+.cl-long {
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	border-radius: 0.5rem;
+	background: var(--pf-panel);
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+.cl-long.was {
+	color: var(--pf-faint);
+}
+
+/* ── My Stuff tabs and Families tab (MyCharacters.tsx, MyFamilies.tsx) ── */
+.ms-tabs {
+	display: flex;
+	gap: 0.25rem;
+	padding-bottom: 0.75rem;
+	border-bottom: 1px solid var(--pf-line);
+	overflow-x: auto;
+	scrollbar-width: none;
+}
+.ms-tabs button {
+	flex: none;
+	margin: 0;
+	padding: 0.45rem 1rem;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	background: none;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	font-weight: 600;
+	color: var(--pf-muted);
+	cursor: pointer;
+}
+.ms-tabs button:hover {
+	color: var(--pf-text);
+	border-color: var(--pf-line);
+}
+.ms-tabs button.active {
+	background: var(--pf-accent);
+	color: var(--pf-ink);
+}
+.mf {
+	gap: 1rem;
+}
+.mf .portal-card {
+	margin: 0;
+}
+.mf-owned {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 0.75rem 1rem;
+}
+.mf-owned > *,
+.mf-owned p {
+	margin: 0;
+}
+.mf-name {
+	font-size: var(--sl-text-lg);
+	font-weight: 700;
+	color: var(--pf-text);
+	text-decoration: none;
+}
+.mf-name:hover {
+	color: var(--pf-accent);
+}
+.mf-note {
+	display: block;
+	font-size: var(--sl-text-sm);
+	font-style: italic;
+	color: var(--pf-muted);
+}
+.mf-tip {
+	margin: 0.75rem 0 0;
+}
+
+/* ── Shared review inbox (ReviewDashboard.tsx) ── */
+.rv-kinds {
+	margin-bottom: 1rem;
+}
+.rv-kinds .mc-count {
+	margin-left: 0.25rem;
+	opacity: 0.8;
+}
+.rv-families {
+	display: grid;
+	gap: 0.4rem;
+	margin: 0.5rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+.rv-families li {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.75rem;
+	margin: 0;
+	padding: 0.5rem 0.75rem;
+	border: 1px solid var(--pf-line);
+	border-left: 4px solid var(--fam, var(--pf-accent));
+	border-radius: 0.5rem;
+}
+.rv-families a {
+	font-weight: 600;
+}
+
+/* ── Equipment (EquipmentForm.tsx, IngredientPicker.tsx, MyEquipment.tsx, EquipmentReview.tsx) ── */
+.eq .ev-send,
+.eqr-buttons {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	gap: 0.5rem;
+}
+.ip {
+	border: 0;
+	margin: 0;
+	padding: 0;
+	min-width: 0;
+}
+.ip-rows {
+	display: grid;
+	gap: 0.5rem;
+	margin: 0.5rem 0;
+	padding: 0;
+	list-style: none;
+}
+.ip-row {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) 5rem auto;
+	gap: 0.5rem;
+	align-items: center;
+	margin: 0;
+}
+.ip-row select,
+.ip-row input {
+	width: 100%;
+	min-width: 0;
+}
+.me {
+	display: grid;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+.me-top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+}
+.me-top .pf-help {
+	margin: 0;
+}
+.me-list,
+.eqr {
+	display: grid;
+	gap: 0.75rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.me-item,
+.eqr-card {
+	margin: 0;
+	padding: 1rem 1.25rem;
+	border: 1px solid var(--pf-line);
+	border-radius: 0.75rem;
+	background: var(--pf-panel, var(--sl-color-bg-nav));
+}
+.me-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.25rem 0.75rem;
+}
+.me-head h3 {
+	margin: 0;
+	font-size: var(--sl-text-lg);
+}
+.me-item .pf-help {
+	margin: 0.25rem 0 0;
+}
+.me-note {
+	margin: 0.75rem 0 0;
+	padding: 0.5rem 0.75rem;
+	border-left: 3px solid var(--tone, var(--pf-line));
+	border-radius: 0.25rem;
+	background: color-mix(in srgb, var(--tone, var(--pf-line)) 10%, transparent);
+	font-size: var(--sl-text-sm);
+}
+.me-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	margin-top: 0.75rem;
+}
+.eqr-card h3 {
+	margin: 0;
+}
+.eqr-pitch {
+	display: grid;
+	gap: 0.5rem;
+	margin: 0.75rem 0 1rem;
+}
+.eqr-pitch p {
+	margin: 0;
+	white-space: pre-line;
+}
+.eqr-recipe {
+	margin-top: 0.5rem;
+	padding-top: 1rem;
+	border-top: 1px solid var(--pf-line);
+}
+.eqr-recipe h4 {
+	margin: 0 0 0.5rem;
 }

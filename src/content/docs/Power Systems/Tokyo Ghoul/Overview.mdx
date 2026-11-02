@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 500
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Difficult" variant="caution" size="medium" /> <Badge text="Humans & Ghouls" variant="tip" size="medium" />
-
-**Mangaka:** Sui Ishida
+<KeyFacts items={[
+  { label: "Difficulty", value: "Difficult" },
+  { label: "Who can use it", value: "Humans & Ghouls" },
+  { label: "Mangaka", value: "Sui Ishida" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -21,6 +24,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     Becoming a Ghoul **locks you out of every other power system** except **Chainsaw Man**, and even there you can **only make contracts with Devils**.
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Ghouls" description="Rc Cells, feeding, healing and starvation" href="/SingularityV5/power-systems/tokyo-ghoul/ghouls/ghoul-basics/" />

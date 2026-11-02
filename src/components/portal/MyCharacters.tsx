@@ -1,4 +1,4 @@
-// "My Characters": the player's submissions, their status, admin review notes and roll locks.
+// "My Stuff": the player's characters (status, admin notes, roll locks) and, on its own tab, families.
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import {
 	deleteCharacter,
@@ -17,6 +17,8 @@ import {
 import { rules } from '../../lib/portal/rules.ts';
 import { startPortalTheme, themeForRole } from '../../lib/portal/theme.ts';
 import { logIn, watchPlayer, type Player } from '../../lib/supabase.ts';
+import { MyEquipment } from './MyEquipment.tsx';
+import { MyFamilies } from './MyFamilies.tsx';
 
 const base = `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}portal/`;
 const messageOf = (e: unknown) => (e && typeof e === 'object' && 'message' in e ? String(e.message) : String(e));
@@ -124,7 +126,7 @@ function CharacterCard({
 				)}
 
 				<div class="mc-actions">
-					<a class="pf-button primary" href={c.approved_at && c.status !== 'denied' ? `${editHref}#evolution` : editHref}>
+					<a class="pf-button primary" href={c.approved_at && c.status !== 'denied' ? `${base}evolve/?id=${c.id}` : editHref}>
 						{c.status === 'denied'
 							? 'View'
 							: c.approved_at
@@ -208,6 +210,11 @@ export default function MyCharacters() {
 	const [universes, setUniverses] = useState<Universe[]>([]);
 	const [rolls, setRolls] = useState<MyRolls | null>(null);
 	const [filter, setFilter] = useState('all');
+	const [tab, setTabState] = useState(() => new URLSearchParams(location.search).get('tab') ?? 'characters');
+	const setTab = (id: string) => {
+		setTabState(id);
+		history.replaceState(null, '', id === 'characters' ? location.pathname : `?tab=${id}`);
+	};
 	const [error, setError] = useState('');
 
 	useEffect(() => startPortalTheme(), []);
@@ -247,8 +254,37 @@ export default function MyCharacters() {
 		);
 	if (!characters) return <p class="portal-status">Loading your characters…</p>;
 
+	const tabs = (
+		<nav class="ms-tabs" aria-label="My Stuff">
+			{[
+				['characters', `Characters (${characters.length})`],
+				['families', 'Families'],
+				['equipment', 'Equipment'],
+			].map(([id, label]) => (
+				<button key={id} type="button" class={tab === id ? 'active' : undefined} aria-pressed={tab === id} onClick={() => setTab(id)}>
+					{label}
+				</button>
+			))}
+		</nav>
+	);
+	if (tab === 'families')
+		return (
+			<div class="pf mc">
+				{tabs}
+				<MyFamilies />
+			</div>
+		);
+	if (tab === 'equipment')
+		return (
+			<div class="pf mc">
+				{tabs}
+				<MyEquipment characters={characters} />
+			</div>
+		);
+
 	return (
 		<div class="pf mc">
+			{tabs}
 			<div class="mc-top">
 				<nav class="pf-nav" aria-label="Filter characters">
 					{FILTERS.filter((f) => f.id === 'all' || counts[f.id] > 0).map((f) => (

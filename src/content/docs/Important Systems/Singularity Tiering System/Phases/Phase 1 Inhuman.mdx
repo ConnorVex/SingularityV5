@@ -5,9 +5,15 @@ sidebar:
   label: "Phase 1: Inhuman"
   order: 7
 ---
-import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
-<Badge text="Potential: Low → Average" variant="note" size="medium" /> <Badge text="Hop: 25 PTP" variant="note" size="medium" />
+<KeyFacts items={[
+  { label: 'Tiers', value: '3 – 8' },
+  { label: 'Potential', value: 'Low → Average' },
+  { label: 'Training meter', value: '0/35' },
+  { label: 'Hop to Phase 2', value: '25 PTP' },
+]} />
 
 *Strength = how much you can lift. Defense = explosive force you can withstand (t TNT = tons of TNT).*
 

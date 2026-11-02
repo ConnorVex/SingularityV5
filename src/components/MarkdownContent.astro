@@ -1,0 +1,14 @@
+---
+// Replaces Starlight's MarkdownContent. Pages in the visual refresh get the `refresh` class,
+// which turns on the styles in refresh.css. The S.T.S is the trial section; add more
+// sections to REFRESHED as they're reworked.
+import '@astrojs/starlight/style/markdown.css';
+import '../styles/refresh.css';
+
+const REFRESHED = ['important-systems/singularity-tiering-system/', 'skill-system/', 'fighting-styles/', 'power-systems/', 'rp-systems/'];
+
+const { id } = Astro.locals.starlightRoute;
+const refreshed = REFRESHED.some((prefix) => id.startsWith(prefix));
+---
+
+<div class:list={['sl-markdown-content', { refresh: refreshed }]}><slot /></div>

@@ -52,7 +52,7 @@
 	],
 	"traitSlots": {
 		"base": 4,
-		"note": "Extra slots come from Mythic Class Families or are gifted by an Administrator.",
+		"note": "Extra slots come from an approved family perk or are gifted by an Administrator.",
 		"rarities": [
 			{
 				"id": "common",
@@ -267,7 +267,7 @@
 	"defaultTheme": {
 		"color": "#20e0a0",
 		"ink": "#032a1d",
-		"note": "Used before a role is picked, for canon tryouts, and on the other portal pages."
+		"note": "Used before a role is picked and for canon tryouts. It hands the accent back to the site colour (theme.ts)."
 	},
 	"cursedEnergyLevels": {
 		"note": "Mirrors public.ce_levels() in the portal_rolls migration (from the wiki's CE Levels page).",

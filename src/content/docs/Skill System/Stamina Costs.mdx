@@ -6,13 +6,16 @@ sidebar:
 ---
 import { Badge, Card, CardGrid, Steps } from '@astrojs/starlight/components';
 import InlineIcon from '../../../components/InlineIcon.astro';
+import KeyFacts from '../../../components/KeyFacts.astro';
 
 Skills cost a **percentage of your max** <InlineIcon name="stats/stamina" />Stamina (the Stamina value of your current [S.T.S rank](/SingularityV5/important-systems/singularity-tiering-system/phases/phases-overview/)). **Round up**, so every skill costs at least **1**.
 
-| Skill | Cost |
-|--|--|
-| <Badge text="Standard" variant="note" /> | **10%** of max Stamina |
-| <Badge text="Ultimate" variant="caution" /> | **30%** of max Stamina |
+<KeyFacts items={[
+  { label: 'Standard', value: '10% of max' },
+  { label: 'Ultimate', value: '30% of max' },
+  { label: 'Winded', value: 'Below 25%' },
+  { label: 'Resting', value: '+10% a turn' },
+]} />
 
 [Skill Mastery](/SingularityV5/skill-system/skill-mastery/) lowers these costs.
 

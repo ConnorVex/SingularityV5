@@ -36,6 +36,8 @@ export interface CheckContext {
 	/** Claims this character already holds (don't count against it). */
 	heldClaimIds?: Set<string>;
 	requestedClaims?: string[];
+	/** Families the character is in or is asking to join (ids). */
+	families?: string[];
 }
 
 export const rankValue = (rank: string) => rankByName.get(rank)?.value;
@@ -192,6 +194,8 @@ export function checkSheet(sheet: Sheet, ctx: CheckContext): Issue[] {
 	const slots = traitSlots(sheet, ctx.extraTraitSlots ?? 0);
 	if (slots.used > slots.total) add('error', 'Traits', `Your traits take ${slots.used} slots, but you only have ${slots.total}. Remove a trait.`);
 	if (sheet.traits.filter((t) => t.family).length > rules.traitSlots.familyTrait.max) add('error', 'Traits', 'Only one trait can be a Family trait.');
+	const inFamily = (ctx.families?.length ?? 0) > 0;
+	if (sheet.traits.some((t) => t.family) && !inFamily) add('error', 'Families', 'A Family trait needs a family: pick the family that offers it.');
 	const seen = new Set<string>();
 	for (const picked of sheet.traits) {
 		if (!traitByName.has(picked.name)) add('error', 'Traits', `“${picked.name}” isn’t a known trait.`);
@@ -217,7 +221,13 @@ export function checkSheet(sheet: Sheet, ctx: CheckContext): Issue[] {
 			add('error', 'Systems', `${claim.name} is already full (${claim.usedSlots}/${claim.maxUsers}).`);
 		}
 		if (claim && rules.permissionClaimCategories.includes(claim.category ?? '')) {
-			add('permission', 'Systems', `${claim.name} is ${claim.category}: you need to join the family that holds it.`);
+			add(
+				'permission',
+				inFamily ? 'Families' : 'Systems',
+				inFamily
+					? `${claim.name} is ${claim.category}: the family that holds it (or an admin) confirms it.`
+					: `${claim.name} is ${claim.category}: pick the family that holds it in the Families step.`,
+			);
 		}
 	}
 

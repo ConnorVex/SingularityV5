@@ -4,12 +4,18 @@ description: The Weapon sub-class and the Blunt, Sharp and Ranged weapon passive
 sidebar:
   order: 930
 ---
-import { Badge, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Tabs, TabItem } from '@astrojs/starlight/components';
 import InlineIcon from '../../../components/InlineIcon.astro';
-
-<Badge text="Sub-Class" variant="caution" size="medium" />
+import KeyFacts from '../../../components/KeyFacts.astro';
 
 Weapon styles are a **sub-class**: each one follows the rules of either the [Flow](/SingularityV5/fighting-styles/flow-styles/) or [Moveset](/SingularityV5/fighting-styles/moveset-styles/moveset-basics/) class. On top of that, the **type of weapon** gives a unique passive.
+
+<KeyFacts items={[
+  { label: 'Class', value: "Sub-class" },
+  { label: 'Weapon types', value: "3" },
+  { label: 'Passive roll', value: "Every 11th attack" },
+  { label: 'Ultimate Mode', value: "Passives off" },
+]} />
 
 All three passives work the same way: after **10 regular attacks**, roll on your **11th**.
 

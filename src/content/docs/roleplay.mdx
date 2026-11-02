@@ -1,0 +1,63 @@
+---
+title: Roleplay Systems
+description: Fighting styles, skills and Stamina in Singularity's roleplay.
+template: splash
+---
+import HubGrid from '../../components/HubGrid.astro';
+import HubTile from '../../components/HubTile.astro';
+
+<p class="hub-lead">How your character fights, and the systems they use in the world around them.</p>
+
+<HubGrid columns={2}>
+  <HubTile
+    title="Fighting Styles"
+    icon="rocket"
+    href="/SingularityV5/fighting-styles/overview/"
+    description="Flow, Moveset and Weapon styles, or create your own."
+    links={[
+      { label: 'Flow Styles', href: '/SingularityV5/fighting-styles/flow-styles/' },
+      { label: 'Moveset Styles', href: '/SingularityV5/fighting-styles/moveset-styles/moveset-basics/' },
+      { label: 'Weapon Styles', href: '/SingularityV5/fighting-styles/weapon-styles/' },
+      { label: 'Creating Your Own', href: '/SingularityV5/fighting-styles/creating-your-own/' },
+    ]}
+  />
+  <HubTile
+    title="Skill System"
+    icon="star"
+    href="/SingularityV5/skill-system/overview/"
+    description="Passive, Standard and Ultimate skills, what they cost and how to master them."
+    links={[
+      { label: 'Skill Types', href: '/SingularityV5/skill-system/skill-types/' },
+      { label: 'Stamina Costs', href: '/SingularityV5/skill-system/stamina-costs/' },
+      { label: 'Skill Mastery', href: '/SingularityV5/skill-system/skill-mastery/' },
+      { label: 'Gaining Skills', href: '/SingularityV5/skill-system/gaining-skills/' },
+    ]}
+  />
+</HubGrid>
+
+## RP Systems
+
+<HubGrid columns={2}>
+  <HubTile
+    title="Crafting System"
+    icon="puzzle"
+    href="/SingularityV5/rp-systems/crafting/overview/"
+    description="Gather components and craft items that give you new capabilities."
+    links={[
+      { label: 'Components', href: '/SingularityV5/rp-systems/crafting/components/' },
+      { label: 'Crafted Components', href: '/SingularityV5/rp-systems/crafting/crafted-components/' },
+      { label: 'Recipes', href: '/SingularityV5/rp-systems/crafting/recipes/' },
+    ]}
+  />
+  <HubTile
+    title="Family System"
+    icon="star"
+    href="/SingularityV5/rp-systems/families/overview/"
+    description="Player-run families: join one, found your own, and see who is recruiting."
+    links={[
+      { label: 'Family Directory', href: '/SingularityV5/families/' },
+      { label: 'Founding a Family', href: '/SingularityV5/rp-systems/families/founding-a-family/' },
+      { label: 'Relations', href: '/SingularityV5/rp-systems/families/relations/' },
+    ]}
+  />
+</HubGrid>

@@ -235,7 +235,10 @@ test('starting skills: at least one less than the maximum', () => {
 test('Family Locked claims need permission', () => {
 	const s = goodSheet();
 	const claims = new Map([['l', { name: 'Limitless', usedSlots: 0, maxUsers: null, category: 'Family Locked' }]]);
-	assert.match(messages(checkSheet(s, { ...ocCtx, claims, requestedClaims: ['l'] }), 'permission').join(), /Limitless is Family Locked/);
+	assert.match(messages(checkSheet(s, { ...ocCtx, claims, requestedClaims: ['l'] }), 'permission').join(), /Limitless is Family Locked: pick the family/);
+	const withFamily = checkSheet(s, { ...ocCtx, claims, requestedClaims: ['l'], families: ['f1'] }).filter((i) => i.level === 'permission');
+	assert.match(withFamily.map((i) => i.message).join(), /family that holds it \(or an admin\) confirms it/);
+	assert.equal(withFamily[0].section, 'Families');
 });
 
 test('JoJo: only Stands are limited to one', () => {
@@ -297,4 +300,16 @@ test('cyberware: catalog slots, slot counts, and starting with any needs permiss
 	const perms = messages(checkSheet(s, { ...ocCtx, isEvolution: true }), 'permission').join(' | ');
 	assert.match(perms, /isn’t on the cyberware list/);
 	assert.match(perms, /is Modified/);
+});
+
+test('a Family trait needs a family', () => {
+	const s = goodSheet();
+	s.traits = [{ name: 'Genius', family: true, rollProof: 'https://x' }];
+	assert.match(messages(checkSheet(s, ocCtx), 'error').join(), /Family trait needs a family/);
+	assert.doesNotMatch(messages(checkSheet(s, { ...ocCtx, families: ['f1'] }), 'error').join(), /Family trait needs a family/);
+});
+
+test('old sheets get an empty families list', () => {
+	assert.deepEqual(normalizeSheet({}).families, []);
+	assert.deepEqual(normalizeSheet({ families: ['a', 3] }).families, ['a']);
 });

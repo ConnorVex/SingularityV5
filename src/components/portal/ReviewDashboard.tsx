@@ -1,5 +1,6 @@
-// Admin review dashboard: the submission queue, a read-only view of each sheet with the same
-// checks players see, what changed for evolutions, and approve / send back / deny with a note.
+// The shared review inbox: characters and evolutions, new families, family perks and equipment. Each character shows a read-only sheet with the same checks players see, what changed
+// for evolutions, and approve / send back / deny with a note. Family owners get the new
+// characters that picked their family; row-level security decides what each reviewer can read.
 import type { ComponentChildren } from 'preact';
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import {
@@ -26,6 +27,11 @@ import {
 	type Universe,
 } from '../../lib/portal/api.ts';
 import { sheetChanges } from '../../lib/portal/diff.ts';
+import { ChangeList } from './ChangeList.tsx';
+import { ReviewFamily, ReviewRequest } from '../families/FamilyAdmin.tsx';
+import { EquipmentReview } from './EquipmentReview.tsx';
+import { loadCraftingItems, loadEquipmentQueue, type CraftingItem, type EquipmentQueueItem } from '../../lib/portal/equipment.ts';
+import { familyHref, loadFamilies, loadMyFamily, loadPerkQueue, type Family, type FamilyCard, type PerkRequest } from '../../lib/families/api.ts';
 import { checkSheet, power, ptp, rankInfo, recoil, rules, traits, traitSlots, type Issue } from '../../lib/portal/rules.ts';
 import { systemById, visibleFields } from '../../lib/portal/systems.ts';
 import { startPortalTheme, themeForRole } from '../../lib/portal/theme.ts';
@@ -49,6 +55,19 @@ const TABS: { id: string; label: string; match: (c: AdminCharacter) => boolean }
 	{ id: 'denied', label: 'Denied', match: (c) => c.status === 'denied' },
 	{ id: 'draft', label: 'Drafts', match: (c) => c.status === 'draft' && !c.approved_at },
 ];
+
+// What the inbox holds. Family owners only see characters.
+const KINDS = [
+	{ id: 'characters', label: 'Characters' },
+	{ id: 'families', label: 'New families' },
+	{ id: 'perks', label: 'Family perks' },
+	{ id: 'equipment', label: 'Equipment' },
+] as const;
+type Kind = (typeof KINDS)[number]['id'];
+const kindFromUrl = (): Kind => {
+	const t = new URLSearchParams(location.search).get('type');
+	return KINDS.some((k) => k.id === t) ? (t as Kind) : 'characters';
+};
 
 const STATUS_LABEL: Record<Status, string> = {
 	draft: 'Draft',
@@ -297,7 +316,17 @@ function SheetView({ c, combos, board, universes }: { c: AdminCharacter; combos:
 	);
 }
 
-function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimRow[]; universes: Universe[]; onDecided: () => void; onChanged: () => void }) {
+function Detail(props: {
+	c: AdminCharacter;
+	owner?: PlayerSummary;
+	board: ClaimRow[];
+	universes: Universe[];
+	families: FamilyCard[];
+	/** Admins get the settings and can decide any character; family owners only new submissions. */
+	admin: boolean;
+	onDecided: () => void;
+	onChanged: () => void;
+}) {
 	const { c } = props;
 	const [combos, setCombos] = useState<Combo[]>([]);
 	const [held, setHeld] = useState<Set<string>>(new Set());
@@ -342,13 +371,17 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 				heldClaimIds: held,
 				requestedClaims: c.requested_claims,
 				comboSystemLimits: combos.map((k) => k.system_limits ?? {}),
+				families: c.sheet.families,
 			}),
 		[c, held, combos, props.board],
 	);
 	const changes = useMemo(() => (c.approved_sheet ? sheetChanges(c.approved_sheet, c.sheet) : []), [c]);
 	const errors = issues.filter((i) => i.level === 'error').length;
 	const theme = c.kind === 'oc' ? themeForRole(c.sheet.role) : null;
-	const decidable = c.status === 'pending' || c.status === 'needs_correction' || c.status === 'denied' || c.status === 'draft';
+	const decidable = props.admin
+		? c.status === 'pending' || c.status === 'needs_correction' || c.status === 'denied' || c.status === 'draft'
+		: c.status === 'pending' || c.status === 'needs_correction';
+	const picked = c.sheet.families.map((id) => props.families.find((f) => f.id === id)).filter((f): f is FamilyCard => Boolean(f));
 
 	async function decide(outcome: 'approved' | 'needs_correction' | 'denied') {
 		if ((outcome === 'denied' || (outcome === 'approved' && errors > 0)) && confirm !== outcome) {
@@ -405,15 +438,35 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 						{c.submitted_at ? ` · sent ${ago(c.submitted_at)}` : ''}
 					</p>
 				</div>
-				<a class="pf-button subtle" href={`${base}submit/?id=${c.id}`}>
-					Open in form
-				</a>
+				{props.admin && (
+					<a class="pf-button subtle" href={`${base}submit/?id=${c.id}`}>
+						Open in form
+					</a>
+				)}
 			</header>
 			{error && <p class="portal-error">{error}</p>}
 
 			<Block title="Checks">
 				<IssueList issues={issues} />
 			</Block>
+
+			{picked.length > 0 && (
+				<Block title="Families">
+					<p class="pf-help">
+						{isEvolution
+							? 'Picked when the character was first sent.'
+							: 'Approving adds the character to these families. Families whose owner didn’t approve it get a join request instead.'}
+					</p>
+					<ul class="rv-families">
+						{picked.map((f) => (
+							<li key={f.id} style={{ '--fam': f.colour }}>
+								<a href={familyHref(f.slug)}>{f.name}</a>
+								<span class="pf-help">{f.ownerName ? `owner: ${f.ownerName}` : 'no owner yet'}</span>
+							</li>
+						))}
+					</ul>
+				</Block>
+			)}
 
 			{openEvolution && (
 				<Block title="Evolution submission">
@@ -437,79 +490,60 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 
 			{isEvolution && c.status !== 'approved' && (
 				<Block title={`What changed since approval (${changes.length})`}>
-					{changes.length === 0 ? (
-						<p class="pf-empty">No changes.</p>
-					) : (
-						<table class="ov-table rv-diff">
-							<thead>
-								<tr>
-									<th>Where</th>
-									<th>Approved</th>
-									<th>Now</th>
-								</tr>
-							</thead>
-							<tbody>
-								{changes.map((ch) => (
-									<tr key={ch.where}>
-										<td>{ch.where}</td>
-										<td class="was">{ch.before}</td>
-										<td class="now">{ch.after}</td>
-									</tr>
-								))}
-							</tbody>
-						</table>
-					)}
+					<ChangeList before={c.approved_sheet!} after={c.sheet} />
 				</Block>
 			)}
 
 			<SheetView c={c} combos={combos} board={props.board} universes={props.universes} />
 
-			<Block title="Settings">
-				<div class="ov-row">
-					<label class="pf-check">
-						<input type="checkbox" checked={c.hidden} onChange={(e) => change(() => setCharacterHidden(c.id, e.currentTarget.checked))} />
-						Hide from the gallery
-					</label>
-					{c.kind === 'oc' && (
-						<div class="pf-field rv-slots">
-							<label class="pf-label" for="rv-slots">
-								Extra trait slots
-							</label>
-							<input
-								id="rv-slots"
-								type="number"
-								min={0}
-								max={20}
-								value={slots}
-								onInput={(e) => setSlots(e.currentTarget.value)}
-								onBlur={() => Number(slots) !== c.extra_trait_slots && change(() => setExtraTraitSlots(c.id, Math.max(0, Math.min(20, Number(slots) || 0))))}
-							/>
-						</div>
-					)}
-				</div>
-				<div class="rv-danger">
-					{confirmDelete ? (
-						<>
-							<p role="alert">
-								Delete <strong>{c.name}</strong> for good? Its review history goes too
-								{heldNames.length > 0 ? `, and its canon claims are freed: ${heldNames.join(', ')}` : ''}. The player’s rolls stay in their history.
-							</p>
-							<div class="rv-buttons">
-								<button type="button" class="pf-button danger" disabled={busy} onClick={remove}>
-									Yes, delete
-								</button>
-								<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(false)}>
-									Cancel
-								</button>
+			{props.admin && (
+				<Block title="Settings">
+					<div class="ov-row">
+						<label class="pf-check">
+							<input type="checkbox" checked={c.hidden} onChange={(e) => change(() => setCharacterHidden(c.id, e.currentTarget.checked))} />
+							Hide from the gallery
+						</label>
+						{c.kind === 'oc' && (
+							<div class="pf-field rv-slots">
+								<label class="pf-label" for="rv-slots">
+									Extra trait slots
+								</label>
+								<input
+									id="rv-slots"
+									type="number"
+									min={0}
+									max={20}
+									value={slots}
+									onInput={(e) => setSlots(e.currentTarget.value)}
+									onBlur={() => Number(slots) !== c.extra_trait_slots && change(() => setExtraTraitSlots(c.id, Math.max(0, Math.min(20, Number(slots) || 0))))}
+								/>
 							</div>
-						</>
-					) : (
-						<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(true)}>
-							Delete character…
-						</button>
-					)}
-				</div>
-			</Block>
+						)}
+					</div>
+					<div class="rv-danger">
+						{confirmDelete ? (
+							<>
+								<p role="alert">
+									Delete <strong>{c.name}</strong> for good? Its review history goes too
+									{heldNames.length > 0 ? `, and its canon claims are freed: ${heldNames.join(', ')}` : ''}. The player’s rolls stay in their history.
+								</p>
+								<div class="rv-buttons">
+									<button type="button" class="pf-button danger" disabled={busy} onClick={remove}>
+										Yes, delete
+									</button>
+									<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(false)}>
+										Cancel
+									</button>
+								</div>
+							</>
+						) : (
+							<button type="button" class="pf-button subtle" onClick={() => setConfirmDelete(true)}>
+								Delete character…
+							</button>
+						)}
+					</div>
+				</Block>
+			)}
 
 			{notes.length > 0 && (
 				<Block title="Review history">
@@ -535,7 +569,7 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 							rows={3}
 							value={note}
 							onInput={(e) => setNote(e.currentTarget.value)}
-							placeholder="What to fix, or a welcome message. The player sees this on My Characters."
+							placeholder="What to fix, or a welcome message. The player sees this on My Stuff."
 						/>
 					</div>
 					{confirm && (
@@ -564,63 +598,34 @@ function Detail(props: { c: AdminCharacter; owner?: PlayerSummary; board: ClaimR
 	);
 }
 
-export default function ReviewDashboard() {
-	const [me, setMe] = useState<Player | null | undefined>(undefined);
-	const [all, setAll] = useState<AdminCharacter[] | null>(null);
-	const [players, setPlayers] = useState<Map<string, PlayerSummary>>(new Map());
-	const [board, setBoard] = useState<ClaimRow[]>([]);
-	const [universes, setUniverses] = useState<Universe[]>([]);
+function CharacterQueue(props: {
+	all: AdminCharacter[];
+	players: Map<string, PlayerSummary>;
+	board: ClaimRow[];
+	universes: Universe[];
+	families: FamilyCard[];
+	admin: boolean;
+	reload: () => Promise<AdminCharacter[] | null>;
+}) {
+	const { all, players } = props;
+	// Family owners only decide new submissions, so they only get the first two queues.
+	const tabs = props.admin ? TABS : TABS.slice(0, 2);
 	const [tab, setTab] = useState('pending');
 	const [query, setQuery] = useState('');
 	const [selected, setSelected] = useState<string | null>(null);
-	const [error, setError] = useState('');
 
-	useEffect(() => startPortalTheme(), []);
-	useEffect(() => watchPlayer((p, e) => (e ? setError(messageOf(e)) : setMe(p))), []);
-
-	async function load() {
-		try {
-			const [chars, ps, b, u] = await Promise.all([loadAllCharacters(), listPlayers(), loadClaimBoard(), loadUniverses()]);
-			setAll(chars);
-			setPlayers(new Map(ps.map((p) => [p.id, p])));
-			setBoard(b);
-			setUniverses(u);
-			return chars;
-		} catch (e) {
-			setError(messageOf(e));
-			return null;
-		}
-	}
-	useEffect(() => {
-		if (me?.isAdmin) load();
-	}, [me?.id, me?.isAdmin]);
-
-	const counts = useMemo(() => Object.fromEntries(TABS.map((t) => [t.id, all?.filter(t.match).length ?? 0])), [all]);
+	const counts = useMemo(() => Object.fromEntries(tabs.map((t) => [t.id, all.filter(t.match).length])), [all]);
 	const shown = useMemo(() => {
 		const q = query.trim().toLowerCase();
-		const list = (all ?? []).filter(TABS.find((t) => t.id === tab)!.match);
+		const list = all.filter(tabs.find((t) => t.id === tab)!.match);
 		return list.filter((c) => !q || c.name.toLowerCase().includes(q) || (players.get(c.owner_id)?.display_name ?? '').toLowerCase().includes(q));
 	}, [all, tab, query, players]);
-	const current = all?.find((c) => c.id === selected) ?? null;
-
-	if (error) return <p class="portal-error">{error}</p>;
-	if (me === undefined) return <p class="portal-status">Checking your login…</p>;
-	if (me === null)
-		return (
-			<div class="portal-card">
-				<p>Log in with Discord to continue.</p>
-				<button type="button" class="portal-button discord" onClick={() => logIn()}>
-					Log in with Discord
-				</button>
-			</div>
-		);
-	if (!me.isAdmin) return <p class="portal-error">The review dashboard is for admins only.</p>;
-	if (!all) return <p class="portal-status">Loading submissions…</p>;
+	const current = all.find((c) => c.id === selected) ?? null;
 
 	return (
-		<div class="pf rv">
-			<nav class="pf-nav" aria-label="Review queues">
-				{TABS.map((t) => (
+		<>
+			<nav class="pf-nav" aria-label="Character queues">
+				{tabs.map((t) => (
 					<a
 						key={t.id}
 						href={`#${t.id}`}
@@ -641,9 +646,14 @@ export default function ReviewDashboard() {
 					<ul>
 						{shown.map((c) => {
 							const owner = players.get(c.owner_id);
-							const errors = checkSheet(c.sheet, { kind: c.kind, name: c.name, canonUniverse: c.canon_universe, isEvolution: Boolean(c.approved_at), extraTraitSlots: c.extra_trait_slots }).filter(
-								(i) => i.level === 'error',
-							).length;
+							const errors = checkSheet(c.sheet, {
+								kind: c.kind,
+								name: c.name,
+								canonUniverse: c.canon_universe,
+								isEvolution: Boolean(c.approved_at),
+								extraTraitSlots: c.extra_trait_slots,
+								families: c.sheet.families,
+							}).filter((i) => i.level === 'error').length;
 							return (
 								<li key={c.id}>
 									<button type="button" class={selected === c.id ? 'active' : undefined} onClick={() => setSelected(c.id)}>
@@ -652,10 +662,15 @@ export default function ReviewDashboard() {
 											<span class="pf-help">
 												{owner?.display_name ?? 'unknown'} · {c.kind === 'canon' ? 'canon tryout' : 'OC'}
 												{c.approved_at && c.status === 'pending' ? ' · evolution' : ''}
+												{!c.approved_at && c.sheet.families.length > 0 ? ' · family' : ''}
 												{c.submitted_at && tab === 'pending' ? ` · ${ago(c.submitted_at)}` : ''}
 											</span>
 										</span>
-										{errors > 0 && <span class="rv-flag" title={`${errors} rule problems`}>⛔ {errors}</span>}
+										{errors > 0 && (
+											<span class="rv-flag" title={`${errors} rule problems`}>
+												⛔ {errors}
+											</span>
+										)}
 									</button>
 								</li>
 							);
@@ -667,13 +682,15 @@ export default function ReviewDashboard() {
 					<Detail
 						c={current}
 						owner={players.get(current.owner_id)}
-						board={board}
-						universes={universes}
-						onChanged={load}
+						board={props.board}
+						universes={props.universes}
+						families={props.families}
+						admin={props.admin}
+						onChanged={props.reload}
 						onDecided={async () => {
-							const fresh = await load();
+							const fresh = await props.reload();
 							// Move on to the next submission waiting in this queue.
-							const next = fresh?.filter(TABS.find((t) => t.id === tab)!.match).find((c) => c.id !== current.id);
+							const next = fresh?.filter(tabs.find((t) => t.id === tab)!.match).find((c) => c.id !== current.id);
 							setSelected(next?.id ?? null);
 						}}
 					/>
@@ -681,6 +698,134 @@ export default function ReviewDashboard() {
 					<p class="pf-empty ov-pick">Pick a submission to review it.</p>
 				)}
 			</div>
+		</>
+	);
+}
+
+export default function ReviewDashboard() {
+	const [me, setMe] = useState<Player | null | undefined>(undefined);
+	// The family a non-admin owns; undefined while checking.
+	const [ownFamily, setOwnFamily] = useState<Family | null | undefined>(undefined);
+	const [all, setAll] = useState<AdminCharacter[] | null>(null);
+	const [players, setPlayers] = useState<Map<string, PlayerSummary>>(new Map());
+	const [board, setBoard] = useState<ClaimRow[]>([]);
+	const [universes, setUniverses] = useState<Universe[]>([]);
+	const [families, setFamilies] = useState<FamilyCard[]>([]);
+	const [perks, setPerks] = useState<PerkRequest[]>([]);
+	const [equipment, setEquipment] = useState<EquipmentQueueItem[]>([]);
+	const [craftItems, setCraftItems] = useState<CraftingItem[]>([]);
+	const [kind, setKindState] = useState<Kind>(kindFromUrl);
+	const [error, setError] = useState('');
+
+	useEffect(() => startPortalTheme(), []);
+	useEffect(() => watchPlayer((p, e) => (e ? setError(messageOf(e)) : setMe(p))), []);
+
+	const admin = Boolean(me?.isAdmin);
+	const reviewer = admin || ownFamily?.status === 'approved';
+
+	function setKind(k: Kind) {
+		setKindState(k);
+		const url = new URL(location.href);
+		if (k === 'characters') url.searchParams.delete('type');
+		else url.searchParams.set('type', k);
+		history.replaceState(null, '', url);
+	}
+
+	async function load() {
+		try {
+			const [chars, ps, b, u, f, pr, eq, ci] = await Promise.all([
+				loadAllCharacters(),
+				listPlayers(),
+				loadClaimBoard(),
+				loadUniverses(),
+				loadFamilies().catch(() => [] as FamilyCard[]),
+				admin ? loadPerkQueue().catch(() => [] as PerkRequest[]) : Promise.resolve([] as PerkRequest[]),
+				admin ? loadEquipmentQueue().catch(() => [] as EquipmentQueueItem[]) : Promise.resolve([] as EquipmentQueueItem[]),
+				admin ? loadCraftingItems().catch(() => [] as CraftingItem[]) : Promise.resolve([] as CraftingItem[]),
+			]);
+			// Row-level security also returns the reviewer's own characters; those aren't theirs to review.
+			const queue = admin ? chars : chars.filter((c) => c.owner_id !== me?.id);
+			setAll(queue);
+			setPlayers(new Map(ps.map((p) => [p.id, p])));
+			setBoard(b);
+			setUniverses(u);
+			setFamilies(f);
+			setPerks(pr);
+			setEquipment(eq);
+			setCraftItems(ci);
+			return queue;
+		} catch (e) {
+			setError(messageOf(e));
+			return null;
+		}
+	}
+	useEffect(() => {
+		if (!me) return;
+		if (me.isAdmin) setOwnFamily(null);
+		else loadMyFamily().then(setOwnFamily, () => setOwnFamily(null));
+	}, [me?.id, me?.isAdmin]);
+	useEffect(() => {
+		if (me && ownFamily !== undefined && reviewer) load();
+	}, [me?.id, admin, ownFamily === undefined, ownFamily?.id]);
+
+	if (error) return <p class="portal-error">{error}</p>;
+	if (me === undefined) return <p class="portal-status">Checking your login…</p>;
+	if (me === null)
+		return (
+			<div class="portal-card">
+				<p>Log in with Discord to continue.</p>
+				<button type="button" class="portal-button discord" onClick={() => logIn()}>
+					Log in with Discord
+				</button>
+			</div>
+		);
+	if (ownFamily === undefined) return <p class="portal-status">Checking your login…</p>;
+	if (!reviewer) return <p class="portal-error">The review inbox is for admins and the owners of approved families.</p>;
+	if (!all) return <p class="portal-status">Loading submissions…</p>;
+
+	const pendingFamilies = families.filter((f) => f.status === 'pending');
+	const counts: Record<Kind, number> = {
+		characters: all.filter((c) => c.status === 'pending').length,
+		families: pendingFamilies.length,
+		perks: perks.reduce((n, r) => n + r.perks.length, 0),
+		equipment: equipment.filter((r) => r.status === 'pending').length,
+	};
+	const shownKind: Kind = admin ? kind : 'characters';
+
+	return (
+		<div class="pf rv">
+			{admin ? (
+				<nav class="ms-tabs rv-kinds" aria-label="What to review">
+					{KINDS.map((k) => (
+						<button key={k.id} type="button" aria-pressed={shownKind === k.id} class={shownKind === k.id ? 'active' : undefined} onClick={() => setKind(k.id)}>
+							{k.label} <span class="mc-count">{counts[k.id]}</span>
+						</button>
+					))}
+				</nav>
+			) : (
+				<p class="pf-intro">
+					New characters that picked <a href={familyHref(ownFamily!.slug)}>{ownFamily!.name}</a> wait here for you. Approving accepts the whole character
+					and adds it to your family. Admins can review them too.
+				</p>
+			)}
+
+			{shownKind === 'characters' && <CharacterQueue all={all} players={players} board={board} universes={universes} families={families} admin={admin} reload={load} />}
+			{shownKind === 'families' && (
+				<div class="fm fm-admin-list">
+					{pendingFamilies.length ? (
+						pendingFamilies.map((f) => <ReviewFamily key={f.id} f={f} owner={f.ownerName ?? players.get(f.owner_id ?? '')?.display_name ?? 'Unknown player'} onDone={load} />)
+					) : (
+						<p class="pf-empty">No families waiting. 🎉</p>
+					)}
+					<p class="pf-help">
+						Renaming families, assigning owners and special statuses are in the <a href={`${base.replace(/portal\/$/, '')}families/admin/#all`}>family tools</a>.
+					</p>
+				</div>
+			)}
+			{shownKind === 'perks' && (
+				<div class="fm fm-admin-list">{perks.length ? perks.map((r) => <ReviewRequest key={r.id} r={r} onDone={load} />) : <p class="pf-empty">No perks waiting. 🎉</p>}</div>
+			)}
+			{shownKind === 'equipment' && <EquipmentReview requests={equipment} items={craftItems} players={players} onDone={load} />}
 		</div>
 	);
 }

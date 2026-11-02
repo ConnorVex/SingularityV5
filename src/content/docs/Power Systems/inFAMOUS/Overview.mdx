@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 200
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Very Difficult" variant="danger" size="medium" /> <Badge text="Hybrid: Mainland & Outworld" variant="tip" size="medium" />
-
-**Game developed by** Sucker Punch Studios
+<KeyFacts items={[
+  { label: "Difficulty", value: "Very Difficult" },
+  { label: "Works in", value: "Mainland & Outworld" },
+  { label: "Game by", value: "Sucker Punch Studios" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -26,6 +29,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     | Progression | Conduit Evolution |
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Conduits" description="The species and its classes" href="/SingularityV5/power-systems/infamous/conduits/conduit-basics/" />

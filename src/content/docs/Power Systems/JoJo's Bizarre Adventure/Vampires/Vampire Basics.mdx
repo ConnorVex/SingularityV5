@@ -8,8 +8,15 @@ sidebar:
 import { Card, CardGrid } from '@astrojs/starlight/components';
 import SkillTree from '../../../../../components/SkillTree.astro';
 import vampireTree from '../../../../../data/skill-trees/jojo-vampire.json';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Vampires** (吸血鬼 *Kyūketsuki*) were once human, turned into **undead** by a **Stone Mask**. They thrive in shadow and are weak to the sun.
+
+<KeyFacts items={[
+  { label: "Type", value: "Race (permanent)" },
+  { label: "Blood gauge", value: "Up to 100 BP" },
+  { label: "Mastery", value: "4 VUP a session" },
+]} />
 
 :::danger[This is a race]
 Think carefully. Once you become a Vampire, **there's no turning back**.

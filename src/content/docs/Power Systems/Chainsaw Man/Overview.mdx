@@ -5,11 +5,14 @@ sidebar:
   label: Overview
   order: 400
 ---
-import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
-<Badge text="Difficulty: Moderate" variant="success" size="medium" /> <Badge text="Player Driven" variant="tip" size="medium" />
-
-**Mangaka:** Tatsuki Fujimoto
+<KeyFacts items={[
+  { label: "Difficulty", value: "Moderate" },
+  { label: "Play style", value: "Player driven" },
+  { label: "Mangaka", value: "Tatsuki Fujimoto" },
+]} />
 
 <CardGrid>
   <Card title="Key Points" icon="star">
@@ -24,6 +27,8 @@ import { Badge, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
     | Organization | Public Safety |
   </Card>
 </CardGrid>
+
+## Explore
 
 <CardGrid>
   <LinkCard title="Devils" description="Capabilities and classes" href="/SingularityV5/power-systems/chainsaw-man/devils/devil-basics/" />

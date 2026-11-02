@@ -60,9 +60,17 @@ function label(path: string, sheet: Sheet, old: Sheet): string {
 	return out.join(' › ');
 }
 
+/** The priority system is stored as a card's internal key; show the system's name instead. */
+const priorityName = (sheet: Sheet) => {
+	const entry = sheet.systems.find((e) => e.key === sheet.prioritySystem);
+	return entry ? (systemById.get(entry.system)?.label ?? entry.system) : '';
+};
+
 export function sheetChanges(before: Sheet, after: Sheet): Change[] {
 	const a = flatten(before);
 	const b = flatten(after);
+	a.set('prioritySystem', priorityName(before));
+	b.set('prioritySystem', priorityName(after));
 	const changes: Change[] = [];
 	for (const key of new Set([...a.keys(), ...b.keys()])) {
 		const x = show(a.get(key));

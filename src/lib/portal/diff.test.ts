@@ -27,3 +27,12 @@ test('lists changed stats, systems and traits with readable names', () => {
 test('no changes means an empty list', () => {
 	assert.deepEqual(sheetChanges(emptySheet(), emptySheet()), []);
 });
+
+test('the priority system shows by name, not by its internal key', () => {
+	const before = emptySheet();
+	const after = structuredClone(before);
+	after.systems = [{ key: 'zshxc5ls', system: 'jujutsu-kaisen', fields: {}, description: '', skills: [], rollProofs: {} }];
+	after.prioritySystem = 'zshxc5ls';
+	const change = sheetChanges(before, after).find((c) => c.where === 'Priority System');
+	assert.equal(change?.after, 'Jujutsu Kaisen');
+});

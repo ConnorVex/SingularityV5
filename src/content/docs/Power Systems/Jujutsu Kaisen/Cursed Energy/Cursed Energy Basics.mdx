@@ -6,8 +6,15 @@ sidebar:
   order: 10
 ---
 import { Card, CardGrid } from '@astrojs/starlight/components';
+import KeyFacts from '../../../../../components/KeyFacts.astro';
 
 **Cursed Energy** (呪力 *Juryoku*) is negative energy born from emotions like anger, rage and sadness.
+
+<KeyFacts items={[
+  { label: "Comes from", value: "Negative emotions" },
+  { label: "Full use", value: "Mainlanders" },
+  { label: "Main use", value: "Fuelling CTs" },
+]} />
 
 <CardGrid>
   <Card title="Where it comes from" icon="information">

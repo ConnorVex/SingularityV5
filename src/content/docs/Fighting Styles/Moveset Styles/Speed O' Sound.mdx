@@ -4,12 +4,18 @@ description: The Speed O' Sound Moveset style and its Ultimate Mode, Sonic Boom.
 sidebar:
   order: 922
 ---
-import { Badge, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 import InlineIcon from '../../../../components/InlineIcon.astro';
-
-<Badge text="Weapon Based" variant="caution" size="medium" /> <Badge text="Sharp Weapon" variant="danger" size="medium" />
+import KeyFacts from '../../../../components/KeyFacts.astro';
 
 Quick movements with a **bladed weapon**. Unlike the brutish [Brawler](/SingularityV5/fighting-styles/moveset-styles/brawler/), Speed O' Sound is for people who can **really move**.
+
+<KeyFacts items={[
+  { label: 'Fight with', value: "Sharp weapon" },
+  { label: 'Passive', value: "Chaining" },
+  { label: 'Ultimate', value: "Sonic Boom" },
+  { label: 'Ultimate lasts', value: "16 turns" },
+]} />
 
 :::note[Special requirements]
 <InlineIcon name="stats/speed" />**Speed:** 12F · **Height:** 5'9" · **Weapon:** Katana

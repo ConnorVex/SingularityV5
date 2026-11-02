@@ -1,0 +1,12 @@
+---
+// Pitch custom equipment for an approved character (?id=… edits an open request).
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import PortalNav from '../../components/portal/PortalNav.astro';
+import EquipmentForm from '../../components/portal/EquipmentForm.tsx';
+import '../../styles/portal.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Equipment', description: 'Pitch custom equipment and get a crafting recipe for your character.', tableOfContents: false, pagefind: false }}>
+	<PortalNav current="submit" />
+	<EquipmentForm client:only="preact" />
+</StarlightPage>

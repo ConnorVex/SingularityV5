@@ -1,0 +1,13 @@
+---
+// Family Directory: every approved family, live from the database.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import PortalNav from '../../components/portal/PortalNav.astro';
+import FamilyDirectory from '../../components/families/FamilyDirectory.tsx';
+import '../../styles/portal.css';
+import '../../styles/families.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Family Directory', description: 'Every family in Singularity, and who is recruiting.', tableOfContents: false }}>
+	<PortalNav current="families" />
+	<FamilyDirectory client:only="preact" />
+</StarlightPage>
