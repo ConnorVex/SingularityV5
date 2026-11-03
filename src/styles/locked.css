@@ -1,0 +1,227 @@
+/* Locked (Permission Based) system pages: the access gate, tabs, admin panel, and the classes
+   used by the staff-written HTML stored in Supabase (lk-facts, lk-grid, lk-card, …). */
+
+:root {
+	--lk-yellow: #ffd23c;
+	--lk-red: #ff3b5c;
+	--lk-blue: #4c8dff;
+}
+
+/* Gate shown while checking access, or to players without it. */
+.lk-gate {
+	display: grid;
+	justify-items: center;
+	gap: 1rem;
+	padding: 3rem 1.5rem;
+	border: 1px dashed color-mix(in srgb, var(--lk-red) 55%, var(--sl-color-gray-5));
+	border-radius: 1rem;
+	text-align: center;
+	background: repeating-linear-gradient(0deg, transparent 0 3px, rgb(255 255 255 / 0.025) 3px 4px), var(--sl-color-black);
+}
+.lk-gate-title {
+	margin: 0;
+	font-family: var(--sl-font-mono);
+	font-size: clamp(1.5rem, 7vw, 2.5rem);
+	letter-spacing: 0.08em;
+	color: var(--sl-color-white);
+	text-shadow: 3px 0 rgb(255 40 80 / 0.7), -3px 0 rgb(40 220 255 / 0.7);
+	overflow-wrap: anywhere;
+}
+.lk-gate-text {
+	margin: 0;
+	max-width: 30rem;
+	color: var(--sl-color-gray-2);
+}
+.lk-button {
+	padding: 0.5rem 1.1rem;
+	border: 1px solid var(--sl-color-accent);
+	border-radius: 999px;
+	background: var(--sl-color-accent-low);
+	font: inherit;
+	color: var(--sl-color-white);
+	cursor: pointer;
+}
+.lk-button:hover {
+	background: var(--sl-color-accent);
+}
+.lk-link-button {
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-text-accent);
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/* Section tabs. */
+.lk-tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	scroll-margin-top: calc(var(--sl-nav-height) + 1rem);
+}
+.lk-tabs a {
+	padding: 0.35rem 0.9rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 999px;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+	text-decoration: none;
+}
+.lk-tabs a:hover {
+	border-color: var(--lk-yellow);
+	color: var(--sl-color-white);
+}
+.lk-tabs a[aria-current='true'] {
+	border-color: var(--lk-yellow);
+	background: color-mix(in srgb, var(--lk-yellow) 18%, transparent);
+	color: var(--sl-color-white);
+}
+
+/* Staff-written content. */
+.lk-page > :first-child {
+	margin-top: 1.5rem;
+}
+.lk-facts {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+	gap: 0.75rem;
+	margin: 1.5rem 0 2rem;
+}
+.lk-facts > div,
+.sl-markdown-content .lk-facts > div {
+	margin: 0;
+	padding: 0.75rem 1rem;
+	border-left: 3px solid var(--lk-yellow);
+	border-radius: 0.5rem;
+	background: var(--sl-color-gray-6);
+}
+.lk-facts dt,
+.sl-markdown-content .lk-facts dt {
+	margin: 0;
+	font-size: var(--sl-text-xs);
+	font-weight: 400;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--sl-color-gray-3);
+}
+.lk-facts dd,
+.sl-markdown-content .lk-facts dd {
+	margin: 0.15rem 0 0;
+	font-size: var(--sl-text-lg);
+	font-weight: 600;
+	color: var(--sl-color-white);
+}
+.lk-grid {
+	display: grid;
+	gap: 1rem;
+	margin-top: 1.5rem;
+}
+@media (min-width: 50rem) {
+	.lk-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	.lk-grid > :last-child:nth-child(odd) {
+		grid-column: 1 / -1;
+	}
+}
+.sl-markdown-content .lk-grid > .lk-card {
+	margin: 0;
+}
+.lk-card {
+	padding: 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-top: 3px solid var(--sl-color-gray-4);
+	border-radius: 1rem;
+	background: var(--sl-color-gray-6);
+}
+.lk-card > :first-child {
+	margin-top: 0;
+}
+.lk-card table,
+.refresh .lk-card table {
+	width: 100%;
+}
+.lk-yellow { border-top-color: var(--lk-yellow); }
+.lk-red { border-top-color: var(--lk-red); }
+.lk-blue { border-top-color: var(--lk-blue); }
+.lk-black { border-top-color: #000; box-shadow: inset 0 0 2rem rgb(0 0 0 / 0.5); }
+.lk-tag {
+	margin-left: 0.4rem;
+	padding: 0.1rem 0.5rem;
+	border-radius: 999px;
+	background: color-mix(in srgb, var(--lk-yellow) 22%, transparent);
+	font-size: var(--sl-text-xs);
+	font-weight: 600;
+	vertical-align: middle;
+	color: var(--lk-yellow);
+}
+.lk-swatch {
+	display: inline-block;
+	width: 0.8rem;
+	height: 0.8rem;
+	margin-right: 0.45rem;
+	border: 1px solid var(--sl-color-gray-4);
+	border-radius: 50%;
+	vertical-align: -0.05rem;
+	background: var(--c);
+}
+.lk-link a {
+	font-weight: 600;
+}
+
+/* Admin panel. */
+.lk-admin {
+	margin-top: 3rem;
+	padding: 1.25rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 1rem;
+}
+.lk-admin h2 {
+	margin: 0 0 0.25rem;
+	font-size: var(--sl-text-h4);
+}
+.lk-muted {
+	margin: 0 0 1rem;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-3);
+}
+.lk-players {
+	margin: 0 0 1rem;
+	padding: 0;
+	list-style: none;
+}
+.lk-players li {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.25rem 0.75rem;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid var(--sl-color-gray-6);
+}
+.lk-players small {
+	color: var(--sl-color-gray-3);
+}
+.lk-players button {
+	margin-left: auto;
+}
+.lk-find {
+	display: flex;
+	gap: 0.5rem;
+}
+.lk-find input {
+	flex: 1;
+	min-width: 0;
+	padding: 0.45rem 0.75rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.5rem;
+	background: var(--sl-color-black);
+	font: inherit;
+	color: var(--sl-color-white);
+}
+.lk-account {
+	margin-top: 2rem;
+	text-align: right;
+}

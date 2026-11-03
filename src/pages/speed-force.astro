@@ -1,0 +1,182 @@
+---
+// Speed Force: a locked (Permission Based) power system. This page ships no rules at all;
+// they're loaded from Supabase after login, and only for players an admin has granted access.
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
+import '../styles/locked.css';
+---
+
+<StarlightPage frontmatter={{ title: 'Speed Force', description: 'A Permission Based power system.' }}>
+	<locked-system data-system="speed-force" data-name="Speed Force">
+		<div class="lk-gate not-content" data-gate>
+			<p class="lk-gate-title" data-glitch>SPEED FORCE</p>
+			<p class="lk-gate-text" data-gate-text>Checking access…</p>
+			<button type="button" class="lk-button" data-login hidden>Log in with Discord</button>
+		</div>
+
+		<div data-content hidden>
+			<nav class="lk-tabs not-content" aria-label="Speed Force sections" data-tabs></nav>
+			<div data-pages></div>
+		</div>
+
+		<section class="lk-admin not-content" data-admin hidden>
+			<h2>Who has access</h2>
+			<p class="lk-muted">Admins only. Players need to have logged in once (here or on the Divine Database) before you can find them.</p>
+			<ul class="lk-players" data-players></ul>
+			<form class="lk-find" data-find>
+				<input type="search" placeholder="Discord name or ID" aria-label="Find a player" data-query />
+				<button type="submit" class="lk-button">Find</button>
+			</form>
+			<ul class="lk-players" data-results></ul>
+		</section>
+
+		<p class="lk-account not-content" data-account hidden>
+			<button type="button" class="lk-link-button" data-logout>Log out</button>
+		</p>
+	</locked-system>
+</StarlightPage>
+
+<script>
+	import { accessList, findPlayers, glitchText, lockedPages, logIn, logOut, setAccess, viewer, type Player } from '../lib/locked';
+
+	class LockedSystem extends HTMLElement {
+		system = '';
+
+		async connectedCallback() {
+			this.system = this.dataset.system ?? '';
+			const q = <T extends Element = HTMLElement>(s: string) => this.querySelector<T>(s)!;
+			const gateText = q('[data-gate-text]');
+			const name = this.dataset.name ?? '';
+			// The page heading glitches too until the system is unlocked.
+			const heading = document.getElementById('_top');
+			const stops = [glitchText(q('[data-glitch]'), name.toUpperCase()), heading ? glitchText(heading, name) : () => {}];
+			const stop = () => {
+				stops.forEach((s) => s());
+				if (heading) {
+					heading.textContent = name;
+					heading.removeAttribute('aria-hidden');
+				}
+			};
+
+			q('[data-login]').addEventListener('click', () => logIn().catch((e) => (gateText.textContent = e.message)));
+			q('[data-logout]').addEventListener('click', async () => {
+				await logOut();
+				location.reload();
+			});
+
+			const me = await viewer().catch(() => null);
+			if (!me) {
+				gateText.textContent = "Couldn't reach the database. Try again in a moment.";
+				return;
+			}
+			if (me.loggedIn) q('[data-account]').hidden = false;
+			if (!me.systems.includes(this.system)) {
+				gateText.textContent = me.loggedIn
+					? "Your account doesn't have access to this system. It's Permission Based: ask staff."
+					: 'This system is Permission Based. Log in if you have access.';
+				q('[data-login]').hidden = me.loggedIn;
+				return;
+			}
+
+			const pages = await lockedPages(this.system).catch(() => []);
+			if (pages.length === 0) {
+				gateText.textContent = "You have access, but this system's pages haven't been added yet.";
+				return;
+			}
+			stop();
+			q('[data-gate]').remove();
+			this.renderPages(pages);
+			if (me.isAdmin) this.renderAdmin();
+		}
+
+		renderPages(pages: { slug: string; title: string; body: string }[]) {
+			const tabs = this.querySelector<HTMLElement>('[data-tabs]')!;
+			const holder = this.querySelector<HTMLElement>('[data-pages]')!;
+			for (const page of pages) {
+				const tab = document.createElement('a');
+				tab.href = `#${page.slug}`;
+				tab.textContent = page.title;
+				tab.dataset.slug = page.slug;
+				tabs.append(tab);
+
+				const section = document.createElement('section');
+				section.className = 'lk-page';
+				section.dataset.slug = page.slug;
+				section.innerHTML = page.body; // Staff-written HTML from the database.
+				holder.append(section);
+			}
+			const show = () => {
+				const want = location.hash.slice(1);
+				const slug = pages.some((p) => p.slug === want) ? want : pages[0].slug;
+				holder.querySelectorAll<HTMLElement>('.lk-page').forEach((s) => (s.hidden = s.dataset.slug !== slug));
+				tabs.querySelectorAll<HTMLElement>('a').forEach((a) => a.setAttribute('aria-current', String(a.dataset.slug === slug)));
+			};
+			addEventListener('hashchange', () => {
+				show();
+				tabs.scrollIntoView({ block: 'start', behavior: 'smooth' });
+			});
+			show();
+			this.querySelector<HTMLElement>('[data-content]')!.hidden = false;
+		}
+
+		async renderAdmin() {
+			const admin = this.querySelector<HTMLElement>('[data-admin]')!;
+			const list = this.querySelector<HTMLUListElement>('[data-players]')!;
+			const results = this.querySelector<HTMLUListElement>('[data-results]')!;
+			const query = this.querySelector<HTMLInputElement>('[data-query]')!;
+			admin.hidden = false;
+
+			const row = (p: Player, action: string, onClick: () => Promise<void>) => {
+				const li = document.createElement('li');
+				const name = document.createElement('span');
+				name.textContent = p.display_name;
+				const id = document.createElement('small');
+				id.textContent = p.discord_id;
+				const button = document.createElement('button');
+				button.type = 'button';
+				button.className = 'lk-link-button';
+				button.textContent = action;
+				button.addEventListener('click', async () => {
+					button.disabled = true;
+					try {
+						await onClick();
+					} catch (e) {
+						alert((e as Error).message);
+						button.disabled = false;
+					}
+				});
+				li.append(name, id, button);
+				return li;
+			};
+
+			const refresh = async () => {
+				const players = await accessList(this.system);
+				list.replaceChildren(
+					...(players.length
+						? players.map((p) => row(p, 'Remove', async () => (await setAccess(this.system, p.profile_id, false), refresh())))
+						: [Object.assign(document.createElement('li'), { textContent: 'Nobody yet. Admins always have access.' })])
+				);
+				return players;
+			};
+			let current = await refresh();
+
+			this.querySelector('[data-find]')!.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				if (!query.value.trim()) return;
+				const found = (await findPlayers(query.value)).filter((p) => !current.some((c) => c.profile_id === p.profile_id));
+				results.replaceChildren(
+					...(found.length
+						? found.map((p) =>
+								row(p, 'Give access', async () => {
+									await setAccess(this.system, p.profile_id, true);
+									results.replaceChildren();
+									query.value = '';
+									current = await refresh();
+								})
+							)
+						: [Object.assign(document.createElement('li'), { textContent: 'No players found.' })])
+				);
+			});
+		}
+	}
+	customElements.define('locked-system', LockedSystem);
+</script>

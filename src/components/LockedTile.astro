@@ -1,0 +1,175 @@
+---
+// A hub tile for a locked (Permission Based) system. Everyone sees it glitched and it goes
+// nowhere; once a player with access is logged in, it turns into a normal link.
+// Usage: <LockedTile system="speed-force" title="Speed Force" href="/speed-force/" description="…" />
+import { Badge, Icon } from '@astrojs/starlight/components';
+
+interface Props {
+	system: string;
+	title: string;
+	href: string;
+	description: string;
+}
+
+const { system, title, href, description } = Astro.props;
+---
+
+<locked-tile class="locked-tile" data-system={system} data-href={href} data-title={title} data-description={description}>
+	<span class="sr-only">Locked system. Only players with access can open it.</span>
+	<h2 class="locked-title"><span data-glitch-title>{title}</span></h2>
+	<Badge text="Permission Based" variant="danger" />
+	<p class="locked-text" data-glitch-text>{description}</p>
+	<button type="button" class="locked-login" data-login hidden>Have access? Log in with Discord</button>
+	<Icon name="seti:lock" class="locked-icon" size="1.25rem" />
+</locked-tile>
+
+<script>
+	import { glitchText, logIn, viewer } from '../lib/locked';
+
+	class LockedTile extends HTMLElement {
+		async connectedCallback() {
+			const { system = '', href = '', title = '', description = '' } = this.dataset;
+			const titleEl = this.querySelector<HTMLElement>('[data-glitch-title]')!;
+			const textEl = this.querySelector<HTMLElement>('[data-glitch-text]')!;
+			const stops = [glitchText(titleEl, title), glitchText(textEl, description)];
+
+			const login = this.querySelector<HTMLButtonElement>('[data-login]')!;
+			login.addEventListener('click', () => logIn().catch((e) => alert(e.message)));
+
+			const me = await viewer().catch(() => null);
+			if (!me?.loggedIn) {
+				login.hidden = false;
+				return;
+			}
+			if (!me.systems.includes(system)) return;
+
+			// Unlocked: real text, and the whole tile links to the system.
+			stops.forEach((stop) => stop());
+			titleEl.removeAttribute('aria-hidden');
+			textEl.removeAttribute('aria-hidden');
+			textEl.textContent = description;
+			titleEl.textContent = '';
+			const link = document.createElement('a');
+			link.href = href;
+			link.textContent = title;
+			titleEl.append(link);
+			this.querySelector('.sr-only')?.remove();
+			this.classList.add('unlocked');
+		}
+	}
+	customElements.define('locked-tile', LockedTile);
+</script>
+
+<style>
+	.locked-tile {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 0.6rem;
+		padding: 1.5rem;
+		border: 1px dashed color-mix(in srgb, #ff3b5c 55%, var(--sl-color-gray-5));
+		border-radius: 1rem;
+		background:
+			repeating-linear-gradient(0deg, transparent 0 3px, rgb(255 255 255 / 0.025) 3px 4px),
+			color-mix(in srgb, var(--sl-color-black) 75%, transparent);
+		backdrop-filter: blur(6px);
+		cursor: not-allowed;
+		overflow: hidden;
+		animation: locked-jitter 4s steps(1) infinite;
+	}
+	.locked-title {
+		margin: 0;
+		font-size: var(--sl-text-h4);
+		line-height: 1.2;
+		color: var(--sl-color-white);
+		font-family: var(--sl-font-mono);
+		text-shadow:
+			2px 0 rgb(255 40 80 / 0.7),
+			-2px 0 rgb(40 220 255 / 0.7);
+		overflow-wrap: anywhere;
+	}
+	.locked-text {
+		margin: 0;
+		color: var(--sl-color-gray-3);
+		font-family: var(--sl-font-mono);
+		font-size: var(--sl-text-sm);
+		line-height: 1.6;
+		overflow-wrap: anywhere;
+	}
+	.locked-login {
+		position: relative;
+		z-index: 1;
+		padding: 0.2rem 0.65rem;
+		border: 1px solid var(--sl-color-gray-5);
+		border-radius: 999px;
+		background: none;
+		font: inherit;
+		font-size: var(--sl-text-sm);
+		color: var(--sl-color-gray-2);
+		cursor: pointer;
+	}
+	.locked-login:hover {
+		border-color: var(--sl-color-accent);
+		color: var(--sl-color-white);
+	}
+	.locked-tile :global(.locked-icon) {
+		position: absolute;
+		top: 1.5rem;
+		right: 1.5rem;
+		color: #ff3b5c;
+	}
+	@keyframes locked-jitter {
+		0%, 91%, 100% { transform: none; clip-path: none; }
+		92% { transform: translateX(-3px); clip-path: inset(10% 0 55% 0); }
+		94% { transform: translateX(3px); clip-path: inset(50% 0 15% 0); }
+		96% { transform: translateX(-1px); clip-path: none; }
+	}
+
+	/* Unlocked: looks and behaves like a normal hub tile. */
+	.locked-tile.unlocked {
+		border-style: solid;
+		border-color: var(--sl-color-gray-5);
+		cursor: auto;
+		animation: none;
+		transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+	}
+	.unlocked .locked-title {
+		font-family: inherit;
+		text-shadow: 0 0 1rem rgb(255 210 60 / 0.5);
+	}
+	.unlocked .locked-text {
+		font-family: inherit;
+		font-size: inherit;
+		color: var(--sl-color-gray-2);
+	}
+	.unlocked .locked-title :global(a) {
+		color: var(--sl-color-white);
+		text-decoration: none;
+	}
+	.unlocked .locked-title :global(a)::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: inherit;
+	}
+	.unlocked:hover,
+	.unlocked:focus-within {
+		border-color: #ffd23c;
+		transform: translateY(-2px);
+		box-shadow: 0 0.75rem 2rem -1rem #ffd23c;
+	}
+	.unlocked :global(.locked-icon) {
+		display: none;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.locked-tile,
+		.locked-tile.unlocked {
+			animation: none;
+			transition: none;
+		}
+		.unlocked:hover {
+			transform: none;
+		}
+	}
+</style>

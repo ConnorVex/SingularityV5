@@ -5,6 +5,7 @@ template: splash
 ---
 import HubGrid from '../../components/HubGrid.astro';
 import HubTile from '../../components/HubTile.astro';
+import LockedTile from '../../components/LockedTile.astro';
 
 <p class="hub-lead">Start with the <strong>S.T.S</strong>: it sets your stats and how far you can grow. Then pick a power system.</p>
 
@@ -42,4 +43,5 @@ import HubTile from '../../components/HubTile.astro';
   <HubTile size="small" title="Tokyo Ghoul" href="/power-systems/tokyo-ghoul/overview/" badge={{ text: 'Difficult', variant: 'caution' }} description="Humans and Ghouls, Kagune and Quinques." />
   <HubTile size="small" title="inFAMOUS" href="/power-systems/infamous/overview/" badge={{ text: 'Very Difficult', variant: 'danger' }} description="Conduits and the Karma System." />
   <HubTile size="small" title="Jujutsu Kaisen" href="/power-systems/jujutsu-kaisen/overview/" badge={{ text: 'Extremely Hard', variant: 'danger' }} description="Cursed Energy and Techniques. RNG heavy." />
+  <LockedTile system="speed-force" title="Speed Force" href="/speed-force/" description="Speedsters, lightning and the forces behind them." />
 </HubGrid>
