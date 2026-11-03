@@ -5,7 +5,7 @@ sidebar:
   label: Basics, Curtains & Mastery
   order: 40
 ---
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import SkillTree from '../../../../../components/SkillTree.astro';
 import barrierTree from '../../../../../data/skill-trees/jjk-barrier.json';
 import KeyFacts from '../../../../../components/KeyFacts.astro';
@@ -53,4 +53,14 @@ The **hardest** and **longest** part of the JJK System to master. Stick with it 
     - Lasts **indefinitely** until the talisman or barrier is destroyed
     - **Cuts off phone signal**: no contact from inside
   </Card>
+</CardGrid>
+
+## In This Section
+
+<CardGrid>
+  <LinkCard title="Domain Expansion" description="Domain types, Incomplete Domains and Complete Domains" href="/power-systems/jujutsu-kaisen/barrier-techniques/domain-expansion/" />
+  <LinkCard title="Barrier Combat" description="Casting a Domain, Domain clashes, CT burnout and Pure Barriers" href="/power-systems/jujutsu-kaisen/barrier-techniques/barrier-combat/" />
+  <LinkCard title="Anti-Barrier Techniques" description="Simple Domain, Hollow Wicker Basket, Domain Amplification, Domain Breaking and Falling Blossom Emotion" href="/power-systems/jujutsu-kaisen/barrier-techniques/anti-barrier-techniques/" />
+  <LinkCard title="Specialized Barrier Techniques" description="All or Nothing, Open Domain, Size Alteration and Domain Burst" href="/power-systems/jujutsu-kaisen/barrier-techniques/specialized-barrier-techniques/" />
+  <LinkCard title="Barrier Stats" description="Domain Grade, Domain Range, Construction Speed, Simple Domain Grade and Domain Amplification Grade" href="/power-systems/jujutsu-kaisen/barrier-techniques/barrier-stats/" />
 </CardGrid>

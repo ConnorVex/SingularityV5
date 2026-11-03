@@ -5,7 +5,7 @@ sidebar:
   label: Basics & Mastery
   order: 120
 ---
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import SkillTree from '../../../../../components/SkillTree.astro';
 import vampireTree from '../../../../../data/skill-trees/jojo-vampire.json';
 import KeyFacts from '../../../../../components/KeyFacts.astro';
@@ -51,3 +51,9 @@ Blood Gauge: 0/100
 Vampire Mastery: 0
 Vampire Upgrade Points: 0
 ```
+
+## In This Section
+
+<CardGrid>
+  <LinkCard title="Vampire Skills" description="Fresh Vampire starter skills and Seasoned Vampire advanced skills" href="/power-systems/jojos-bizarre-adventure/vampires/vampire-skills/" />
+</CardGrid>

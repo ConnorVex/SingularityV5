@@ -5,7 +5,7 @@ sidebar:
   label: Basics & Gauge
   order: 110
 ---
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import InlineIcon from '../../../../../components/InlineIcon.astro';
 import KeyFacts from '../../../../../components/KeyFacts.astro';
 
@@ -61,3 +61,10 @@ Hamon Mastery: 0
 Hamon's combat applications come in skill classes. You start with the **Starter** skills, then must be **taught** the rest or learn them yourself. See [Hamon Skills](/power-systems/jojos-bizarre-adventure/hamon/hamon-skills/).
 
 Hamon Points can also be traded for <InlineIcon name="stats/stamina" />**Stamina**: 10 HP → 5 Stamina.
+
+## In This Section
+
+<CardGrid>
+  <LinkCard title="Hamon Skills" description="Starter, Basic, Intermediate and Master Hamon techniques" href="/power-systems/jojos-bizarre-adventure/hamon/hamon-skills/" />
+  <LinkCard title="Hamon Mastery" description="Hamon Upgrade Points and the Hamon Gauge, Drain and Charge Rate upgrades" href="/power-systems/jojos-bizarre-adventure/hamon/hamon-mastery/" />
+</CardGrid>
