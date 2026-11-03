@@ -1,0 +1,135 @@
+/* Skill tree styles (see src/lib/skill-tree.ts). Global so trees drawn in the browser on locked
+   pages get them too; every class starts with st- or skill-tree. */
+.skill-tree {
+	margin-block: 1.5rem;
+	border: 1px solid var(--sl-color-gray-5);
+	border-radius: 0.75rem;
+	background: var(--sl-color-black);
+}
+.st-toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.75rem 1rem;
+	border-bottom: 1px solid var(--sl-color-gray-5);
+}
+.st-total {
+	margin: 0;
+	font-size: var(--sl-text-sm);
+	color: var(--sl-color-gray-2);
+}
+.st-reset {
+	flex-shrink: 0;
+	padding: 0.25rem 0.75rem;
+	border: 1px solid var(--sl-color-gray-4);
+	border-radius: 0.5rem;
+	background: none;
+	color: var(--sl-color-white);
+	font: inherit;
+	font-size: var(--sl-text-sm);
+	cursor: pointer;
+}
+.st-reset:hover {
+	border-color: var(--sl-color-accent);
+}
+.st-scroll {
+	overflow-x: auto;
+}
+.st-canvas {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2.5rem;
+	min-width: max-content;
+	padding: 1.5rem;
+}
+.st-lines {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	overflow: visible;
+}
+.st-lines path {
+	fill: none;
+	stroke: var(--sl-color-gray-4);
+	stroke-width: 2;
+}
+.st-lines path[style] {
+	stroke: color-mix(in srgb, var(--branch) 45%, var(--sl-color-gray-4));
+}
+.st-lines path.on {
+	stroke: var(--branch, var(--sl-color-accent));
+	stroke-width: 3;
+}
+.st-row {
+	display: flex;
+	justify-content: center;
+	gap: 1.5rem;
+}
+.st-node {
+	/* No position here: node offsets must be measured against .st-canvas for the lines. */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.35rem;
+	width: 12rem;
+	padding: 0.75rem;
+	border: 2px solid var(--sl-color-gray-4);
+	border-radius: 0.75rem;
+	background: var(--sl-color-gray-6);
+	color: var(--sl-color-white);
+	font: inherit;
+	text-align: center;
+	cursor: pointer;
+	transition:
+		border-color 0.15s,
+		background-color 0.15s,
+		opacity 0.15s;
+}
+.st-node.available:hover {
+	border-color: var(--sl-color-accent);
+}
+.st-node[aria-pressed='true'] {
+	border-color: var(--sl-color-accent);
+	background: var(--sl-color-accent-low);
+}
+.st-node[style] {
+	border-color: color-mix(in srgb, var(--branch) 45%, var(--sl-color-gray-4));
+}
+.st-node[style].available:hover,
+.st-node[style][aria-pressed='true'] {
+	border-color: var(--branch);
+}
+.st-node[style][aria-pressed='true'] {
+	background: color-mix(in srgb, var(--branch) 22%, var(--sl-color-gray-6));
+}
+.st-node.start,
+.st-node.free {
+	cursor: default;
+}
+.st-node.locked {
+	opacity: 0.45;
+	cursor: not-allowed;
+}
+.st-label {
+	font-weight: 600;
+}
+.st-costs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.25rem;
+}
+.st-cost {
+	padding: 0.05rem 0.4rem;
+	border-radius: 0.35rem;
+	background: var(--sl-color-gray-5);
+	font-size: var(--sl-text-xs);
+	white-space: nowrap;
+}
+.st-desc {
+	font-size: var(--sl-text-xs);
+	color: var(--sl-color-gray-2);
+}

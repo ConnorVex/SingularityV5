@@ -3,6 +3,7 @@
 // they're loaded from Supabase after login, and only for players an admin has granted access.
 import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro';
 import '../styles/locked.css';
+import '../styles/skill-tree.css';
 ---
 
 <StarlightPage frontmatter={{ title: 'Speed Force', description: 'A Permission Based power system.' }}>
@@ -37,6 +38,7 @@ import '../styles/locked.css';
 
 <script>
 	import { accessList, findPlayers, glitchText, lockedPages, logIn, logOut, setAccess, viewer, type Player } from '../lib/locked';
+	import { initSkillTree, skillTreeHtml } from '../lib/skill-tree';
 
 	class LockedSystem extends HTMLElement {
 		system = '';
@@ -102,12 +104,22 @@ import '../styles/locked.css';
 				section.className = 'lk-page';
 				section.dataset.slug = page.slug;
 				section.innerHTML = page.body; // Staff-written HTML from the database.
+				// Skill trees arrive as JSON and are drawn here with the same code as the public trees.
+				for (const data of section.querySelectorAll<HTMLScriptElement>('script[data-skill-tree]')) {
+					const wrap = document.createElement('div');
+					wrap.className = `lk-tree lk-tree-${data.dataset.color ?? 'yellow'}`;
+					wrap.innerHTML = skillTreeHtml(data.dataset.skillTree!, JSON.parse(data.textContent ?? '[]'));
+					data.replaceWith(wrap);
+					initSkillTree(wrap.querySelector('.skill-tree')!);
+				}
 				holder.append(section);
 			}
 			const show = () => {
 				const want = location.hash.slice(1);
 				const slug = pages.some((p) => p.slug === want) ? want : pages[0].slug;
 				holder.querySelectorAll<HTMLElement>('.lk-page').forEach((s) => (s.hidden = s.dataset.slug !== slug));
+				// Trees start centred on their root, which needs the tab to be visible to measure.
+				holder.querySelectorAll<HTMLElement>('.lk-page:not([hidden]) .st-scroll').forEach((el) => (el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2));
 				tabs.querySelectorAll<HTMLElement>('a').forEach((a) => a.setAttribute('aria-current', String(a.dataset.slug === slug)));
 			};
 			addEventListener('hashchange', () => {

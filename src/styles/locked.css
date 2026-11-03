@@ -225,3 +225,13 @@
 	margin-top: 2rem;
 	text-align: right;
 }
+
+/* Skill trees on locked pages take their force's color. */
+.lk-tree-yellow {
+	--sl-color-accent: var(--lk-yellow);
+	--sl-color-accent-low: color-mix(in srgb, var(--lk-yellow) 22%, var(--sl-color-gray-6));
+}
+.lk-tree-red {
+	--sl-color-accent: var(--lk-red);
+	--sl-color-accent-low: color-mix(in srgb, var(--lk-red) 22%, var(--sl-color-gray-6));
+}
