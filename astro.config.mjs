@@ -17,6 +17,7 @@ export default defineConfig({
 			sidebar: [
 				'index',
 				{ label: 'Divine Database', link: 'https://database.singularityeco.us/' },
+				{ label: 'Singularity Orgs', link: 'https://orgs.singularityeco.us/' },
 				{
 					label: 'Important Systems',
 					collapsed: true,
